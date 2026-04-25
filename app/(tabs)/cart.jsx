@@ -1,13 +1,3 @@
-// app/(tabs)/cart.jsx  (ya app/cart.jsx depending on your structure)
-//
-// ✅ Cart items from CartContext
-// ✅ Remove items
-// ✅ Coins redemption (medishield coins)
-// ✅ Coupon code input
-// ✅ Price breakdown
-// ✅ Razorpay payment → createOrder
-// ✅ Shipping address form
-// ✅ Web + Mobile responsive
 
 import { useState, useCallback } from 'react';
 import {
