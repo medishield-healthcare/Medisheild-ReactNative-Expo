@@ -120,7 +120,7 @@ export default function BannerSlider() {
     <View
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ position: 'relative', padding : 24 }}
+      style={{ position: 'relative' }}
     >
       {/* ── Slides ── */}
       <View style={{

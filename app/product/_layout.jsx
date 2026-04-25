@@ -11,7 +11,7 @@ export default function ProductLayout() {
       <Stack.Screen
         name="[id]"
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitle: 'Medicare',
           headerLeft: () => (
             <Pressable

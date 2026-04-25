@@ -9,6 +9,7 @@ import {
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,13 +44,12 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
   };
 
-  const register = async (firstname, lastname , email,mobile, password,referralCode) => {
+  const register = async (firstname, lastname , email, mobile, password, referralCode) => {
     const res = await API.post("/user/register", { firstname, lastname, email, mobile, password, referralCode });
     const { token, newUser } = res.data;
     await saveTokens(token);
     setUser(newUser);
   };
-
 
   // LOGOUT
   const logout = async () => {
@@ -71,6 +71,7 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,
     register,
   };
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

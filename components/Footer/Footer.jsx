@@ -60,7 +60,7 @@ export default function Footer() {
             justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center',
             gap: isMobile ? 10 : 0,
           }}>
-            <Text style={{ color: '#5eead4', fontSize: 12 }}>© 2025 MediShield · All rights reserved.</Text>
+            <Text style={{ color: '#5eead4', fontSize: 12 }}>© 2026 MediShield · All rights reserved.</Text>
             <View style={{ flexDirection: 'row', gap: 16 }}>
               {['Privacy', 'Terms', 'Cookies'].map(l => (
                 <Pressable key={l}><Text style={{ color: '#5eead4', fontSize: 12 }}>{l}</Text></Pressable>

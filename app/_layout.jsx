@@ -21,17 +21,25 @@
 import { Stack } from 'expo-router';
 import '../global.css';
 import { AuthProvider } from '@/context/AuthContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CartProvider } from '@/context/CartContext';
 
+const queryClient = new QueryClient();
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        {/* Root screens — tab bar ke bahar */}
-        <Stack.Screen name="(tabs)"      options={{ headerShown: false }} />
-        <Stack.Screen name="login"       options={{ headerShown: false }} />
-        <Stack.Screen name="register"    options={{ headerShown: false }} />
-        <Stack.Screen name="product/[id]" options={{ headerShown: false }} />
-      </Stack>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <CartProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            {/* Root screens — tab bar ke bahar */}
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="register" options={{ headerShown: false }} />
+            <Stack.Screen name="product/[id]" options={{ headerShown: false }} />
+            <Stack.Screen name="cart" options={{ headerShown: false }} />
+          </Stack>
+        </CartProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

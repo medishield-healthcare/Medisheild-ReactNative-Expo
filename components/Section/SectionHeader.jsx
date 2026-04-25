@@ -1,6 +1,6 @@
 import C from "@/utils/theme";
-import { Pressable, Text } from "react-native";
-import { View } from "react-native/types_generated/index";
+import { Pressable, Text,View } from "react-native";
+
 
 
 export default function SectionHeader({ title, onSeeAll }) {
@@ -10,7 +10,7 @@ export default function SectionHeader({ title, onSeeAll }) {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         marginBottom: 14,
       }}>
         
