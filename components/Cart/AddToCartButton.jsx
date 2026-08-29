@@ -117,7 +117,7 @@ export default function AddToCartButton({
           gap: 5,
           paddingVertical: s.py,
           paddingHorizontal: s.px,
-          borderRadius: s.radius,
+          // borderRadius: s.radius,
           borderWidth: 1.5,
           borderColor: st.border,
           backgroundColor: st.bg,

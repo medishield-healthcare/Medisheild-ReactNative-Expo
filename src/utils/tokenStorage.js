@@ -3,38 +3,141 @@ import * as SecureStore from "expo-secure-store";
 
 const isWeb = Platform.OS === "web";
 
-// Save Tokens
-export const saveTokens = async (access) => {
-  if (!access) return;
+const ACCESS_TOKEN_KEY = "accessToken";
+const REFRESH_TOKEN_KEY = "refreshToken";
 
-  if (isWeb) {
-    localStorage.setItem("accessToken", access);
+// ============================================================
+// SAVE TOKENS
+// ============================================================
+
+export const saveTokens = async (
+  accessToken,
+  refreshToken
+) => {
+  try {
+    if (isWeb) {
+      if (accessToken) {
+        localStorage.setItem(
+          ACCESS_TOKEN_KEY,
+          accessToken
+        );
+      }
+
+      if (refreshToken) {
+        localStorage.setItem(
+          REFRESH_TOKEN_KEY,
+          refreshToken
+        );
+      }
     } else {
-    await SecureStore.setItemAsync("accessToken", access);
+      if (accessToken) {
+        await SecureStore.setItemAsync(
+          ACCESS_TOKEN_KEY,
+          accessToken
+        );
+      }
+
+      if (refreshToken) {
+        await SecureStore.setItemAsync(
+          REFRESH_TOKEN_KEY,
+          refreshToken
+        );
+      }
+    }
+  } catch (error) {
+    console.log(
+      "Save tokens error:",
+      error
+    );
   }
 };
 
-// Get Access Token
+
+// ============================================================
+// GET ACCESS TOKEN
+// ============================================================
+
 export const getAccessToken = async () => {
-  return isWeb
-    ? localStorage.getItem("accessToken")
-    : await SecureStore.getItemAsync("accessToken");
+  try {
+    if (isWeb) {
+      return localStorage.getItem(
+        ACCESS_TOKEN_KEY
+      );
+    }
+
+    return await SecureStore.getItemAsync(
+      ACCESS_TOKEN_KEY
+    );
+
+  } catch (error) {
+    console.log(
+      "Get access token error:",
+      error
+    );
+
+    return null;
+  }
 };
 
-// Get Refresh Token
+
+// ============================================================
+// GET REFRESH TOKEN
+// ============================================================
+
 export const getRefreshToken = async () => {
-  return isWeb
-    ? localStorage.getItem("refreshToken")
-    : await SecureStore.getItemAsync("refreshToken");
+  try {
+    if (isWeb) {
+      return localStorage.getItem(
+        REFRESH_TOKEN_KEY
+      );
+    }
+
+    return await SecureStore.getItemAsync(
+      REFRESH_TOKEN_KEY
+    );
+
+  } catch (error) {
+    console.log(
+      "Get refresh token error:",
+      error
+    );
+
+    return null;
+  }
 };
 
-// Clear Tokens
+
+// ============================================================
+// CLEAR TOKENS
+// ============================================================
+
 export const clearTokens = async () => {
-  if (isWeb) {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-  } else {
-    await SecureStore.deleteItemAsync("accessToken");
-    await SecureStore.deleteItemAsync("refreshToken");
+  try {
+    if (isWeb) {
+
+      localStorage.removeItem(
+        ACCESS_TOKEN_KEY
+      );
+
+      localStorage.removeItem(
+        REFRESH_TOKEN_KEY
+      );
+
+    } else {
+
+      await SecureStore.deleteItemAsync(
+        ACCESS_TOKEN_KEY
+      );
+
+      await SecureStore.deleteItemAsync(
+        REFRESH_TOKEN_KEY
+      );
+
+    }
+  } catch (error) {
+    console.log(
+      "Clear tokens error:",
+      error
+    );
   }
 };

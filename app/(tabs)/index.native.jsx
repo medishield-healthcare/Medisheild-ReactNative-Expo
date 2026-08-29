@@ -14,6 +14,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import API from '@/api/axios';
+import HeroSlider from 'components/Section/HeroSlider';
+import OfferBanner from 'components/Section/OfferBanner';
+import { useQuery } from '@tanstack/react-query';
+import FeaturedCategories from 'components/Section/FeaturedCategories';
 
 const C = {
   primary: '#0f766e',
@@ -72,6 +76,13 @@ function CategoryPill({ category, active, onPress }) {
 
 // ── Horizontal Product Card ───────────────────────────────────────────────────
 function ProductCardH({ item, onBuy, onCart }) {
+  const regularPrice = Number(item.price?.regularPrice || 0);
+  const salePrice = Number(item.price?.salePrice || 0);
+
+  const hasDiscount = salePrice > 0 && regularPrice > 0 && salePrice < regularPrice;
+
+  const finalPrice = hasDiscount ? salePrice : regularPrice;
+
   return (
     <View
       style={{
@@ -89,11 +100,22 @@ function ProductCardH({ item, onBuy, onCart }) {
       {/* Image */}
       <View>
         <Image
-          source={{ uri: item.thumbnail_url }}
-          style={{ width: '100%', height: 160, backgroundColor: C.bg }}
+          source={
+            !item?.thumbnail_url || item.thumbnail_url.startsWith('/')
+              ? require('../../assets/Image-not-found.png')
+              : {
+                  uri: item.thumbnail_url,
+                }
+          }
+          style={{
+            width: '100%',
+            height: 160,
+            backgroundColor: C.bg,
+          }}
           resizeMode="cover"
         />
-        {/* Featured badge */}
+
+        {/* Featured Badge */}
         {item.featured && (
           <View
             style={{
@@ -105,11 +127,18 @@ function ProductCardH({ item, onBuy, onCart }) {
               paddingHorizontal: 7,
               paddingVertical: 3,
             }}>
-            <Text style={{ color: C.white, fontSize: 9, fontWeight: '800', letterSpacing: 0.5 }}>
+            <Text
+              style={{
+                color: C.white,
+                fontSize: 9,
+                fontWeight: '800',
+                letterSpacing: 0.5,
+              }}>
               FEATURED
             </Text>
           </View>
         )}
+
         {/* Wishlist */}
         <Pressable
           style={{
@@ -125,46 +154,87 @@ function ProductCardH({ item, onBuy, onCart }) {
       </View>
 
       {/* Info */}
-      <View style={{ padding: 12 }}>
-        <Text
-          numberOfLines={2}
+      <View
+        style={{
+          padding: 12,
+          flex: 1,
+        }}>
+        {/* Product Name */}
+        <View
           style={{
-            fontSize: 13,
-            fontWeight: '700',
-            color: C.dark,
-            lineHeight: 18,
+            height: 36,
+            justifyContent: 'flex-start',
             marginBottom: 4,
           }}>
-          {item.name}
-        </Text>
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={{
+              fontSize: 13,
+              fontWeight: '700',
+              color: C.dark,
+              lineHeight: 18,
+            }}>
+            {item.name}
+          </Text>
+        </View>
+
+        {/* Description */}
+        <View
+          style={{
+            height: 30,
+            justifyContent: 'flex-start',
+            marginBottom: 6,
+          }}>
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={{
+              fontSize: 11,
+              color: C.muted,
+              lineHeight: 15,
+            }}>
+            {item.short_description || ' '}
+          </Text>
+        </View>
 
         {/* Price */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 10 }}>
+        <View
+          style={{
+            height: 24,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+            marginBottom: 10,
+          }}>
           <FontAwesome name="rupee" size={12} color={C.primary} />
-          <Text style={{ fontSize: 15, fontWeight: '800', color: C.primary }}>
-            {item.price?.regularPrice}
+
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: '800',
+              color: C.primary,
+            }}>
+            {finalPrice}
           </Text>
-          {item.price?.salePrice && item.price.salePrice < item.price.regularPrice && (
-            <Text style={{ fontSize: 11, color: C.muted, textDecorationLine: 'line-through' }}>
-              ₹{item.price.salePrice}
+
+          {hasDiscount && (
+            <Text
+              style={{
+                fontSize: 11,
+                color: C.muted,
+                textDecorationLine: 'line-through',
+              }}>
+              ₹{regularPrice}
             </Text>
           )}
         </View>
 
-        {/* Buttons */}
-        <View style={{ flexDirection: 'row', gap: 6 }}>
-          <Pressable
-            onPress={() => onCart(item)}
-            style={{
-              flex: 1,
-              borderRadius: 10,
-              borderWidth: 1.5,
-              borderColor: C.primary,
-              paddingVertical: 7,
-              alignItems: 'center',
-            }}>
-            <Text style={{ fontSize: 11, fontWeight: '700', color: C.primary }}>Cart</Text>
-          </Pressable>
+        {/* Button */}
+        <View
+          style={{
+            height: 34,
+          }}>
           <Pressable
             onPress={() => onBuy(item._id)}
             style={{
@@ -173,13 +243,24 @@ function ProductCardH({ item, onBuy, onCart }) {
               backgroundColor: C.primary,
               paddingVertical: 7,
               alignItems: 'center',
+              justifyContent: 'center',
               shadowColor: C.primary,
-              shadowOffset: { width: 0, height: 3 },
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
               shadowOpacity: 0.3,
               shadowRadius: 6,
               elevation: 3,
             }}>
-            <Text style={{ fontSize: 11, fontWeight: '700', color: C.white }}>Buy</Text>
+            <Text
+              style={{
+                fontSize: 11,
+                fontWeight: '700',
+                color: C.white,
+              }}>
+              Buy
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -198,10 +279,10 @@ function SectionHeader({ title, onSeeAll }) {
         paddingHorizontal: 20,
         marginBottom: 14,
       }}>
-      <Text style={{ fontSize: 17, fontWeight: '800', color: C.dark }}>{title}</Text>
+      <Text style={{ fontSize: 20, fontWeight: '600', color: C.dark }}>{title}</Text>
       {onSeeAll && (
         <Pressable onPress={onSeeAll}>
-          <Text style={{ fontSize: 13, fontWeight: '600', color: C.primary }}>See all</Text>
+          <Text style={{ fontSize: 16, fontWeight: '600', color: C.primary }}>See all</Text>
         </Pressable>
       )}
     </View>
@@ -317,6 +398,79 @@ export default function HomeNative() {
     fetchCategories();
     fetchBrands();
   }, []);
+
+  const fetchNewArrivals = async () => {
+    try {
+      const res = await API.get('/product', {
+        params: {
+          page: 1,
+          limit: 12,
+          sort: '-createdAt',
+        },
+      });
+      console.log('OFFER PRODUCTS:', res.data);
+      return res.data.data || [];
+    } catch (error) {
+      console.error('Offers API Error:', error?.response?.data || error?.message);
+      return [];
+    }
+  };
+
+  const { data: newArrivals = [], isLoading: loadingNewArrivals } = useQuery({
+    queryKey: ['new-arrivals'],
+    queryFn: fetchNewArrivals,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5,
+  });
+  const fetchEquipments = async () => {
+    try {
+      const res = await API.get('/product', {
+        params: {
+          page: 1,
+          limit: 12,
+          sort: '-createdAt',
+          category: 'Equipments',
+        },
+      });
+      // console.log('OFFER PRODUCTS:', res.data);
+      return res.data.data || [];
+    } catch (error) {
+      console.error('Offers API Error:', error?.response?.data || error?.message);
+      return [];
+    }
+  };
+
+  const { data: equipments = [], isLoading: loadingEquipments } = useQuery({
+    queryKey: ['equipments'],
+    queryFn: fetchEquipments,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const fetchOfferProducts = async () => {
+    try {
+      const res = await API.get('/product', {
+        params: {
+          page: 1,
+          limit: 12,
+          sort: '-createdAt',
+          category: 'Offers',
+        },
+      });
+      console.log('OFFER PRODUCTS:', res.data);
+      return res.data.data || [];
+    } catch (error) {
+      console.error('Offers API Error:', error?.response?.data || error?.message);
+      return [];
+    }
+  };
+
+  const { data: offerProducts = [], isLoading: loadingOffers } = useQuery({
+    queryKey: ['offer-products'],
+    queryFn: fetchOfferProducts,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5,
+  });
 
   // ── Filter logic ──
   const filtered = products.filter((p) => {
@@ -540,6 +694,10 @@ export default function HomeNative() {
           </View>
         </View>
 
+        {/* <View style={{ paddingHorizontal: 20, marginBottom: 28 }}>
+          <HeroSlider />
+        </View> */}
+
         {/* ── CATEGORIES (dynamic from API) ── */}
         <View style={{ marginBottom: 28 }}>
           <SectionHeader title="Categories" onSeeAll={() => router.push('/shop')} />
@@ -584,6 +742,181 @@ export default function HomeNative() {
           )}
         </View>
 
+        {/* ── DENTAL CARE ESSENTIALS ── */}
+        <View
+          style={{
+            marginBottom: 30,
+            paddingHorizontal: 20,
+          }}>
+          <View
+            style={{
+              marginBottom: 16,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+            }}>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '800',
+                  color: C.dark,
+                }}>
+                Dental Care Essentials
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: C.muted,
+                  marginTop: 5,
+                }}>
+                Explore products made for everyday practice
+              </Text>
+            </View>
+
+            <Ionicons name="medical-outline" size={25} color={C.primary} />
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            {/* CARD 1 */}
+
+            <Pressable
+              onPress={() => router.push('/shop?category=Instruments')}
+              style={{
+                flex: 1,
+                height: 175,
+                marginRight: 8,
+                borderRadius: 20,
+                overflow: 'hidden',
+                backgroundColor: '#dff7f4',
+                padding: 16,
+                justifyContent: 'space-between',
+              }}>
+              <View>
+                <View
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 12,
+                    backgroundColor: C.white,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 12,
+                  }}>
+                  <Ionicons name="construct-outline" size={20} color={C.primary} />
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '900',
+                    color: C.dark,
+                  }}>
+                  Dental
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '900',
+                    color: C.primary,
+                  }}>
+                  Instruments
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    fontWeight: '800',
+                    color: C.primary,
+                    marginRight: 5,
+                  }}>
+                  Explore
+                </Text>
+
+                <Ionicons name="arrow-forward" size={13} color={C.primary} />
+              </View>
+            </Pressable>
+
+            {/* CARD 2 */}
+
+            <Pressable
+              onPress={() => router.push('/shop?category=Materials')}
+              style={{
+                flex: 1,
+                height: 175,
+                marginLeft: 8,
+                borderRadius: 20,
+                overflow: 'hidden',
+                backgroundColor: '#fff4dc',
+                padding: 16,
+                justifyContent: 'space-between',
+              }}>
+              <View>
+                <View
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 12,
+                    backgroundColor: C.white,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 12,
+                  }}>
+                  <Ionicons name="flask-outline" size={20} color={C.accent} />
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '900',
+                    color: C.dark,
+                  }}>
+                  Dental
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '900',
+                    color: C.accent,
+                  }}>
+                  Materials
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    fontWeight: '800',
+                    color: '#b45309',
+                    marginRight: 5,
+                  }}>
+                  Explore
+                </Text>
+
+                <Ionicons name="arrow-forward" size={13} color="#b45309" />
+              </View>
+            </Pressable>
+          </View>
+        </View>
+
+        {/* <FeaturedCategories/> */}
         {/* ── FEATURED PRODUCTS (horizontal scroll like categories) ── */}
         <View style={{ marginBottom: 28 }}>
           <SectionHeader title="Featured Products" onSeeAll={() => router.push('/shop')} />
@@ -746,59 +1079,989 @@ export default function HomeNative() {
             ))}
           </ScrollView>
         </View>
+        {/* New Arrivals */}
+        <View style={{ marginBottom: 28 }}>
+          <SectionHeader
+            title="Fresh Arrivals for Your Practice"
+            onSeeAll={() => router.push('/new-arrivals')}
+          />
 
-        {/* ── OFFER BANNER ── */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 32 }}>
-          <View
-            style={{
-              borderRadius: 20,
-              backgroundColor: C.accentLight,
-              padding: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-              borderWidth: 1,
-              borderColor: '#fde68a',
-            }}>
-            <View style={{ flex: 1 }}>
+          {loadingNewArrivals ? (
+            <ProductSkeleton />
+          ) : newArrivals.length === 0 ? (
+            <View style={{ paddingVertical: 30, alignItems: 'center', paddingHorizontal: 20 }}>
               <View
                 style={{
-                  alignSelf: 'flex-start',
-                  backgroundColor: C.accent,
-                  borderRadius: 6,
-                  paddingHorizontal: 8,
-                  paddingVertical: 3,
-                  marginBottom: 8,
+                  width: 64,
+                  height: 64,
+                  borderRadius: 32,
+                  backgroundColor: C.border,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 12,
                 }}>
-                <Text style={{ color: C.white, fontSize: 10, fontWeight: '800' }}>
-                  LIMITED TIME
+                <Ionicons name="search-outline" size={28} color={C.muted} />
+              </View>
+              <Text style={{ color: C.dark, fontWeight: '700', fontSize: 15 }}>
+                No products found
+              </Text>
+              <Text style={{ color: C.muted, fontSize: 13, marginTop: 4 }}>
+                Try a different search or category
+              </Text>
+              {search.length > 0 && (
+                <Pressable
+                  onPress={() => setSearch('')}
+                  style={{
+                    marginTop: 12,
+                    paddingHorizontal: 16,
+                    paddingVertical: 8,
+                    backgroundColor: C.primaryLight,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{ color: C.primary, fontWeight: '700', fontSize: 13 }}>
+                    Clear search
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          ) : (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 4 }}
+              decelerationRate="fast"
+              snapToInterval={189} // card width (175) + gap (14)
+              snapToAlignment="start">
+              {newArrivals.map((item) => (
+                <ProductCardH
+                  key={item._id}
+                  item={item}
+                  onBuy={(id) => router.navigate(`/product/${id}`)}
+                  onCart={(item) => console.log('Add to cart', item._id)}
+                />
+              ))}
+
+              {/* "View all" card at end */}
+              <Pressable
+                onPress={() => router.push('/shop')}
+                style={{
+                  width: 120,
+                  marginRight: 20,
+                  backgroundColor: C.primaryLight,
+                  borderRadius: 20,
+                  borderWidth: 2,
+                  borderColor: C.primary,
+                  borderStyle: 'dashed',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                }}>
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 22,
+                    backgroundColor: C.primary,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Ionicons name="arrow-forward" size={20} color="white" />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '700',
+                    color: C.primary,
+                    textAlign: 'center',
+                  }}>
+                  View All
+                </Text>
+              </Pressable>
+            </ScrollView>
+          )}
+        </View>
+
+        <View style={{ paddingHorizontal: 20 }}>
+          <OfferBanner />
+        </View>
+        <View style={{ marginBottom: 28, marginTop: 28 }}>
+          <SectionHeader
+            title="Offers You Don't Want to Miss"
+            onSeeAll={() => router.push('/offers')}
+          />
+
+          {loadingOffers ? (
+            <ProductSkeleton />
+          ) : offerProducts.length === 0 ? (
+            <View style={{ paddingVertical: 30, alignItems: 'center', paddingHorizontal: 20 }}>
+              <View
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 32,
+                  backgroundColor: C.border,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 12,
+                }}>
+                <Ionicons name="search-outline" size={28} color={C.muted} />
+              </View>
+              <Text style={{ color: C.dark, fontWeight: '700', fontSize: 15 }}>
+                No products found
+              </Text>
+              <Text style={{ color: C.muted, fontSize: 13, marginTop: 4 }}>
+                Try a different search or category
+              </Text>
+              {search.length > 0 && (
+                <Pressable
+                  onPress={() => setSearch('')}
+                  style={{
+                    marginTop: 12,
+                    paddingHorizontal: 16,
+                    paddingVertical: 8,
+                    backgroundColor: C.primaryLight,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{ color: C.primary, fontWeight: '700', fontSize: 13 }}>
+                    Clear search
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          ) : (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 4 }}
+              decelerationRate="fast"
+              snapToInterval={189} // card width (175) + gap (14)
+              snapToAlignment="start">
+              {offerProducts.map((item) => (
+                <ProductCardH
+                  key={item._id}
+                  item={item}
+                  onBuy={(id) => router.navigate(`/product/${id}`)}
+                  onCart={(item) => console.log('Add to cart', item._id)}
+                />
+              ))}
+
+              {/* "View all" card at end */}
+              <Pressable
+                onPress={() => router.push('/shop')}
+                style={{
+                  width: 120,
+                  marginRight: 20,
+                  backgroundColor: C.primaryLight,
+                  borderRadius: 20,
+                  borderWidth: 2,
+                  borderColor: C.primary,
+                  borderStyle: 'dashed',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                }}>
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 22,
+                    backgroundColor: C.primary,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Ionicons name="arrow-forward" size={20} color="white" />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '700',
+                    color: C.primary,
+                    textAlign: 'center',
+                  }}>
+                  View All
+                </Text>
+              </Pressable>
+            </ScrollView>
+          )}
+        </View>
+        {/* ── PRACTICE ESSENTIALS ── */}
+        <View
+          style={{
+            marginBottom: 32,
+            paddingHorizontal: 20,
+          }}>
+          {/* HEADER */}
+          <View
+            style={{
+              marginBottom: 16,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+            }}>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 21,
+                  fontWeight: '900',
+                  color: C.dark,
+                  letterSpacing: -0.4,
+                }}>
+                Practice Essentials
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 11,
+                  color: C.muted,
+                  marginTop: 5,
+                }}>
+                Everything your dental practice needs
+              </Text>
+            </View>
+
+            <View
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: 12,
+                backgroundColor: C.primaryLight,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Ionicons name="medical-outline" size={20} color={C.primary} />
+            </View>
+          </View>
+
+          {/* MAIN FEATURE CARD */}
+          <View
+            style={{
+              backgroundColor: C.primaryDark,
+              borderRadius: 22,
+              padding: 18,
+              overflow: 'hidden',
+              marginBottom: 12,
+            }}>
+            {/* Decorative Circle */}
+            <View
+              style={{
+                position: 'absolute',
+                width: 150,
+                height: 150,
+                borderRadius: 75,
+                right: -55,
+                top: -65,
+                backgroundColor: 'rgba(255,255,255,0.06)',
+              }}
+            />
+
+            <View
+              style={{
+                position: 'absolute',
+                width: 90,
+                height: 90,
+                borderRadius: 45,
+                right: 35,
+                bottom: -55,
+                backgroundColor: 'rgba(255,255,255,0.04)',
+              }}
+            />
+
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 15,
+                  backgroundColor: 'rgba(255,255,255,0.12)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: 13,
+                }}>
+                <Ionicons name="business-outline" size={23} color="#5eead4" />
+              </View>
+
+              <View style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    color: '#ffffff',
+                    fontSize: 16,
+                    fontWeight: '900',
+                  }}>
+                  Equip Your Practice
+                </Text>
+
+                <Text
+                  style={{
+                    color: '#a7d8d4',
+                    fontSize: 10,
+                    lineHeight: 15,
+                    marginTop: 3,
+                  }}>
+                  Quality products selected for modern dental professionals.
                 </Text>
               </View>
-              <Text style={{ fontSize: 22, fontWeight: '900', color: C.dark }}>Flat 20% OFF</Text>
-              <Text style={{ fontSize: 13, color: C.muted, marginTop: 4, marginBottom: 14 }}>
-                On all dental materials this week
-              </Text>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 18,
+              }}>
               <Pressable
+                onPress={() => router.push('/shop?category=Equipment')}
                 style={{
-                  alignSelf: 'flex-start',
-                  backgroundColor: C.dark,
-                  borderRadius: 10,
-                  paddingHorizontal: 16,
-                  paddingVertical: 8,
-                  flexDirection: 'row',
+                  flex: 1,
+                  height: 40,
+                  borderRadius: 11,
+                  backgroundColor: '#ffffff',
                   alignItems: 'center',
-                  gap: 6,
+                  justifyContent: 'center',
+                  flexDirection: 'row',
                 }}>
-                <Text style={{ color: C.white, fontSize: 13, fontWeight: '700' }}>Claim Offer</Text>
-                <Ionicons name="arrow-forward" size={13} color="white" />
+                <Text
+                  style={{
+                    color: C.primaryDark,
+                    fontSize: 11,
+                    fontWeight: '900',
+                  }}>
+                  Explore Equipment
+                </Text>
+
+                <Ionicons
+                  name="arrow-forward"
+                  size={13}
+                  color={C.primaryDark}
+                  style={{ marginLeft: 6 }}
+                />
               </Pressable>
             </View>
-            <Text style={{ fontSize: 56, fontWeight: '900', color: C.accent, opacity: 0.4 }}>
-              20%
-            </Text>
+          </View>
+
+          {/* SMALL CATEGORY CARDS */}
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            {/* MATERIALS */}
+            <Pressable
+              onPress={() => router.push('/shop?category=Materials')}
+              style={{
+                flex: 1,
+                minHeight: 125,
+                backgroundColor: '#ffffff',
+                borderRadius: 18,
+                borderWidth: 1,
+                borderColor: C.border,
+                padding: 14,
+                marginRight: 6,
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 12,
+                  backgroundColor: '#ecfeff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Ionicons name="flask-outline" size={20} color="#0891b2" />
+              </View>
+
+              <View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '900',
+                    color: C.dark,
+                  }}>
+                  Materials
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 9,
+                    color: C.muted,
+                    marginTop: 3,
+                  }}>
+                  Everyday essentials
+                </Text>
+              </View>
+            </Pressable>
+
+            {/* INSTRUMENTS */}
+            <Pressable
+              onPress={() => router.push('/shop?category=Instruments')}
+              style={{
+                flex: 1,
+                minHeight: 125,
+                backgroundColor: '#ffffff',
+                borderRadius: 18,
+                borderWidth: 1,
+                borderColor: C.border,
+                padding: 14,
+                marginLeft: 6,
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 12,
+                  backgroundColor: '#f0fdf4',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Ionicons name="construct-outline" size={20} color="#16a34a" />
+              </View>
+
+              <View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '900',
+                    color: C.dark,
+                  }}>
+                  Instruments
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 9,
+                    color: C.muted,
+                    marginTop: 3,
+                  }}>
+                  Professional tools
+                </Text>
+              </View>
+            </Pressable>
           </View>
         </View>
 
-        
+        <View style={{ marginBottom: 28 }}>
+          <SectionHeader
+            title="Equipments"
+            onSeeAll={() => router.push('/shop?category=Equipment')}
+          />
+
+          {loadingEquipments ? (
+            <ProductSkeleton />
+          ) : equipments.length === 0 ? (
+            <View style={{ paddingVertical: 30, alignItems: 'center', paddingHorizontal: 20 }}>
+              <View
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 32,
+                  backgroundColor: C.border,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 12,
+                }}>
+                <Ionicons name="search-outline" size={28} color={C.muted} />
+              </View>
+              <Text style={{ color: C.dark, fontWeight: '700', fontSize: 15 }}>
+                No products found
+              </Text>
+              <Text style={{ color: C.muted, fontSize: 13, marginTop: 4 }}>
+                Try a different search or category
+              </Text>
+              {search.length > 0 && (
+                <Pressable
+                  onPress={() => setSearch('')}
+                  style={{
+                    marginTop: 12,
+                    paddingHorizontal: 16,
+                    paddingVertical: 8,
+                    backgroundColor: C.primaryLight,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{ color: C.primary, fontWeight: '700', fontSize: 13 }}>
+                    Clear search
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          ) : (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 4 }}
+              decelerationRate="fast"
+              snapToInterval={189} // card width (175) + gap (14)
+              snapToAlignment="start">
+              {equipments.map((item) => (
+                <ProductCardH
+                  key={item._id}
+                  item={item}
+                  onBuy={(id) => router.navigate(`/product/${id}`)}
+                  onCart={(item) => console.log('Add to cart', item._id)}
+                />
+              ))}
+
+              {/* "View all" card at end */}
+              <Pressable
+                onPress={() => router.push('/shop')}
+                style={{
+                  width: 120,
+                  marginRight: 20,
+                  backgroundColor: C.primaryLight,
+                  borderRadius: 20,
+                  borderWidth: 2,
+                  borderColor: C.primary,
+                  borderStyle: 'dashed',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                }}>
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 22,
+                    backgroundColor: C.primary,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Ionicons name="arrow-forward" size={20} color="white" />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '700',
+                    color: C.primary,
+                    textAlign: 'center',
+                  }}>
+                  View All
+                </Text>
+              </Pressable>
+            </ScrollView>
+          )}
+        </View>
+
+        {/* ───────────────────────────────────────────── */}
+        {/* MEDISHIELD EXPERIENCE */}
+        {/* ───────────────────────────────────────────── */}
+
+        <View
+          style={{
+            marginBottom: 34,
+            paddingHorizontal: 20,
+          }}>
+          {/* ========================================= */}
+          {/* SECTION INTRO */}
+          {/* ========================================= */}
+
+          <View
+            style={{
+              marginBottom: 18,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 8,
+              }}>
+              <View
+                style={{
+                  width: 22,
+                  height: 3,
+                  borderRadius: 10,
+                  backgroundColor: '#10b981',
+                  marginRight: 8,
+                }}
+              />
+
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: '900',
+                  color: '#059669',
+                  letterSpacing: 1.3,
+                }}>
+                THE MEDISHIELD DIFFERENCE
+              </Text>
+            </View>
+
+            <Text
+              style={{
+                fontSize: 24,
+                lineHeight: 29,
+                fontWeight: '900',
+                color: '#123b3a',
+                letterSpacing: -0.8,
+              }}>
+              More than a
+            </Text>
+
+            <Text
+              style={{
+                fontSize: 24,
+                lineHeight: 29,
+                fontWeight: '900',
+                color: '#059669',
+                letterSpacing: -0.8,
+              }}>
+              dental store.
+            </Text>
+
+            <Text
+              style={{
+                fontSize: 11,
+                lineHeight: 17,
+                color: '#64748b',
+                marginTop: 7,
+                maxWidth: 310,
+              }}>
+              A smarter way to discover products, manage your essentials and keep your practice
+              moving.
+            </Text>
+          </View>
+
+          {/* ========================================= */}
+          {/* HERO FEATURE CARD */}
+          {/* ========================================= */}
+
+          <View
+            style={{
+              backgroundColor: '#e6f7f2',
+              borderRadius: 26,
+              padding: 16,
+              overflow: 'hidden',
+            }}>
+            {/* Decorative Shape */}
+
+            <View
+              pointerEvents="none"
+              style={{
+                position: 'absolute',
+                width: 170,
+                height: 170,
+                borderRadius: 85,
+                right: -80,
+                top: -85,
+                backgroundColor: '#d3f1e9',
+              }}
+            />
+
+            {/* ======================================= */}
+            {/* INNER FEATURE */}
+            {/* ======================================= */}
+
+            <View
+              style={{
+                backgroundColor: '#ffffff',
+                borderRadius: 22,
+                padding: 18,
+                minHeight: 225,
+                overflow: 'hidden',
+              }}>
+              {/* NUMBER */}
+
+              <View
+                style={{
+                  position: 'absolute',
+                  right: 16,
+                  top: 14,
+                  width: 43,
+                  height: 43,
+                  borderRadius: 14,
+                  backgroundColor: '#ecfdf5',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '900',
+                    color: '#059669',
+                  }}>
+                  01
+                </Text>
+              </View>
+
+              {/* ICON */}
+
+              <View
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 17,
+                  backgroundColor: '#d1fae5',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 17,
+                }}>
+                <Ionicons name="medical-outline" size={26} color="#059669" />
+              </View>
+
+              {/* TITLE */}
+
+              <Text
+                style={{
+                  fontSize: 19,
+                  fontWeight: '900',
+                  color: '#123b3a',
+                  letterSpacing: -0.4,
+                }}>
+                Everything
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 19,
+                  fontWeight: '900',
+                  color: '#059669',
+                  letterSpacing: -0.4,
+                }}>
+                your practice needs.
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 10,
+                  lineHeight: 16,
+                  color: '#64748b',
+                  marginTop: 7,
+                  maxWidth: 270,
+                }}>
+                From daily consumables to professional equipment, find the right products without
+                the hassle.
+              </Text>
+
+              {/* CTA */}
+
+              <Pressable
+                onPress={() => router.push('/shop')}
+                style={({ pressed }) => ({
+                  alignSelf: 'flex-start',
+                  marginTop: 16,
+                  height: 40,
+                  paddingHorizontal: 14,
+                  borderRadius: 11,
+                  backgroundColor: pressed ? '#047857' : '#059669',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                })}>
+                <Text
+                  style={{
+                    color: '#ffffff',
+                    fontSize: 10,
+                    fontWeight: '900',
+                  }}>
+                  Explore Products
+                </Text>
+
+                <Ionicons
+                  name="arrow-forward"
+                  size={13}
+                  color="#ffffff"
+                  style={{
+                    marginLeft: 7,
+                  }}
+                />
+              </Pressable>
+            </View>
+
+            {/* ======================================= */}
+            {/* BENEFIT CARDS */}
+            {/* ======================================= */}
+
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 12,
+              }}>
+              {/* QUALITY */}
+
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: '#ffffff',
+                  borderRadius: 19,
+                  padding: 14,
+                  marginRight: 6,
+                  minHeight: 130,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 12,
+                      backgroundColor: '#ecfdf5',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Ionicons name="shield-checkmark-outline" size={18} color="#059669" />
+                  </View>
+
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontWeight: '900',
+                      color: '#a7cfc7',
+                    }}>
+                    02
+                  </Text>
+                </View>
+
+                <Text
+                  style={{
+                    marginTop: 13,
+                    fontSize: 12,
+                    fontWeight: '900',
+                    color: '#123b3a',
+                  }}>
+                  Quality First
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 8,
+                    lineHeight: 12,
+                    color: '#64748b',
+                    marginTop: 3,
+                  }}>
+                  Products selected for professional use.
+                </Text>
+              </View>
+
+              {/* CONVENIENCE */}
+
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: '#ffffff',
+                  borderRadius: 19,
+                  padding: 14,
+                  marginLeft: 6,
+                  minHeight: 130,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 12,
+                      backgroundColor: '#effcf8',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Ionicons name="bag-check-outline" size={18} color="#059669" />
+                  </View>
+
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontWeight: '900',
+                      color: '#a7cfc7',
+                    }}>
+                    03
+                  </Text>
+                </View>
+
+                <Text
+                  style={{
+                    marginTop: 13,
+                    fontSize: 12,
+                    fontWeight: '900',
+                    color: '#123b3a',
+                  }}>
+                  Easy Ordering
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 8,
+                    lineHeight: 12,
+                    color: '#64748b',
+                    marginTop: 3,
+                  }}>
+                  A simple experience from search to checkout.
+                </Text>
+              </View>
+            </View>
+
+            {/* ======================================= */}
+            {/* BOTTOM STATEMENT */}
+            {/* ======================================= */}
+
+            <View
+              style={{
+                marginTop: 12,
+                minHeight: 58,
+                borderRadius: 17,
+                backgroundColor: '#123b3a',
+                paddingHorizontal: 14,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: 11,
+                  backgroundColor: 'rgba(255,255,255,0.10)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: 10,
+                }}>
+                <Ionicons name="sparkles-outline" size={17} color="#6ee7b7" />
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    fontWeight: '900',
+                    color: '#ffffff',
+                  }}>
+                  Built around your workflow
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 8,
+                    color: '#9fc8c4',
+                    marginTop: 2,
+                  }}>
+                  Discover. Choose. Order. Repeat.
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 9,
+                  backgroundColor: 'rgba(255,255,255,0.08)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Ionicons name="arrow-forward" size={13} color="#6ee7b7" />
+              </View>
+            </View>
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

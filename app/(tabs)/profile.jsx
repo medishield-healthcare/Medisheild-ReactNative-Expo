@@ -9,6 +9,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
+import WebHeader from "components/Header/header.web";
+import Footer from "components/Footer/Footer";
 
 const C = {
   primary:      '#0f766e',
@@ -68,7 +70,7 @@ function MenuItem({ icon, label, value, onPress, danger = false, rightIcon = "ch
 // ── Section Card ──────────────────────────────────────────────────────────────
 function SectionCard({ title, children }) {
   return (
-    <View style={{ marginBottom: 16 }}>
+    <View style={{ margin:20,marginBottom: 16 }}>
       {title && (
         <Text style={{
           fontSize: 11, fontWeight: '700', color: C.muted,
@@ -220,15 +222,17 @@ function ProfileView({ user, logout }) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: C.bg }}>
+      <WebHeader/>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
+        // contentContainerStyle={{ padding: 20}}
       >
 
         {/* ── Header card ── */}
         <View style={{
           backgroundColor: C.primaryDark, borderRadius: 24,
           padding: 24, marginBottom: 24,
+          margin : 20,
           overflow: 'hidden',
           shadowColor: C.primaryDark,
           shadowOffset: { width: 0, height: 8 },
@@ -305,8 +309,8 @@ function ProfileView({ user, logout }) {
 
         {/* ── Account section ── */}
         <SectionCard title="Account">
-          <MenuItem icon="person-outline"      label="Edit Profile"    onPress={() => router.push('/account/edit')} />
-          <MenuItem icon="bag-outline"          label="My Orders"       onPress={() => router.push('/orders')} />
+          <MenuItem icon="person-outline"      label="Edit Profile"    onPress={() => router.push('/edit-profile')} />
+          <MenuItem icon="bag-outline"          label="My Orders"       onPress={() => router.push('/track-order')} />
           <MenuItem icon="heart-outline"        label="Wishlist"        onPress={() => router.push('/wishlist')} />
           <MenuItem icon="location-outline"     label="Saved Addresses" onPress={() => router.push('/addresses')} />
         </SectionCard>
@@ -324,9 +328,9 @@ function ProfileView({ user, logout }) {
 
         {/* ── Support section ── */}
         <SectionCard title="Support">
-          <MenuItem icon="help-circle-outline"  label="Help & FAQ"      onPress={() => {}} />
-          <MenuItem icon="chatbubble-outline"   label="Contact Us"      onPress={() => {}} />
-          <MenuItem icon="document-text-outline" label="Privacy Policy" onPress={() => {}} />
+          <MenuItem icon="help-circle-outline"  label="Help & FAQ"      onPress={() => {router.push('/help-and-support')}} />
+          <MenuItem icon="chatbubble-outline"   label="Contact Us"      onPress={() => {router.push('/contact')}} />
+          <MenuItem icon="document-text-outline" label="Privacy Policy" onPress={() => {router.push('/privacy-policy')}} />
         </SectionCard>
 
         {/* ── Logout ── */}
@@ -341,10 +345,11 @@ function ProfileView({ user, logout }) {
         </SectionCard>
 
         {/* App version */}
-        <Text style={{ textAlign: 'center', fontSize: 11, color: C.muted, marginTop: 8 }}>
+        <Text style={{ textAlign: 'center', fontSize: 11, color: C.muted, marginVertical: 18 }}>
           MediShield v1.0.0 · Dental Care
         </Text>
 
+      <Footer/>
       </ScrollView>
     </SafeAreaView>
   );

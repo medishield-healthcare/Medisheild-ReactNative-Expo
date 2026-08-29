@@ -1,8 +1,3 @@
-// app/product/[id].jsx
-// Professional Product Detail Page — MediShield Dental
-// Design: Clean editorial × medical-grade precision
-// Inspired by: DentalKart, Cult.fit, Nykaa Pro
-
 import { useEffect, useRef, useState } from 'react';
 import {
   View,
@@ -14,10 +9,9 @@ import {
   useWindowDimensions,
   ActivityIndicator,
   Animated,
-  Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import API from '@/api/axios';
 import WebHeader from 'components/Header/header.web';
@@ -27,10 +21,12 @@ import GridSkeleton from 'components/Cards/GridSkeleton';
 import WebProductCard from 'components/Cards/WebProductCard';
 import SectionHeader from 'components/Section/SectionHeader';
 import AddToCartButton from 'components/Cart/AddToCartButton';
+import { useAuth } from '@/context/AuthContext';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DESIGN TOKENS
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+
 const T = {
   // Brand
   teal900: '#0f4f4f',
@@ -41,14 +37,14 @@ const T = {
   teal50: '#f0fdfa',
 
   // Neutrals
-  slate900: '#0f172a',
-  slate800: '#1e293b',
-  slate700: '#334155',
-  slate500: '#64748b',
-  slate400: '#94a3b8',
-  slate200: '#e2e8f0',
-  slate100: '#f1f5f9',
-  slate50: '#f8fafc',
+  slate900: '#102326',
+  slate800: '#18282c',
+  slate700: '#26383c',
+  slate500: '#5f6d71',
+  slate400: '#89979b',
+  slate200: '#d9e1e3',
+  slate100: '#edf1f2',
+  slate50: '#ffffff',
   white: '#ffffff',
 
   // Accent
@@ -62,16 +58,16 @@ const T = {
   red500: '#ef4444',
   red100: '#fee2e2',
 
-  // Shadows
-  shadowSm: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)',
-  shadowMd: '0 4px 16px rgba(15,118,110,0.10)',
-  shadowLg: '0 12px 40px rgba(15,118,110,0.14)',
-  shadowXl: '0 20px 60px rgba(15,79,79,0.18)',
+  // Very subtle shadows
+  shadowSm: '0 1px 8px rgba(16,35,38,0.045)',
+  shadowMd: '0 4px 20px rgba(16,35,38,0.06)',
+  shadowLg: '0 12px 40px rgba(16,35,38,0.08)',
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HTML UTILITIES
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   HTML UTILITIES
+   ========================================================= */
+
 const stripHtml = (html = '') =>
   html
     .replace(/<\/?[^>]+(>|$)/g, '')
@@ -87,14 +83,18 @@ const parseListItems = (html = '') =>
     .map((li) => stripHtml(li.replace(/<li[^>]*>/i, '').replace(/<\/li>/i, '')).trim())
     .filter(Boolean);
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SMALL COMPONENTS
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   STAR RATING
+   ========================================================= */
 
-// Star rating
 function Stars({ rating = 0, size = 13 }) {
   return (
-    <View style={{ flexDirection: 'row', gap: 1 }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 1,
+      }}>
       {[1, 2, 3, 4, 5].map((i) => (
         <Ionicons
           key={i}
@@ -107,15 +107,19 @@ function Stars({ rating = 0, size = 13 }) {
   );
 }
 
-// Quantity stepper
+/* =========================================================
+   QUANTITY STEPPER
+   ========================================================= */
+
 function Stepper({ value, onChange, max = 20 }) {
   return (
     <View
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 12,
-        borderWidth: 1.5,
+        height: 42,
+        borderRadius: 7,
+        borderWidth: 1,
         borderColor: T.slate200,
         overflow: 'hidden',
         backgroundColor: T.white,
@@ -124,156 +128,226 @@ function Stepper({ value, onChange, max = 20 }) {
         onPress={() => onChange(Math.max(1, value - 1))}
         style={{
           width: 40,
-          height: 40,
+          height: 42,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: T.slate50,
+          backgroundColor: '#fafcfc',
         }}>
-        <Ionicons name="remove" size={18} color={value <= 1 ? T.slate400 : T.teal700} />
+        <Ionicons name="remove" size={17} color={value <= 1 ? T.slate400 : T.teal700} />
       </Pressable>
-      <View style={{ width: 44, height: 40, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 16, fontWeight: '700', color: T.slate900 }}>{value}</Text>
+
+      <View
+        style={{
+          width: 42,
+          height: 42,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderLeftWidth: 1,
+          borderRightWidth: 1,
+          borderColor: T.slate100,
+        }}>
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: '700',
+            color: T.slate900,
+          }}>
+          {value}
+        </Text>
       </View>
+
       <Pressable
         onPress={() => onChange(Math.min(max, value + 1))}
         style={{
           width: 40,
-          height: 40,
+          height: 42,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: T.slate50,
+          backgroundColor: '#fafcfc',
         }}>
-        <Ionicons name="add" size={18} color={value >= max ? T.slate400 : T.teal700} />
+        <Ionicons name="add" size={17} color={value >= max ? T.slate400 : T.teal700} />
       </Pressable>
     </View>
   );
 }
 
-// Pill / tag
+/* =========================================================
+   CLEAN PRODUCT PILL
+   ========================================================= */
+
 function Pill({ label, color = T.teal700, bg = T.teal50, border = T.teal100 }) {
   return (
     <View
       style={{
         borderRadius: 100,
         paddingHorizontal: 10,
-        paddingVertical: 4,
+        paddingVertical: 5,
         backgroundColor: bg,
         borderWidth: 1,
         borderColor: border,
       }}>
-      <Text style={{ fontSize: 11, fontWeight: '700', color, letterSpacing: 0.3 }}>{label}</Text>
+      <Text
+        style={{
+          fontSize: 10,
+          fontWeight: '700',
+          color,
+          letterSpacing: 0.25,
+        }}>
+        {label}
+      </Text>
     </View>
   );
 }
 
-// Section divider
-function Divider({ mx = 0 }) {
-  return (
-    <View
-      style={{ height: 1, backgroundColor: T.slate100, marginHorizontal: mx, marginVertical: 20 }}
-    />
-  );
-}
+/* =========================================================
+   IMAGE GALLERY
+   ========================================================= */
 
-// ─────────────────────────────────────────────────────────────────────────────
-// IMAGE GALLERY
-// ─────────────────────────────────────────────────────────────────────────────
 function ImageGallery({ images, discount }) {
   const [active, setActive] = useState(0);
+
   const { width } = useWindowDimensions();
+
   const isWeb = Platform.OS === 'web';
   const isDesktop = width >= 1024;
 
-  const imgSize = isDesktop ? Math.min(width * 0.38, 520) : width - 32;
+  const imgSize = isDesktop ? Math.min(width * 0.4, 520) : width - 32;
 
   return (
-    <View style={{ gap: 12 }}>
-      {/* Main image */}
+    <View
+      style={{
+        width: '100%',
+      }}>
+      {/* MAIN IMAGE */}
+
       <View
         style={{
           width: imgSize,
           height: imgSize,
-          borderRadius: 20,
-          backgroundColor: T.white,
+          borderRadius: 10,
+          backgroundColor: '#fbfcfc',
           overflow: 'hidden',
-          borderWidth: 1,
-          borderColor: T.slate100,
           alignSelf: isDesktop ? 'flex-start' : 'center',
+
           ...(isWeb
-            ? { boxShadow: T.shadowMd }
+            ? {}
             : {
-                shadowColor: T.teal900,
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.08,
-                shadowRadius: 16,
-                elevation: 4,
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.025,
+                shadowRadius: 5,
+                elevation: 1,
               }),
         }}>
         <Image
-          source={{ uri: images[active] }}
-          style={{ width: '100%', height: '100%' }}
+          source={
+            !images[active] || images[active].startsWith('/')
+              ? require('../../assets/Image-not-found.png')
+              : {
+                  uri: images[active],
+                }
+          }
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
           resizeMode="contain"
         />
-        {/* Badges */}
-        <View style={{ position: 'absolute', top: 12, left: 12, gap: 6 }}>
-          {discount && (
-            <View
+
+        {/* DISCOUNT */}
+
+        {discount && (
+          <View
+            style={{
+              position: 'absolute',
+              top: 14,
+              left: 14,
+              backgroundColor: T.red500,
+              borderRadius: 5,
+              paddingHorizontal: 9,
+              paddingVertical: 5,
+            }}>
+            <Text
               style={{
-                backgroundColor: T.red500,
-                borderRadius: 8,
-                paddingHorizontal: 8,
-                paddingVertical: 4,
+                color: '#fff',
+                fontSize: 11,
+                fontWeight: '800',
+                letterSpacing: 0.2,
               }}>
-              <Text style={{ color: '#fff', fontSize: 12, fontWeight: '800' }}>
-                {discount}% OFF
-              </Text>
-            </View>
-          )}
-        </View>
-        {/* Zoom hint (web) */}
+              {discount}% OFF
+            </Text>
+          </View>
+        )}
+
+        {/* ZOOM */}
+
         {isWeb && (
           <View
             style={{
               position: 'absolute',
-              bottom: 12,
-              right: 12,
-              backgroundColor: 'rgba(255,255,255,0.85)',
-              borderRadius: 8,
-              paddingHorizontal: 8,
-              paddingVertical: 5,
+              bottom: 14,
+              right: 14,
+              backgroundColor: 'rgba(255,255,255,0.92)',
+              borderRadius: 5,
+              paddingHorizontal: 9,
+              paddingVertical: 6,
               flexDirection: 'row',
               alignItems: 'center',
-              gap: 4,
+              gap: 5,
             }}>
             <Ionicons name="expand-outline" size={13} color={T.slate500} />
-            <Text style={{ fontSize: 11, color: T.slate500, fontWeight: '500' }}>Zoom</Text>
+
+            <Text
+              style={{
+                fontSize: 10,
+                color: T.slate500,
+                fontWeight: '600',
+              }}>
+              Zoom
+            </Text>
           </View>
         )}
       </View>
 
-      {/* Thumbnails */}
+      {/* THUMBNAILS */}
+
       {images.length > 1 && (
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 10, paddingBottom: 2 }}>
+          contentContainerStyle={{
+            gap: 9,
+            paddingTop: 14,
+            paddingBottom: 2,
+          }}>
           {images.map((img, i) => (
             <Pressable
               key={i}
               onPress={() => setActive(i)}
               style={{
-                width: 72,
-                height: 72,
-                borderRadius: 12,
-                borderWidth: 2,
+                width: 68,
+                height: 68,
+                borderRadius: 6,
+                borderWidth: active === i ? 2 : 1,
                 borderColor: active === i ? T.teal700 : T.slate200,
                 backgroundColor: T.white,
                 overflow: 'hidden',
-                ...(isWeb && active === i ? { boxShadow: `0 0 0 3px ${T.teal100}` } : {}),
               }}>
               <Image
-                source={{ uri: img }}
-                style={{ width: '100%', height: '100%' }}
+                source={
+                  img?.startsWith('/')
+                    ? require('../../assets/Image-not-found.png')
+                    : {
+                        uri: img,
+                      }
+                }
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
                 resizeMode="contain"
               />
             </Pressable>
@@ -284,36 +358,74 @@ function ImageGallery({ images, discount }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SPECS TABS
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   PRODUCT INFORMATION TABS
+   ========================================================= */
+
 const TABS = [
-  { key: 'description', label: 'Overview', icon: 'document-text-outline' },
-  { key: 'key_specs', label: 'Specifications', icon: 'list-outline' },
-  { key: 'direction', label: 'How to Use', icon: 'flask-outline' },
-  { key: 'features', label: 'Features', icon: 'sparkles-outline' },
-  { key: 'packaging', label: 'Packaging', icon: 'cube-outline' },
+  {
+    key: 'description',
+    label: 'Overview',
+    icon: 'document-text-outline',
+  },
+  {
+    key: 'key_specs',
+    label: 'Specifications',
+    icon: 'list-outline',
+  },
+  {
+    key: 'direction',
+    label: 'How to Use',
+    icon: 'flask-outline',
+  },
+  {
+    key: 'features',
+    label: 'Features',
+    icon: 'sparkles-outline',
+  },
+  {
+    key: 'packaging',
+    label: 'Packaging',
+    icon: 'cube-outline',
+  },
 ];
 
 function SpecContent({ html, isList }) {
-  if (!html)
+  if (!html) {
     return (
-      <Text style={{ color: T.slate400, fontSize: 13, fontStyle: 'italic' }}>
+      <Text
+        style={{
+          color: T.slate400,
+          fontSize: 13,
+          fontStyle: 'italic',
+        }}>
         No information available.
       </Text>
     );
+  }
+
   if (isList) {
     const items = parseListItems(html);
+
     return (
-      <View style={{ gap: 14 }}>
+      <View
+        style={{
+          gap: 15,
+        }}>
         {items.map((item, i) => (
-          <View key={i} style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
+          <View
+            key={i}
+            style={{
+              flexDirection: 'row',
+              gap: 11,
+              alignItems: 'flex-start',
+            }}>
             <View
               style={{
-                width: 22,
-                height: 22,
-                borderRadius: 11,
-                backgroundColor: T.teal100,
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                backgroundColor: T.teal50,
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
@@ -321,89 +433,117 @@ function SpecContent({ html, isList }) {
               }}>
               <Ionicons name="checkmark" size={12} color={T.teal700} />
             </View>
-            <Text style={{ flex: 1, fontSize: 14, color: T.slate700, lineHeight: 22 }}>{item}</Text>
+
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 14,
+                color: T.slate700,
+                lineHeight: 22,
+              }}>
+              {item}
+            </Text>
           </View>
         ))}
       </View>
     );
   }
-  return <Text style={{ fontSize: 14, color: T.slate700, lineHeight: 24 }}>{stripHtml(html)}</Text>;
+
+  return (
+    <Text
+      style={{
+        fontSize: 14,
+        color: T.slate700,
+        lineHeight: 24,
+      }}>
+      {stripHtml(html)}
+    </Text>
+  );
 }
+
+/* =========================================================
+   SPECS TABS
+   ========================================================= */
 
 function SpecsTabs({ specs }) {
   const [active, setActive] = useState('description');
-  const isWeb = Platform.OS === 'web';
 
   return (
     <View
       style={{
         backgroundColor: T.white,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: T.slate100,
+        borderRadius: 0,
         overflow: 'hidden',
-        ...(isWeb
-          ? { boxShadow: T.shadowSm }
-          : {
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.05,
-              shadowRadius: 10,
-              elevation: 3,
-            }),
       }}>
-      {/* Tab bar */}
+      {/* TAB HEADER */}
+
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{ borderBottomWidth: 1, borderBottomColor: T.slate100 }}
-        contentContainerStyle={{ paddingHorizontal: 4 }}>
-        {TABS.map((tab) => (
-          <Pressable
-            key={tab.key}
-            onPress={() => setActive(tab.key)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 6,
-              paddingHorizontal: 16,
-              paddingVertical: 16,
-              borderBottomWidth: 2.5,
-              borderBottomColor: active === tab.key ? T.teal700 : 'transparent',
-            }}>
-            <Ionicons
-              name={tab.icon}
-              size={14}
-              color={active === tab.key ? T.teal700 : T.slate400}
-            />
-            <Text
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: T.slate100,
+        }}
+        contentContainerStyle={{
+          gap: 2,
+        }}>
+        {TABS.map((tab) => {
+          const isActive = active === tab.key;
+
+          return (
+            <Pressable
+              key={tab.key}
+              onPress={() => setActive(tab.key)}
               style={{
-                fontSize: 13,
-                fontWeight: active === tab.key ? '700' : '500',
-                color: active === tab.key ? T.teal700 : T.slate500,
-                whiteSpace: Platform.OS === 'web' ? 'nowrap' : undefined,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 7,
+                paddingHorizontal: 16,
+                paddingVertical: 14,
+                borderBottomWidth: 2,
+                borderBottomColor: isActive ? T.teal700 : 'transparent',
               }}>
-              {tab.label}
-            </Text>
-          </Pressable>
-        ))}
+              <Ionicons name={tab.icon} size={14} color={isActive ? T.teal700 : T.slate400} />
+
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontWeight: isActive ? '700' : '500',
+                  color: isActive ? T.teal700 : T.slate500,
+                  whiteSpace: Platform.OS === 'web' ? 'nowrap' : undefined,
+                }}>
+                {tab.label}
+              </Text>
+            </Pressable>
+          );
+        })}
       </ScrollView>
 
-      {/* Content */}
-      <View style={{ padding: 20 }}>
+      {/* CONTENT */}
+
+      <View
+        style={{
+          paddingTop: 22,
+          paddingBottom: 8,
+        }}>
         {active === 'description' && <SpecContent html={specs.description} />}
+
         {active === 'key_specs' && <SpecContent html={specs.key_specifications} isList />}
+
         {active === 'direction' && <SpecContent html={specs.direction_to_use} isList />}
+
         {active === 'features' && <SpecContent html={specs.features} isList />}
+
         {active === 'packaging' && <SpecContent html={specs.packaging} isList />}
       </View>
     </View>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// REVIEWS
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   REVIEW
+   ========================================================= */
+
 function ReviewCard({ review }) {
   const initials = (review.reviewerName || 'U')
     .split(' ')
@@ -411,47 +551,70 @@ function ReviewCard({ review }) {
     .join('')
     .toUpperCase()
     .slice(0, 2);
-  const isWeb = Platform.OS === 'web';
 
   return (
     <View
       style={{
         backgroundColor: T.white,
-        borderRadius: 16,
-        padding: 16,
-        borderWidth: 1,
+        borderRadius: 0,
+        paddingVertical: 18,
+        paddingHorizontal: 0,
+        borderBottomWidth: 1,
         borderColor: T.slate100,
-        ...(isWeb
-          ? { boxShadow: T.shadowSm }
-          : {
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 0.04,
-              shadowRadius: 6,
-              elevation: 2,
-            }),
       }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-        {/* Avatar */}
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 11,
+          marginBottom: 10,
+        }}>
+        {/* AVATAR */}
+
         <View
           style={{
-            width: 40,
-            height: 40,
-            borderRadius: 20,
+            width: 38,
+            height: 38,
+            borderRadius: 19,
             backgroundColor: T.teal700,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{ color: '#fff', fontSize: 13, fontWeight: '800' }}>{initials}</Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: '800',
+            }}>
+            {initials}
+          </Text>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 14, fontWeight: '700', color: T.slate800 }}>
+
+        {/* USER */}
+
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: '700',
+              color: T.slate800,
+              marginBottom: 3,
+            }}>
             {review.reviewerName || 'Anonymous'}
           </Text>
-          <Stars rating={review.rating} size={12} />
+
+          <Stars rating={review.rating} size={11} />
         </View>
+
         {review.date && (
-          <Text style={{ fontSize: 11, color: T.slate400 }}>
+          <Text
+            style={{
+              fontSize: 11,
+              color: T.slate400,
+            }}>
             {new Date(review.date).toLocaleDateString('en-IN', {
               day: 'numeric',
               month: 'short',
@@ -460,24 +623,52 @@ function ReviewCard({ review }) {
           </Text>
         )}
       </View>
+
       {review.comment && (
-        <Text style={{ fontSize: 13, color: T.slate600, lineHeight: 20 }}>{review.comment}</Text>
+        <Text
+          style={{
+            fontSize: 13,
+            color: T.slate500,
+            lineHeight: 21,
+            paddingLeft: 49,
+          }}>
+          {review.comment}
+        </Text>
       )}
     </View>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// TRUST STRIP
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+
 function TrustStrip() {
   const badges = [
-    { icon: 'shield-checkmark', label: 'Genuine Product', sub: '100% authentic' },
-    { icon: 'rocket', label: 'Fast Delivery', sub: '2–5 business days' },
-    { icon: 'refresh-circle', label: 'Easy Returns', sub: '7 day return' },
-    { icon: 'headset', label: '24/7 Support', sub: 'Always available' },
+    {
+      icon: 'shield-checkmark',
+      label: 'Genuine Product',
+      sub: '100% authentic',
+    },
+    {
+      icon: 'rocket',
+      label: 'Fast Delivery',
+      sub: '2–5 business days',
+    },
+    {
+      icon: 'refresh-circle',
+      label: 'Easy Returns',
+      sub: '7 day return',
+    },
+    {
+      icon: 'headset',
+      label: '24/7 Support',
+      sub: 'Always available',
+    },
   ];
+
   const { width } = useWindowDimensions();
+
   const isMobile = width < 640;
 
   return (
@@ -485,10 +676,8 @@ function TrustStrip() {
       style={{
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: isMobile ? 0 : 0,
-        borderRadius: 16,
-        overflow: 'hidden',
-        borderWidth: 1,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         borderColor: T.slate100,
         backgroundColor: T.white,
       }}>
@@ -497,80 +686,133 @@ function TrustStrip() {
           key={b.label}
           style={{
             width: isMobile ? '50%' : '25%',
-            padding: 14,
+            paddingVertical: 15,
+            paddingHorizontal: 8,
             alignItems: 'center',
             gap: 6,
-            borderRightWidth: (isMobile ? i % 2 !== 1 : i < 3) ? 1 : 0,
+
+            borderRightWidth: isMobile ? (i % 2 !== 1 ? 1 : 0) : i < 3 ? 1 : 0,
+
             borderBottomWidth: isMobile && i < 2 ? 1 : 0,
+
             borderColor: T.slate100,
           }}>
-          <View
+          <Ionicons name={`${b.icon}-outline`} size={20} color={T.teal700} />
+
+          <Text
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: T.teal50,
-              alignItems: 'center',
-              justifyContent: 'center',
+              fontSize: 11,
+              fontWeight: '700',
+              color: T.slate800,
+              textAlign: 'center',
             }}>
-            <Ionicons name={`${b.icon}-outline`} size={20} color={T.teal700} />
-          </View>
-          <Text style={{ fontSize: 12, fontWeight: '700', color: T.slate800, textAlign: 'center' }}>
             {b.label}
           </Text>
-          <Text style={{ fontSize: 11, color: T.slate400, textAlign: 'center' }}>{b.sub}</Text>
+
+          <Text
+            style={{
+              fontSize: 10,
+              color: T.slate400,
+              textAlign: 'center',
+            }}>
+            {b.sub}
+          </Text>
         </View>
       ))}
     </View>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// MAIN PAGE
-// ─────────────────────────────────────────────────────────────────────────────
+/* =========================================================
+   MAIN PRODUCT PAGE
+   ========================================================= */
+
 export default function ProductDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const { user, setUser } = useAuth();
+
   const { width } = useWindowDimensions();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
-  const [wishlisted, setWishlisted] = useState(false);
+  // const [wishlisted, setWishlisted] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
   const [addedCart, setAddedCart] = useState(false);
 
   const isWeb = Platform.OS === 'web';
   const isDesktop = width >= 1024;
   const isMobile = width < 640;
-  const px = isDesktop ? 48 : isMobile ? 16 : 24;
 
-  // Scroll-based sticky header
+  const px = isDesktop ? 56 : isMobile ? 16 : 24;
+
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  const hasVariants = product?.childProducts?.length > 0;
+
+  const [selectedVariant, setSelectedVariant] = useState(null);
+
+  /*
+   * IMPORTANT:
+   * Existing variant / stock / SKU / price logic
+   * remains exactly the same.
+   */
+
+  const activeStock = hasVariants
+    ? Number(selectedVariant?.max_sale_qty ?? 0)
+    : Number(product?.max_sale_qty ?? 0);
+
+  const activeSku = hasVariants ? selectedVariant?.sku || product?.sku : product?.sku;
+
+  const activePrice = hasVariants
+    ? Number(
+        selectedVariant?.price?.minimalPrice?.amount?.value ?? product?.price?.minimalPrice ?? 0
+      )
+    : Number(product?.price?.minimalPrice ?? 0);
+
+  const variantRegularPrice = hasVariants
+    ? Number(selectedVariant?.price?.regularPrice?.amount?.value ?? 0)
+    : Number(product?.price?.regularPrice ?? 0);
+
+  const activeRegularPrice =
+    variantRegularPrice > activePrice
+      ? variantRegularPrice
+      : Number(product?.price?.regularPrice ?? 0) > activePrice
+        ? Number(product?.price?.regularPrice)
+        : null;
+
+  const activeDiscount =
+    activeRegularPrice && activeRegularPrice > activePrice
+      ? Math.round((1 - activePrice / activeRegularPrice) * 100)
+      : null;
 
   useEffect(() => {
     API.get(`/product/getproductwithid/${id}`)
-      .then((res) => setProduct(res.data.findProduct))
+      .then((res) => {
+        const data = res.data.findProduct;
+
+        setProduct(data);
+
+        if (data.childProducts?.length > 0) {
+          setSelectedVariant(data.childProducts[0]);
+        }
+      })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-
-    // categoryProducts();
   }, [id]);
-
-  // async function categoryProducts(){
-  //   let { data } = await API.get('/product', { params: { category: product.category } })
-  //   console.log('category product',data);
-
-  // }
 
   async function fetchProducts() {
     try {
-      const res = await API.get('/product', { params: { featured: true } });
-      // setProducts(res.data.data || []);
+      const res = await API.get('/product', {
+        params: {
+          featured: true,
+        },
+      });
+
       return res.data.data || [];
     } catch (e) {
       console.error('Products error:', e);
-    } finally {
-      // setLoadingP(false);
     }
   }
 
@@ -584,92 +826,146 @@ export default function ProductDetails() {
 
   const handleAddCart = () => {
     setAddedCart(true);
+
     setTimeout(() => setAddedCart(false), 2000);
-    // TODO: actual cart API call
   };
 
-  // ── Loading ──
-  if (loading)
+  const handleWishlist = async () => {
+    if (wishlistLoading) return;
+
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
+    if (!product?._id) return;
+
+    try {
+      setWishlistLoading(true);
+
+      const res = await API.put('/product/wishlist', {
+        prodId: product._id,
+      });
+
+      // Backend updated user return karta hai
+      setUser(res.data);
+    } catch (error) {
+      console.log('Wishlist error:', error?.response?.data || error?.message);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
+
+  const wishlisted =
+    user?.wishlist?.some((id) => id.toString() === product?._id?.toString()) || false;
+
+  /* =====================================================
+     LOADING
+     ===================================================== */
+
+  if (loading) {
     return (
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: T.slate50,
+          backgroundColor: T.white,
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <View style={{ gap: 16, alignItems: 'center' }}>
-          <View
+        <View
+          style={{
+            alignItems: 'center',
+            gap: 14,
+          }}>
+          <ActivityIndicator size="large" color={T.teal700} />
+
+          <Text
             style={{
-              width: 64,
-              height: 64,
-              borderRadius: 32,
-              backgroundColor: T.teal100,
-              alignItems: 'center',
-              justifyContent: 'center',
+              color: T.slate500,
+              fontSize: 13,
+              fontWeight: '500',
             }}>
-            <ActivityIndicator size="large" color={T.teal700} />
-          </View>
-          <Text style={{ color: T.slate500, fontSize: 14, fontWeight: '500' }}>
             Loading product...
           </Text>
         </View>
       </SafeAreaView>
     );
+  }
 
-  if (!product)
+  /* =====================================================
+     PRODUCT NOT FOUND
+     ===================================================== */
+
+  if (!product) {
     return (
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: T.slate50,
+          backgroundColor: T.white,
           alignItems: 'center',
           justifyContent: 'center',
           paddingHorizontal: 32,
         }}>
-        <Ionicons name="alert-circle-outline" size={52} color={T.slate300} />
+        <Ionicons name="alert-circle-outline" size={48} color={T.slate400} />
+
         <Text
           style={{
             fontSize: 20,
             fontWeight: '800',
             color: T.slate700,
-            marginTop: 16,
+            marginTop: 14,
             marginBottom: 8,
           }}>
           Product not found
         </Text>
+
         <Pressable
           onPress={() => router.back()}
           style={{
             backgroundColor: T.teal700,
-            borderRadius: 12,
-            paddingHorizontal: 24,
-            paddingVertical: 12,
+            borderRadius: 7,
+            paddingHorizontal: 22,
+            paddingVertical: 11,
           }}>
-          <Text style={{ color: '#fff', fontWeight: '700' }}>Go Back</Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontWeight: '700',
+            }}>
+            Go Back
+          </Text>
         </Pressable>
       </SafeAreaView>
     );
+  }
 
   const images = product.media_gallery_entries?.length
     ? product.media_gallery_entries.map((e) => e.file)
     : [product.thumbnail_url];
 
-  const discount =
-    product.price.minimalPrice < product.price.regularPrice
-      ? Math.round((1 - product.price.minimalPrice / product.price.regularPrice) * 100)
-      : null;
+  const discount = activeDiscount;
+  const price = activePrice;
 
   const avgRating = product.reviews?.length
     ? product.reviews.reduce((s, r) => s + (r.rating || 0), 0) / product.reviews.length
     : 0;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: T.slate50 }}>
-      {/* ── Web Header ── */}
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: T.white,
+      }}>
+      {/* =====================================================
+          WEB HEADER
+         ===================================================== */}
+
       {isWeb && <WebHeader />}
 
-      {/* ── Mobile top bar ── */}
+      {/* =====================================================
+          MOBILE TOP BAR
+         ===================================================== */}
+
       {!isWeb && (
         <View
           style={{
@@ -687,8 +983,8 @@ export default function ProductDetails() {
             style={{
               width: 38,
               height: 38,
-              borderRadius: 12,
-              backgroundColor: T.slate50,
+              borderRadius: 7,
+              backgroundColor: T.white,
               alignItems: 'center',
               justifyContent: 'center',
               borderWidth: 1,
@@ -696,18 +992,25 @@ export default function ProductDetails() {
             }}>
             <Ionicons name="arrow-back" size={20} color={T.slate700} />
           </Pressable>
+
           <Text
             numberOfLines={1}
-            style={{ flex: 1, fontSize: 15, fontWeight: '700', color: T.slate900 }}>
+            style={{
+              flex: 1,
+              fontSize: 15,
+              fontWeight: '700',
+              color: T.slate900,
+            }}>
             {product.name}
           </Text>
+
           <Pressable
-            onPress={() => setWishlisted((w) => !w)}
+            onPress={handleWishlist}
             style={{
               width: 38,
               height: 38,
-              borderRadius: 12,
-              backgroundColor: wishlisted ? '#fef2f2' : T.slate50,
+              borderRadius: 7,
+              backgroundColor: wishlisted ? '#fff5f5' : T.white,
               alignItems: 'center',
               justifyContent: 'center',
               borderWidth: 1,
@@ -719,38 +1022,54 @@ export default function ProductDetails() {
               color={wishlisted ? T.red500 : T.slate500}
             />
           </Pressable>
+
           <Pressable
             onPress={() => router.push('/cart')}
             style={{
               width: 38,
               height: 38,
-              borderRadius: 12,
+              borderRadius: 7,
               backgroundColor: T.teal700,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Ionicons name="bag-outline" size={18} color="white" />
+            <Ionicons name="bag-outline" size={18} color="#fff" />
           </Pressable>
         </View>
       )}
 
+      {/* =====================================================
+          PAGE SCROLL
+         ===================================================== */}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: isDesktop ? 60 : 100 }}>
-        {/* ── Breadcrumb (web) ── */}
+        contentContainerStyle={{
+          paddingBottom: isDesktop ? 60 : 105,
+        }}>
+        {/* ===================================================
+            BREADCRUMB
+           =================================================== */}
+
         {isWeb && (
           <View
             style={{
               paddingHorizontal: px,
-              paddingTop: 16,
-              paddingBottom: 8,
+              paddingTop: 18,
+              paddingBottom: 12,
               flexDirection: 'row',
               alignItems: 'center',
               gap: 6,
             }}>
             {['Home', 'Products', product.categories?.[0]?.name || 'Dental'].map(
               (crumb, i, arr) => (
-                <View key={crumb} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <View
+                  key={`${crumb}-${i}`}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}>
                   <Pressable onPress={() => i === 0 && router.push('/')}>
                     <Text
                       style={{
@@ -761,132 +1080,224 @@ export default function ProductDetails() {
                       {crumb}
                     </Text>
                   </Pressable>
+
                   {i < arr.length - 1 && (
-                    <Ionicons name="chevron-forward" size={12} color={T.slate400} />
+                    <Ionicons name="chevron-forward" size={11} color={T.slate400} />
                   )}
                 </View>
               )
             )}
-            <Ionicons name="chevron-forward" size={12} color={T.slate400} />
-            <Text numberOfLines={1} style={{ fontSize: 12, color: T.slate400, flex: 1 }}>
+
+            <Ionicons name="chevron-forward" size={11} color={T.slate400} />
+
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: 12,
+                color: T.slate400,
+                flex: 1,
+              }}>
               {product.name}
             </Text>
           </View>
         )}
 
-        {/* ══════════════════════════════════════════════════════
+        {/* ===================================================
             MAIN PRODUCT SECTION
-            ══════════════════════════════════════════════════════ */}
+           =================================================== */}
+
         <View
           style={{
             paddingHorizontal: px,
-            paddingTop: isMobile ? 16 : 20,
+            paddingTop: isMobile ? 12 : 18,
+
             flexDirection: isDesktop ? 'row' : 'column',
-            gap: isDesktop ? 48 : 0,
+
+            gap: isDesktop ? 64 : 0,
+
             alignItems: isDesktop ? 'flex-start' : undefined,
           }}>
-          {/* ── LEFT: Image gallery ── */}
-          <View style={{ width: isDesktop ? '42%' : '100%' }}>
+          {/* =================================================
+              LEFT — PRODUCT IMAGE
+             ================================================= */}
+
+          <View
+            style={{
+              width: isDesktop ? '46%' : '100%',
+            }}>
             <ImageGallery images={images} discount={discount} />
 
-            {/* Share + Compare (web) */}
+            {/* SHARE / COMPARE */}
+
             {isWeb && (
-              <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
-                {[
-                  { icon: 'share-social-outline', label: 'Share' },
-                  { icon: 'git-compare-outline', label: 'Compare' },
-                ].map((a) => (
-                  <Pressable
-                    key={a.label}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 22,
+                  marginTop: 14,
+                  paddingBottom: 4,
+                }}>
+                <Pressable
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}>
+                  <Ionicons name="share-social-outline" size={16} color={T.slate500} />
+
+                  <Text
                     style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 6,
-                      paddingVertical: 9,
-                      borderRadius: 10,
-                      borderWidth: 1,
-                      borderColor: T.slate200,
-                      backgroundColor: T.white,
-                      ...(isWeb ? { cursor: 'pointer' } : {}),
+                      fontSize: 12,
+                      color: T.slate500,
+                      fontWeight: '600',
                     }}>
-                    <Ionicons name={a.icon} size={16} color={T.slate500} />
-                    <Text style={{ fontSize: 13, color: T.slate600, fontWeight: '500' }}>
-                      {a.label}
-                    </Text>
-                  </Pressable>
-                ))}
+                    Share
+                  </Text>
+                </Pressable>
+
+                <Pressable
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}>
+                  <Ionicons name="git-compare-outline" size={16} color={T.slate500} />
+
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: T.slate500,
+                      fontWeight: '600',
+                    }}>
+                    Compare
+                  </Text>
+                </Pressable>
               </View>
             )}
           </View>
 
-          {/* ── RIGHT: Product info ── */}
+          {/* =================================================
+              RIGHT — PRODUCT INFORMATION
+             ================================================= */}
+
           <View
             style={{
               flex: isDesktop ? 1 : undefined,
+
               width: isDesktop ? undefined : '100%',
-              marginTop: isDesktop ? 0 : 20,
-              gap: 0,
+
+              marginTop: isDesktop ? 0 : 22,
             }}>
-            {/* Tags row */}
+            {/* ===============================================
+                BRAND / STOCK / SKU
+               =============================================== */}
+
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 8,
-                marginBottom: 12,
+                gap: 7,
+                marginBottom: 11,
                 flexWrap: 'wrap',
               }}>
               <Pill label={product.manufacturer || 'MediShield'} />
+
               {product.featured && (
                 <Pill label="★ Featured" color={T.amber500} bg={T.amber50} border={T.amber100} />
               )}
-              {product.published && (
-                <Pill label="In Stock" color="#15803d" bg="#f0fdf4" border="#bbf7d0" />
+
+              {activeStock > 0 ? (
+                <Pill
+                  label={`In Stock · ${activeStock}`}
+                  color="#15803d"
+                  bg="#f0fdf4"
+                  border="#bbf7d0"
+                />
+              ) : (
+                <Pill label="Out of Stock" color={T.red500} bg={T.red100} border="#fecaca" />
               )}
+
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 11,
                   color: T.slate400,
-                  marginLeft: 'auto',
-                  fontFamily: 'monospace',
+                  marginLeft: isMobile ? 0 : 'auto',
+                  fontFamily: Platform.OS === 'web' ? 'monospace' : undefined,
                 }}>
-                SKU: {product.sku}
+                SKU: {activeSku}
               </Text>
             </View>
 
-            {/* Product name */}
+            {/* ===============================================
+                PRODUCT TITLE
+               =============================================== */}
+
             <Text
               style={{
-                fontSize: isDesktop ? 26 : 20,
-                fontWeight: '500',
+                fontSize: isDesktop ? 30 : 22,
+
+                fontWeight: '700',
+
                 color: T.slate900,
-                lineHeight: isDesktop ? 34 : 28,
-                letterSpacing: -0.4,
-                marginBottom: 10,
+
+                lineHeight: isDesktop ? 38 : 30,
+
+                letterSpacing: -0.45,
+
+                marginBottom: 9,
               }}>
               {product.name}
             </Text>
 
-            {/* Short description */}
+            {/* ===============================================
+                SHORT DESCRIPTION
+               =============================================== */}
+
             {product.short_description && (
-              <Text style={{ fontSize: 14, color: T.slate500, lineHeight: 22, marginBottom: 14 }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: T.slate500,
+                  lineHeight: 22,
+                  marginBottom: 13,
+                  maxWidth: isDesktop ? 700 : undefined,
+                }}>
                 {product.short_description}
               </Text>
             )}
 
-            {/* Rating row */}
+            {/* ===============================================
+                RATING
+               =============================================== */}
+
             {product.reviews?.length > 0 && (
               <View
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 7,
+                  marginBottom: 16,
+                }}>
                 <Stars rating={avgRating} size={14} />
-                <Text style={{ fontSize: 14, fontWeight: '700', color: T.slate800 }}>
+
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '700',
+                    color: T.slate800,
+                  }}>
                   {avgRating.toFixed(1)}
                 </Text>
-                <Text style={{ fontSize: 13, color: T.slate400 }}>
-                  ({product.reviews.length} review{product.reviews.length !== 1 ? 's' : ''})
+
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: T.slate400,
+                  }}>
+                  ({product.reviews.length} review
+                  {product.reviews.length !== 1 ? 's' : ''})
                 </Text>
+
                 <View
                   style={{
                     width: 4,
@@ -896,91 +1307,138 @@ export default function ProductDetails() {
                     marginHorizontal: 2,
                   }}
                 />
-                <Text style={{ fontSize: 13, color: T.teal700, fontWeight: '600' }}>Verified</Text>
+
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: T.teal700,
+                    fontWeight: '600',
+                  }}>
+                  Verified
+                </Text>
               </View>
             )}
 
-            {/* ── Price card ── */}
+            {/* ===============================================
+                PRICE SECTION
+               =============================================== */}
+
             <View
               style={{
-                backgroundColor: T.white,
-                borderRadius: 16,
-                borderWidth: 0.5,
+                backgroundColor: 'transparent',
+
+                paddingTop: 16,
+                paddingBottom: 16,
+
+                marginBottom: 18,
+
+                borderTopWidth: 1,
+                borderBottomWidth: 1,
+
                 borderColor: T.slate100,
-                padding: 16,
-                marginBottom: 20,
-                ...(isWeb ? { boxShadow: T.shadowSm } : {}),
               }}>
-              {/* Price row */}
+              {/* PRICE */}
+
               <View
-                style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10, marginBottom: 4 }}>
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: 9,
+                  marginBottom: 5,
+                }}>
                 <Text
                   style={{
-                    fontSize: isDesktop ? 32 : 28,
-                    fontWeight: '600',
+                    fontSize: isDesktop ? 34 : 30,
+
+                    fontWeight: '800',
+
                     color: T.teal700,
-                    letterSpacing: -0.5,
+
+                    letterSpacing: -0.6,
                   }}>
-                  ₹{product.price.minimalPrice.toLocaleString('en-IN')}
+                  ₹{price.toLocaleString('en-IN')}
                 </Text>
-                {discount && (
+
+                {discount && activeRegularPrice && (
                   <Text
                     style={{
-                      fontSize: 16,
+                      fontSize: 15,
                       color: T.slate400,
                       textDecorationLine: 'line-through',
-                      marginBottom: 4,
                     }}>
-                    ₹{product.price.regularPrice.toLocaleString('en-IN')}
+                    ₹{activeRegularPrice.toLocaleString('en-IN')}
                   </Text>
                 )}
+
                 {discount && (
                   <View
                     style={{
                       backgroundColor: T.red100,
-                      borderRadius: 8,
-                      paddingHorizontal: 8,
-                      paddingVertical: 3,
-                      marginBottom: 4,
+                      borderRadius: 4,
+                      paddingHorizontal: 7,
+                      paddingVertical: 4,
                     }}>
-                    <Text style={{ fontSize: 13, fontWeight: '800', color: T.red500 }}>
-                      Save {discount}%
+                    <Text
+                      style={{
+                        fontSize: 11,
+                        fontWeight: '800',
+                        color: T.red500,
+                      }}>
+                      {discount}% OFF
                     </Text>
                   </View>
                 )}
               </View>
-              <Text style={{ fontSize: 12, color: T.slate400, marginBottom: 12 }}>
+
+              <Text
+                style={{
+                  fontSize: 11,
+                  color: T.slate400,
+                }}>
                 Inclusive of all taxes · Free shipping on orders ₹999+
               </Text>
 
-              {/* Coins */}
+              {/* MEDISHIELD COINS */}
+
               {product.medishield_coins > 0 && (
                 <View
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    gap: 10,
+                    gap: 9,
                     backgroundColor: T.amber50,
-                    borderRadius: 10,
-                    paddingHorizontal: 12,
-                    paddingVertical: 9,
+                    borderRadius: 6,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    marginTop: 12,
                     borderWidth: 1,
                     borderColor: T.amber100,
                   }}>
                   <View
                     style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: 14,
+                      width: 26,
+                      height: 26,
+                      borderRadius: 13,
                       backgroundColor: T.amber100,
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Ionicons name="logo-bitcoin" size={15} color={T.amber500} />
+                    <Ionicons name="logo-bitcoin" size={14} color={T.amber500} />
                   </View>
-                  <Text style={{ fontSize: 13, color: '#92400e', fontWeight: '600', flex: 1 }}>
+
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: '#92400e',
+                      fontWeight: '600',
+                      flex: 1,
+                    }}>
                     Earn{' '}
-                    <Text style={{ fontWeight: '800' }}>
+                    <Text
+                      style={{
+                        fontWeight: '800',
+                      }}>
                       {product.medishield_coins} MediShield Coin
                       {product.medishield_coins > 1 ? 's' : ''}
                     </Text>{' '}
@@ -990,12 +1448,125 @@ export default function ProductDetails() {
               )}
             </View>
 
-            {/* ── Qty + CTA ── */}
-            <View style={{ gap: 12, marginBottom: 20 }}>
-              {/* Qty row */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-                <Text style={{ fontSize: 14, fontWeight: '600', color: T.slate600 }}>Qty:</Text>
-                <Stepper value={qty} onChange={setQty} max={product.max_sale_qty || 20} />
+            {/* ===============================================
+                VARIANTS
+               =============================================== */}
+
+            {hasVariants && (
+              <View
+                style={{
+                  marginBottom: 20,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 10,
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: '700',
+                      color: T.slate800,
+                    }}>
+                    Select Variation
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: T.slate400,
+                    }}>
+                    {product.childProducts.length} options
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    gap: 9,
+                  }}>
+                  {product.childProducts.map((variant, i) => {
+                    const isActive = selectedVariant?.sku === variant.sku;
+
+                    const available = variant.max_sale_qty > 0;
+
+                    return (
+                      <Pressable
+                        key={i}
+                        onPress={() => setSelectedVariant(variant)}
+                        style={{
+                          minWidth: 125,
+
+                          paddingHorizontal: 13,
+
+                          paddingVertical: 10,
+
+                          borderRadius: 6,
+
+                          borderWidth: isActive ? 1.5 : 1,
+
+                          borderColor: isActive ? (available ? T.teal700 : T.red500) : T.slate200,
+
+                          backgroundColor: isActive ? (available ? T.teal50 : '#fff5f5') : T.white,
+
+                          opacity: available ? 1 : 0.7,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontWeight: '600',
+
+                            color: isActive ? (available ? T.teal700 : '#dc2626') : T.slate700,
+                          }}
+                          numberOfLines={2}>
+                          {variant.name}
+                        </Text>
+
+                        <Text
+                          style={{
+                            marginTop: 4,
+                            fontSize: 10,
+                            fontWeight: '600',
+
+                            color: available ? '#15803d' : '#dc2626',
+                          }}>
+                          {available ? `${variant.max_sale_qty} available` : 'Out of stock'}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            )}
+
+            {/* ===============================================
+                QUANTITY
+               =============================================== */}
+
+            <View
+              style={{
+                marginBottom: 18,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 13,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: '600',
+                    color: T.slate700,
+                  }}>
+                  Qty
+                </Text>
+
+                <Stepper value={qty} onChange={setQty} max={activeStock || 20} />
+
                 <View
                   style={{
                     flexDirection: 'row',
@@ -1004,141 +1575,301 @@ export default function ProductDetails() {
                     marginLeft: 'auto',
                   }}>
                   <View
-                    style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: T.green500 }}
+                    style={{
+                      width: 7,
+                      height: 7,
+                      borderRadius: 4,
+                      backgroundColor: activeStock > 0 ? T.green500 : T.red500,
+                    }}
                   />
-                  <Text style={{ fontSize: 13, color: T.green500, fontWeight: '600' }}>
-                    In Stock
+
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: activeStock > 0 ? T.green500 : T.red500,
+                      fontWeight: '600',
+                    }}>
+                    {activeStock > 0 ? `${activeStock} in stock` : 'Out of stock'}
                   </Text>
                 </View>
               </View>
-
-              {/* CTA buttons */}
-              {isDesktop ? (
-                <View style={{ flexDirection: 'row', gap: 12 }}>
-                  
-                  <AddToCartButton
-                      productId={product._id}
-                      variant={product._id} // use _id as variant if product has no variants
-                      price={product.price.regularPrice}
-                      size="xxl"
-                      style="outline"
-                    />
-                  <Pressable
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      paddingVertical: 15,
-                      borderRadius: 14,
-                      backgroundColor: T.amber500,
-                      ...(isWeb
-                        ? { boxShadow: '0 6px 20px rgba(245,158,11,0.3)', cursor: 'pointer' }
-                        : {}),
-                    }}>
-                    <Ionicons name="flash-outline" size={20} color="#fff" />
-                    <Text style={{ color: '#fff', fontSize: 15, fontWeight: '800' }}>Buy Now</Text>
-                  </Pressable>
-                  <Pressable
-                    onPress={() => setWishlisted((w) => !w)}
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 14,
-                      backgroundColor: wishlisted ? '#fef2f2' : T.slate50,
-                      borderWidth: 1,
-                      borderColor: wishlisted ? '#fecaca' : T.slate200,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      ...(isWeb ? { cursor: 'pointer' } : {}),
-                    }}>
-                    <Ionicons
-                      name={wishlisted ? 'heart' : 'heart-outline'}
-                      size={22}
-                      color={wishlisted ? T.red500 : T.slate400}
-                    />
-                  </Pressable>
-                </View>
-              ) : null}
             </View>
 
-            {/* Trust strip */}
+            {/* ===============================================
+                DESKTOP CTA
+               =============================================== */}
+
+            {isDesktop && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 10,
+                  marginBottom: 20,
+                }}>
+                {/* ADD TO CART */}
+
+                <View
+                  style={{
+                    flex: 1,
+                    minHeight: 50,
+                  }}>
+                  <AddToCartButton
+                    productId={product._id}
+                    variant={selectedVariant?.sku || product.sku}
+                    price={price}
+                    size="xxl"
+                    style="outline"
+                  />
+                </View>
+
+                {/* BUY NOW */}
+
+                {/* <Pressable
+                  style={{
+                    flex: 1,
+                    minHeight: 50,
+
+                    flexDirection:
+                      'row',
+
+                    alignItems:
+                      'center',
+
+                    justifyContent:
+                      'center',
+
+                    gap: 8,
+
+                    paddingVertical:
+                      14,
+
+                    borderRadius: 7,
+
+                    backgroundColor:
+                      T.amber500,
+
+                    ...(isWeb
+                      ? {
+                          cursor:
+                            'pointer',
+                        }
+                      : {}),
+                  }}>
+
+                  <Ionicons
+                    name="flash-outline"
+                    size={19}
+                    color="#fff"
+                  />
+
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontSize: 14,
+                      fontWeight: '800',
+                    }}>
+                    Buy Now
+                  </Text>
+                </Pressable> */}
+
+                {/* WISHLIST */}
+
+                <Pressable
+                  onPress={handleWishlist}
+                  disabled={wishlistLoading}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 7,
+                    backgroundColor: wishlisted ? '#fff5f5' : T.white,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderWidth: 1,
+                    borderColor: wishlisted ? '#fecaca' : T.slate200,
+                    opacity: wishlistLoading ? 0.6 : 1,
+                  }}>
+                  {wishlistLoading ? (
+                    <ActivityIndicator size="small" color={T.red500} />
+                  ) : (
+                    <Ionicons
+                      name={wishlisted ? 'heart' : 'heart-outline'}
+                      size={19}
+                      color={wishlisted ? T.red500 : T.slate500}
+                    />
+                  )}
+                </Pressable>
+              </View>
+            )}
+
+            {/* ===============================================
+                TRUST
+               =============================================== */}
+
             <TrustStrip />
           </View>
         </View>
 
-        {/* ══════════════════════════════════════════════════════
-            SPECS + REVIEWS SECTION
-            ══════════════════════════════════════════════════════ */}
+        {/* ===================================================
+            DETAILS + REVIEWS
+           =================================================== */}
+
         <View
           style={{
             paddingHorizontal: px,
-            marginTop: 32,
+            marginTop: 42,
+
             flexDirection: isDesktop ? 'row' : 'column',
-            gap: isDesktop ? 32 : 24,
+
+            gap: isDesktop ? 44 : 28,
+
             alignItems: 'flex-start',
           }}>
-          {/* Main column */}
-          <View style={{ flex: isDesktop ? 1 : undefined, width: '100%', gap: 24 }}>
-            {/* Specs tabs */}
-            <SpecsTabs specs={product.product_specs} />
-            {/* Products */}
-            <SectionHeader title="Related Products" />
-            {loadingP ? (
-              <GridSkeleton cols={2} />
-            ) : products.length === 0 ? (
-              <NoProdcucts />
-            ) : (
+          {/* =================================================
+              MAIN CONTENT
+             ================================================= */}
+
+          <View
+            style={{
+              flex: isDesktop ? 1 : undefined,
+
+              width: '100%',
+
+              gap: 38,
+            }}>
+            {/* ===============================================
+                PRODUCT DETAILS
+               =============================================== */}
+
+            <View>
               <View
                 style={{
-                  flexDirection: 'row',
-                  overflow: 'auto',
-                  scrollBehavior: 'smooth',
-                  gap: 16,
+                  marginBottom: 16,
                 }}>
-                {products.map((item) => (
-                  <WebProductCard
-                    key={item._id}
-                    item={item}
-                    cols={isDesktop ? 3 : 1}
-                    onBuy={(id) => router.navigate(`/product/${id}`)}
-                    onCart={(item) => console.log('Add to cart', item._id)}
-                  />
-                ))}
-              </View>
-            )}
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: '800',
+                    color: T.slate900,
+                    marginBottom: 5,
+                  }}>
+                  Product Details
+                </Text>
 
-            {/* Reviews */}
+                <View
+                  style={{
+                    width: 34,
+                    height: 3,
+                    borderRadius: 2,
+                    backgroundColor: T.teal700,
+                  }}
+                />
+              </View>
+
+              <SpecsTabs specs={product.product_specs} />
+            </View>
+
+            {/* ===============================================
+                RELATED PRODUCTS
+               =============================================== */}
+
+            <View>
+              <SectionHeader title="Related Products" />
+
+              {loadingP ? (
+                <GridSkeleton cols={2} />
+              ) : !products || products.length === 0 ? (
+                <NoProdcucts />
+              ) : (
+                <View
+                  style={{
+                    flexDirection: 'row',
+
+                    overflow: 'auto',
+
+                    gap: 16,
+
+                    ...(Platform.OS === 'web'
+                      ? {
+                          scrollBehavior: 'smooth',
+                        }
+                      : {}),
+                  }}>
+                  {products.map((item) => (
+                    <WebProductCard
+                      key={item._id}
+                      item={item}
+                      cols={isDesktop ? 3 : 1}
+                      onBuy={(id) => router.navigate(`/product/${id}`)}
+                      onCart={(item) => console.log('Add to cart', item._id)}
+                    />
+                  ))}
+                </View>
+              )}
+            </View>
+
+            {/* ===============================================
+                REVIEWS
+               =============================================== */}
+
             <View>
               <View
                 style={{
                   flexDirection: 'row',
+
                   alignItems: 'center',
+
                   justifyContent: 'space-between',
+
                   marginBottom: 16,
                 }}>
-                <Text style={{ fontSize: 18, fontWeight: '800', color: T.slate900 }}>
-                  Customer Reviews
-                </Text>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: '800',
+                      color: T.slate900,
+                      marginBottom: 5,
+                    }}>
+                    Customer Reviews
+                  </Text>
+
+                  <View
+                    style={{
+                      width: 34,
+                      height: 3,
+                      borderRadius: 2,
+                      backgroundColor: T.teal700,
+                    }}
+                  />
+                </View>
+
                 {product.reviews.length > 0 && (
                   <View
                     style={{
                       flexDirection: 'row',
+
                       alignItems: 'center',
+
                       gap: 6,
-                      backgroundColor: T.teal50,
-                      borderRadius: 10,
-                      paddingHorizontal: 12,
-                      paddingVertical: 6,
-                      borderWidth: 1,
-                      borderColor: T.teal100,
                     }}>
                     <Ionicons name="star" size={14} color={T.amber500} />
-                    <Text style={{ fontSize: 14, fontWeight: '800', color: T.teal700 }}>
+
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: '800',
+                        color: T.teal700,
+                      }}>
                       {avgRating.toFixed(1)}
                     </Text>
-                    <Text style={{ fontSize: 12, color: T.slate400 }}>/ 5</Text>
+
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: T.slate400,
+                      }}>
+                      / 5
+                    </Text>
                   </View>
                 )}
               </View>
@@ -1146,13 +1877,15 @@ export default function ProductDetails() {
               {product.reviews.length === 0 ? (
                 <View
                   style={{
-                    backgroundColor: T.white,
-                    borderRadius: 16,
-                    padding: 40,
+                    paddingVertical: 45,
                     alignItems: 'center',
-                    gap: 10,
-                    borderWidth: 1,
+
+                    borderTopWidth: 1,
+                    borderBottomWidth: 1,
+
                     borderColor: T.slate100,
+
+                    gap: 10,
                   }}>
                   <View
                     style={{
@@ -1160,32 +1893,52 @@ export default function ProductDetails() {
                       height: 52,
                       borderRadius: 26,
                       backgroundColor: T.teal50,
+
                       alignItems: 'center',
+
                       justifyContent: 'center',
                     }}>
                     <Ionicons name="chatbubble-ellipses-outline" size={24} color={T.teal700} />
                   </View>
-                  <Text style={{ fontSize: 15, fontWeight: '700', color: T.slate700 }}>
+
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: '700',
+                      color: T.slate700,
+                    }}>
                     No reviews yet
                   </Text>
-                  <Text style={{ fontSize: 13, color: T.slate400, textAlign: 'center' }}>
+
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      color: T.slate400,
+                      textAlign: 'center',
+                    }}>
                     Be the first to share your experience
                   </Text>
+
                   <Pressable
                     style={{
-                      marginTop: 8,
+                      marginTop: 7,
                       backgroundColor: T.teal700,
-                      borderRadius: 12,
+                      borderRadius: 6,
                       paddingHorizontal: 20,
                       paddingVertical: 10,
                     }}>
-                    <Text style={{ color: '#fff', fontWeight: '700', fontSize: 13 }}>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontWeight: '700',
+                        fontSize: 13,
+                      }}>
                       Write a Review
                     </Text>
                   </Pressable>
                 </View>
               ) : (
-                <View style={{ gap: 12 }}>
+                <View>
                   {product.reviews.map((r, i) => (
                     <ReviewCard key={i} review={r} />
                   ))}
@@ -1194,151 +1947,298 @@ export default function ProductDetails() {
             </View>
           </View>
 
-          {/* Sidebar (desktop): sticky buy box */}
+          {/* =================================================
+              DESKTOP STICKY PURCHASE SIDEBAR
+             ================================================= */}
+
           {isDesktop && (
             <View
               style={{
-                width: 300,
-                gap: 16,
+                width: 320,
+                gap: 20,
                 position: 'sticky',
                 top: 90,
               }}>
-              {/* Quick buy card */}
+              {/* =============================================
+                  QUICK BUY
+                 ============================================= */}
+
               <View
                 style={{
                   backgroundColor: T.white,
-                  borderRadius: 20,
+
+                  borderRadius: 10,
+
                   borderWidth: 1,
+
                   borderColor: T.slate100,
+
                   overflow: 'hidden',
-                  ...(isWeb ? { boxShadow: T.shadowMd } : {}),
+
+                  ...(isWeb
+                    ? {
+                        boxShadow: T.shadowSm,
+                      }
+                    : {}),
                 }}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={{ uri: images[0] }}
+                <View
+                  style={{
+                    padding: 18,
+                  }}>
+                  {/* IMAGE */}
+
+                  <View
                     style={{
-                      width: '100%',
-                      height: 180,
-                      borderRadius: 12,
-                      backgroundColor: T.slate50,
-                    }}
-                    resizeMode="contain"
-                  />
+                      height: 175,
+                      backgroundColor: '#fbfcfc',
+                      borderRadius: 7,
+                      overflow: 'hidden',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Image
+                      source={
+                        !images[0] || images[0].startsWith('/')
+                          ? require('../../assets/Image-not-found.png')
+                          : {
+                              uri: images[0],
+                            }
+                      }
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+
+                  {/* NAME */}
+
                   <Text
                     numberOfLines={2}
                     style={{
                       fontSize: 14,
                       fontWeight: '700',
                       color: T.slate900,
-                      marginTop: 12,
+                      marginTop: 14,
                       lineHeight: 20,
                     }}>
                     {product.name}
                   </Text>
-                  <Text style={{ fontSize: 22, fontWeight: '900', color: T.teal700, marginTop: 8 }}>
-                    ₹{product.price.regularPrice.toLocaleString('en-IN')}
+
+                  {/* PRICE */}
+
+                  <Text
+                    style={{
+                      fontSize: 23,
+                      fontWeight: '800',
+                      color: T.teal700,
+                      marginTop: 8,
+                    }}>
+                    ₹{price.toLocaleString('en-IN')}
                   </Text>
-                  {discount && (
+
+                  {discount && activeRegularPrice && (
                     <View
-                      style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 }}>
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 7,
+                        marginTop: 3,
+                      }}>
                       <Text
                         style={{
-                          fontSize: 13,
+                          fontSize: 12,
                           color: T.slate400,
                           textDecorationLine: 'line-through',
                         }}>
-                        ₹{product.price.maximalPrice.toLocaleString('en-IN')}
+                        ₹{activeRegularPrice.toLocaleString('en-IN')}
                       </Text>
-                      <Text style={{ fontSize: 12, color: T.red500, fontWeight: '700' }}>
+
+                      <Text
+                        style={{
+                          fontSize: 11,
+                          color: T.red500,
+                          fontWeight: '700',
+                        }}>
                         {discount}% off
                       </Text>
                     </View>
                   )}
                 </View>
 
-                <View style={{ paddingHorizontal: 16, paddingBottom: 16, gap: 10 }}>
-                  <Pressable
-                    onPress={handleAddCart}
+                {/* BUTTONS */}
+
+                <View
+                  style={{
+                    paddingHorizontal: 16,
+
+                    paddingBottom: 16,
+
+                    gap: 9,
+                  }}>
+                  {/* <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      paddingVertical: 13,
-                      borderRadius: 12,
-                      backgroundColor: addedCart ? T.green500 : T.teal700,
-                      ...(isWeb
-                        ? { boxShadow: '0 4px 14px rgba(15,118,110,0.25)', cursor: 'pointer' }
-                        : {}),
+                      minHeight: 46,
                     }}>
-                    <Ionicons
-                      name={addedCart ? 'checkmark-circle' : 'bag-add-outline'}
-                      size={18}
-                      color="#fff"
-                    />
-                    {/* <Text style={{ color: '#fff', fontSize: 14, fontWeight: '800' }}>
-                      {addedCart ? 'Added to Cart!' : 'Add to Cart'}
-                    </Text> */}
                     <AddToCartButton
                       productId={product._id}
-                      variant={product._id} // use _id as variant if product has no variants
-                      price={product.price.regularPrice}
+                      variant={activeSku || product._id}
+                      price={price}
                       size="sm"
                       style="solid"
+                      fullWidth={true}
                     />
-                  </Pressable>
+                  </View> */}
                   <Pressable
+                    onPress={() => router.push(`/product/${product._id}`)}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 8,
+                      gap: 7,
                       paddingVertical: 13,
-                      borderRadius: 12,
-                      backgroundColor: T.amber500,
+                      color: '#fff',
+                      // borderRadius: 7,
+                      backgroundColor: T.teal700,
                       ...(isWeb
-                        ? { boxShadow: '0 4px 14px rgba(245,158,11,0.25)', cursor: 'pointer' }
+                        ? {
+                            cursor: 'pointer',
+                          }
                         : {}),
                     }}>
-                    <Ionicons name="flash-outline" size={18} color="#fff" />
-                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '800' }}>Buy Now</Text>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontWeight: `600`,
+                      }}>
+                      Buy Now
+                    </Text>
                   </Pressable>
+
+                  {/* <Pressable
+                    style={{
+                      flexDirection: 'row',
+
+                      alignItems: 'center',
+
+                      justifyContent: 'center',
+
+                      gap: 7,
+
+                      paddingVertical: 13,
+
+                      borderRadius: 7,
+
+                      backgroundColor: T.amber500,
+
+                      ...(isWeb
+                        ? {
+                            cursor: 'pointer',
+                          }
+                        : {}),
+                    }}>
+                    <Ionicons name="flash-outline" size={17} color="#fff" />
+
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontSize: 14,
+                        fontWeight: '800',
+                      }}>
+                      Buy Now
+                    </Text>
+                  </Pressable> */}
                 </View>
 
-                {/* Delivery info */}
+                {/* DELIVERY */}
+
                 <View
-                  style={{ borderTopWidth: 1, borderTopColor: T.slate100, padding: 16, gap: 10 }}>
+                  style={{
+                    borderTopWidth: 1,
+                    borderTopColor: T.slate100,
+
+                    padding: 16,
+
+                    gap: 11,
+                  }}>
                   {[
-                    { icon: 'location-outline', text: 'Deliver to — Enter pincode' },
-                    { icon: 'time-outline', text: 'Delivery in 2–5 business days' },
-                    { icon: 'refresh-outline', text: '7 day easy returns' },
+                    {
+                      icon: 'location-outline',
+                      text: 'Deliver to — Enter pincode',
+                    },
+                    {
+                      icon: 'time-outline',
+                      text: 'Delivery in 2–5 business days',
+                    },
+                    {
+                      icon: 'refresh-outline',
+                      text: '7 day easy returns',
+                    },
                   ].map((item) => (
                     <View
                       key={item.text}
-                      style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                      style={{
+                        flexDirection: 'row',
+
+                        alignItems: 'center',
+
+                        gap: 10,
+                      }}>
                       <Ionicons name={item.icon} size={15} color={T.teal700} />
-                      <Text style={{ fontSize: 12, color: T.slate600, flex: 1 }}>{item.text}</Text>
+
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: T.slate600,
+                          flex: 1,
+                        }}>
+                        {item.text}
+                      </Text>
                     </View>
                   ))}
                 </View>
               </View>
 
-              {/* Secure payment */}
+              {/* =============================================
+                  SECURE PAYMENT
+                 ============================================= */}
+
               <View
                 style={{
                   backgroundColor: T.white,
-                  borderRadius: 14,
+
+                  borderRadius: 8,
+
                   borderWidth: 1,
+
                   borderColor: T.slate100,
+
                   padding: 14,
+
                   flexDirection: 'row',
+
                   alignItems: 'center',
+
                   gap: 10,
                 }}>
                 <Ionicons name="shield-checkmark-outline" size={20} color={T.teal700} />
-                <Text style={{ fontSize: 12, color: T.slate600, flex: 1, lineHeight: 18 }}>
-                  <Text style={{ fontWeight: '700', color: T.slate800 }}>Secure payments</Text> via
-                  Razorpay · UPI, Cards, NetBanking accepted
+
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: T.slate500,
+                    flex: 1,
+                    lineHeight: 18,
+                  }}>
+                  <Text
+                    style={{
+                      fontWeight: '700',
+                      color: T.slate800,
+                    }}>
+                    Secure payments
+                  </Text>{' '}
+                  via Razorpay · UPI, Cards, NetBanking accepted
                 </Text>
               </View>
             </View>
@@ -1346,94 +2246,123 @@ export default function ProductDetails() {
         </View>
       </ScrollView>
 
-      {/* ── Mobile sticky bottom bar ── */}
+      {/* =====================================================
+          MOBILE STICKY BOTTOM BAR
+         ===================================================== */}
+
       {!isDesktop && (
         <View
           style={{
             flexDirection: 'row',
-            gap: 10,
+            gap: 8,
+            alignItems: 'center',
             backgroundColor: T.white,
-            paddingHorizontal: 16,
-            paddingVertical: 10,
-            paddingBottom: 12,
+
+            paddingHorizontal: 14,
+            paddingVertical: 9,
+            paddingBottom: 11,
+
             borderTopWidth: 1,
             borderTopColor: T.slate100,
+
             shadowColor: '#000',
-            shadowOffset: { width: 0, height: -2 },
-            shadowOpacity: 0.07,
-            shadowRadius: 12,
+
+            shadowOffset: {
+              width: 0,
+              height: -2,
+            },
+
+            shadowOpacity: 0.06,
+            shadowRadius: 10,
+
             elevation: 10,
           }}>
+          {/* WISHLIST */}
+
           <Pressable
-            onPress={() => setWishlisted((w) => !w)}
+            onPress={handleWishlist}
+            disabled={wishlistLoading}
             style={{
-              width: 46,
-              height: 46,
-              borderRadius: 12,
-              backgroundColor: wishlisted ? '#fef2f2' : T.slate50,
+              width: 50,
+              height: 50,
+              borderRadius: 7,
+              backgroundColor: wishlisted ? '#fff5f5' : T.white,
               borderWidth: 1,
               borderColor: wishlisted ? '#fecaca' : T.slate200,
               alignItems: 'center',
               justifyContent: 'center',
+              opacity: wishlistLoading ? 0.6 : 1,
             }}>
-            <Ionicons
-              name={wishlisted ? 'heart' : 'heart-outline'}
-              size={20}
-              color={wishlisted ? T.red500 : T.slate500}
-            />
+            {wishlistLoading ? (
+              <ActivityIndicator size="small" color={T.red500} />
+            ) : (
+              <Ionicons
+                name={wishlisted ? 'heart' : 'heart-outline'}
+                size={21}
+                color={wishlisted ? T.red500 : T.slate400}
+              />
+            )}
           </Pressable>
-{/* 
-          <Pressable
-            onPress={handleAddCart}
+
+          {/* ADD TO CART */}
+
+          <View
             style={{
               flex: 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              borderRadius: 12,
-              backgroundColor: addedCart ? T.green500 : T.teal700,
-              shadowColor: T.teal700,
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.25,
-              shadowRadius: 10,
-              elevation: 5,
+              minHeight: 46,
             }}>
-            <Ionicons
-              name={addedCart ? 'checkmark-circle' : 'bag-add-outline'}
-              size={18}
-              color="#fff"
+            <AddToCartButton
+              productId={product._id}
+              variant={activeSku || product._id}
+              price={price}
+              size="6xl"
+              style="solid"
             />
-            <Text style={{ color: '#fff', fontSize: 14, fontWeight: '800' }}>
-              {addedCart ? 'Added!' : 'Add to Cart'}
+          </View>
+
+          {/* BUY NOW */}
+
+          {/* <Pressable
+            style={{
+              flex: 1,
+
+              minHeight: 46,
+
+              flexDirection: 'row',
+
+              alignItems: 'center',
+
+              justifyContent: 'center',
+
+              gap: 7,
+
+              // borderRadius: 7,
+
+              backgroundColor: T.amber500,
+
+              shadowColor: T.amber500,
+
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+
+              shadowOpacity: 0.18,
+              shadowRadius: 7,
+
+              elevation: 4,
+            }}>
+            <Ionicons name="flash-outline" size={17} color="#fff" />
+
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 13,
+                fontWeight: '800',
+              }}>
+              Buy Now
             </Text>
           </Pressable> */}
-          <AddToCartButton
-            productId={product._id}
-            variant={product._id} // use _id as variant if product has no variants
-            price={product.price.regularPrice}
-            size="6xl"
-            style="solid"
-          />
-
-          <Pressable
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              borderRadius: 12,
-              backgroundColor: T.amber500,
-              shadowColor: T.amber500,
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.25,
-              shadowRadius: 10,
-              elevation: 5,
-            }}>
-            <Ionicons name="flash-outline" size={18} color="#fff" />
-            <Text style={{ color: '#fff', fontSize: 14, fontWeight: '800' }}>Buy Now</Text>
-          </Pressable>
         </View>
       )}
     </SafeAreaView>

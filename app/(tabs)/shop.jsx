@@ -62,6 +62,10 @@ function useDebounce(value, delay = 400) {
 function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
   const [hovered, setHovered] = useState(false);
   const isWeb = Platform.OS === 'web';
+  const minimalPrice = item?.price?.minimalPrice ?? 0;
+  const regularPrice = item?.price?.regularPrice ?? 0;
+  const hasDiscount = regularPrice > minimalPrice && minimalPrice > 0;
+  const discount = hasDiscount ? Math.round((1 - minimalPrice / regularPrice) * 100) : 0;
 
   return (
     <View
@@ -69,149 +73,456 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
       onMouseLeave={isWeb ? () => setHovered(false) : undefined}
       style={{
         width: cardWidth,
-        backgroundColor: C.card,
+        backgroundColor: C.card || '#fff',
         borderRadius: 18,
         overflow: 'hidden',
-        borderWidth: 1.5,
+        borderWidth: 1,
         borderColor: hovered ? C.primary : C.border,
         marginBottom: 14,
         ...(isWeb
           ? {
               boxShadow: hovered
-                ? '0 8px 28px rgba(15,118,110,0.14)'
-                : '0 2px 10px rgba(0,0,0,0.06)',
-              transform: hovered ? 'translateY(-3px)' : 'translateY(0)',
-              transition: 'all 0.18s ease',
+                ? '0 14px 36px rgba(15,118,110,0.14)'
+                : '0 3px 14px rgba(0,0,0,0.06)',
+              transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+              transition: 'all 0.22s ease',
               cursor: 'pointer',
             }
           : {
               shadowColor: C.primaryDark,
-              shadowOffset: { width: 0, height: 3 },
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
               shadowOpacity: 0.07,
               shadowRadius: 10,
               elevation: 3,
             }),
       }}>
       <Pressable onPress={() => onPress(item._id)}>
-        {/* Image */}
-        <View style={{ position: 'relative', backgroundColor: C.bg }}>
+        {/* ═══════════════════════════════════ */}
+        {/* IMAGE */}
+        {/* ═══════════════════════════════════ */}
+
+        <View
+          style={{
+            position: 'relative',
+            backgroundColor: '#f8fafb',
+            overflow: 'hidden',
+          }}>
           <Image
-            source={{ uri: item.thumbnail_url }}
-            style={{ width: '100%', height: cardWidth * 0.85 }}
-            resizeMode="cover"
+            source={
+              item?.thumbnail_url?.startsWith('/')
+                ? require('../../assets/Image-not-found.png')
+                : {
+                    uri: item?.thumbnail_url,
+                  }
+            }
+            style={{
+              width: '100%',
+              height: cardWidth * 0.88,
+              transform: [
+                {
+                  scale: hovered ? 1.04 : 1,
+                },
+              ],
+              transition: 'transform 0.25s ease',
+            }}
+            resizeMode="contain"
           />
-          {item.featured && (
+
+          {/* ─────────────────────────────── */}
+          {/* FEATURED BADGE */}
+          {/* ─────────────────────────────── */}
+
+          {item?.featured && (
             <View
               style={{
                 position: 'absolute',
-                top: 8,
-                left: 8,
+                top: 10,
+                left: 10,
                 backgroundColor: C.accent,
                 borderRadius: 6,
-                paddingHorizontal: 6,
-                paddingVertical: 3,
-              }}>
-              <Text style={{ color: '#fff', fontSize: 9, fontWeight: '800' }}>FEATURED</Text>
-            </View>
-          )}
-          <Pressable
-            style={{
-              position: 'absolute',
-              top: 7,
-              right: 7,
-              backgroundColor: 'rgba(255,255,255,0.92)',
-              borderRadius: 18,
-              padding: 5,
-            }}>
-            <Ionicons name="heart-outline" size={14} color={C.muted} />
-          </Pressable>
-          {/* Web hover overlay */}
-          {isWeb && hovered && (
-            <Pressable
-              onPress={() => onCart(item)}
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                backgroundColor: 'rgba(15,77,77,0.86)',
-                paddingVertical: 9,
+                paddingHorizontal: 8,
+                paddingVertical: 5,
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center',
-                gap: 5,
+                gap: 4,
               }}>
-              <Ionicons name="bag-add-outline" size={14} color="white" />
-              <Text style={{ color: 'white', fontSize: 12, fontWeight: '700' }}>Quick Add</Text>
+              <Ionicons name="flash" size={10} color="#fff" />
+
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 8,
+                  fontWeight: '900',
+                  letterSpacing: 0.6,
+                }}>
+                FEATURED
+              </Text>
+            </View>
+          )}
+
+          {/* ─────────────────────────────── */}
+          {/* DISCOUNT BADGE */}
+          {/* ─────────────────────────────── */}
+
+          {hasDiscount && (
+            <View
+              style={{
+                position: 'absolute',
+
+                left: 10,
+
+                bottom: 10,
+
+                backgroundColor: '#dc2626',
+
+                borderRadius: 6,
+
+                paddingHorizontal: 8,
+
+                paddingVertical: 5,
+              }}>
+              <Text
+                style={{
+                  color: '#fff',
+
+                  fontSize: 9,
+
+                  fontWeight: '900',
+
+                  letterSpacing: 0.2,
+                }}>
+                {discount}% OFF
+              </Text>
+            </View>
+          )}
+
+          {/* ─────────────────────────────── */}
+          {/* WISHLIST */}
+          {/* ─────────────────────────────── */}
+
+          <Pressable
+            onPress={(event) => {
+              event?.stopPropagation?.();
+            }}
+            style={{
+              position: 'absolute',
+
+              top: 10,
+
+              right: 10,
+
+              width: 36,
+
+              height: 36,
+
+              borderRadius: 18,
+
+              backgroundColor: 'rgba(255,255,255,0.96)',
+
+              alignItems: 'center',
+
+              justifyContent: 'center',
+
+              borderWidth: 1,
+
+              borderColor: 'rgba(15,23,42,0.07)',
+
+              boxShadow: '0 3px 12px rgba(0,0,0,0.10)',
+            }}>
+            <Ionicons name="heart-outline" size={18} color={C.dark} />
+          </Pressable>
+
+          {/* ─────────────────────────────── */}
+          {/* QUICK ADD */}
+          {/* ─────────────────────────────── */}
+
+          {isWeb && hovered && (
+            <Pressable
+              onPress={(event) => {
+                event?.stopPropagation?.();
+
+                onCart(item);
+              }}
+              style={{
+                position: 'absolute',
+
+                bottom: 0,
+
+                left: 0,
+
+                right: 0,
+
+                height: 42,
+
+                backgroundColor: 'rgba(15,77,77,0.94)',
+
+                alignItems: 'center',
+
+                justifyContent: 'center',
+
+                flexDirection: 'row',
+
+                gap: 7,
+              }}>
+              <Ionicons name="bag-add-outline" size={17} color="#fff" />
+
+              <Text
+                style={{
+                  color: '#fff',
+
+                  fontSize: 11,
+
+                  fontWeight: '800',
+
+                  letterSpacing: 0.3,
+                }}>
+                QUICK ADD
+              </Text>
             </Pressable>
           )}
         </View>
 
-        {/* Info */}
-        <View style={{ padding: 11 }}>
+        {/* ═══════════════════════════════════ */}
+        {/* PRODUCT INFORMATION */}
+        {/* ═══════════════════════════════════ */}
+
+        <View
+          style={{
+            padding: 13,
+          }}>
+          {/* BRAND / MANUFACTURER */}
+
+          {item?.manufacturer && (
+            <Text
+              numberOfLines={1}
+              style={{
+                color: C.primary,
+
+                fontSize: 9,
+
+                fontWeight: '800',
+
+                textTransform: 'uppercase',
+
+                letterSpacing: 0.8,
+
+                marginBottom: 5,
+              }}>
+              {item.manufacturer}
+            </Text>
+          )}
+
+          {/* PRODUCT NAME */}
+
           <Text
             numberOfLines={2}
             style={{
               fontSize: 13,
-              fontWeight: '700',
+
+              fontWeight: '750',
+
               color: C.dark,
-              lineHeight: 18,
-              marginBottom: 5,
+
+              lineHeight: 19,
+
+              minHeight: 38,
+
+              marginBottom: 8,
             }}>
-            {item.name}
+            {item?.name || 'Product'}
           </Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, marginBottom: 9 }}>
-            <FontAwesome name="rupee" size={12} color={C.primary} />
-            <Text style={{ fontSize: 15, fontWeight: '800', color: C.primary }}>
-              {item.price?.minimalPrice}
-            </Text>
-            {item.price?.minimalPrice && item.price.minimalPrice < item.price.regularPrice && (
-              <View
+          {/* RATING */}
+
+          <View
+            style={{
+              flexDirection: 'row',
+
+              alignItems: 'center',
+
+              marginBottom: 9,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+
+                alignItems: 'center',
+
+                gap: 3,
+
+                backgroundColor: '#fff7ed',
+
+                borderRadius: 5,
+
+                paddingHorizontal: 6,
+
+                paddingVertical: 3,
+              }}>
+              <Ionicons name="star" size={10} color="#f59e0b" />
+
+              <Text
                 style={{
-                  marginLeft: 2,
-                  backgroundColor: '#fee2e2',
-                  borderRadius: 5,
-                  paddingHorizontal: 5,
-                  paddingVertical: 1,
+                  fontSize: 9,
+
+                  fontWeight: '800',
+
+                  color: '#92400e',
                 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', color: '#dc2626' }}>
-                  {Math.round((1 - item.price.minimalPrice / item.price.regularPrice) * 100)}% OFF
-                </Text>
-              </View>
+                {item?.average_rating ? Number(item.average_rating).toFixed(1) : '4.8'}
+              </Text>
+            </View>
+
+            {item?.rating_count > 0 && (
+              <Text
+                style={{
+                  fontSize: 9,
+
+                  color: C.muted,
+
+                  marginLeft: 6,
+                }}>
+                ({item.rating_count})
+              </Text>
             )}
           </View>
 
-          <View style={{ flexDirection: 'row', gap: 6 }}>
-            {/* <Pressable
-              onPress={() => onCart(item)}
+          {/* PRICE */}
+
+          <View
+            style={{
+              flexDirection: 'row',
+
+              alignItems: 'center',
+
+              flexWrap: 'wrap',
+
+              gap: 7,
+
+              marginBottom: 12,
+            }}>
+            <Text
               style={{
-                flex: 1,
-                borderRadius: 9,
-                borderWidth: 1.5,
-                borderColor: C.primary,
-                paddingVertical: 7,
-                alignItems: 'center',
+                fontSize: 17,
+
+                fontWeight: '900',
+
+                color: C.primary,
               }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: C.primary }}>Cart</Text>
-            </Pressable> */}
-            <AddToCartButton
-              productId={item._id}
-              variant={item._id} // use _id as variant if product has no variants
-              price={item.price.minimalPrice}
-              size="sm"
-              style="outline"
+              ₹{Number(minimalPrice).toLocaleString('en-IN')}
+            </Text>
+
+            {hasDiscount && (
+              <Text
+                style={{
+                  fontSize: 11,
+
+                  color: C.muted,
+
+                  textDecorationLine: 'line-through',
+                }}>
+                ₹{Number(regularPrice).toLocaleString('en-IN')}
+              </Text>
+            )}
+          </View>
+
+          {/* STOCK */}
+
+          <View
+            style={{
+              flexDirection: 'row',
+
+              alignItems: 'center',
+
+              marginBottom: 11,
+            }}>
+            <View
+              style={{
+                width: 6,
+
+                height: 6,
+
+                borderRadius: 3,
+
+                backgroundColor: '#10b981',
+              }}
             />
-            <Pressable
-              onPress={() => onPress(item._id)}
+
+            <Text
+              style={{
+                fontSize: 9,
+
+                fontWeight: '700',
+
+                color: '#047857',
+
+                marginLeft: 6,
+              }}>
+              In Stock
+            </Text>
+          </View>
+
+          {/* ═══════════════════════════════ */}
+          {/* ACTIONS */}
+          {/* ═══════════════════════════════ */}
+
+          <View
+            style={{
+              flexDirection: 'row',
+
+              gap: 7,
+            }}>
+            {/* <View
               style={{
                 flex: 1,
-                borderRadius: 9,
-                backgroundColor: C.primary,
-                paddingVertical: 7,
-                alignItems: 'center',
               }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff' }}>Buy Now</Text>
+              <AddToCartButton
+                productId={item._id}
+                variant={item.sku}
+                price={minimalPrice}
+                size="sm"
+                style="outline"
+                fullWidth={true}
+              />
+            </View> */}
+
+            <Pressable
+              onPress={(event) => {
+                event?.stopPropagation?.();
+
+                onPress(item._id);
+              }}
+              style={{
+                flex: 1,
+
+                minHeight: 36,
+
+                // borderRadius: 9,
+
+                backgroundColor: C.primary,
+
+                alignItems: 'center',
+
+                justifyContent: 'center',
+
+                paddingHorizontal: 8,
+
+                boxShadow: hovered ? '0 5px 14px rgba(15,118,110,0.22)' : 'none',
+
+                transition: 'all 0.2s ease',
+              }}>
+              <Text
+                style={{
+                  fontSize: 11,
+
+                  fontWeight: '800',
+
+                  color: '#fff',
+                }}>
+                Buy Now
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -219,7 +530,6 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
     </View>
   );
 }
-
 // ── Product Card (List) ───────────────────────────────────────────────────────
 function ProductCardList({ item, onPress, onCart }) {
   return (
@@ -244,7 +554,13 @@ function ProductCardList({ item, onPress, onCart }) {
             }),
       }}>
       <Image
-        source={{ uri: item.thumbnail_url }}
+        source={
+          item?.thumbnail_url?.startsWith('/')
+            ? require('../../assets/Image-not-found.png')
+            : {
+                uri: item?.thumbnail_url,
+              }
+        }
         style={{ width: 110, height: 110, backgroundColor: C.bg }}
         resizeMode="cover"
       />
@@ -275,32 +591,38 @@ function ProductCardList({ item, onPress, onCart }) {
             marginTop: 8,
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-            <FontAwesome name="rupee" size={13} color={C.primary} />
             <Text style={{ fontSize: 16, fontWeight: '800', color: C.primary }}>
-              {item.price?.regularPrice}
+              ₹ {item.price?.regularPrice}
             </Text>
           </View>
           <View style={{ flexDirection: 'row', gap: 6 }}>
-            <Pressable
+            {/* <Pressable
               onPress={() => onCart(item)}
               style={{
-                borderRadius: 9,
+                // borderRadius: 9,
                 borderWidth: 1.5,
                 borderColor: C.primary,
                 paddingHorizontal: 10,
                 paddingVertical: 6,
               }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: C.primary }}>Cart</Text>
-            </Pressable>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: C.primary }}>Add to Cart</Text>
+            </Pressable> */}
+            {/* <AddToCartButton
+              productId={item._id}
+              variant={item.sku} // use _id as variant if product has no variants
+              price={item.price.minimalPrice}
+              size="sm"
+              style="outline"
+            /> */}
             <Pressable
               onPress={() => onPress(item._id)}
               style={{
-                borderRadius: 9,
+                // borderRadius: 9,
                 backgroundColor: C.primary,
                 paddingHorizontal: 12,
                 paddingVertical: 6,
               }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff' }}>Buy</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff' }}>Buy Now</Text>
             </Pressable>
           </View>
         </View>
@@ -579,7 +901,7 @@ export default function ShopPage() {
   const px = isMobile ? 16 : isDesktop ? 32 : 24;
 
   // Grid columns based on screen width
-  const numCols = width < 480 ? 2 : width < 768 ? 2 : width < 1024 ? 3 : width < 1400 ? 4 : 5;
+  const numCols = width < 480 ? 2 : width < 768 ? 2 : width < 1024 ? 3 : width < 1400 ? 3 : 5;
   const cardGap = 12;
 
   // ── State ──

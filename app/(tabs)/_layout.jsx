@@ -106,6 +106,91 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="brands"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="about"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="contact"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="new-arrivals"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="offers"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="privacy-policy"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="terms-and-conditions"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="track-order"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="wishlist"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="help-and-support"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="addresses"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="edit-profile"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      
 
     </Tabs>
   );
