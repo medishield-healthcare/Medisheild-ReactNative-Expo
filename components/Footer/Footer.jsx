@@ -171,12 +171,16 @@ export default function Footer() {
           <View
             style={{
               flexDirection: 'row',
-
               alignItems: 'center',
-
               gap: 10,
-
               marginBottom: 12,
+              borderWidth: 1,
+              borderColor: '#fff',
+              backgroundColor: '#fff',
+              // borderRadius: 10,
+              paddingHorizontal: 10,
+              paddingVertical: 10,
+              width: isMobile ? 120 : isTablet ? 140 : 130,
             }}>
             <Image
               source={require('../../assets/logo-img.png')}
