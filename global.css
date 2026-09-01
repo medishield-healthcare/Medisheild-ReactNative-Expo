@@ -8,12 +8,27 @@
 
 body {
   scrollbar-width: none;
-  font-family: 'Poppins', sans-serif;
 }
 
+/* Global Poppins */
+div,
+p,
 button,
 input,
 textarea,
-select {
-  font-family: 'Poppins', sans-serif;
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+a {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Expo Ionicons */
+div.r-lrvibr {
+  font-family: ionicons !important;
 }
