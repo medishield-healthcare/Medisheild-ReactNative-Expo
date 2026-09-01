@@ -1655,7 +1655,7 @@ export default function WebHeader() {
 
                 paddingHorizontal: 10,
 
-                paddingVertical: 7,
+                paddingVertical: 11,
               }}>
               <Ionicons name="logo-bitcoin" size={15} color={C.accent} />
 
@@ -1791,7 +1791,7 @@ export default function WebHeader() {
 
                 paddingHorizontal: isMobile ? 12 : 16,
 
-                paddingVertical: isMobile ? 7 : 10,
+                paddingVertical: isMobile ? 12 : 12,
 
                 flexDirection: 'row',
 
