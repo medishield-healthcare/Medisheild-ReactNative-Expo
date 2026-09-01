@@ -279,10 +279,10 @@ function SectionHeader({ title, onSeeAll }) {
         paddingHorizontal: 20,
         marginBottom: 14,
       }}>
-      <Text style={{ fontSize: 20, fontWeight: '600', color: C.dark }}>{title}</Text>
+      <Text style={{ fontSize: 16, fontWeight: '600', color: C.dark }}>{title}</Text>
       {onSeeAll && (
         <Pressable onPress={onSeeAll}>
-          <Text style={{ fontSize: 16, fontWeight: '600', color: C.primary }}>See all</Text>
+          <Text style={{ fontSize: 14, fontWeight: '600', color: C.primary }}>See all</Text>
         </Pressable>
       )}
     </View>
@@ -472,16 +472,77 @@ export default function HomeNative() {
     staleTime: 1000 * 60 * 5,
   });
 
-  // ── Filter logic ──
+  // ── Backend product search for search dropdown ──
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const searchProducts = async (query) => {
+    const value = query.trim();
+
+    if (!value) {
+      setSearchResults([]);
+      setShowSearchResults(false);
+      return;
+    }
+
+    try {
+      setSearchLoading(true);
+      setShowSearchResults(true);
+
+      const { data } = await API.get('/product', {
+        params: {
+          search: value,
+          limit: 8,
+          page: 1,
+        },
+      });
+
+      setSearchResults(
+        Array.isArray(data?.data)
+          ? data.data
+          : Array.isArray(data)
+            ? data
+            : []
+      );
+    } catch (error) {
+      console.error(
+        'Search API Error:',
+        error?.response?.data || error?.message
+      );
+      setSearchResults([]);
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const value = search.trim();
+
+    if (!value) {
+      setSearchResults([]);
+      setShowSearchResults(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      searchProducts(value);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  // Homepage products remain independent from search.
+  // Category selection still only controls the homepage Featured Products section.
   const filtered = products.filter((p) => {
-    const matchSearch = search.trim() ? p.name?.toLowerCase().includes(search.toLowerCase()) : true;
     const matchCat =
       activeCategory === 'all'
         ? true
         : p.category?.toLowerCase() === activeCategory.toLowerCase() ||
           p.category?._id === activeCategory ||
           p.category === activeCategory;
-    return matchSearch && matchCat;
+
+    return matchCat;
   });
 
   return (
@@ -558,37 +619,268 @@ export default function HomeNative() {
           </View>
         </View>
 
-        {/* ── SEARCH BAR ── */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
+        {/* ── SEARCH BAR + BACKEND SEARCH DROPDOWN ── */}
+        <View
+          style={{
+            paddingHorizontal: 20,
+            marginBottom: 20,
+            zIndex: 1000,
+            elevation: 1000,
+          }}>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              backgroundColor: C.white,
-              borderRadius: 16,
-              paddingHorizontal: 14,
-              paddingVertical: 12,
-              borderWidth: 1.5,
-              borderColor: C.border,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.05,
-              shadowRadius: 8,
-              elevation: 2,
-              gap: 10,
+              position: 'relative',
+              zIndex: 1000,
+              elevation: 1000,
             }}>
-            <Ionicons name="search-outline" size={18} color={C.muted} />
-            <TextInput
-              placeholder="Search dental products..."
-              placeholderTextColor={C.muted}
-              value={search}
-              onChangeText={setSearch}
-              style={{ flex: 1, fontSize: 14, color: C.dark, fontWeight: '500' }}
-            />
-            {search.length > 0 && (
-              <Pressable onPress={() => setSearch('')}>
-                <Ionicons name="close-circle" size={18} color={C.muted} />
-              </Pressable>
+            {/* Search input */}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                backgroundColor: C.white,
+                borderRadius: 16,
+                paddingHorizontal: 14,
+                paddingVertical: 12,
+                borderWidth: 1.5,
+                borderColor: search.length > 0 ? C.primary : C.border,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.05,
+                shadowRadius: 8,
+                elevation: 4,
+                gap: 10,
+              }}>
+              <Ionicons name="search-outline" size={18} color={C.muted} />
+
+              <TextInput
+                placeholder="Search dental products..."
+                placeholderTextColor={C.muted}
+                value={search}
+                onChangeText={setSearch}
+                onFocus={() => {
+                  if (search.trim()) {
+                    setShowSearchResults(true);
+                  }
+                }}
+                style={{
+                  flex: 1,
+                  fontSize: 14,
+                  color: C.dark,
+                  fontWeight: '500',
+                }}
+              />
+
+              {search.length > 0 && (
+                <Pressable
+                  onPress={() => {
+                    setSearch('');
+                    setSearchResults([]);
+                    setShowSearchResults(false);
+                  }}
+                  hitSlop={8}>
+                  <Ionicons name="close-circle" size={18} color={C.muted} />
+                </Pressable>
+              )}
+            </View>
+
+            {/* Search results dropdown */}
+            {showSearchResults && search.trim().length > 0 && (
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 60,
+                  left: 0,
+                  right: 0,
+                  backgroundColor: C.white,
+                  borderRadius: 16,
+                  borderWidth: 1,
+                  borderColor: C.border,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 6 },
+                  shadowOpacity: 0.14,
+                  shadowRadius: 14,
+                  elevation: 12,
+                  zIndex: 2000,
+                  overflow: 'hidden',
+                }}>
+                {searchLoading ? (
+                  <View
+                    style={{
+                      minHeight: 86,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingHorizontal: 16,
+                    }}>
+                    <ActivityIndicator size="small" color={C.primary} />
+                    <Text
+                      style={{
+                        marginTop: 8,
+                        fontSize: 12,
+                        color: C.muted,
+                        fontWeight: '600',
+                      }}>
+                      Searching products...
+                    </Text>
+                  </View>
+                ) : searchResults.length === 0 ? (
+                  <View
+                    style={{
+                      minHeight: 100,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingHorizontal: 16,
+                      paddingVertical: 16,
+                    }}>
+                    <Ionicons
+                      name="search-outline"
+                      size={24}
+                      color={C.muted}
+                    />
+                    <Text
+                      style={{
+                        marginTop: 7,
+                        fontSize: 13,
+                        fontWeight: '800',
+                        color: C.dark,
+                      }}>
+                      No products found
+                    </Text>
+                    <Text
+                      style={{
+                        marginTop: 3,
+                        fontSize: 11,
+                        color: C.muted,
+                      }}>
+                      Try another product name
+                    </Text>
+                  </View>
+                ) : (
+                  <>
+                    {searchResults.map((item, index) => {
+                      const productId = item?._id || item?.id;
+                      const imageUri =
+                        item?.thumbnail_url ||
+                        item?.thumbnail ||
+                        item?.image ||
+                        item?.images?.[0];
+
+                      return (
+                        <Pressable
+                          key={productId || `search-product-${index}`}
+                          onPress={() => {
+                            setShowSearchResults(false);
+                            setSearch('');
+                            if (productId) {
+                              router.push(`/product/${productId}`);
+                            }
+                          }}
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            paddingHorizontal: 12,
+                            paddingVertical: 10,
+                            minHeight: 68,
+                            borderBottomWidth:
+                              index === searchResults.length - 1 ? 0 : 1,
+                            borderBottomColor: '#f1f5f9',
+                          }}>
+                          <View
+                            style={{
+                              width: 48,
+                              height: 48,
+                              borderRadius: 10,
+                              backgroundColor: C.bg,
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              overflow: 'hidden',
+                            }}>
+                            <Image
+                              source={
+                                imageUri
+                                  ? { uri: imageUri }
+                                  : require('../../assets/Image-not-found.png')
+                              }
+                              style={{
+                                width: 46,
+                                height: 46,
+                              }}
+                              resizeMode="contain"
+                            />
+                          </View>
+
+                          <View
+                            style={{
+                              flex: 1,
+                              marginLeft: 10,
+                              marginRight: 8,
+                            }}>
+                            <Text
+                              numberOfLines={2}
+                              style={{
+                                fontSize: 13,
+                                lineHeight: 17,
+                                fontWeight: '700',
+                                color: C.dark,
+                              }}>
+                              {item?.name || 'Unnamed product'}
+                            </Text>
+
+                            {(item?.price?.salePrice ||
+                              item?.price?.regularPrice) && (
+                              <Text
+                                style={{
+                                  marginTop: 3,
+                                  fontSize: 11,
+                                  fontWeight: '800',
+                                  color: C.primary,
+                                }}>
+                                ₹
+                                {Number(
+                                  item?.price?.salePrice ||
+                                    item?.price?.regularPrice ||
+                                    0
+                                )}
+                              </Text>
+                            )}
+                          </View>
+
+                          <Ionicons
+                            name="chevron-forward"
+                            size={17}
+                            color={C.muted}
+                          />
+                        </Pressable>
+                      );
+                    })}
+
+                    {searchResults.length >= 8 && (
+                      <Pressable
+                        onPress={() => {
+                          const value = search.trim();
+                          setShowSearchResults(false);
+                          router.push(
+                            `/shop?search=${encodeURIComponent(value)}`
+                          );
+                        }}
+                        style={{
+                          paddingVertical: 12,
+                          alignItems: 'center',
+                          backgroundColor: C.primaryLight,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontWeight: '800',
+                            color: C.primary,
+                          }}>
+                          View all search results →
+                        </Text>
+                      </Pressable>
+                    )}
+                  </>
+                )}
+              </View>
             )}
           </View>
         </View>

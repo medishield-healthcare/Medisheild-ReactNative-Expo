@@ -14,31 +14,34 @@ import { useAuth } from './AuthContext';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 const ACTIONS = {
-  SET_CART:    'SET_CART',
+  SET_CART: 'SET_CART',
   SET_LOADING: 'SET_LOADING',
-  SET_ERROR:   'SET_ERROR',
-  CLEAR:       'CLEAR',
+  SET_ERROR: 'SET_ERROR',
+  CLEAR: 'CLEAR',
 };
 
 // ── Initial state ─────────────────────────────────────────────────────────────
 const initialState = {
-  items:      [],    // [{ product, count, variant, price, itemId }]
-  cartTotal:  0,
-  loading:    false,
-  error:      null,
+  items: [], // [{ product, count, variant, price, itemId }]
+  cartTotal: 0,
+  loading: false,
+  error: null,
 };
 
 // ── Reducer ───────────────────────────────────────────────────────────────────
 function cartReducer(state, action) {
   switch (action.type) {
-    case ACTIONS.SET_CART:
+    case ACTIONS.SET_CART: {
+      const cart = action.payload?.data || action.payload;
+
       return {
         ...state,
-        items:     action.payload?.products || [],
-        cartTotal: action.payload?.cartTotal || 0,
-        loading:   false,
-        error:     null,
+        items: Array.isArray(cart?.products) ? cart.products : [],
+        cartTotal: Number(cart?.cartTotal || 0),
+        loading: false,
+        error: null,
       };
+    }
     case ACTIONS.SET_LOADING:
       return { ...state, loading: action.payload };
     case ACTIONS.SET_ERROR:
@@ -59,7 +62,10 @@ export function CartProvider({ children }) {
 
   // ── Fetch cart on login ──
   const fetchCart = useCallback(async () => {
-    if (!user) { dispatch({ type: ACTIONS.CLEAR }); return; }
+    if (!user) {
+      dispatch({ type: ACTIONS.CLEAR });
+      return;
+    }
     dispatch({ type: ACTIONS.SET_LOADING, payload: true });
     try {
       const { data } = await API.get('/user/cart');
@@ -70,61 +76,73 @@ export function CartProvider({ children }) {
     }
   }, [user]);
 
-  useEffect(() => { fetchCart(); }, [fetchCart]);
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
   // ── Add to cart ──
   // payload shape matches backend userCart controller:
   // { productId, variant, count, price, totalcount }
-  const add = useCallback(async ({ productId, variant, count = 1, price, totalcount }) => {
-    if (!user) throw new Error('LOGIN_REQUIRED');
-    dispatch({ type: ACTIONS.SET_LOADING, payload: true });
-    try {
-      const { data } = await API.post('/user/cart', {
-        product: { productId, variant, count, price, totalcount: totalcount ?? count },
-      });
-      dispatch({ type: ACTIONS.SET_CART, payload: data });
-      return { success: true };
-    } catch (e) {
-      const msg = e?.response?.data?.message || e.message || 'Failed to add to cart';
-      dispatch({ type: ACTIONS.SET_ERROR, payload: msg });
-      throw new Error(msg);
-    }
-  }, [user]);
+  const add = useCallback(
+    async ({ productId, variant, count = 1, price, totalcount }) => {
+      if (!user) throw new Error('LOGIN_REQUIRED');
+      dispatch({ type: ACTIONS.SET_LOADING, payload: true });
+      try {
+        const { data } = await API.post('/user/cart', {
+          product: { productId, variant, count, price, totalcount: totalcount ?? count },
+        });
+        dispatch({ type: ACTIONS.SET_CART, payload: data });
+        return { success: true };
+      } catch (e) {
+        const msg = e?.response?.data?.message || e.message || 'Failed to add to cart';
+        dispatch({ type: ACTIONS.SET_ERROR, payload: msg });
+        throw new Error(msg);
+      }
+    },
+    [user]
+  );
 
   // ── Remove from cart ──
-  const remove = useCallback(async (variant) => {
-    if (!user) return;
-    dispatch({ type: ACTIONS.SET_LOADING, payload: true });
-    try {
-      const { data } = await API.post('/user/cart/remove', { product: { variant } });
-      dispatch({ type: ACTIONS.SET_CART, payload: data });
-    } catch (e) {
-      dispatch({ type: ACTIONS.SET_ERROR, payload: e?.response?.data?.message || 'Remove failed' });
-    }
-  }, [user]);
+  const remove = useCallback(
+    async (variant) => {
+      if (!user) return;
+      dispatch({ type: ACTIONS.SET_LOADING, payload: true });
+      try {
+        const { data } = await API.post('/user/cart/remove', { product: { variant } });
+        dispatch({ type: ACTIONS.SET_CART, payload: data });
+      } catch (e) {
+        dispatch({
+          type: ACTIONS.SET_ERROR,
+          payload: e?.response?.data?.message || 'Remove failed',
+        });
+      }
+    },
+    [user]
+  );
 
   // ── Clear cart locally (after order placed) ──
   const clear = useCallback(() => dispatch({ type: ACTIONS.CLEAR }), []);
 
   // ── Helpers ──
-  const cartCount  = state.items.reduce((sum, i) => sum + (i.count || 0), 0);
-  const isInCart   = (variant) => state.items.some(i => i.variant === variant);
-  const getItem    = (variant) => state.items.find(i => i.variant === variant);
+  const cartCount = state.items.reduce((sum, i) => sum + (i.count || 0), 0);
+  const isInCart = (variant) => state.items.some((i) => i.variant === variant);
+  const getItem = (variant) => state.items.find((i) => i.variant === variant);
 
   return (
-    <CartContext.Provider value={{
-      items:      state.items,
-      cartTotal:  state.cartTotal,
-      loading:    state.loading,
-      error:      state.error,
-      cartCount,
-      isInCart,
-      getItem,
-      add,
-      remove,
-      clear,
-      refetch: fetchCart,
-    }}>
+    <CartContext.Provider
+      value={{
+        items: state.items,
+        cartTotal: state.cartTotal,
+        loading: state.loading,
+        error: state.error,
+        cartCount,
+        isInCart,
+        getItem,
+        add,
+        remove,
+        clear,
+        refetch: fetchCart,
+      }}>
       {children}
     </CartContext.Provider>
   );

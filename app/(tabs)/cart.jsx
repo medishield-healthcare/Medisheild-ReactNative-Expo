@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
 import {
   View,
@@ -11,71 +11,67 @@ import {
   Platform,
   useWindowDimensions,
   Alert,
-} from "react-native";
+} from 'react-native';
 
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import {
-  Ionicons,
-} from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 
-import { useRouter } from "expo-router";
+import { useRouter } from 'expo-router';
 
-import { useCart } from "@/context/CartContext";
-import { useAuth } from "@/context/AuthContext";
+import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
-import API from "@/api/axios";
+import API from '@/api/axios';
 
-import WebHeader from "components/Header/header.web";
-
+import WebHeader from 'components/Header/header.web';
 
 // ═══════════════════════════════════════════════
 // THEME
 // ═══════════════════════════════════════════════
 
 const T = {
-  teal950: "#083b3b",
-  teal900: "#0f4f4f",
-  teal800: "#115e59",
-  teal700: "#0f766e",
-  teal600: "#0d9488",
-  teal500: "#14b8a6",
+  teal950: '#083b3b',
+  teal900: '#0f4f4f',
+  teal800: '#115e59',
+  teal700: '#0f766e',
+  teal600: '#0d9488',
+  teal500: '#14b8a6',
 
-  teal100: "#ccfbf1",
-  teal50: "#f0fdfa",
+  teal100: '#ccfbf1',
+  teal50: '#f0fdfa',
 
-  slate950: "#020617",
-  slate900: "#0f172a",
-  slate800: "#1e293b",
-  slate700: "#334155",
-  slate600: "#475569",
-  slate500: "#64748b",
-  slate400: "#94a3b8",
-  slate300: "#cbd5e1",
-  slate200: "#e2e8f0",
-  slate100: "#f1f5f9",
-  slate50: "#f8fafc",
+  slate950: '#020617',
+  slate900: '#0f172a',
+  slate800: '#1e293b',
+  slate700: '#334155',
+  slate600: '#475569',
+  slate500: '#64748b',
+  slate400: '#94a3b8',
+  slate300: '#cbd5e1',
+  slate200: '#e2e8f0',
+  slate100: '#f1f5f9',
+  slate50: '#f8fafc',
 
-  white: "#ffffff",
+  white: '#ffffff',
 
-  amber500: "#f59e0b",
-  amber100: "#fef3c7",
-  amber50: "#fffbeb",
+  amber500: '#f59e0b',
+  amber100: '#fef3c7',
+  amber50: '#fffbeb',
 
-  green500: "#22c55e",
-  green100: "#dcfce7",
-  green50: "#f0fdf4",
+  green500: '#22c55e',
+  green100: '#dcfce7',
+  green50: '#f0fdf4',
 
-  red500: "#ef4444",
-  red100: "#fee2e2",
-  red50: "#fef2f2",
+  red500: '#ef4444',
+  red100: '#fee2e2',
+  red50: '#fef2f2',
 
-  bg: "#f5fafa",
+  bg: '#f5fafa',
 
-  shadow: "0 4px 20px rgba(15,23,42,0.06)",
-  shadowMd: "0 10px 35px rgba(15,118,110,0.12)",
+  shadow: '0 4px 20px rgba(15,23,42,0.06)',
+  shadowMd: '0 10px 35px rgba(15,118,110,0.12)',
 };
-
 
 // ═══════════════════════════════════════════════
 // CONSTANTS
@@ -84,37 +80,24 @@ const T = {
 const SHIPPING_THRESHOLD = 999;
 const SHIPPING_CHARGE = 99;
 
-
 // ═══════════════════════════════════════════════
 // CART ITEM
 // ═══════════════════════════════════════════════
 
-function CartItem({
-  item,
-  onRemove,
-  isWeb,
-}) {
-  const [removing, setRemoving] =
-    useState(false);
+function CartItem({ item, onRemove, isWeb }) {
+  const [removing, setRemoving] = useState(false);
 
   const product = item.product || {};
 
-  const imgUrl =
-    product.thumbnail_url ||
-    product.image;
+  const imgUrl = product.thumbnail_url || product.image;
 
-  const name =
-    product.name || "Product";
+  const name = product.name || 'Product';
 
-  const quantity =
-    item.count || 1;
+  const quantity = item.count || 1;
 
-  const unitPrice =
-    item.price || 0;
+  const unitPrice = item.price || 0;
 
-  const subtotal =
-    unitPrice * quantity;
-
+  const subtotal = unitPrice * quantity;
 
   const handleRemove = async () => {
     setRemoving(true);
@@ -123,7 +106,6 @@ function CartItem({
 
     setRemoving(false);
   };
-
 
   return (
     <View
@@ -138,17 +120,16 @@ function CartItem({
 
         padding: isWeb ? 16 : 13,
 
-        flexDirection: "row",
+        flexDirection: 'row',
 
         gap: 15,
 
         ...(isWeb
           ? {
-              boxShadow:
-                "0 4px 18px rgba(15,23,42,0.05)",
+              boxShadow: '0 4px 18px rgba(15,23,42,0.05)',
             }
           : {
-              shadowColor: "#000",
+              shadowColor: '#000',
 
               shadowOffset: {
                 width: 0,
@@ -161,8 +142,7 @@ function CartItem({
 
               elevation: 2,
             }),
-      }}
-    >
+      }}>
       {/* PRODUCT IMAGE */}
 
       <View
@@ -175,39 +155,33 @@ function CartItem({
 
           backgroundColor: T.slate50,
 
-          overflow: "hidden",
+          overflow: 'hidden',
 
           borderWidth: 1,
 
           borderColor: T.slate100,
 
-          alignItems: "center",
+          alignItems: 'center',
 
-          justifyContent: "center",
+          justifyContent: 'center',
 
           flexShrink: 0,
-        }}
-      >
+        }}>
         {imgUrl ? (
           <Image
             source={{
               uri: imgUrl,
             }}
             style={{
-              width: "100%",
-              height: "100%",
+              width: '100%',
+              height: '100%',
             }}
             resizeMode="contain"
           />
         ) : (
-          <Ionicons
-            name="cube-outline"
-            size={30}
-            color={T.slate300}
-          />
+          <Ionicons name="cube-outline" size={30} color={T.slate300} />
         )}
       </View>
-
 
       {/* PRODUCT INFO */}
 
@@ -217,18 +191,15 @@ function CartItem({
 
           minWidth: 0,
 
-          justifyContent:
-            "space-between",
-        }}
-      >
+          justifyContent: 'space-between',
+        }}>
         <View>
           {product.manufacturer && (
             <View
               style={{
-                alignSelf: "flex-start",
+                alignSelf: 'flex-start',
 
-                backgroundColor:
-                  T.teal50,
+                backgroundColor: T.teal50,
 
                 borderRadius: 999,
 
@@ -240,21 +211,18 @@ function CartItem({
 
                 borderWidth: 1,
 
-                borderColor:
-                  T.teal100,
-              }}
-            >
+                borderColor: T.teal100,
+              }}>
               <Text
                 style={{
                   fontSize: 9,
 
-                  fontWeight: "800",
+                  fontWeight: '800',
 
                   color: T.teal700,
 
                   letterSpacing: 0.5,
-                }}
-              >
+                }}>
                 {product.manufacturer}
               </Text>
             </View>
@@ -263,21 +231,16 @@ function CartItem({
           <Text
             numberOfLines={2}
             style={{
-              fontSize: isWeb
-                ? 15
-                : 13,
+              fontSize: isWeb ? 15 : 13,
 
-              fontWeight: "800",
+              fontWeight: '800',
 
               color: T.slate900,
 
-              lineHeight: isWeb
-                ? 21
-                : 18,
+              lineHeight: isWeb ? 21 : 18,
 
               marginBottom: 4,
-            }}
-          >
+            }}>
             {name}
           </Text>
 
@@ -290,54 +253,44 @@ function CartItem({
                 color: T.slate400,
 
                 marginBottom: 5,
-              }}
-            >
+              }}>
               {product.short_description}
             </Text>
           )}
         </View>
 
-
         {/* BOTTOM */}
 
         <View
           style={{
-            flexDirection:
-              "row",
+            flexDirection: 'row',
 
-            alignItems:
-              "center",
+            alignItems: 'center',
 
-            justifyContent:
-              "space-between",
+            justifyContent: 'space-between',
 
             marginTop: 10,
 
             gap: 10,
-          }}
-        >
+          }}>
           {/* QTY */}
 
           <View
             style={{
-              flexDirection:
-                "row",
+              flexDirection: 'row',
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
               gap: 6,
-            }}
-          >
+            }}>
             <Text
               style={{
                 fontSize: 11,
 
                 color: T.slate500,
 
-                fontWeight: "600",
-              }}
-            >
+                fontWeight: '600',
+              }}>
               Qty
             </Text>
 
@@ -351,44 +304,35 @@ function CartItem({
 
                 borderRadius: 8,
 
-                backgroundColor:
-                  T.slate50,
+                backgroundColor: T.slate50,
 
                 borderWidth: 1,
 
-                borderColor:
-                  T.slate200,
+                borderColor: T.slate200,
 
-                alignItems:
-                  "center",
+                alignItems: 'center',
 
-                justifyContent:
-                  "center",
-              }}
-            >
+                justifyContent: 'center',
+              }}>
               <Text
                 style={{
                   fontSize: 12,
 
-                  fontWeight: "800",
+                  fontWeight: '800',
 
                   color: T.slate800,
-                }}
-              >
+                }}>
                 {quantity}
               </Text>
             </View>
           </View>
 
-
           {/* PRICE */}
 
           <View
             style={{
-              alignItems:
-                "flex-end",
-            }}
-          >
+              alignItems: 'flex-end',
+            }}>
             <Text
               style={{
                 fontSize: 10,
@@ -396,8 +340,7 @@ function CartItem({
                 color: T.slate400,
 
                 marginBottom: 1,
-              }}
-            >
+              }}>
               Item total
             </Text>
 
@@ -405,20 +348,15 @@ function CartItem({
               style={{
                 fontSize: 17,
 
-                fontWeight: "900",
+                fontWeight: '900',
 
                 color: T.teal700,
-              }}
-            >
-              ₹
-              {subtotal.toLocaleString(
-                "en-IN"
-              )}
+              }}>
+              ₹{subtotal.toLocaleString('en-IN')}
             </Text>
           </View>
         </View>
       </View>
-
 
       {/* REMOVE */}
 
@@ -432,144 +370,111 @@ function CartItem({
 
           borderRadius: 10,
 
-          backgroundColor:
-            removing
-              ? T.slate50
-              : T.red50,
+          backgroundColor: removing ? T.slate50 : T.red50,
 
           borderWidth: 1,
 
-          borderColor:
-            removing
-              ? T.slate200
-              : T.red100,
+          borderColor: removing ? T.slate200 : T.red100,
 
-          alignItems:
-            "center",
+          alignItems: 'center',
 
-          justifyContent:
-            "center",
+          justifyContent: 'center',
 
-          alignSelf:
-            "flex-start",
+          alignSelf: 'flex-start',
 
           ...(isWeb
             ? {
-                cursor:
-                  "pointer",
+                cursor: 'pointer',
               }
             : {}),
-        }}
-      >
+        }}>
         {removing ? (
-          <ActivityIndicator
-            size="small"
-            color={T.slate400}
-          />
+          <ActivityIndicator size="small" color={T.slate400} />
         ) : (
-          <Ionicons
-            name="trash-outline"
-            size={15}
-            color={T.red500}
-          />
+          <Ionicons name="trash-outline" size={15} color={T.red500} />
         )}
       </Pressable>
     </View>
   );
 }
 
-
 // ═══════════════════════════════════════════════
 // ADDRESS FORM
 // ═══════════════════════════════════════════════
 
-function AddressForm({
-  value,
-  onChange,
-}) {
+function AddressForm({ value, onChange }) {
   const fields = [
     {
-      key: "name",
-      label: "Full Name",
-      placeholder: "John Doe",
+      key: 'name',
+      label: 'Full Name',
+      placeholder: 'John Doe',
       half: false,
-      icon: "person-outline",
+      icon: 'person-outline',
     },
     {
-      key: "mobile",
-      label: "Mobile Number",
-      placeholder: "9876543210",
+      key: 'mobile',
+      label: 'Mobile Number',
+      placeholder: '9876543210',
       half: true,
-      keyboard: "phone-pad",
-      icon: "call-outline",
+      keyboard: 'phone-pad',
+      icon: 'call-outline',
     },
     {
-      key: "address",
-      label: "Address",
-      placeholder:
-        "House / Street / Area",
+      key: 'address',
+      label: 'Address',
+      placeholder: 'House / Street / Area',
       half: false,
-      icon: "location-outline",
+      icon: 'location-outline',
     },
     {
-      key: "city",
-      label: "City",
-      placeholder: "Lucknow",
+      key: 'city',
+      label: 'City',
+      placeholder: 'Lucknow',
       half: true,
-      icon: "business-outline",
+      icon: 'business-outline',
     },
     {
-      key: "state",
-      label: "State",
-      placeholder: "Uttar Pradesh",
+      key: 'state',
+      label: 'State',
+      placeholder: 'Uttar Pradesh',
       half: true,
-      icon: "map-outline",
+      icon: 'map-outline',
     },
     {
-      key: "country",
-      label: "Country",
-      placeholder: "India",
+      key: 'country',
+      label: 'Country',
+      placeholder: 'India',
       half: true,
-      icon: "globe-outline",
+      icon: 'globe-outline',
     },
     {
-      key: "pincode",
-      label: "Pincode",
-      placeholder: "226001",
+      key: 'pincode',
+      label: 'Pincode',
+      placeholder: '226001',
       half: true,
-      keyboard: "numeric",
-      icon: "navigate-outline",
+      keyboard: 'numeric',
+      icon: 'navigate-outline',
     },
   ];
 
-
-  const renderField = (
-    field
-  ) => (
+  const renderField = (field) => (
     <View
       key={field.key}
       style={{
-        flex: field.half
-          ? 1
-          : undefined,
+        flex: field.half ? 1 : undefined,
 
-        minWidth:
-          field.half
-            ? 145
-            : undefined,
-      }}
-    >
+        minWidth: field.half ? 145 : undefined,
+      }}>
       <Text
         style={{
           fontSize: 11,
 
-          fontWeight: "700",
+          fontWeight: '700',
 
           color: T.slate600,
 
           marginBottom: 6,
-        }}
-      >
+        }}>
         {field.label}
       </Text>
 
@@ -577,35 +482,24 @@ function AddressForm({
         style={{
           height: 48,
 
-          backgroundColor:
-            T.slate50,
+          backgroundColor: T.slate50,
 
           borderRadius: 12,
 
           borderWidth: 1,
 
-          borderColor:
-            T.slate200,
+          borderColor: T.slate200,
 
-          flexDirection:
-            "row",
+          flexDirection: 'row',
 
-          alignItems:
-            "center",
+          alignItems: 'center',
 
           paddingHorizontal: 12,
-        }}
-      >
-        <Ionicons
-          name={field.icon}
-          size={16}
-          color={T.slate400}
-        />
+        }}>
+        <Ionicons name={field.icon} size={16} color={T.slate400} />
 
         <TextInput
-          value={
-            value[field.key] || ""
-          }
+          value={value[field.key] || ''}
           onChangeText={(text) =>
             onChange({
               ...value,
@@ -613,16 +507,9 @@ function AddressForm({
               [field.key]: text,
             })
           }
-          placeholder={
-            field.placeholder
-          }
-          placeholderTextColor={
-            T.slate400
-          }
-          keyboardType={
-            field.keyboard ||
-            "default"
-          }
+          placeholder={field.placeholder}
+          placeholderTextColor={T.slate400}
+          keyboardType={field.keyboard || 'default'}
           style={{
             flex: 1,
 
@@ -632,11 +519,9 @@ function AddressForm({
 
             color: T.slate900,
 
-            ...(Platform.OS ===
-            "web"
+            ...(Platform.OS === 'web'
               ? {
-                  outlineStyle:
-                    "none",
+                  outlineStyle: 'none',
                 }
               : {}),
           }}
@@ -645,127 +530,89 @@ function AddressForm({
     </View>
   );
 
-
   return (
     <View
       style={{
         gap: 13,
-      }}
-    >
+      }}>
       {/* FULL WIDTH */}
 
-      {fields
-        .filter((field) =>
-          !field.half
-        )
-        .map(renderField)}
-
+      {fields.filter((field) => !field.half).map(renderField)}
 
       {/* HALF WIDTH */}
 
       <View
         style={{
-          flexDirection:
-            "row",
+          flexDirection: 'row',
 
           gap: 12,
 
-          flexWrap: "wrap",
-        }}
-      >
-        {fields
-          .filter((field) =>
-            field.half
-          )
-          .map(renderField)}
+          flexWrap: 'wrap',
+        }}>
+        {fields.filter((field) => field.half).map(renderField)}
       </View>
     </View>
   );
 }
 
-
 // ═══════════════════════════════════════════════
 // PRICE SUMMARY
 // ═══════════════════════════════════════════════
 
-function PriceSummary({
-  cartTotal,
-  shipping,
-  discount,
-  coinsUsed,
-  couponDiscount,
-  finalTotal,
-}) {
+function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount, finalTotal }) {
   const rows = [
     {
-      label: "Subtotal",
+      label: 'Subtotal',
       value: cartTotal,
       show: true,
     },
 
     {
-      label: "Shipping",
+      label: 'Shipping',
       value: shipping,
       show: true,
 
-      prefix:
-        shipping === 0
-          ? "FREE"
-          : null,
+      prefix: shipping === 0 ? 'FREE' : null,
     },
 
     {
-      label:
-        "Coupon discount",
-      value:
-        -couponDiscount,
-      show:
-        couponDiscount > 0,
+      label: 'Coupon discount',
+      value: -couponDiscount,
+      show: couponDiscount > 0,
       color: T.green500,
     },
 
     {
-      label:
-        "Coins redeemed",
+      label: 'Coins redeemed',
       value: -coinsUsed,
       show: coinsUsed > 0,
       color: T.amber500,
     },
   ];
 
-
   return (
     <View
       style={{
         gap: 12,
-      }}
-    >
+      }}>
       {rows
-        .filter(
-          (row) => row.show
-        )
+        .filter((row) => row.show)
         .map((row) => (
           <View
             key={row.label}
             style={{
-              flexDirection:
-                "row",
+              flexDirection: 'row',
 
-              justifyContent:
-                "space-between",
+              justifyContent: 'space-between',
 
-              alignItems:
-                "center",
-            }}
-          >
+              alignItems: 'center',
+            }}>
             <Text
               style={{
                 fontSize: 13,
 
-                color:
-                  T.slate600,
-              }}
-            >
+                color: T.slate600,
+              }}>
               {row.label}
             </Text>
 
@@ -774,12 +621,10 @@ function PriceSummary({
                 style={{
                   fontSize: 13,
 
-                  fontWeight: "800",
+                  fontWeight: '800',
 
-                  color:
-                    T.green500,
-                }}
-              >
+                  color: T.green500,
+                }}>
                 {row.prefix}
               </Text>
             ) : (
@@ -787,65 +632,45 @@ function PriceSummary({
                 style={{
                   fontSize: 13,
 
-                  fontWeight: "700",
+                  fontWeight: '700',
 
-                  color:
-                    row.color ||
-                    T.slate900,
-                }}
-              >
-                {row.value < 0
-                  ? "-"
-                  : ""}
-                ₹
-                {Math.abs(
-                  row.value
-                ).toLocaleString(
-                  "en-IN"
-                )}
+                  color: row.color || T.slate900,
+                }}>
+                {row.value < 0 ? '-' : ''}₹{Math.abs(row.value).toLocaleString('en-IN')}
               </Text>
             )}
           </View>
         ))}
 
-
       <View
         style={{
           height: 1,
 
-          backgroundColor:
-            T.slate200,
+          backgroundColor: T.slate200,
 
           marginVertical: 3,
         }}
       />
 
-
       {/* TOTAL */}
 
       <View
         style={{
-          flexDirection:
-            "row",
+          flexDirection: 'row',
 
-          justifyContent:
-            "space-between",
+          justifyContent: 'space-between',
 
-          alignItems:
-            "center",
-        }}
-      >
+          alignItems: 'center',
+        }}>
         <View>
           <Text
             style={{
               fontSize: 16,
 
-              fontWeight: "800",
+              fontWeight: '800',
 
-              color:
-                T.slate900,
-            }}
-          >
+              color: T.slate900,
+            }}>
             Total
           </Text>
 
@@ -853,14 +678,11 @@ function PriceSummary({
             style={{
               fontSize: 10,
 
-              color:
-                T.slate400,
+              color: T.slate400,
 
               marginTop: 2,
-            }}
-          >
-            Inclusive of applicable
-            charges
+            }}>
+            Inclusive of applicable charges
           </Text>
         </View>
 
@@ -868,173 +690,117 @@ function PriceSummary({
           style={{
             fontSize: 24,
 
-            fontWeight: "900",
+            fontWeight: '900',
 
             color: T.teal700,
 
             letterSpacing: -0.5,
-          }}
-        >
-          ₹
-          {finalTotal.toLocaleString(
-            "en-IN"
-          )}
+          }}>
+          ₹{finalTotal.toLocaleString('en-IN')}
         </Text>
       </View>
 
-
       {/* FREE SHIPPING */}
 
-      {shipping === 0 &&
-        cartTotal > 0 && (
-          <View
+      {shipping === 0 && cartTotal > 0 && (
+        <View
+          style={{
+            flexDirection: 'row',
+
+            alignItems: 'center',
+
+            gap: 7,
+
+            backgroundColor: T.green50,
+
+            borderRadius: 10,
+
+            paddingHorizontal: 11,
+
+            paddingVertical: 8,
+
+            borderWidth: 1,
+
+            borderColor: T.green100,
+          }}>
+          <Ionicons name="checkmark-circle" size={15} color={T.green500} />
+
+          <Text
             style={{
-              flexDirection:
-                "row",
+              fontSize: 11,
 
-              alignItems:
-                "center",
+              color: '#15803d',
 
-              gap: 7,
-
-              backgroundColor:
-                T.green50,
-
-              borderRadius: 10,
-
-              paddingHorizontal:
-                11,
-
-              paddingVertical: 8,
-
-              borderWidth: 1,
-
-              borderColor:
-                T.green100,
-            }}
-          >
-            <Ionicons
-              name="checkmark-circle"
-              size={15}
-              color={
-                T.green500
-              }
-            />
-
-            <Text
-              style={{
-                fontSize: 11,
-
-                color: "#15803d",
-
-                fontWeight: "700",
-              }}
-            >
-              You qualify for free
-              shipping!
-            </Text>
-          </View>
-        )}
+              fontWeight: '700',
+            }}>
+            You qualify for free shipping!
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
-
 
 // ═══════════════════════════════════════════════
 // RAZORPAY
 // ═══════════════════════════════════════════════
 
 async function loadRazorpay() {
-  if (Platform.OS !== "web") {
+  if (Platform.OS !== 'web') {
     try {
-      const RazorpayCheckout =
-        require(
-          "react-native-razorpay"
-        ).default;
+      const RazorpayCheckout = require('react-native-razorpay').default;
 
       return RazorpayCheckout;
     } catch {
-      Alert.alert(
-        "Error",
-        "Razorpay not installed. Run: npm install react-native-razorpay"
-      );
+      Alert.alert('Error', 'Razorpay not installed. Run: npm install react-native-razorpay');
 
       return null;
     }
   }
 
-
-  return new Promise(
-    (resolve) => {
-      if (
-        window.Razorpay
-      ) {
-        return resolve(
-          window.Razorpay
-        );
-      }
-
-      const script =
-        document.createElement(
-          "script"
-        );
-
-      script.src =
-        "https://checkout.razorpay.com/v1/checkout.js";
-
-      script.onload = () =>
-        resolve(
-          window.Razorpay
-        );
-
-      script.onerror = () =>
-        resolve(null);
-
-      document.body.appendChild(
-        script
-      );
+  return new Promise((resolve) => {
+    if (window.Razorpay) {
+      return resolve(window.Razorpay);
     }
-  );
-}
 
+    const script = document.createElement('script');
+
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+
+    script.onload = () => resolve(window.Razorpay);
+
+    script.onerror = () => resolve(null);
+
+    document.body.appendChild(script);
+  });
+}
 
 // ═══════════════════════════════════════════════
 // STEP INDICATOR
 // ═══════════════════════════════════════════════
 
-function CheckoutSteps({
-  checkoutStep,
-  isMobile,
-  px,
-}) {
+function CheckoutSteps({ checkoutStep, isMobile, px }) {
   const steps = [
     {
-      key: "cart",
-      label: "Cart",
-      icon: "cart-outline",
+      key: 'cart',
+      label: 'Cart',
+      icon: 'cart-outline',
     },
 
     {
-      key: "address",
-      label: "Address",
-      icon: "location-outline",
+      key: 'address',
+      label: 'Address',
+      icon: 'location-outline',
     },
 
     {
-      key: "payment",
-      label: "Payment",
-      icon: "card-outline",
+      key: 'payment',
+      label: 'Payment',
+      icon: 'card-outline',
     },
   ];
 
-
-  const currentIndex =
-    steps.findIndex(
-      (step) =>
-        step.key ===
-        checkoutStep
-    );
-
+  const currentIndex = steps.findIndex((step) => step.key === checkoutStep);
 
   return (
     <View
@@ -1043,289 +809,172 @@ function CheckoutSteps({
 
         paddingVertical: 15,
 
-        backgroundColor:
-          T.white,
+        backgroundColor: T.white,
 
         borderBottomWidth: 1,
 
-        borderBottomColor:
-          T.slate100,
-      }}
-    >
+        borderBottomColor: T.slate100,
+      }}>
       <View
         style={{
           maxWidth: 1100,
 
-          width: "100%",
+          width: '100%',
 
-          alignSelf: "center",
+          alignSelf: 'center',
 
-          flexDirection:
-            "row",
+          flexDirection: 'row',
 
-          alignItems:
-            "center",
+          alignItems: 'center',
 
-          justifyContent:
-            "center",
-        }}
-      >
-        {steps.map(
-          (step, index) => {
-            const done =
-              currentIndex >
-              index;
+          justifyContent: 'center',
+        }}>
+        {steps.map((step, index) => {
+          const done = currentIndex > index;
 
-            const current =
-              currentIndex ===
-              index;
+          const current = currentIndex === index;
 
-            return (
+          return (
+            <View
+              key={step.key}
+              style={{
+                flexDirection: 'row',
+
+                alignItems: 'center',
+
+                flex: index < 2 ? 1 : undefined,
+              }}>
               <View
-                key={step.key}
                 style={{
-                  flexDirection:
-                    "row",
+                  flexDirection: 'row',
 
-                  alignItems:
-                    "center",
+                  alignItems: 'center',
 
-                  flex:
-                    index < 2
-                      ? 1
-                      : undefined,
-                }}
-              >
+                  gap: 7,
+                }}>
                 <View
                   style={{
-                    flexDirection:
-                      "row",
+                    width: isMobile ? 32 : 36,
 
-                    alignItems:
-                      "center",
+                    height: isMobile ? 32 : 36,
 
-                    gap: 7,
-                  }}
-                >
-                  <View
-                    style={{
-                      width:
-                        isMobile
-                          ? 32
-                          : 36,
+                    borderRadius: 18,
 
-                      height:
-                        isMobile
-                          ? 32
-                          : 36,
+                    backgroundColor: done || current ? T.teal700 : T.slate100,
 
-                      borderRadius:
-                        18,
+                    alignItems: 'center',
 
-                      backgroundColor:
-                        done ||
-                        current
-                          ? T.teal700
-                          : T.slate100,
+                    justifyContent: 'center',
 
-                      alignItems:
-                        "center",
+                    borderWidth: current ? 3 : 1,
 
-                      justifyContent:
-                        "center",
-
-                      borderWidth:
-                        current
-                          ? 3
-                          : 1,
-
-                      borderColor:
-                        current
-                          ? T.teal100
-                          : done
-                            ? T.teal700
-                            : T.slate200,
-                    }}
-                  >
-                    <Ionicons
-                      name={
-                        done
-                          ? "checkmark"
-                          : step.icon
-                      }
-                      size={
-                        isMobile
-                          ? 14
-                          : 16
-                      }
-                      color={
-                        done ||
-                        current
-                          ? T.white
-                          : T.slate400
-                      }
-                    />
-                  </View>
-
-                  {!isMobile && (
-                    <View>
-                      <Text
-                        style={{
-                          fontSize: 11,
-
-                          fontWeight:
-                            current ||
-                            done
-                              ? "800"
-                              : "600",
-
-                          color:
-                            current
-                              ? T.teal700
-                              : done
-                                ? T.slate700
-                                : T.slate400,
-                        }}
-                      >
-                        {step.label}
-                      </Text>
-
-                      <Text
-                        style={{
-                          fontSize: 9,
-
-                          color:
-                            T.slate400,
-
-                          marginTop: 1,
-                        }}
-                      >
-                        {done
-                          ? "Completed"
-                          : current
-                            ? "Current step"
-                            : "Upcoming"}
-                      </Text>
-                    </View>
-                  )}
+                    borderColor: current ? T.teal100 : done ? T.teal700 : T.slate200,
+                  }}>
+                  <Ionicons
+                    name={done ? 'checkmark' : step.icon}
+                    size={isMobile ? 14 : 16}
+                    color={done || current ? T.white : T.slate400}
+                  />
                 </View>
 
-                {index < 2 && (
-                  <View
-                    style={{
-                      flex: 1,
+                {!isMobile && (
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 11,
 
-                      height: 2,
+                        fontWeight: current || done ? '800' : '600',
 
-                      backgroundColor:
-                        currentIndex >
-                        index
-                          ? T.teal700
-                          : T.slate200,
+                        color: current ? T.teal700 : done ? T.slate700 : T.slate400,
+                      }}>
+                      {step.label}
+                    </Text>
 
-                      marginHorizontal:
-                        isMobile
-                          ? 7
-                          : 15,
-                    }}
-                  />
+                    <Text
+                      style={{
+                        fontSize: 9,
+
+                        color: T.slate400,
+
+                        marginTop: 1,
+                      }}>
+                      {done ? 'Completed' : current ? 'Current step' : 'Upcoming'}
+                    </Text>
+                  </View>
                 )}
               </View>
-            );
-          }
-        )}
+
+              {index < 2 && (
+                <View
+                  style={{
+                    flex: 1,
+                    height: 2,
+                    backgroundColor: currentIndex > index ? T.teal700 : T.slate200,
+
+                    marginHorizontal: isMobile ? 7 : 15,
+                  }}
+                />
+              )}
+            </View>
+          );
+        })}
       </View>
     </View>
   );
 }
-
 
 // ═══════════════════════════════════════════════
 // MAIN CART PAGE
 // ═══════════════════════════════════════════════
 
 export default function CartPage() {
-  const router =
-    useRouter();
+  const router = useRouter();
 
-  const { width } =
-    useWindowDimensions();
+  const { width } = useWindowDimensions();
 
-  const isWeb =
-    Platform.OS === "web";
+  const isWeb = Platform.OS === 'web';
 
-  const isDesktop =
-    width >= 1024;
+  const isDesktop = width >= 1024;
 
-  const isTablet =
-    width >= 640 &&
-    width < 1024;
+  const isTablet = width >= 640 && width < 1024;
 
-  const isMobile =
-    width < 640;
+  const isMobile = width < 640;
 
-  const px = isDesktop
-    ? 48
-    : isTablet
-      ? 28
-      : 16;
+  const px = isDesktop ? 48 : isTablet ? 28 : 16;
 
+  const { user } = useAuth();
 
-  const { user } =
-    useAuth();
-
-  const {
-    items,
-    cartTotal,
-    loading,
-    remove,
-    clear,
-    refetch,
-  } = useCart();
-
+  const { items, cartTotal, loading, remove, clear, refetch } = useCart();
 
   // ═══════════════════════════════════════════
   // STATE
   // ═══════════════════════════════════════════
 
-  const [address, setAddress] =
-    useState({
-      name: "",
-      mobile: "",
-      address: "",
-      city: "",
-      state:
-        "Uttar Pradesh",
-      country: "India",
-      pincode: "",
-    });
+  const [address, setAddress] = useState({
+    name: '',
+    mobile: '',
+    address: '',
+    city: '',
+    state: 'Uttar Pradesh',
+    country: 'India',
+    pincode: '',
+  });
 
+  const [couponCode, setCoupon] = useState('');
 
-  const [couponCode, setCoupon] =
-    useState("");
+  const [couponData, setCouponData] = useState(null);
 
-  const [couponData, setCouponData] =
-    useState(null);
+  const [couponLoading, setCouponLoad] = useState(false);
 
-  const [couponLoading, setCouponLoad] =
-    useState(false);
+  const [couponError, setCouponErr] = useState('');
 
-  const [couponError, setCouponErr] =
-    useState("");
+  const [coinsToUse, setCoinsToUse] = useState(0);
 
+  const [checkoutStep, setStep] = useState('cart');
 
-  const [coinsToUse, setCoinsToUse] =
-    useState(0);
+  const [paymentLoading, setPayLoading] = useState(false);
 
-  const [checkoutStep, setStep] =
-    useState("cart");
-
-  const [paymentLoading, setPayLoading] =
-    useState(false);
-
-  const [orderSuccess, setSuccess] =
-    useState(null);
-
+  const [orderSuccess, setSuccess] = useState(null);
 
   // ═══════════════════════════════════════════
   // PREFILL USER
@@ -1333,94 +982,59 @@ export default function CartPage() {
 
   useState(() => {
     if (user) {
-      setAddress(
-        (prev) => ({
-          ...prev,
+      setAddress((prev) => ({
+        ...prev,
 
-          name:
-            `${user.firstname || ""} ${
-              user.lastname || ""
-            }`.trim(),
+        name: `${user.firstname || ''} ${user.lastname || ''}`.trim(),
 
-          mobile:
-            user.mobile || "",
-        })
-      );
+        mobile: user.mobile || '',
+      }));
     }
   });
-
 
   // ═══════════════════════════════════════════
   // PRICE CALCULATIONS
   // ═══════════════════════════════════════════
 
-  const shipping =
-    cartTotal >=
-    SHIPPING_THRESHOLD
-      ? 0
-      : cartTotal > 0
-        ? SHIPPING_CHARGE
-        : 0;
+  const shipping = cartTotal >= SHIPPING_THRESHOLD ? 0 : cartTotal > 0 ? SHIPPING_CHARGE : 0;
 
-
-  const couponDiscount =
-    couponData
-      ? Math.round(
-          couponData.type ===
-            "percent"
-            ? (cartTotal *
-                couponData.discount) /
-                100
-            : couponData.discount
-        )
-      : 0;
-
-
-  const maxCoins =
-    Math.min(
-      user?.medishieldcoins ||
-        0,
-
-      Math.floor(
-        cartTotal * 0.1
+  const couponDiscount = couponData
+    ? Math.round(
+        couponData.type === 'percent'
+          ? (cartTotal * couponData.discount) / 100
+          : couponData.discount
       )
-    );
+    : 0;
 
+  const maxCoins = Math.min(
+    user?.medishieldcoins || 0,
 
-  const finalTotal =
-    Math.max(
-      0,
+    Math.floor(cartTotal * 0.1)
+  );
 
-      cartTotal +
-        shipping -
-        couponDiscount -
-        coinsToUse
-    );
+  const finalTotal = Math.max(
+    0,
 
+    cartTotal + shipping - couponDiscount - coinsToUse
+  );
 
   // ═══════════════════════════════════════════
   // COUPON
   // ═══════════════════════════════════════════
 
   const applyCoupon = async () => {
-    if (!couponCode.trim())
-      return;
+    if (!couponCode.trim()) return;
 
     setCouponLoad(true);
 
-    setCouponErr("");
+    setCouponErr('');
 
     try {
-      const { data } =
-        await API.get(
-          `/coupon/${couponCode.trim()}`
-        );
+      const { data } = await API.get(`/coupon/${couponCode.trim()}`);
 
       setCouponData(data);
     } catch {
-      setCouponErr(
-        "Invalid or expired coupon code."
-      );
+      setCouponErr('Invalid or expired coupon code.');
 
       setCouponData(null);
     } finally {
@@ -1428,381 +1042,225 @@ export default function CartPage() {
     }
   };
 
-
   // ═══════════════════════════════════════════
   // ADDRESS VALIDATION
   // ═══════════════════════════════════════════
 
-  const validateAddress =
-    () => {
-      const required = [
-        "name",
-        "mobile",
-        "address",
-        "city",
-        "state",
-        "country",
-        "pincode",
-      ];
+  const validateAddress = () => {
+    const required = ['name', 'mobile', 'address', 'city', 'state', 'country', 'pincode'];
 
-      for (
-        const key of required
-      ) {
-        if (
-          !address[key]?.trim()
-        ) {
-          return `Please fill in ${key}`;
-        }
+    for (const key of required) {
+      if (!address[key]?.trim()) {
+        return `Please fill in ${key}`;
       }
+    }
 
-      if (
-        !/^\d{10}$/.test(
-          address.mobile
-        )
-      ) {
-        return "Enter valid 10-digit mobile number";
-      }
+    if (!/^\d{10}$/.test(address.mobile)) {
+      return 'Enter valid 10-digit mobile number';
+    }
 
-      if (
-        !/^\d{6}$/.test(
-          address.pincode
-        )
-      ) {
-        return "Enter valid 6-digit pincode";
-      }
+    if (!/^\d{6}$/.test(address.pincode)) {
+      return 'Enter valid 6-digit pincode';
+    }
 
-      return null;
-    };
-
+    return null;
+  };
 
   // ═══════════════════════════════════════════
   // PAYMENT
   // ═══════════════════════════════════════════
 
-  const initiatePayment =
-    useCallback(
-      async () => {
-        const addressErr =
-          validateAddress();
+  const initiatePayment = useCallback(async () => {
+    const addressErr = validateAddress();
 
-        if (addressErr) {
-          Alert.alert(
-            "Incomplete Address",
-            addressErr
-          );
+    if (addressErr) {
+      Alert.alert('Incomplete Address', addressErr);
 
-          return;
-        }
+      return;
+    }
 
-        setPayLoading(true);
+    setPayLoading(true);
 
-        try {
-          const {
-            data: rzpOrder,
-          } = await API.post(
-            "/user/create-razorpay-order",
-            {
-              amount:
-                finalTotal,
+    try {
+      const { data: rzpOrder } = await API.post('/user/create-razorpay-order', {
+        amount: finalTotal,
 
-              currency:
-                "INR",
-            }
-          );
+        currency: 'INR',
+      });
 
+      const RazorpayCheckout = await loadRazorpay();
 
-          const RazorpayCheckout =
-            await loadRazorpay();
+      if (!RazorpayCheckout) {
+        throw new Error('Razorpay failed to load');
+      }
 
-          if (
-            !RazorpayCheckout
-          ) {
-            throw new Error(
-              "Razorpay failed to load"
-            );
-          }
+      const options = {
+        description: 'MediShield Order',
 
+        image: 'https://your-logo-url.png',
 
-          const options = {
-            description:
-              "MediShield Order",
+        currency: 'INR',
 
-            image:
-              "https://your-logo-url.png",
+        key: 'rzp_test_SXvWtsQXTQpVC1',
 
-            currency: "INR",
+        amount: rzpOrder.amount,
 
-            key:
-              "rzp_test_SXvWtsQXTQpVC1",
+        order_id: rzpOrder.id,
 
-            amount:
-              rzpOrder.amount,
+        name: 'MediShield Dental',
 
-            order_id:
-              rzpOrder.id,
+        prefill: {
+          email: user?.email || '',
 
-            name:
-              "MediShield Dental",
+          contact: address.mobile,
 
-            prefill: {
-              email:
-                user?.email ||
-                "",
+          name: address.name,
+        },
 
-              contact:
-                address.mobile,
+        theme: {
+          color: '#0f766e',
+        },
+      };
 
-              name:
-                address.name,
-            },
+      if (Platform.OS === 'web') {
+        await new Promise((resolve, reject) => {
+          const rzp = new RazorpayCheckout({
+            ...options,
 
-            theme: {
-              color:
-                "#0f766e",
-            },
-          };
+            handler: async (response) => {
+              try {
+                await completeOrder({
+                  paymentId: response.razorpay_payment_id,
 
+                  orderId: response.razorpay_order_id,
 
-          if (
-            Platform.OS ===
-            "web"
-          ) {
-            await new Promise(
-              (
-                resolve,
-                reject
-              ) => {
-                const rzp =
-                  new RazorpayCheckout(
-                    {
-                      ...options,
+                  paymentSignature: response.razorpay_signature,
 
-                      handler:
-                        async (
-                          response
-                        ) => {
-                          try {
-                            await completeOrder(
-                              {
-                                paymentId:
-                                  response.razorpay_payment_id,
+                  rzpAmount: rzpOrder.amount,
+                });
 
-                                orderId:
-                                  response.razorpay_order_id,
-
-                                paymentSignature:
-                                  response.razorpay_signature,
-
-                                rzpAmount:
-                                  rzpOrder.amount,
-                              }
-                            );
-
-                            resolve();
-                          } catch (
-                            error
-                          ) {
-                            reject(
-                              error
-                            );
-                          }
-                        },
-                    }
-                  );
-
-
-                rzp.on(
-                  "payment.failed",
-                  (
-                    response
-                  ) =>
-                    reject(
-                      new Error(
-                        response
-                          .error
-                          .description
-                      )
-                    )
-                );
-
-                rzp.open();
+                resolve();
+              } catch (error) {
+                reject(error);
               }
-            );
-          } else {
-            const response =
-              await RazorpayCheckout.open(
-                options
-              );
+            },
+          });
 
-            await completeOrder(
-              {
-                paymentId:
-                  response.razorpay_payment_id,
+          rzp.on('payment.failed', (response) => reject(new Error(response.error.description)));
 
-                orderId:
-                  response.razorpay_order_id,
+          rzp.open();
+        });
+      } else {
+        const response = await RazorpayCheckout.open(options);
 
-                paymentSignature:
-                  response.razorpay_signature,
+        await completeOrder({
+          paymentId: response.razorpay_payment_id,
 
-                rzpAmount:
-                  rzpOrder.amount,
-              }
-            );
-          }
-        } catch (e) {
-          console.error(
-            "Payment error:",
-            e
-          );
+          orderId: response.razorpay_order_id,
 
-          Alert.alert(
-            "Payment Failed",
-            e?.message ||
-              "Something went wrong. Please try again."
-          );
-        } finally {
-          setPayLoading(false);
-        }
-      },
-      [
-        finalTotal,
-        address,
-        user,
-        coinsToUse,
-        couponData,
-      ]
-    );
+          paymentSignature: response.razorpay_signature,
 
+          rzpAmount: rzpOrder.amount,
+        });
+      }
+    } catch (e) {
+      console.error('Payment error:', e);
+
+      Alert.alert('Payment Failed', e?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setPayLoading(false);
+    }
+  }, [finalTotal, address, user, coinsToUse, couponData]);
 
   // ═══════════════════════════════════════════
   // COMPLETE ORDER
   // ═══════════════════════════════════════════
 
-  const completeOrder =
-    async ({
+  const completeOrder = async ({ paymentId, orderId, paymentSignature, rzpAmount }) => {
+    const { data } = await API.post('/user/cart/create-order', {
       paymentId,
+
       orderId,
+
       paymentSignature,
-      rzpAmount,
-    }) => {
-      const { data } =
-        await API.post(
-          "/user/cart/create-order",
-          {
-            paymentId,
 
-            orderId,
+      amount: rzpAmount / 100,
 
-            paymentSignature,
+      shipping,
 
-            amount:
-              rzpAmount / 100,
+      shippingAddress: address,
 
-            shipping,
+      msc: coinsToUse,
 
-            shippingAddress:
-              address,
+      couponId: couponData?._id || null,
 
-            msc: coinsToUse,
+      disc: couponDiscount,
+    });
 
-            couponId:
-              couponData?._id ||
-              null,
+    if (data.message === 'success') {
+      clear();
 
-            disc:
-              couponDiscount,
-          }
-        );
+      setSuccess({
+        orderId,
 
+        amount: rzpAmount / 100,
+      });
 
-      if (
-        data.message ===
-        "success"
-      ) {
-        clear();
-
-        setSuccess({
-          orderId,
-
-          amount:
-            rzpAmount / 100,
-        });
-
-        setStep("success");
-      }
-    };
-
+      setStep('success');
+    }
+  };
 
   // ═══════════════════════════════════════════
   // SUCCESS SCREEN
   // ═══════════════════════════════════════════
 
-  if (
-    checkoutStep ===
-      "success" &&
-    orderSuccess
-  ) {
+  if (checkoutStep === 'success' && orderSuccess) {
     return (
       <SafeAreaView
         style={{
           flex: 1,
 
-          backgroundColor:
-            T.teal50,
+          backgroundColor: T.teal50,
 
-          alignItems:
-            "center",
+          alignItems: 'center',
 
-          justifyContent:
-            "center",
+          justifyContent: 'center',
 
-          padding: isMobile
-            ? 20
-            : 32,
-        }}
-      >
+          padding: isMobile ? 20 : 32,
+        }}>
         <View
           style={{
-            backgroundColor:
-              T.white,
+            backgroundColor: T.white,
 
             borderRadius: 28,
 
-            padding: isMobile
-              ? 25
-              : 40,
+            padding: isMobile ? 25 : 40,
 
-            alignItems:
-              "center",
+            alignItems: 'center',
 
             maxWidth: 460,
 
-            width: "100%",
+            width: '100%',
 
             ...(isWeb
               ? {
-                  boxShadow:
-                    T.shadowMd,
+                  boxShadow: T.shadowMd,
                 }
               : {
-                  shadowColor:
-                    T.teal700,
+                  shadowColor: T.teal700,
 
                   shadowOffset: {
                     width: 0,
                     height: 8,
                   },
 
-                  shadowOpacity:
-                    0.12,
+                  shadowOpacity: 0.12,
 
                   shadowRadius: 20,
 
                   elevation: 7,
                 }),
-          }}
-        >
+          }}>
           <View
             style={{
               width: 84,
@@ -1811,41 +1269,29 @@ export default function CartPage() {
 
               borderRadius: 42,
 
-              backgroundColor:
-                T.green100,
+              backgroundColor: T.green100,
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
-              justifyContent:
-                "center",
+              justifyContent: 'center',
 
               marginBottom: 20,
-            }}
-          >
-            <Ionicons
-              name="checkmark-circle"
-              size={52}
-              color={
-                T.green500
-              }
-            />
+            }}>
+            <Ionicons name="checkmark-circle" size={52} color={T.green500} />
           </View>
 
           <Text
             style={{
               fontSize: 26,
 
-              fontWeight: "900",
+              fontWeight: '900',
 
-              color:
-                T.slate900,
+              color: T.slate900,
 
               marginBottom: 8,
 
               letterSpacing: -0.5,
-            }}
-          >
+            }}>
             Order Placed!
           </Text>
 
@@ -1853,55 +1299,43 @@ export default function CartPage() {
             style={{
               fontSize: 14,
 
-              color:
-                T.slate500,
+              color: T.slate500,
 
-              textAlign:
-                "center",
+              textAlign: 'center',
 
               lineHeight: 22,
 
               marginBottom: 24,
-            }}
-          >
-            Your order has been
-            confirmed. You'll
-            receive a confirmation
-            email shortly.
+            }}>
+            Your order has been confirmed. You'll receive a confirmation email shortly.
           </Text>
 
           <View
             style={{
-              backgroundColor:
-                T.slate50,
+              backgroundColor: T.slate50,
 
               borderRadius: 16,
 
               padding: 17,
 
-              width: "100%",
+              width: '100%',
 
               marginBottom: 24,
 
               borderWidth: 1,
 
-              borderColor:
-                T.slate100,
+              borderColor: T.slate100,
 
-              alignItems:
-                "center",
-            }}
-          >
+              alignItems: 'center',
+            }}>
             <Text
               style={{
                 fontSize: 11,
 
-                color:
-                  T.slate400,
+                color: T.slate400,
 
                 marginBottom: 4,
-              }}
-            >
+              }}>
               Amount paid
             </Text>
 
@@ -1909,56 +1343,43 @@ export default function CartPage() {
               style={{
                 fontSize: 28,
 
-                fontWeight: "900",
+                fontWeight: '900',
 
-                color:
-                  T.teal700,
-              }}
-            >
-              ₹
-              {orderSuccess.amount.toLocaleString(
-                "en-IN"
-              )}
+                color: T.teal700,
+              }}>
+              ₹{orderSuccess.amount.toLocaleString('en-IN')}
             </Text>
           </View>
 
           <Pressable
-            onPress={() =>
-              router.replace("/")
-            }
+            onPress={() => router.replace('/')}
             style={{
-              backgroundColor:
-                T.teal700,
+              backgroundColor: T.teal700,
 
               borderRadius: 14,
 
               paddingVertical: 15,
 
-              width: "100%",
+              width: '100%',
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
-              justifyContent:
-                "center",
+              justifyContent: 'center',
 
               ...(isWeb
                 ? {
-                    boxShadow:
-                      "0 6px 18px rgba(15,118,110,0.22)",
+                    boxShadow: '0 6px 18px rgba(15,118,110,0.22)',
                   }
                 : {}),
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: T.white,
 
                 fontSize: 15,
 
-                fontWeight: "800",
-              }}
-            >
+                fontWeight: '800',
+              }}>
               Continue Shopping
             </Text>
           </Pressable>
@@ -1966,7 +1387,6 @@ export default function CartPage() {
       </SafeAreaView>
     );
   }
-
 
   // ═══════════════════════════════════════════
   // NOT LOGGED IN
@@ -1978,27 +1398,20 @@ export default function CartPage() {
         style={{
           flex: 1,
 
-          backgroundColor:
-            T.bg,
-        }}
-      >
-        {isWeb && (
-          <WebHeader />
-        )}
+          backgroundColor: T.bg,
+        }}>
+        {isWeb && <WebHeader />}
 
         <View
           style={{
             flex: 1,
 
-            alignItems:
-              "center",
+            alignItems: 'center',
 
-            justifyContent:
-              "center",
+            justifyContent: 'center',
 
             padding: 25,
-          }}
-        >
+          }}>
           <View
             style={{
               width: 92,
@@ -2007,39 +1420,27 @@ export default function CartPage() {
 
               borderRadius: 46,
 
-              backgroundColor:
-                T.teal100,
+              backgroundColor: T.teal100,
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
-              justifyContent:
-                "center",
+              justifyContent: 'center',
 
               marginBottom: 20,
-            }}
-          >
-            <Ionicons
-              name="bag-outline"
-              size={42}
-              color={
-                T.teal700
-              }
-            />
+            }}>
+            <Ionicons name="bag-outline" size={42} color={T.teal700} />
           </View>
 
           <Text
             style={{
               fontSize: 24,
 
-              fontWeight: "900",
+              fontWeight: '900',
 
-              color:
-                T.slate900,
+              color: T.slate900,
 
               marginBottom: 8,
-            }}
-          >
+            }}>
             Your cart is waiting
           </Text>
 
@@ -2047,49 +1448,36 @@ export default function CartPage() {
             style={{
               fontSize: 14,
 
-              color:
-                T.slate500,
+              color: T.slate500,
 
-              textAlign:
-                "center",
+              textAlign: 'center',
 
               marginBottom: 28,
 
               lineHeight: 21,
-            }}
-          >
-            Sign in to view your
-            cart and continue to
-            checkout.
+            }}>
+            Sign in to view your cart and continue to checkout.
           </Text>
 
           <Pressable
-            onPress={() =>
-              router.push(
-                "/login"
-              )
-            }
+            onPress={() => router.push('/login')}
             style={{
-              backgroundColor:
-                T.teal700,
+              backgroundColor: T.teal700,
 
               borderRadius: 14,
 
-              paddingHorizontal:
-                34,
+              paddingHorizontal: 34,
 
               paddingVertical: 14,
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: T.white,
 
                 fontSize: 14,
 
-                fontWeight: "800",
-              }}
-            >
+                fontWeight: '800',
+              }}>
               Sign In
             </Text>
           </Pressable>
@@ -2098,41 +1486,30 @@ export default function CartPage() {
     );
   }
 
-
   // ═══════════════════════════════════════════
   // EMPTY CART
   // ═══════════════════════════════════════════
 
-  if (
-    !loading &&
-    items.length === 0
-  ) {
+  if (!loading && items.length === 0) {
     return (
       <SafeAreaView
         style={{
           flex: 1,
 
-          backgroundColor:
-            T.bg,
-        }}
-      >
-        {isWeb && (
-          <WebHeader />
-        )}
+          backgroundColor: T.bg,
+        }}>
+        {isWeb && <WebHeader />}
 
         <View
           style={{
             flex: 1,
 
-            alignItems:
-              "center",
+            alignItems: 'center',
 
-            justifyContent:
-              "center",
+            justifyContent: 'center',
 
             padding: 25,
-          }}
-        >
+          }}>
           <View
             style={{
               width: 100,
@@ -2141,39 +1518,27 @@ export default function CartPage() {
 
               borderRadius: 50,
 
-              backgroundColor:
-                T.slate100,
+              backgroundColor: T.slate100,
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
-              justifyContent:
-                "center",
+              justifyContent: 'center',
 
               marginBottom: 20,
-            }}
-          >
-            <Ionicons
-              name="cart-outline"
-              size={46}
-              color={
-                T.slate400
-              }
-            />
+            }}>
+            <Ionicons name="cart-outline" size={46} color={T.slate400} />
           </View>
 
           <Text
             style={{
               fontSize: 24,
 
-              fontWeight: "900",
+              fontWeight: '900',
 
-              color:
-                T.slate900,
+              color: T.slate900,
 
               marginBottom: 8,
-            }}
-          >
+            }}>
             Your cart is empty
           </Text>
 
@@ -2181,46 +1546,34 @@ export default function CartPage() {
             style={{
               fontSize: 14,
 
-              color:
-                T.slate500,
+              color: T.slate500,
 
-              textAlign:
-                "center",
+              textAlign: 'center',
 
               marginBottom: 28,
-            }}
-          >
-            Looks like you haven't
-            added anything yet.
+            }}>
+            Looks like you haven't added anything yet.
           </Text>
 
           <Pressable
-            onPress={() =>
-              router.push(
-                "/shop"
-              )
-            }
+            onPress={() => router.push('/shop')}
             style={{
-              backgroundColor:
-                T.teal700,
+              backgroundColor: T.teal700,
 
               borderRadius: 14,
 
-              paddingHorizontal:
-                34,
+              paddingHorizontal: 34,
 
               paddingVertical: 14,
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: T.white,
 
                 fontSize: 14,
 
-                fontWeight: "800",
-              }}
-            >
+                fontWeight: '800',
+              }}>
               Start Shopping
             </Text>
           </Pressable>
@@ -2228,7 +1581,6 @@ export default function CartPage() {
       </SafeAreaView>
     );
   }
-
 
   // ═══════════════════════════════════════════
   // MAIN CART
@@ -2239,10 +1591,8 @@ export default function CartPage() {
       style={{
         flex: 1,
 
-        backgroundColor:
-          T.bg,
-      }}
-    >
+        backgroundColor: T.bg,
+      }}>
       {/* HEADER */}
 
       {isWeb ? (
@@ -2250,34 +1600,24 @@ export default function CartPage() {
       ) : (
         <View
           style={{
-            flexDirection:
-              "row",
+            flexDirection: 'row',
 
-            alignItems:
-              "center",
+            alignItems: 'center',
 
-            paddingHorizontal:
-              16,
+            paddingHorizontal: 16,
 
-            paddingVertical:
-              11,
+            paddingVertical: 11,
 
-            backgroundColor:
-              T.white,
+            backgroundColor: T.white,
 
-            borderBottomWidth:
-              1,
+            borderBottomWidth: 1,
 
-            borderBottomColor:
-              T.slate100,
+            borderBottomColor: T.slate100,
 
             gap: 12,
-          }}
-        >
+          }}>
           <Pressable
-            onPress={() =>
-              router.back()
-            }
+            onPress={() => router.back()}
             style={{
               width: 38,
 
@@ -2285,28 +1625,17 @@ export default function CartPage() {
 
               borderRadius: 12,
 
-              backgroundColor:
-                T.slate50,
+              backgroundColor: T.slate50,
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
-              justifyContent:
-                "center",
+              justifyContent: 'center',
 
               borderWidth: 1,
 
-              borderColor:
-                T.slate200,
-            }}
-          >
-            <Ionicons
-              name="arrow-back"
-              size={20}
-              color={
-                T.slate700
-              }
-            />
+              borderColor: T.slate200,
+            }}>
+            <Ionicons name="arrow-back" size={20} color={T.slate700} />
           </Pressable>
 
           <Text
@@ -2315,54 +1644,36 @@ export default function CartPage() {
 
               fontSize: 18,
 
-              fontWeight: "900",
+              fontWeight: '900',
 
-              color:
-                T.slate900,
-            }}
-          >
-            My Cart{" "}
+              color: T.slate900,
+            }}>
+            My Cart{' '}
             <Text
               style={{
-                color:
-                  T.slate400,
+                color: T.slate400,
 
-                fontWeight:
-                  "600",
-              }}
-            >
+                fontWeight: '600',
+              }}>
               ({items.length})
             </Text>
           </Text>
         </View>
       )}
 
-
       {/* CHECKOUT STEPS */}
 
-      <CheckoutSteps
-        checkoutStep={
-          checkoutStep
-        }
-        isMobile={
-          isMobile
-        }
-        px={px}
-      />
-
+      <CheckoutSteps checkoutStep={checkoutStep} isMobile={isMobile} px={px} />
 
       {loading ? (
         <View
           style={{
             flex: 1,
 
-            alignItems:
-              "center",
+            alignItems: 'center',
 
-            justifyContent:
-              "center",
-          }}
-        >
+            justifyContent: 'center',
+          }}>
           <View
             style={{
               width: 70,
@@ -2371,189 +1682,130 @@ export default function CartPage() {
 
               borderRadius: 35,
 
-              backgroundColor:
-                T.teal50,
+              backgroundColor: T.teal50,
 
-              alignItems:
-                "center",
+              alignItems: 'center',
 
-              justifyContent:
-                "center",
+              justifyContent: 'center',
 
               marginBottom: 12,
-            }}
-          >
-            <ActivityIndicator
-              color={
-                T.teal700
-              }
-              size="large"
-            />
+            }}>
+            <ActivityIndicator color={T.teal700} size="large" />
           </View>
 
           <Text
             style={{
-              color:
-                T.slate500,
+              color: T.slate500,
 
               fontSize: 13,
 
-              fontWeight:
-                "600",
-            }}
-          >
+              fontWeight: '600',
+            }}>
             Loading your cart...
           </Text>
         </View>
       ) : (
         <ScrollView
-          showsVerticalScrollIndicator={
-            false
-          }
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: 100,
-          }}
-        >
+          }}>
           <View
             style={{
-              width: "100%",
+              width: '100%',
 
               maxWidth: 1240,
 
-              alignSelf:
-                "center",
+              alignSelf: 'center',
 
-              paddingHorizontal:
-                px,
+              paddingHorizontal: px,
 
-              paddingTop:
-                isMobile
-                  ? 20
-                  : 30,
-            }}
-          >
+              paddingTop: isMobile ? 20 : 30,
+            }}>
             {/* PAGE TITLE */}
 
             <View
               style={{
                 marginBottom: 24,
-              }}
-            >
+              }}>
               <Text
                 style={{
-                  fontSize:
-                    isMobile
-                      ? 25
-                      : 32,
+                  fontSize: isMobile ? 25 : 32,
 
-                  fontWeight:
-                    "900",
+                  fontWeight: '900',
 
-                  color:
-                    T.slate900,
+                  color: T.slate900,
 
-                  letterSpacing:
-                    -0.7,
-                }}
-              >
-                {checkoutStep ===
-                "cart"
-                  ? "Shopping Cart"
-                  : checkoutStep ===
-                      "address"
-                    ? "Delivery Details"
-                    : "Secure Payment"}
+                  letterSpacing: -0.7,
+                }}>
+                {checkoutStep === 'cart'
+                  ? 'Shopping Cart'
+                  : checkoutStep === 'address'
+                    ? 'Delivery Details'
+                    : 'Secure Payment'}
               </Text>
 
               <Text
                 style={{
                   fontSize: 13,
 
-                  color:
-                    T.slate500,
+                  color: T.slate500,
 
                   marginTop: 5,
-                }}
-              >
-                {checkoutStep ===
-                "cart"
-                  ? "Review your selected dental products before checkout."
-                  : checkoutStep ===
-                      "address"
-                    ? "Where should we deliver your order?"
-                    : "Complete your payment securely with Razorpay."}
+                }}>
+                {checkoutStep === 'cart'
+                  ? 'Review your selected dental products before checkout.'
+                  : checkoutStep === 'address'
+                    ? 'Where should we deliver your order?'
+                    : 'Complete your payment securely with Razorpay.'}
               </Text>
             </View>
-
 
             {/* MAIN LAYOUT */}
 
             <View
               style={{
-                flexDirection:
-                  isDesktop
-                    ? "row"
-                    : "column",
+                flexDirection: isDesktop ? 'row' : 'column',
 
-                gap:
-                  isDesktop
-                    ? 28
-                    : 18,
+                gap: isDesktop ? 28 : 18,
 
-                alignItems:
-                  "flex-start",
-              }}
-            >
+                alignItems: 'flex-start',
+              }}>
               {/* ═══════════════════════════ */}
               {/* LEFT */}
               {/* ═══════════════════════════ */}
 
               <View
                 style={{
-                  flex:
-                    isDesktop
-                      ? 1
-                      : undefined,
+                  flex: isDesktop ? 1 : undefined,
 
-                  width:
-                    isDesktop
-                      ? undefined
-                      : "100%",
+                  width: isDesktop ? undefined : '100%',
 
                   gap: 14,
-                }}
-              >
+                }}>
                 {/* CART */}
 
-                {checkoutStep ===
-                  "cart" && (
+                {checkoutStep === 'cart' && (
                   <>
                     <View
                       style={{
-                        flexDirection:
-                          "row",
+                        flexDirection: 'row',
 
-                        alignItems:
-                          "center",
+                        alignItems: 'center',
 
-                        justifyContent:
-                          "space-between",
+                        justifyContent: 'space-between',
 
                         marginBottom: 2,
-                      }}
-                    >
+                      }}>
                       <View>
                         <Text
                           style={{
                             fontSize: 17,
 
-                            fontWeight:
-                              "800",
+                            fontWeight: '800',
 
-                            color:
-                              T.slate900,
-                          }}
-                        >
+                            color: T.slate900,
+                          }}>
                           Cart Items
                         </Text>
 
@@ -2561,211 +1813,133 @@ export default function CartPage() {
                           style={{
                             fontSize: 11,
 
-                            color:
-                              T.slate400,
+                            color: T.slate400,
 
                             marginTop: 2,
-                          }}
-                        >
-                          {items.length}{" "}
-                          {items.length ===
-                          1
-                            ? "item"
-                            : "items"}{" "}
-                          selected
+                          }}>
+                          {items.length} {items.length === 1 ? 'item' : 'items'} selected
                         </Text>
                       </View>
 
                       <View
                         style={{
-                          backgroundColor:
-                            T.teal50,
+                          backgroundColor: T.teal50,
 
-                          paddingHorizontal:
-                            10,
+                          paddingHorizontal: 10,
 
-                          paddingVertical:
-                            6,
+                          paddingVertical: 6,
 
-                          borderRadius:
-                            999,
+                          borderRadius: 999,
 
                           borderWidth: 1,
 
-                          borderColor:
-                            T.teal100,
-                        }}
-                      >
+                          borderColor: T.teal100,
+                        }}>
                         <Text
                           style={{
                             fontSize: 11,
 
-                            color:
-                              T.teal700,
+                            color: T.teal700,
 
-                            fontWeight:
-                              "800",
-                          }}
-                        >
-                          ₹
-                          {cartTotal.toLocaleString(
-                            "en-IN"
-                          )}
+                            fontWeight: '800',
+                          }}>
+                          ₹{cartTotal.toLocaleString('en-IN')}
                         </Text>
                       </View>
                     </View>
 
-
-                    {items.map(
-                      (
-                        item,
-                        index
-                      ) => (
-                        <CartItem
-                          key={
-                            item.variant ||
-                            index
-                          }
-                          item={item}
-                          onRemove={
-                            remove
-                          }
-                          isWeb={
-                            isWeb
-                          }
-                        />
-                      )
-                    )}
+                    {items.map((item, index) => (
+                      <CartItem
+                        key={item.variant || index}
+                        item={item}
+                        onRemove={remove}
+                        isWeb={isWeb}
+                      />
+                    ))}
                   </>
                 )}
 
-
                 {/* ADDRESS */}
 
-                {checkoutStep ===
-                  "address" && (
+                {checkoutStep === 'address' && (
                   <View
                     style={{
-                      backgroundColor:
-                        T.white,
+                      backgroundColor: T.white,
 
-                      borderRadius:
-                        20,
+                      borderRadius: 20,
 
-                      padding:
-                        isMobile
-                          ? 16
-                          : 22,
+                      padding: isMobile ? 16 : 22,
 
-                      borderWidth:
-                        1,
+                      borderWidth: 1,
 
-                      borderColor:
-                        T.slate200,
+                      borderColor: T.slate200,
 
                       ...(isWeb
                         ? {
-                            boxShadow:
-                              T.shadow,
+                            boxShadow: T.shadow,
                           }
                         : {}),
-                    }}
-                  >
+                    }}>
                     <View
                       style={{
-                        flexDirection:
-                          "row",
+                        flexDirection: 'row',
 
-                        alignItems:
-                          "center",
+                        alignItems: 'center',
 
                         gap: 12,
 
-                        marginBottom:
-                          20,
-                      }}
-                    >
+                        marginBottom: 20,
+                      }}>
                       <View
                         style={{
                           width: 42,
 
                           height: 42,
 
-                          borderRadius:
-                            13,
+                          borderRadius: 13,
 
-                          backgroundColor:
-                            T.teal50,
+                          backgroundColor: T.teal50,
 
-                          alignItems:
-                            "center",
+                          alignItems: 'center',
 
-                          justifyContent:
-                            "center",
+                          justifyContent: 'center',
 
-                          borderWidth:
-                            1,
+                          borderWidth: 1,
 
-                          borderColor:
-                            T.teal100,
-                        }}
-                      >
-                        <Ionicons
-                          name="location-outline"
-                          size={21}
-                          color={
-                            T.teal700
-                          }
-                        />
+                          borderColor: T.teal100,
+                        }}>
+                        <Ionicons name="location-outline" size={21} color={T.teal700} />
                       </View>
 
                       <View>
                         <Text
                           style={{
-                            fontSize:
-                              18,
+                            fontSize: 18,
 
-                            fontWeight:
-                              "900",
+                            fontWeight: '900',
 
-                            color:
-                              T.slate900,
-                          }}
-                        >
+                            color: T.slate900,
+                          }}>
                           Delivery Address
                         </Text>
 
                         <Text
                           style={{
-                            fontSize:
-                              11,
+                            fontSize: 11,
 
-                            color:
-                              T.slate400,
+                            color: T.slate400,
 
-                            marginTop:
-                              2,
-                          }}
-                        >
-                          Enter where you'd
-                          like your order
-                          delivered
+                            marginTop: 2,
+                          }}>
+                          Enter where you'd like your order delivered
                         </Text>
                       </View>
                     </View>
 
-                    <AddressForm
-                      value={
-                        address
-                      }
-                      onChange={
-                        setAddress
-                      }
-                    />
+                    <AddressForm value={address} onChange={setAddress} />
                   </View>
                 )}
               </View>
-
 
               {/* ═══════════════════════════ */}
               {/* RIGHT */}
@@ -2773,241 +1947,159 @@ export default function CartPage() {
 
               <View
                 style={{
-                  width:
-                    isDesktop
-                      ? 370
-                      : "100%",
+                  width: isDesktop ? 370 : '100%',
 
                   gap: 12,
-                }}
-              >
+                }}>
                 {/* COUPON */}
 
-                {checkoutStep ===
-                  "cart" && (
+                {checkoutStep === 'cart' && (
                   <View
                     style={{
-                      backgroundColor:
-                        T.white,
+                      backgroundColor: T.white,
 
-                      borderRadius:
-                        18,
+                      borderRadius: 18,
 
                       padding: 16,
 
-                      borderWidth:
-                        1,
+                      borderWidth: 1,
 
-                      borderColor:
-                        T.slate200,
+                      borderColor: T.slate200,
 
                       ...(isWeb
                         ? {
-                            boxShadow:
-                              T.shadow,
+                            boxShadow: T.shadow,
                           }
                         : {}),
-                    }}
-                  >
+                    }}>
                     <View
                       style={{
-                        flexDirection:
-                          "row",
+                        flexDirection: 'row',
 
-                        alignItems:
-                          "center",
+                        alignItems: 'center',
 
                         gap: 10,
 
-                        marginBottom:
-                          12,
-                      }}
-                    >
+                        marginBottom: 12,
+                      }}>
                       <View
                         style={{
                           width: 34,
 
                           height: 34,
 
-                          borderRadius:
-                            10,
+                          borderRadius: 10,
 
-                          backgroundColor:
-                            T.teal50,
+                          backgroundColor: T.teal50,
 
-                          alignItems:
-                            "center",
+                          alignItems: 'center',
 
-                          justifyContent:
-                            "center",
-                        }}
-                      >
-                        <Ionicons
-                          name="pricetag-outline"
-                          size={17}
-                          color={
-                            T.teal700
-                          }
-                        />
+                          justifyContent: 'center',
+                        }}>
+                        <Ionicons name="pricetag-outline" size={17} color={T.teal700} />
                       </View>
 
                       <View>
                         <Text
                           style={{
-                            fontSize:
-                              14,
+                            fontSize: 14,
 
-                            fontWeight:
-                              "800",
+                            fontWeight: '800',
 
-                            color:
-                              T.slate900,
-                          }}
-                        >
+                            color: T.slate900,
+                          }}>
                           Have a coupon?
                         </Text>
 
                         <Text
                           style={{
-                            fontSize:
-                              10,
+                            fontSize: 10,
 
-                            color:
-                              T.slate400,
+                            color: T.slate400,
 
-                            marginTop:
-                              1,
-                          }}
-                        >
-                          Save more on
-                          your order
+                            marginTop: 1,
+                          }}>
+                          Save more on your order
                         </Text>
                       </View>
                     </View>
 
                     <View
                       style={{
-                        flexDirection:
-                          "row",
+                        flexDirection: 'row',
 
                         gap: 8,
-                      }}
-                    >
+                      }}>
                       <TextInput
-                        value={
-                          couponCode
-                        }
-                        onChangeText={(
-                          text
-                        ) => {
-                          setCoupon(
-                            text.toUpperCase()
-                          );
+                        value={couponCode}
+                        onChangeText={(text) => {
+                          setCoupon(text.toUpperCase());
 
-                          setCouponErr(
-                            ""
-                          );
+                          setCouponErr('');
 
-                          setCouponData(
-                            null
-                          );
+                          setCouponData(null);
                         }}
                         placeholder="ENTER CODE"
-                        placeholderTextColor={
-                          T.slate400
-                        }
+                        placeholderTextColor={T.slate400}
                         autoCapitalize="characters"
                         style={{
                           flex: 1,
 
                           height: 44,
 
-                          backgroundColor:
-                            T.slate50,
+                          backgroundColor: T.slate50,
 
-                          borderRadius:
-                            10,
+                          borderRadius: 10,
 
-                          borderWidth:
-                            1,
+                          borderWidth: 1,
 
-                          borderColor:
-                            couponData
-                              ? T.green500
-                              : T.slate200,
+                          borderColor: couponData ? T.green500 : T.slate200,
 
-                          paddingHorizontal:
-                            12,
+                          paddingHorizontal: 12,
 
                           fontSize: 12,
 
-                          fontWeight:
-                            "700",
+                          fontWeight: '700',
 
-                          color:
-                            T.slate900,
+                          color: T.slate900,
 
-                          ...(Platform.OS ===
-                          "web"
+                          ...(Platform.OS === 'web'
                             ? {
-                                outlineStyle:
-                                  "none",
+                                outlineStyle: 'none',
                               }
                             : {}),
                         }}
                       />
 
                       <Pressable
-                        onPress={
-                          applyCoupon
-                        }
-                        disabled={
-                          couponLoading ||
-                          !couponCode.trim()
-                        }
+                        onPress={applyCoupon}
+                        disabled={couponLoading || !couponCode.trim()}
                         style={{
                           minWidth: 72,
 
                           height: 44,
 
-                          backgroundColor:
-                            T.teal700,
+                          backgroundColor: T.teal700,
 
-                          borderRadius:
-                            10,
+                          borderRadius: 10,
 
-                          alignItems:
-                            "center",
+                          alignItems: 'center',
 
-                          justifyContent:
-                            "center",
+                          justifyContent: 'center',
 
-                          opacity:
-                            !couponCode.trim()
-                              ? 0.45
-                              : 1,
-                        }}
-                      >
+                          opacity: !couponCode.trim() ? 0.45 : 1,
+                        }}>
                         {couponLoading ? (
-                          <ActivityIndicator
-                            size="small"
-                            color={
-                              T.white
-                            }
-                          />
+                          <ActivityIndicator size="small" color={T.white} />
                         ) : (
                           <Text
                             style={{
-                              color:
-                                T.white,
+                              color: T.white,
 
-                              fontWeight:
-                                "800",
+                              fontWeight: '800',
 
-                              fontSize:
-                                12,
-                            }}
-                          >
+                              fontSize: 12,
+                            }}>
                             Apply
                           </Text>
                         )}
@@ -3017,44 +2109,25 @@ export default function CartPage() {
                     {couponData && (
                       <View
                         style={{
-                          flexDirection:
-                            "row",
+                          flexDirection: 'row',
 
-                          alignItems:
-                            "center",
+                          alignItems: 'center',
 
                           gap: 6,
 
-                          marginTop:
-                            9,
-                        }}
-                      >
-                        <Ionicons
-                          name="checkmark-circle"
-                          size={15}
-                          color={
-                            T.green500
-                          }
-                        />
+                          marginTop: 9,
+                        }}>
+                        <Ionicons name="checkmark-circle" size={15} color={T.green500} />
 
                         <Text
                           style={{
-                            fontSize:
-                              11,
+                            fontSize: 11,
 
-                            color:
-                              "#15803d",
+                            color: '#15803d',
 
-                            fontWeight:
-                              "700",
-                          }}
-                        >
-                          Coupon applied!
-                          ₹
-                          {
-                            couponDiscount
-                          }{" "}
-                          off
+                            fontWeight: '700',
+                          }}>
+                          Coupon applied! ₹{couponDiscount} off
                         </Text>
                       </View>
                     )}
@@ -3062,545 +2135,340 @@ export default function CartPage() {
                     {couponError && (
                       <Text
                         style={{
-                          fontSize:
-                            11,
+                          fontSize: 11,
 
-                          color:
-                            T.red500,
+                          color: T.red500,
 
-                          marginTop:
-                            7,
+                          marginTop: 7,
 
-                          fontWeight:
-                            "600",
-                        }}
-                      >
+                          fontWeight: '600',
+                        }}>
                         {couponError}
                       </Text>
                     )}
                   </View>
                 )}
 
-
                 {/* COINS */}
 
-                {checkoutStep ===
-                  "cart" &&
-                  (user?.medishieldcoins ||
-                    0) > 0 && (
+                {checkoutStep === 'cart' && (user?.medishieldcoins || 0) > 0 && (
+                  <View
+                    style={{
+                      backgroundColor: T.amber50,
+
+                      borderRadius: 18,
+
+                      padding: 16,
+
+                      borderWidth: 1,
+
+                      borderColor: T.amber100,
+                    }}>
                     <View
                       style={{
-                        backgroundColor:
-                          T.amber50,
+                        flexDirection: 'row',
 
-                        borderRadius:
-                          18,
+                        alignItems: 'center',
 
-                        padding: 16,
+                        gap: 10,
 
-                        borderWidth:
-                          1,
-
-                        borderColor:
-                          T.amber100,
-                      }}
-                    >
+                        marginBottom: 11,
+                      }}>
                       <View
                         style={{
-                          flexDirection:
-                            "row",
+                          width: 38,
 
-                          alignItems:
-                            "center",
+                          height: 38,
 
-                          gap: 10,
+                          borderRadius: 12,
 
-                          marginBottom:
-                            11,
-                        }}
-                      >
-                        <View
-                          style={{
-                            width: 38,
+                          backgroundColor: T.amber100,
 
-                            height: 38,
+                          alignItems: 'center',
 
-                            borderRadius:
-                              12,
-
-                            backgroundColor:
-                              T.amber100,
-
-                            alignItems:
-                              "center",
-
-                            justifyContent:
-                              "center",
-                          }}
-                        >
-                          <Ionicons
-                            name="sparkles-outline"
-                            size={19}
-                            color={
-                              T.amber500
-                            }
-                          />
-                        </View>
-
-                        <View
-                          style={{
-                            flex: 1,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              fontSize:
-                                14,
-
-                              fontWeight:
-                                "800",
-
-                              color:
-                                "#92400e",
-                            }}
-                          >
-                            MediShield Coins
-                          </Text>
-
-                          <Text
-                            style={{
-                              fontSize:
-                                10,
-
-                              color:
-                                "#b45309",
-
-                              marginTop:
-                                2,
-
-                              lineHeight:
-                                15,
-                            }}
-                          >
-                            You have{" "}
-                            {
-                              user.medishieldcoins
-                            }{" "}
-                            coins
-                          </Text>
-                        </View>
+                          justifyContent: 'center',
+                        }}>
+                        <Ionicons name="sparkles-outline" size={19} color={T.amber500} />
                       </View>
 
-                      <Pressable
-                        onPress={() =>
-                          setCoinsToUse(
-                            coinsToUse >
-                              0
-                              ? 0
-                              : maxCoins
-                          )
-                        }
+                      <View
                         style={{
-                          flexDirection:
-                            "row",
+                          flex: 1,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 14,
 
-                          alignItems:
-                            "center",
+                            fontWeight: '800',
 
-                          justifyContent:
-                            "center",
-
-                          gap: 7,
-
-                          backgroundColor:
-                            coinsToUse >
-                            0
-                              ? T.amber500
-                              : T.white,
-
-                          borderRadius:
-                            11,
-
-                          paddingVertical:
-                            10,
-
-                          borderWidth:
-                            1,
-
-                          borderColor:
-                            coinsToUse >
-                            0
-                              ? T.amber500
-                              : T.amber100,
-                        }}
-                      >
-                        <Ionicons
-                          name={
-                            coinsToUse >
-                            0
-                              ? "checkmark-circle"
-                              : "add-circle-outline"
-                          }
-                          size={16}
-                          color={
-                            coinsToUse >
-                            0
-                              ? T.white
-                              : T.amber500
-                          }
-                        />
+                            color: '#92400e',
+                          }}>
+                          MediShield Coins
+                        </Text>
 
                         <Text
                           style={{
-                            fontSize:
-                              12,
+                            fontSize: 10,
 
-                            fontWeight:
-                              "800",
+                            color: '#b45309',
 
-                            color:
-                              coinsToUse >
-                              0
-                                ? T.white
-                                : "#92400e",
-                          }}
-                        >
-                          {coinsToUse >
-                          0
-                            ? `Using ${maxCoins} coins (−₹${maxCoins})`
-                            : `Use ${maxCoins} coins (−₹${maxCoins})`}
+                            marginTop: 2,
+
+                            lineHeight: 15,
+                          }}>
+                          You have {user.medishieldcoins} coins
                         </Text>
-                      </Pressable>
+                      </View>
                     </View>
-                  )}
 
+                    <Pressable
+                      onPress={() => setCoinsToUse(coinsToUse > 0 ? 0 : maxCoins)}
+                      style={{
+                        flexDirection: 'row',
+
+                        alignItems: 'center',
+
+                        justifyContent: 'center',
+
+                        gap: 7,
+
+                        backgroundColor: coinsToUse > 0 ? T.amber500 : T.white,
+
+                        borderRadius: 11,
+
+                        paddingVertical: 10,
+
+                        borderWidth: 1,
+
+                        borderColor: coinsToUse > 0 ? T.amber500 : T.amber100,
+                      }}>
+                      <Ionicons
+                        name={coinsToUse > 0 ? 'checkmark-circle' : 'add-circle-outline'}
+                        size={16}
+                        color={coinsToUse > 0 ? T.white : T.amber500}
+                      />
+
+                      <Text
+                        style={{
+                          fontSize: 12,
+
+                          fontWeight: '800',
+
+                          color: coinsToUse > 0 ? T.white : '#92400e',
+                        }}>
+                        {coinsToUse > 0
+                          ? `Using ${maxCoins} coins (−₹${maxCoins})`
+                          : `Use ${maxCoins} coins (−₹${maxCoins})`}
+                      </Text>
+                    </Pressable>
+                  </View>
+                )}
 
                 {/* SUMMARY */}
 
                 <View
                   style={{
-                    backgroundColor:
-                      T.white,
+                    backgroundColor: T.white,
 
-                    borderRadius:
-                      20,
+                    borderRadius: 20,
 
-                    padding:
-                      isMobile
-                        ? 17
-                        : 20,
+                    padding: isMobile ? 17 : 20,
 
-                    borderWidth:
-                      1,
+                    borderWidth: 1,
 
-                    borderColor:
-                      T.slate200,
+                    borderColor: T.slate200,
 
                     ...(isWeb
                       ? {
-                          boxShadow:
-                            T.shadowMd,
+                          boxShadow: T.shadowMd,
                         }
                       : {
-                          shadowColor:
-                            T.teal700,
+                          shadowColor: T.teal700,
 
-                          shadowOffset:
-                            {
-                              width: 0,
-                              height: 3,
-                            },
+                          shadowOffset: {
+                            width: 0,
+                            height: 3,
+                          },
 
-                          shadowOpacity:
-                            0.05,
+                          shadowOpacity: 0.05,
 
-                          shadowRadius:
-                            10,
+                          shadowRadius: 10,
 
-                          elevation:
-                            3,
+                          elevation: 3,
                         }),
-                  }}
-                >
+                  }}>
                   <View
                     style={{
-                      flexDirection:
-                        "row",
+                      flexDirection: 'row',
 
-                      alignItems:
-                        "center",
+                      alignItems: 'center',
 
                       gap: 9,
 
-                      marginBottom:
-                        17,
-                    }}
-                  >
+                      marginBottom: 17,
+                    }}>
                     <View
                       style={{
                         width: 34,
 
                         height: 34,
 
-                        borderRadius:
-                          10,
+                        borderRadius: 10,
 
-                        backgroundColor:
-                          T.teal50,
+                        backgroundColor: T.teal50,
 
-                        alignItems:
-                          "center",
+                        alignItems: 'center',
 
-                        justifyContent:
-                          "center",
-                      }}
-                    >
-                      <Ionicons
-                        name="receipt-outline"
-                        size={17}
-                        color={
-                          T.teal700
-                        }
-                      />
+                        justifyContent: 'center',
+                      }}>
+                      <Ionicons name="receipt-outline" size={17} color={T.teal700} />
                     </View>
 
                     <Text
                       style={{
-                        fontSize:
-                          16,
+                        fontSize: 16,
 
-                        fontWeight:
-                          "900",
+                        fontWeight: '900',
 
-                        color:
-                          T.slate900,
-                      }}
-                    >
+                        color: T.slate900,
+                      }}>
                       Order Summary
                     </Text>
                   </View>
 
                   <PriceSummary
-                    cartTotal={
-                      cartTotal
-                    }
-                    shipping={
-                      shipping
-                    }
+                    cartTotal={cartTotal}
+                    shipping={shipping}
                     discount={0}
-                    coinsUsed={
-                      coinsToUse
-                    }
-                    couponDiscount={
-                      couponDiscount
-                    }
-                    finalTotal={
-                      finalTotal
-                    }
+                    coinsUsed={coinsToUse}
+                    couponDiscount={couponDiscount}
+                    finalTotal={finalTotal}
                   />
                 </View>
-
 
                 {/* CTA */}
 
                 <Pressable
                   onPress={() => {
-                    if (
-                      checkoutStep ===
-                      "cart"
-                    ) {
-                      setStep(
-                        "address"
-                      );
-                    } else if (
-                      checkoutStep ===
-                      "address"
-                    ) {
+                    if (checkoutStep === 'cart') {
+                      setStep('address');
+                    } else if (checkoutStep === 'address') {
                       initiatePayment();
                     }
                   }}
-                  disabled={
-                    paymentLoading ||
-                    items.length ===
-                      0
-                  }
+                  disabled={paymentLoading || items.length === 0}
                   style={{
                     minHeight: 56,
 
-                    backgroundColor:
-                      T.teal700,
+                    backgroundColor: T.teal700,
 
-                    borderRadius:
-                      15,
+                    borderRadius: 15,
 
-                    flexDirection:
-                      "row",
+                    flexDirection: 'row',
 
-                    alignItems:
-                      "center",
+                    alignItems: 'center',
 
-                    justifyContent:
-                      "center",
+                    justifyContent: 'center',
 
                     gap: 9,
 
-                    opacity:
-                      items.length ===
-                      0
-                        ? 0.5
-                        : 1,
+                    opacity: items.length === 0 ? 0.5 : 1,
 
                     ...(isWeb
                       ? {
-                          boxShadow:
-                            "0 8px 22px rgba(15,118,110,0.25)",
+                          boxShadow: '0 8px 22px rgba(15,118,110,0.25)',
 
-                          cursor:
-                            "pointer",
+                          cursor: 'pointer',
                         }
                       : {
-                          shadowColor:
-                            T.teal700,
+                          shadowColor: T.teal700,
 
-                          shadowOffset:
-                            {
-                              width: 0,
-                              height: 7,
-                            },
+                          shadowOffset: {
+                            width: 0,
+                            height: 7,
+                          },
 
-                          shadowOpacity:
-                            0.25,
+                          shadowOpacity: 0.25,
 
-                          shadowRadius:
-                            12,
+                          shadowRadius: 12,
 
                           elevation: 6,
                         }),
-                  }}
-                >
+                  }}>
                   {paymentLoading ? (
-                    <ActivityIndicator
-                      color={
-                        T.white
-                      }
-                      size="small"
-                    />
+                    <ActivityIndicator color={T.white} size="small" />
                   ) : (
                     <>
                       <Ionicons
-                        name={
-                          checkoutStep ===
-                          "address"
-                            ? "lock-closed-outline"
-                            : "arrow-forward"
-                        }
+                        name={checkoutStep === 'address' ? 'lock-closed-outline' : 'arrow-forward'}
                         size={18}
-                        color={
-                          T.white
-                        }
+                        color={T.white}
                       />
 
                       <Text
                         style={{
-                          color:
-                            T.white,
+                          color: T.white,
 
-                          fontSize:
-                            15,
+                          fontSize: 15,
 
-                          fontWeight:
-                            "900",
-                        }}
-                      >
-                        {checkoutStep ===
-                        "cart"
-                          ? "Proceed to Address"
-                          : `Pay ₹${finalTotal.toLocaleString(
-                              "en-IN"
-                            )}`}
+                          fontWeight: '900',
+                        }}>
+                        {checkoutStep === 'cart'
+                          ? 'Proceed to Address'
+                          : `Pay ₹${finalTotal.toLocaleString('en-IN')}`}
                       </Text>
                     </>
                   )}
                 </Pressable>
 
-
                 {/* BACK */}
 
-                {checkoutStep ===
-                  "address" && (
+                {checkoutStep === 'address' && (
                   <Pressable
-                    onPress={() =>
-                      setStep(
-                        "cart"
-                      )
-                    }
+                    onPress={() => setStep('cart')}
                     style={{
-                      alignItems:
-                        "center",
+                      alignItems: 'center',
 
-                      paddingVertical:
-                        8,
-                    }}
-                  >
+                      paddingVertical: 8,
+                    }}>
                     <Text
                       style={{
-                        color:
-                          T.slate500,
+                        color: T.slate500,
 
-                        fontSize:
-                          12,
+                        fontSize: 12,
 
-                        fontWeight:
-                          "600",
-                      }}
-                    >
+                        fontWeight: '600',
+                      }}>
                       ← Back to cart
                     </Text>
                   </Pressable>
                 )}
 
-
                 {/* SECURITY */}
 
                 <View
                   style={{
-                    flexDirection:
-                      "row",
+                    flexDirection: 'row',
 
-                    alignItems:
-                      "center",
+                    alignItems: 'center',
 
-                    justifyContent:
-                      "center",
+                    justifyContent: 'center',
 
                     gap: 6,
 
-                    paddingVertical:
-                      3,
-                  }}
-                >
-                  <Ionicons
-                    name="shield-checkmark-outline"
-                    size={14}
-                    color={
-                      T.slate400
-                    }
-                  />
+                    paddingVertical: 3,
+                  }}>
+                  <Ionicons name="shield-checkmark-outline" size={14} color={T.slate400} />
 
                   <Text
                     style={{
-                      fontSize:
-                        10,
+                      fontSize: 10,
 
-                      color:
-                        T.slate400,
+                      color: T.slate400,
 
-                      fontWeight:
-                        "600",
-                    }}
-                  >
-                    Secure checkout
-                    · Razorpay
+                      fontWeight: '600',
+                    }}>
+                    Secure checkout · Razorpay
                   </Text>
                 </View>
               </View>
