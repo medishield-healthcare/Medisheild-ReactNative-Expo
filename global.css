@@ -6,13 +6,13 @@
   display: none;
 }
 
-/* Firefox */
 body {
   scrollbar-width: none;
 }
 
-p,
+/* Global Poppins */
 div,
+p,
 button,
 input,
 textarea,
@@ -22,11 +22,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+span,
+a {
   font-family: 'Poppins', sans-serif !important;
 }
 
-/* Expo Vector Icons */
-div.r-userSelect-lrvibr {
+/* Expo Ionicons */
+div.r-lrvibr {
   font-family: ionicons !important;
 }
