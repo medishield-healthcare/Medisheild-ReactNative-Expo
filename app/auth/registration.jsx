@@ -15,6 +15,7 @@ import { AuthContext } from 'src/context/AuthContext';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import API from '@/api/axios';
+import C from '@/utils/theme';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BACKEND FIELDS (from createUser controller):
@@ -48,7 +49,7 @@ function FloatingInput({
       ].join(' ')}>
       {/* Left Icon */}
       <View className="absolute bottom-0 left-4 top-0 z-10 justify-center">
-        <Ionicons name={iconName} size={17} color={focused ? '#0f766e' : '#94a3b8'} />
+        <Ionicons name={iconName} size={17} color={focused ? '#09BBAF' : '#94a3b8'} />
       </View>
 
       {/* Floating Label */}
@@ -75,7 +76,7 @@ function FloatingInput({
         autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
         placeholderTextColor="transparent"
-        selectionColor="#0f766e"
+        selectionColor="#09BBAF"
         className="pb-[10px] pl-11 pr-12 pt-[22px] text-[14px] font-semibold text-slate-800"
         style={Platform.OS === 'web' ? { outlineStyle: 'none' } : {}}
       />
@@ -122,7 +123,7 @@ function BrandPanel() {
   ];
 
   return (
-    <View className="relative flex-1 overflow-hidden" style={{ backgroundColor: '#0f4f4f' }}>
+    <View className="relative flex-1 overflow-hidden" style={{ backgroundColor: '#09BBAF' }}>
       {/* Decorative circles */}
       <View
         style={{
@@ -185,7 +186,7 @@ function BrandPanel() {
           </View>
           <View>
             <Text className="text-lg font-black tracking-tight text-white">MediShield</Text>
-            <Text style={{ color: '#5eead4', fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>
+            <Text style={{ color: '#ffffff', fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>
               DENTAL CARE
             </Text>
           </View>
@@ -206,7 +207,7 @@ function BrandPanel() {
             className="mb-5 flex-row items-center gap-2 self-start rounded-full px-3 py-1"
             style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
             <View className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-            <Text style={{ color: '#5eead4', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
+            <Text style={{ color: '#ffffff', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
               JOIN 50,000+ MEMBERS
             </Text>
           </View>
@@ -218,7 +219,7 @@ function BrandPanel() {
             <Text style={{ color: '#2dd4bf' }}>Dental Journey.</Text>
           </Text>
 
-          <Text style={{ color: '#94d8d4', fontSize: 15, lineHeight: 24, maxWidth: 300 }}>
+          <Text style={{ color: '#ffffff', fontSize: 15, lineHeight: 24, maxWidth: 300 }}>
             Create your free account and get instant access to premium dental products delivered to
             your door.
           </Text>
@@ -230,9 +231,9 @@ function BrandPanel() {
                 <View
                   className="h-9 w-9 items-center justify-center rounded-xl"
                   style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
-                  <Ionicons name={p.icon} size={17} color="#2dd4bf" />
+                  <Ionicons name={p.icon} size={17} color="#fff" />
                 </View>
-                <Text style={{ color: '#cbd5e1', fontSize: 14, fontWeight: '500' }}>{p.text}</Text>
+                <Text style={{ color: '#fff', fontSize: 14, fontWeight: '500' }}>{p.text}</Text>
               </View>
             ))}
           </View>
@@ -251,7 +252,7 @@ function BrandPanel() {
           </View>
           <View className="flex-1">
             <Text className="text-base font-bold text-white">🎉 Get 50 Free Coins!</Text>
-            <Text style={{ color: '#94d8d4', fontSize: 12, marginTop: 2 }}>
+            <Text style={{ color: '#ffffff', fontSize: 12, marginTop: 2 }}>
               Instantly credited on signup. Use them on your first order.
             </Text>
           </View>
@@ -339,13 +340,13 @@ function RegisterForm({ isWeb }) {
     return (
       <View className="flex-1 items-center justify-center bg-white px-8">
         <View className="mb-5 h-20 w-20 items-center justify-center rounded-full bg-teal-50">
-          <Ionicons name="checkmark-circle" size={48} color="#0f766e" />
+          <Ionicons name="checkmark-circle" size={48} color="#09BBAF" />
         </View>
         <Text className="text-center text-2xl font-black text-slate-900">Account Created!</Text>
         <Text className="mt-2 text-center text-sm leading-5 text-slate-500">
           Welcome to MediShield. You've received 50 coins! 🎉
         </Text>
-        <ActivityIndicator color="#0f766e" style={{ marginTop: 24 }} />
+        <ActivityIndicator color="#09BBAF" style={{ marginTop: 24 }} />
       </View>
     );
   }
@@ -393,7 +394,7 @@ function RegisterForm({ isWeb }) {
             backgroundColor: 'white',
             borderRadius: 28,
             padding: 28,
-            shadowColor: '#0f766e',
+            shadowColor: '#09BBAF',
             shadowOffset: { width: 0, height: 12 },
             shadowOpacity: 0.12,
             shadowRadius: 32,
@@ -578,9 +579,9 @@ function RegisterForm({ isWeb }) {
           <Ionicons
             name={showReferral ? 'chevron-down' : 'chevron-forward'}
             size={14}
-            color="#0f766e"
+            color="#09BBAF"
           />
-          <Text className="text-[13px] font-semibold text-teal-700">
+          <Text style={{color: C.primary}} className="text-[13px] font-semibold">
             {showReferral
               ? 'Hide referral code'
               : 'Have a referral code? +100 bonus coins for your friend!'}
@@ -604,16 +605,17 @@ function RegisterForm({ isWeb }) {
         <Pressable
           onPress={handleRegister}
           disabled={loading}
-          className="mt-5 flex-row items-center justify-center gap-2 rounded-2xl bg-teal-700 py-[15px] active:bg-teal-800 active:opacity-90 disabled:opacity-60"
+          className="mt-5 flex-row items-center justify-center gap-2 rounded-2xl  py-[15px] active:bg-teal-800 active:opacity-90 disabled:opacity-60"
           style={
             Platform.OS === 'web'
-              ? { boxShadow: '0 8px 24px rgba(15,118,110,0.28)' }
+              ? { boxShadow: '0 8px 24px rgba(15,118,110,0.28)', backgroundColor: C.primaryDark }
               : {
-                  shadowColor: '#0f766e',
+                  shadowColor: '#09BBAF',
                   shadowOffset: { width: 0, height: 6 },
                   shadowOpacity: 0.3,
                   shadowRadius: 12,
                   elevation: 6,
+                  backgroundColor: C.primaryDark,
                 }
           }>
           {loading ? (
@@ -629,8 +631,10 @@ function RegisterForm({ isWeb }) {
         {/* Terms */}
         <Text className="mt-3 text-center text-[11px] leading-4 text-slate-400">
           By creating an account you agree to our{' '}
-          <Text className="font-semibold text-teal-600">Terms of Service</Text> and{' '}
-          <Text className="font-semibold text-teal-600">Privacy Policy</Text>
+          <Text className="font-semibold" style={{ color: C.primaryDark }}>Terms of Service</Text> and{' '}
+          <Text className="font-semibold " style={{ color: C.primaryDark }}>
+            Privacy Policy
+          </Text>
         </Text>
 
         {/* Divider */}
@@ -644,7 +648,9 @@ function RegisterForm({ isWeb }) {
         <View className="flex-row items-center justify-center">
           <Text className="text-sm text-slate-500">Already have an account? </Text>
           <Pressable onPress={() => router.push('/auth/login')}>
-            <Text className="text-sm font-bold text-teal-700">Sign in →</Text>
+            <Text className="text-sm font-bold " style={{ color: C.primary }}>
+              Sign in →
+            </Text>
           </Pressable>
         </View>
 

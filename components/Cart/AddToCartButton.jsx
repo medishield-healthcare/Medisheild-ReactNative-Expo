@@ -26,7 +26,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAddToCart } from '@/hooks/useAddToCart';
 
 const COLORS = {
-  teal700:  '#0f766e',
+  teal700:  '#09BBAF',
   teal800:  '#0f5f5a',
   teal100:  '#ccfbf1',
   green500: '#22c55e',

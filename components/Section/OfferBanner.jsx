@@ -62,7 +62,7 @@ export default function OfferBanner() {
             borderRadius: 999,
 
             borderWidth: 1,
-            borderColor: '#5eead4',
+            borderColor: '#ffffff',
 
             opacity: 0.12,
 
@@ -80,7 +80,7 @@ export default function OfferBanner() {
 
             borderRadius: 4,
 
-            backgroundColor: '#5eead4',
+            backgroundColor: '#ffffff',
 
             opacity: 0.7,
 
@@ -142,7 +142,7 @@ export default function OfferBanner() {
 
                 borderRadius: 4,
 
-                backgroundColor: '#5eead4',
+                backgroundColor: '#ffffff',
               }}
             />
 
@@ -191,7 +191,7 @@ export default function OfferBanner() {
 
             <Text
               style={{
-                color: '#5eead4',
+                color: '#ffffff',
 
                 fontSize: isMobile ? 42 : isTablet ? 50 : 58,
 
@@ -399,7 +399,7 @@ export default function OfferBanner() {
               }}>
               <Text
                 style={{
-                  color: '#5eead4',
+                  color: '#ffffff',
 
                   fontSize: isTablet ? 46 : 55,
 

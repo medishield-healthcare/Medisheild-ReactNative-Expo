@@ -13,8 +13,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 const C = {
-  primary: '#0f766e',
-  primaryDark: '#0f4f4f',
+  primary: '#09BBAF',
+  primaryDark: '#09BBAF',
   primaryLight: '#ccfbf1',
 
   white: '#ffffff',
@@ -337,7 +337,7 @@ function HelpFAQ() {
           >
             <Text
               style={{
-                color: '#5eead4',
+                color: '#ffffff',
                 fontSize: 12,
                 fontWeight: '800',
                 letterSpacing: 1.5,

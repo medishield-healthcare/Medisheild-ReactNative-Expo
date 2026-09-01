@@ -19,8 +19,8 @@ import { useAuth } from '@/context/AuthContext';
 import WebHeader from 'components/Header/header.web';
 
 const C = {
-  primary: '#0f766e',
-  primaryDark: '#0f4f4f',
+  primary: '#09BBAF',
+  primaryDark: '#09BBAF',
   primaryLight: '#ccfbf1',
 
   bg: '#f5fafa',

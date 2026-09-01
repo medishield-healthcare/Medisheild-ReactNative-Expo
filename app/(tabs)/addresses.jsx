@@ -18,8 +18,8 @@ import { useRouter } from 'expo-router';
 import API from '@/api/axios';
 
 const C = {
-  primary: '#0f766e',
-  primaryDark: '#0f4f4f',
+  primary: '#09BBAF',
+  primaryDark: '#09BBAF',
   primaryLight: '#ccfbf1',
 
   bg: '#f5fafa',
@@ -882,7 +882,7 @@ export default function SavedAddresses() {
               <Ionicons
                 name="location"
                 size={22}
-                color="#5eead4"
+                color="#ffffff"
               />
             </View>
 

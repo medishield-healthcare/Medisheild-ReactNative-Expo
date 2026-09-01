@@ -13,8 +13,8 @@ import WebHeader from "components/Header/header.web";
 import Footer from "components/Footer/Footer";
 
 const C = {
-  primary:      '#0f766e',
-  primaryDark:  '#0f4f4f',
+  primary:      '#09BBAF',
+  primaryDark:  '#09BBAF',
   primaryLight: '#ccfbf1',
   accent:       '#f59e0b',
   accentLight:  '#fef3c7',
@@ -261,7 +261,7 @@ function ProfileView({ user, logout }) {
               <Text style={{ fontSize: 20, fontWeight: '900', color: 'white', letterSpacing: -0.3 }}>
                 {user?.firstname} {user?.lastname}
               </Text>
-              <Text style={{ fontSize: 13, color: '#5eead4', marginTop: 3 }}>
+              <Text style={{ fontSize: 13, color: '#ffffff', marginTop: 3 }}>
                 {user?.email}
               </Text>
               {/* Role badge */}
@@ -270,7 +270,7 @@ function ProfileView({ user, logout }) {
                 backgroundColor: 'rgba(255,255,255,0.12)',
                 borderRadius: 20, paddingHorizontal: 10, paddingVertical: 3,
               }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', color: '#94d8d4', letterSpacing: 1 }}>
+                <Text style={{ fontSize: 10, fontWeight: '700', color: '#ffffff', letterSpacing: 1 }}>
                   {(user?.role || 'customer').toUpperCase()}
                 </Text>
               </View>
@@ -290,7 +290,7 @@ function ProfileView({ user, logout }) {
               <Ionicons name="logo-bitcoin" size={16} color={C.accent} />
             </View>
             <View>
-              <Text style={{ fontSize: 11, color: '#94d8d4', fontWeight: '600' }}>
+              <Text style={{ fontSize: 11, color: '#ffffff', fontWeight: '600' }}>
                 MediShield Coins
               </Text>
               <Text style={{ fontSize: 16, fontWeight: '900', color: 'white' }}>
@@ -302,7 +302,7 @@ function ProfileView({ user, logout }) {
               backgroundColor: 'rgba(255,255,255,0.12)',
               borderRadius: 10, paddingHorizontal: 12, paddingVertical: 6,
             }}>
-              <Text style={{ color: '#5eead4', fontSize: 12, fontWeight: '700' }}>Redeem →</Text>
+              <Text style={{ color: '#ffffff', fontSize: 12, fontWeight: '700' }}>Redeem →</Text>
             </Pressable>
           </View>
         </View>

@@ -191,7 +191,7 @@ export default function Footer() {
 
           <Text
             style={{
-              color: '#94d8d4',
+              color: '#ffffff',
 
               fontSize: 14,
 
@@ -251,7 +251,7 @@ export default function Footer() {
                   }}>
                   <Text
                     style={{
-                      color: '#94d8d4',
+                      color: '#ffffff',
 
                       fontSize: 13,
                     }}>
@@ -286,7 +286,7 @@ export default function Footer() {
         }}>
         <Text
           style={{
-            color: '#5eead4',
+            color: '#ffffff',
 
             fontSize: 12,
           }}>
@@ -303,7 +303,7 @@ export default function Footer() {
             <Pressable key={link.label} onPress={() => handleNavigation(link.route)}>
               <Text
                 style={{
-                  color: '#5eead4',
+                  color: '#ffffff',
 
                   fontSize: 12,
                 }}>

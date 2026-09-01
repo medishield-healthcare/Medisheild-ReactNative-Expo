@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,13 @@ import {
   ScrollView,
   useWindowDimensions,
   Image,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthContext } from "src/context/AuthContext";
-import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import BrandPanel from "./components/BrandPanel";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { AuthContext } from 'src/context/AuthContext';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import BrandPanel from './components/BrandPanel';
+import C from '@/utils/theme';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // LAYOUT STRATEGY:
@@ -29,8 +30,8 @@ function FloatingInput({
   value,
   onChangeText,
   secureTextEntry = false,
-  autoCapitalize = "none",
-  keyboardType = "default",
+  autoCapitalize = 'none',
+  keyboardType = 'default',
   iconName,
 }) {
   const [focused, setFocused] = useState(false);
@@ -42,34 +43,24 @@ function FloatingInput({
   return (
     <View
       className={[
-        "relative rounded-2xl border-2",
-        focused ? "border-teal-600 bg-white" : "border-slate-200 bg-slate-50",
-      ].join(" ")}
-    >
+        'relative rounded-2xl border-2',
+        focused ? 'border-teal-600 bg-white' : 'border-slate-200 bg-slate-50',
+      ].join(' ')}>
       {/* Left Icon */}
-      <View className="absolute left-4 top-0 bottom-0 justify-center z-10">
-        <Ionicons
-          name={iconName}
-          size={18}
-          color={focused ? "#0f766e" : "#94a3b8"}
-        />
+      <View className="absolute bottom-0 left-4 top-0 z-10 justify-center">
+        <Ionicons name={iconName} size={18} color={focused ? '#09BBAF' : '#94a3b8'} />
       </View>
 
       {/* Floating Label */}
       <Text
         className={[
-          "absolute left-11 font-medium",
+          'absolute left-11 font-medium',
           isActive
-            ? "top-2 text-[10px] tracking-widest uppercase"
-            : "top-[17px] text-[15px] text-slate-400",
-          isActive
-            ? focused
-              ? "text-teal-700"
-              : "text-teal-500"
-            : "",
-        ].join(" ")}
-        style={{ pointerEvents: "none" }}
-      >
+            ? 'top-2 text-[10px] uppercase tracking-widest'
+            : 'top-[17px] text-[15px] text-slate-400',
+          isActive ? (focused ? 'text-teal-700' : 'text-teal-500') : '',
+        ].join(' ')}
+        style={{ pointerEvents: 'none' }}>
         {label}
       </Text>
 
@@ -83,17 +74,17 @@ function FloatingInput({
         autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
         placeholderTextColor="transparent"
-        selectionColor="#0f766e"
-        className="pl-11 pr-12 pt-6 pb-3 text-[15px] text-slate-800 font-semibold"
-        style={Platform.OS === "web" ? { outlineStyle: "none" } : {}}
+        selectionColor="#09BBAF"
+        className="pb-3 pl-11 pr-12 pt-6 text-[15px] font-semibold text-slate-800"
+        style={Platform.OS === 'web' ? { outlineStyle: 'none' } : {}}
       />
 
       {/* Right icon */}
-      <View className="absolute right-4 top-0 bottom-0 justify-center">
+      <View className="absolute bottom-0 right-4 top-0 justify-center">
         {secureTextEntry ? (
           <Pressable onPress={() => setShowPassword((p) => !p)} hitSlop={10} className="p-1">
             <Ionicons
-              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
               size={18}
               color="#94a3b8"
             />
@@ -105,7 +96,7 @@ function FloatingInput({
 
       {/* Focus underline */}
       {focused && (
-        <View className="absolute bottom-0 left-4 right-4 h-[2px] bg-teal-600 rounded-full" />
+        <View className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-teal-600" />
       )}
     </View>
   );
@@ -123,7 +114,7 @@ function FloatingInput({
 //   return (
 //     <View
 //       className="flex-1 relative overflow-hidden"
-//       style={{ backgroundColor: "#0f4f4f" }}
+//       style={{ backgroundColor: "#09BBAF" }}
 //     >
 //       {/* ── Decorative circles ── */}
 //       <View
@@ -171,7 +162,7 @@ function FloatingInput({
 //             <Text className="text-white text-lg font-black tracking-tight">
 //               MediShield
 //             </Text>
-//             <Text style={{ color: "#5eead4", fontSize: 10, fontWeight: "700", letterSpacing: 2 }}>
+//             <Text style={{ color: "#ffffff", fontSize: 10, fontWeight: "700", letterSpacing: 2 }}>
 //               DENTAL CARE
 //             </Text>
 //           </View>
@@ -185,7 +176,7 @@ function FloatingInput({
 //             style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
 //           >
 //             <View className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-//             <Text style={{ color: "#5eead4", fontSize: 11, fontWeight: "700", letterSpacing: 1.5 }}>
+//             <Text style={{ color: "#ffffff", fontSize: 11, fontWeight: "700", letterSpacing: 1.5 }}>
 //               INDIA'S #1 DENTAL STORE
 //             </Text>
 //           </View>
@@ -198,7 +189,7 @@ function FloatingInput({
 //             <Text style={{ color: "#2dd4bf" }}>Our Priority.</Text>
 //           </Text>
 
-//           <Text style={{ color: "#94d8d4", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
+//           <Text style={{ color: "#ffffff", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
 //             Shop clinically approved dental products trusted by dentists and
 //             patients across India.
 //           </Text>
@@ -230,7 +221,7 @@ function FloatingInput({
 //           ].map((s) => (
 //             <View key={s.label}>
 //               <Text className="text-white font-black text-2xl">{s.value}</Text>
-//               <Text style={{ color: "#5eead4", fontSize: 12, fontWeight: "600" }}>
+//               <Text style={{ color: "#ffffff", fontSize: 12, fontWeight: "600" }}>
 //                 {s.label}
 //               </Text>
 //             </View>
@@ -243,24 +234,24 @@ function FloatingInput({
 
 // ── Right Form Panel ───────────────────────────────────────────────────────────
 function FormPanel({ isWeb }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const { login } = useContext(AuthContext);
   const router = useRouter();
 
   const handleLogin = async () => {
-    if (!email || !password) return setError("Please enter your email and password.");
+    if (!email || !password) return setError('Please enter your email and password.');
     try {
       setLoading(true);
-      setError("");
+      setError('');
       await login(email, password);
-      router.replace("/");
+      router.replace('/');
     } catch (err) {
       console.log(err?.response?.data || err.message);
-      setError("Invalid credentials. Please try again.");
+      setError('Invalid credentials. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -268,26 +259,35 @@ function FormPanel({ isWeb }) {
 
   return (
     <ScrollView
-      className={isWeb ? "flex-1 bg-white" : "flex-1 bg-teal-50"}
+      className={isWeb ? 'flex-1 bg-white' : 'flex-1 bg-teal-50'}
       contentContainerClassName="flex-grow justify-center items-center px-6 py-12"
       keyboardShouldPersistTaps="handled"
-      showsVerticalScrollIndicator={false}
-    >
+      showsVerticalScrollIndicator={false}>
       {/* Mobile: background blobs */}
       {!isWeb && (
         <>
           <View
             style={{
-              position: "absolute", top: -80, right: -60,
-              width: 240, height: 240, borderRadius: 120,
-              backgroundColor: "#ccfbf1", opacity: 0.6,
+              position: 'absolute',
+              top: -80,
+              right: -60,
+              width: 240,
+              height: 240,
+              borderRadius: 120,
+              backgroundColor: '#ccfbf1',
+              opacity: 0.6,
             }}
           />
           <View
             style={{
-              position: "absolute", bottom: -60, left: -50,
-              width: 200, height: 200, borderRadius: 100,
-              backgroundColor: "#d1fae5", opacity: 0.5,
+              position: 'absolute',
+              bottom: -60,
+              left: -50,
+              width: 200,
+              height: 200,
+              borderRadius: 100,
+              backgroundColor: '#d1fae5',
+              opacity: 0.5,
             }}
           />
         </>
@@ -296,22 +296,21 @@ function FormPanel({ isWeb }) {
       {/* ── Form container ── */}
       <View
         style={[
-          { width: "100%", maxWidth: isWeb ? 400 : 440 },
+          { width: '100%', maxWidth: isWeb ? 400 : 440 },
           !isWeb && {
-            backgroundColor: "white",
+            backgroundColor: 'white',
             borderRadius: 28,
             padding: 32,
-            shadowColor: "#0f766e",
+            shadowColor: '#09BBAF',
             shadowOffset: { width: 0, height: 12 },
             shadowOpacity: 0.12,
             shadowRadius: 32,
             elevation: 10,
           },
-        ]}
-      >
+        ]}>
         {/* Mobile only: brand logo inside card */}
         {!isWeb && (
-          <View className="items-center mb-7">
+          <View className="mb-7 items-center">
             {/* <View className="w-[76px] h-[76px] rounded-full bg-teal-50 border-4 border-teal-100 items-center justify-center mb-3">
               <View className="w-14 h-14 rounded-full bg-teal-700 items-center justify-center">
                 <Ionicons name="medical" size={26} color="white" />
@@ -325,8 +324,8 @@ function FormPanel({ isWeb }) {
                 Dental Care
               </Text>
             </View> */}
-            <Image 
-              source={require('../../assets/logo.png')} 
+            <Image
+              source={require('../../assets/logo.png')}
               style={{
                 width: 146,
                 height: 76,
@@ -340,12 +339,11 @@ function FormPanel({ isWeb }) {
         {/* Heading */}
         <View className="mb-7">
           <Text
-            className="font-extrabold text-slate-900 tracking-tight leading-tight"
-            style={{ fontSize: isWeb ? 32 : 28 }}
-          >
+            className="font-extrabold leading-tight tracking-tight text-slate-900"
+            style={{ fontSize: isWeb ? 32 : 28 }}>
             Welcome back 👋
           </Text>
-          <Text className="mt-2 text-sm text-slate-500 leading-5">
+          <Text className="mt-2 text-sm leading-5 text-slate-500">
             Sign in to access your MediShield account
           </Text>
         </View>
@@ -353,11 +351,10 @@ function FormPanel({ isWeb }) {
         {/* Error */}
         {!!error && (
           <View
-            className="flex-row items-center gap-2.5 bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-5"
-            style={{ borderLeftWidth: 3, borderLeftColor: "#ef4444" }}
-          >
+            className="mb-5 flex-row items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 px-4 py-3"
+            style={{ borderLeftWidth: 3, borderLeftColor: '#ef4444' }}>
             <Ionicons name="alert-circle" size={16} color="#ef4444" />
-            <Text className="text-sm text-red-600 font-medium flex-1">{error}</Text>
+            <Text className="flex-1 text-sm font-medium text-red-600">{error}</Text>
           </View>
         )}
 
@@ -366,14 +363,20 @@ function FormPanel({ isWeb }) {
           <FloatingInput
             label="Email address"
             value={email}
-            onChangeText={(t) => { setEmail(t); setError(""); }}
+            onChangeText={(t) => {
+              setEmail(t);
+              setError('');
+            }}
             iconName="mail-outline"
             keyboardType="email-address"
           />
           <FloatingInput
             label="Password"
             value={password}
-            onChangeText={(t) => { setPassword(t); setError(""); }}
+            onChangeText={(t) => {
+              setPassword(t);
+              setError('');
+            }}
             iconName="lock-closed-outline"
             secureTextEntry
           />
@@ -381,78 +384,72 @@ function FormPanel({ isWeb }) {
 
         {/* Forgot */}
         <Pressable
-          className="self-end mt-3 mb-1 py-1"
-          onPress={() => router.push("/forgot-password")}
-        >
-          <Text className="text-[13px] text-teal-700 font-semibold">
-            Forgot password?
-          </Text>
+          className="mb-1 mt-3 self-end py-1"
+          onPress={() => router.push('/forgot-password')}>
+          <Text className="text-[13px] font-semibold text-teal-700">Forgot password?</Text>
         </Pressable>
 
         {/* Sign In button */}
         <Pressable
           onPress={handleLogin}
           disabled={loading}
-          className="mt-4 rounded-2xl py-[15px] items-center justify-center flex-row gap-2 bg-teal-700 active:bg-teal-800 active:opacity-90 disabled:opacity-60"
+          className="mt-4 flex-row items-center justify-center gap-2 rounded-2xl py-[15px] active:bg-teal-800 active:opacity-90 disabled:opacity-60"
           style={
-            Platform.OS === "web"
-              ? { boxShadow: "0 8px 24px rgba(15,118,110,0.28)" }
+            Platform.OS === 'web'
+              ? { boxShadow: '0 8px 24px rgba(15,118,110,0.28)', backgroundColor: C.primaryDark }
               : {
-                  shadowColor: "#0f766e",
+                  shadowColor: '#09BBAF',
                   shadowOffset: { width: 0, height: 6 },
                   shadowOpacity: 0.3,
                   shadowRadius: 12,
                   elevation: 6,
+                  backgroundColor: C.primaryDark,
                 }
-          }
-        >
+          }>
           {loading ? (
             <ActivityIndicator color="white" size="small" />
           ) : (
             <>
-              <Text className="text-white text-[15px] font-bold tracking-wide">
-                Sign In
-              </Text>
+              <Text className="text-[15px] font-bold tracking-wide text-white">Sign In</Text>
               <Ionicons name="arrow-forward" size={18} color="white" />
             </>
           )}
         </Pressable>
 
         {/* Divider */}
-        <View className="flex-row items-center gap-3 my-6">
-          <View className="flex-1 h-px bg-slate-100" />
-          <Text className="text-xs text-slate-400 font-semibold tracking-widest">OR</Text>
-          <View className="flex-1 h-px bg-slate-100" />
+        <View className="my-6 flex-row items-center gap-3">
+          <View className="h-px flex-1 bg-slate-100" />
+          <Text className="text-xs font-semibold tracking-widest text-slate-400">OR</Text>
+          <View className="h-px flex-1 bg-slate-100" />
         </View>
 
         {/* Register */}
-        <View className="flex-row justify-center items-center">
+        <View className="flex-row items-center justify-center">
           <Text className="text-sm text-slate-500">Don't have an account? </Text>
-          <Pressable onPress={() => router.push("/auth/registration")}>
-            <Text className="text-sm text-teal-700 font-bold">Create account →</Text>
+          <Pressable onPress={() => router.push('/auth/registration')}>
+            <Text style={{ color: C.primary }} className="text-sm font-bold ">Create account →</Text>
           </Pressable>
         </View>
 
         {/* Trust badges */}
         <View
-          className="flex-row justify-center gap-5 mt-3 pt-5"
-          style={{ borderTopWidth: 1, borderTopColor: "#f1f5f9" }}
-        >
+          className="mt-3 flex-row justify-center gap-5 pt-5"
+          style={{ borderTopWidth: 1, borderTopColor: '#f1f5f9' }}>
           {[
-            { icon: "shield-checkmark-outline", label: "Secure" },
-            { icon: "lock-closed-outline",       label: "Encrypted" },
-            { icon: "star-outline",               label: "Trusted" },
+            { icon: 'shield-checkmark-outline', label: 'Secure' },
+            { icon: 'lock-closed-outline', label: 'Encrypted' },
+            { icon: 'star-outline', label: 'Trusted' },
           ].map((b) => (
             <View key={b.label} className="flex-row items-center gap-1.5">
               <Ionicons name={b.icon} size={12} color="#94a3b8" />
-              <Text className="text-[11px] text-slate-400 font-medium">{b.label}</Text>
+              <Text className="text-[11px] font-medium text-slate-400">{b.label}</Text>
             </View>
           ))}
         </View>
       </View>
 
       {/* Footer */}
-      <Text className="mt-8 text-xs text-slate-400 text-center">
+      <Text className="mt-8 text-center text-xs text-slate-400">
         © 2025 MediShield · All rights reserved
       </Text>
     </ScrollView>
@@ -464,12 +461,12 @@ export default function Login() {
   const { width } = useWindowDimensions();
 
   // Breakpoint: >= 768px = web/tablet split layout
-  const isWeb = Platform.OS === "web" && width >= 768;
+  const isWeb = Platform.OS === 'web' && width >= 768;
 
   if (isWeb) {
     // ── SPLIT LAYOUT ──
     return (
-      <View style={{ flex: 1, flexDirection: "row" }}>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
         <BrandPanel />
         <FormPanel isWeb={true} />
       </View>

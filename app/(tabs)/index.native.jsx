@@ -20,8 +20,8 @@ import { useQuery } from '@tanstack/react-query';
 import FeaturedCategories from 'components/Section/FeaturedCategories';
 
 const C = {
-  primary: '#0f766e',
-  primaryDark: '#0f4f4f',
+  primary: '#09BBAF',
+  primaryDark: '#09BBAF',
   primaryLight: '#ccfbf1',
   accent: '#f59e0b',
   accentLight: '#fef3c7',
@@ -941,7 +941,7 @@ export default function HomeNative() {
                   style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#2dd4bf' }}
                 />
                 <Text
-                  style={{ color: '#5eead4', fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>
+                  style={{ color: '#ffffff', fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>
                   PREMIUM STORE
                 </Text>
               </View>
@@ -957,7 +957,7 @@ export default function HomeNative() {
                 India's Best{'\n'}
                 <Text style={{ color: '#2dd4bf' }}>Dental Store</Text>
               </Text>
-              <Text style={{ fontSize: 13, color: '#94d8d4', marginTop: 6, marginBottom: 16 }}>
+              <Text style={{ fontSize: 13, color: '#ffffff', marginTop: 6, marginBottom: 16 }}>
                 Tools, Materials & Equipment
               </Text>
 
@@ -1673,7 +1673,7 @@ export default function HomeNative() {
                   justifyContent: 'center',
                   marginRight: 13,
                 }}>
-                <Ionicons name="business-outline" size={23} color="#5eead4" />
+                <Ionicons name="business-outline" size={23} color="#ffffff" />
               </View>
 
               <View style={{ flex: 1 }}>

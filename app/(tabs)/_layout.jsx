@@ -8,8 +8,8 @@ import { Platform, View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const PRIMARY = '#0f766e';
-const PRIMARY_DARK = '#0f4f4f';
+const PRIMARY = '#09BBAF';
+const PRIMARY_DARK = '#09BBAF';
 const INACTIVE = '#94a3b8';
 const WHITE = '#ffffff';
 

@@ -35,7 +35,7 @@ import Footer from "components/Footer/Footer";
 // CONSTANTS
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PRIMARY = C.primary || "#0f766e";
+const PRIMARY = C.primary || "#09BBAF";
 
 const FILTERS = [
   {

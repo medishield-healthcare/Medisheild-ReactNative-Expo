@@ -21,9 +21,9 @@ import Footer from 'components/Footer/Footer';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const T = {
-  teal900: '#0f4f4f',
+  teal900: '#09BBAF',
   teal800: '#115e59',
-  teal700: '#0f766e',
+  teal700: '#09BBAF',
   teal600: '#0d9488',
   teal500: '#14b8a6',
   teal100: '#ccfbf1',

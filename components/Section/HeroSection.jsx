@@ -38,7 +38,7 @@ export default function HeroSection() {
                 flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16,
               }}>
                 <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#2dd4bf' }} />
-                <Text style={{ color: '#5eead4', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
+                <Text style={{ color: '#ffffff', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
                   INDIA'S TRUSTED DENTAL STORE
                 </Text>
               </View>
@@ -54,7 +54,7 @@ export default function HeroSection() {
               </Text>
 
               <Text style={{
-                color: '#94d8d4', fontSize: isMobile ? 14 : 16,
+                color: '#ffffff', fontSize: isMobile ? 14 : 16,
                 lineHeight: 24, maxWidth: 440, marginBottom: isMobile ? 20 : 32,
               }}>
                 Shop clinically approved dental tools, materials and equipment trusted
@@ -97,7 +97,7 @@ export default function HeroSection() {
                 ].map(s => (
                   <View key={s.label}>
                     <Text style={{ fontSize: isMobile ? 18 : 22, fontWeight: '900', color: '#fff' }}>{s.val}</Text>
-                    <Text style={{ fontSize: 12, color: '#5eead4', fontWeight: '600' }}>{s.label}</Text>
+                    <Text style={{ fontSize: 12, color: '#ffffff', fontWeight: '600' }}>{s.label}</Text>
                   </View>
                 ))}
               </View>

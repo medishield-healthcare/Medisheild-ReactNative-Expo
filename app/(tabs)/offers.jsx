@@ -150,7 +150,7 @@ function OfferProductCard({ product, width, onPress }) {
               top: 12,
               left: 12,
               zIndex: 5,
-              backgroundColor: C.primary || '#0f766e',
+              backgroundColor: C.primary || '#09BBAF',
               paddingHorizontal: 9,
               paddingVertical: 5,
               borderRadius: 7,
@@ -244,7 +244,7 @@ function OfferProductCard({ product, width, onPress }) {
           <Text
             numberOfLines={1}
             style={{
-              color: C.primary || '#0f766e',
+              color: C.primary || '#09BBAF',
               fontSize: 9,
               fontWeight: '800',
               textTransform: 'uppercase',
@@ -419,7 +419,7 @@ function OfferProductCard({ product, width, onPress }) {
               marginTop: 14,
               height: 40,
               // borderRadius: 9,
-              backgroundColor: C.primary || '#0f766e',
+              backgroundColor: C.primary || '#09BBAF',
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'row',
@@ -461,7 +461,7 @@ function LoadingState() {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <ActivityIndicator size="large" color={C.primary || '#0f766e'} />
+      <ActivityIndicator size="large" color={C.primary || '#09BBAF'} />
 
       <Text
         style={{
@@ -531,7 +531,7 @@ function ErrorState({ message, onRetry }) {
           height: 42,
           paddingHorizontal: 20,
           borderRadius: 9,
-          backgroundColor: C.primary || '#0f766e',
+          backgroundColor: C.primary || '#09BBAF',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
@@ -576,7 +576,7 @@ function EmptyState() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Ionicons name="pricetag-outline" size={35} color={C.primary || '#0f766e'} />
+        <Ionicons name="pricetag-outline" size={35} color={C.primary || '#09BBAF'} />
       </View>
 
       <Text
@@ -609,7 +609,7 @@ function EmptyState() {
           height: 42,
           paddingHorizontal: 22,
           borderRadius: 9,
-          backgroundColor: C.primary || '#0f766e',
+          backgroundColor: C.primary || '#09BBAF',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
@@ -867,14 +867,14 @@ function Offers() {
                 style={{
                   width: 28,
                   height: 1,
-                  backgroundColor: '#5eead4',
+                  backgroundColor: '#ffffff',
                 }}
               />
 
               <Text
                 style={{
                   marginLeft: 9,
-                  color: '#5eead4',
+                  color: '#ffffff',
                   fontSize: 10,
                   fontWeight: '900',
                   letterSpacing: 1.8,
@@ -1034,7 +1034,7 @@ function Offers() {
                 }}>
                 <Text
                   style={{
-                    color: C.primary || '#0f766e',
+                    color: C.primary || '#09BBAF',
                     fontSize: 10,
                     fontWeight: '800',
                   }}>
@@ -1083,18 +1083,18 @@ function Offers() {
                     paddingHorizontal: 22,
                     borderRadius: 9,
                     borderWidth: 1,
-                    borderColor: C.primary || '#0f766e',
+                    borderColor: C.primary || '#09BBAF',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexDirection: 'row',
                   }}>
                   {loadingMore ? (
-                    <ActivityIndicator size="small" color={C.primary || '#0f766e'} />
+                    <ActivityIndicator size="small" color={C.primary || '#09BBAF'} />
                   ) : (
                     <>
                       <Text
                         style={{
-                          color: C.primary || '#0f766e',
+                          color: C.primary || '#09BBAF',
                           fontSize: 11,
                           fontWeight: '900',
                           letterSpacing: 0.4,
@@ -1105,7 +1105,7 @@ function Offers() {
                       <Ionicons
                         name="arrow-down"
                         size={14}
-                        color={C.primary || '#0f766e'}
+                        color={C.primary || '#09BBAF'}
                         style={{
                           marginLeft: 7,
                         }}

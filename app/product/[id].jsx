@@ -29,9 +29,9 @@ import { useAuth } from '@/context/AuthContext';
 
 const T = {
   // Brand
-  teal900: '#0f4f4f',
+  teal900: '#09BBAF',
   teal800: '#0f5f5a',
-  teal700: '#0f766e',
+  teal700: '#09BBAF',
   teal600: '#0d9488',
   teal100: '#ccfbf1',
   teal50: '#f0fdfa',

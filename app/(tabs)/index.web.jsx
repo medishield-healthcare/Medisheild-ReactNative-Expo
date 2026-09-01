@@ -969,7 +969,7 @@ export default function HomeWeb() {
 
                     marginBottom: 9,
                   }}>
-                  <Ionicons name="medical-outline" size={14} color="#5eead4" />
+                  <Ionicons name="medical-outline" size={14} color="#ffffff" />
 
                   <Text
                     style={{

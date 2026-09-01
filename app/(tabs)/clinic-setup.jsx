@@ -195,13 +195,13 @@ export default function NewClinicSetup() {
 
                     borderRadius: 4,
 
-                    backgroundColor: '#5eead4',
+                    backgroundColor: '#ffffff',
                   }}
                 />
 
                 <Text
                   style={{
-                    color: '#5eead4',
+                    color: '#ffffff',
 
                     fontSize: 10,
 
@@ -350,7 +350,7 @@ export default function NewClinicSetup() {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Ionicons name="business-outline" size={isTablet ? 70 : 82} color="#5eead4" />
+                  <Ionicons name="business-outline" size={isTablet ? 70 : 82} color="#ffffff" />
 
                   <View
                     style={{
@@ -752,7 +752,7 @@ export default function NewClinicSetup() {
               }}>
               <Text
                 style={{
-                  color: '#5eead4',
+                  color: '#ffffff',
 
                   fontSize: 10,
 
@@ -813,7 +813,7 @@ export default function NewClinicSetup() {
 
                     gap: 12,
                   }}>
-                  <Ionicons name={item.icon} size={20} color="#5eead4" />
+                  <Ionicons name={item.icon} size={20} color="#ffffff" />
 
                   <View
                     style={{

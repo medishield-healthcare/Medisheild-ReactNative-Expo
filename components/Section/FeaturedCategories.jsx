@@ -308,7 +308,7 @@ export default function FeaturedCategories({
               borderRadius: 4,
 
               backgroundColor:
-                "#0f766e",
+                "#09BBAF",
 
               marginTop: 7,
             }}
@@ -389,7 +389,7 @@ export default function FeaturedCategories({
             borderRadius: 4,
 
             backgroundColor:
-              "#0f766e",
+              "#09BBAF",
 
             marginTop: 7,
           }}

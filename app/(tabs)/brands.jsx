@@ -619,7 +619,7 @@ function Brands() {
 
           <View
             style={{
-              backgroundColor: '#0f4f5a',
+              backgroundColor: C.primaryDark,
 
               borderRadius: isMobile ? 22 : 28,
 
@@ -778,7 +778,7 @@ function Brands() {
 
                 marginTop: 18,
               }}>
-              <Ionicons name="shield-checkmark" size={15} color="#5eead4" />
+              <Ionicons name="shield-checkmark" size={15} color="#ffffff" />
 
               <Text
                 style={{

@@ -24,8 +24,8 @@ import { useQuery } from '@tanstack/react-query';
 // ============================================================================
 
 const C = {
-  primary: '#0f766e',
-  primaryDark: '#0f4f4f',
+  primary: '#09BBAF',
+  primaryDark: '#09BBAF',
   primaryLight: '#ccfbf1',
   white: '#ffffff',
   bg: '#f8fafc',
@@ -1439,7 +1439,7 @@ export default function WebHeader() {
           }}>
           <Text
             style={{
-              color: '#5eead4',
+              color: '#ffffff',
 
               fontSize: 12,
 
@@ -1460,7 +1460,7 @@ export default function WebHeader() {
                 onPress={() => router.push(`/${label.toLowerCase().replace(' ', '-')}`)}>
                 <Text
                   style={{
-                    color: '#94d8d4',
+                    color: '#ffffff',
 
                     fontSize: 12,
                   }}>
@@ -1784,7 +1784,7 @@ export default function WebHeader() {
 
                 paddingHorizontal: isMobile ? 12 : 16,
 
-                paddingVertical: isMobile ? 12 : 12,
+                paddingVertical: isMobile ? 12 : 11,
 
                 flexDirection: 'row',
 

@@ -19,7 +19,7 @@ export default function BrandPanel() {
   return (
     <View
       className="flex-1 relative overflow-hidden"
-      style={{ backgroundColor: "#0f4f4f" }}
+      style={{ backgroundColor: "#09BBAF" }}
     >
       {/* ── Decorative circles ── */}
       <View
@@ -67,7 +67,7 @@ export default function BrandPanel() {
             <Text className="text-white text-lg font-black tracking-tight">
               MediShield
             </Text>
-            <Text style={{ color: "#5eead4", fontSize: 10, fontWeight: "700", letterSpacing: 2 }}>
+            <Text style={{ color: "#ffffff", fontSize: 10, fontWeight: "700", letterSpacing: 2 }}>
               DENTAL CARE
             </Text>
           </View>
@@ -82,7 +82,7 @@ export default function BrandPanel() {
             style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
           >
             <View className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-            <Text style={{ color: "#5eead4", fontSize: 11, fontWeight: "700", letterSpacing: 1.5 }}>
+            <Text style={{ color: "#ffffff", fontSize: 11, fontWeight: "700", letterSpacing: 1.5 }}>
               INDIA'S #1 DENTAL STORE
             </Text>
           </View>
@@ -95,7 +95,7 @@ export default function BrandPanel() {
             <Text style={{ color: "#2dd4bf" }}>Our Priority.</Text>
           </Text>
 
-          <Text style={{ color: "#94d8d4", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
+          <Text style={{ color: "#ffffff", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
             Shop clinically approved dental products trusted by dentists and
             patients across India.
           </Text>
@@ -127,7 +127,7 @@ export default function BrandPanel() {
           ].map((s) => (
             <View key={s.label}>
               <Text className="text-white font-black text-2xl">{s.value}</Text>
-              <Text style={{ color: "#5eead4", fontSize: 12, fontWeight: "600" }}>
+              <Text style={{ color: "#ffffff", fontSize: 12, fontWeight: "600" }}>
                 {s.label}
               </Text>
             </View>

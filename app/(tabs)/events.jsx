@@ -27,7 +27,7 @@ const EVENTS = [
     description:
       'A hands-on learning experience covering modern endodontic techniques, instrumentation, clinical decision making and practical workflow.',
     seats: 'Limited seats',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -48,7 +48,7 @@ const EVENTS = [
     description:
       'Explore the latest dental materials, their clinical applications and how to select the right material for different procedures.',
     seats: 'Open registration',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -69,7 +69,7 @@ const EVENTS = [
     description:
       'Learn practical dental photography techniques to improve clinical documentation, patient communication and case presentation.',
     seats: '24 seats available',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -90,7 +90,7 @@ const EVENTS = [
     description:
       'A full-day event exploring digital workflows, modern technologies and the future of technology-driven dental practices.',
     seats: 'Early bird available',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -111,7 +111,7 @@ const EVENTS = [
     description:
       'Understand practical infection control protocols, sterilization workflows and safety practices for modern dental clinics.',
     seats: 'Open registration',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -132,7 +132,7 @@ const EVENTS = [
     description:
       'A practical session focused on treatment planning, restorative workflows and clinical considerations for predictable outcomes.',
     seats: 'Open registration',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -153,7 +153,7 @@ const EVENTS = [
     description:
       'Learn strategies for building efficient dental practices, improving patient experience and managing day-to-day operations.',
     seats: 'Limited seats',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 
   {
@@ -174,7 +174,7 @@ const EVENTS = [
     description:
       'An informative session on preventive dental care, patient education and modern approaches to maintaining oral health.',
     seats: 'Open registration',
-    color: '#0f766e',
+    color: '#09BBAF',
   },
 ];
 
@@ -479,13 +479,13 @@ export default function Events() {
                   width: 7,
                   height: 7,
                   borderRadius: 4,
-                  backgroundColor: '#5eead4',
+                  backgroundColor: '#ffffff',
                 }}
               />
 
               <Text
                 style={{
-                  color: '#5eead4',
+                  color: '#ffffff',
                   fontSize: 10,
                   fontWeight: '900',
                   letterSpacing: 1.8,
@@ -1103,7 +1103,7 @@ export default function Events() {
 
                   <Text
                     style={{
-                      color: '#5eead4',
+                      color: '#ffffff',
                       fontSize: 10,
                       fontWeight: '900',
                       letterSpacing: 1.3,
