@@ -257,7 +257,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
 
                 height: 42,
 
-                backgroundColor: 'rgba(15,77,77,0.94)',
+                backgroundColor: C.primaryDark,
 
                 alignItems: 'center',
 

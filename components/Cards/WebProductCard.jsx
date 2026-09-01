@@ -244,7 +244,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
               height: 42,
 
-              backgroundColor: 'rgba(15,77,77,0.94)',
+              backgroundColor: C.primaryDark,
 
               alignItems: 'center',
               justifyContent: 'center',

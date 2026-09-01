@@ -179,7 +179,7 @@ export default function Footer() {
               marginBottom: 12,
             }}>
             <Image
-              source={require('../../assets/medisheild-white.png')}
+              source={require('../../assets/logo-img.png')}
               style={{
                 width: isMobile ? 100 : isTablet ? 115 : 130,
                 height: isMobile ? 44 : 46,

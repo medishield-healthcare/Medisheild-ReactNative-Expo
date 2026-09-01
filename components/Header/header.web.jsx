@@ -1506,7 +1506,7 @@ export default function WebHeader() {
             flexShrink: 0,
           }}>
           <Image
-            source={require('../../assets/logo.png')}
+            source={require('../../assets/logo-img.png')}
             style={{
               width: isMobile ? 100 : isTablet ? 115 : 130,
 
