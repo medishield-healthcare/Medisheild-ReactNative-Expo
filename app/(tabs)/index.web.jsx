@@ -72,13 +72,9 @@ function PremiumSectionHeader({
     <View
       style={{
         flexDirection: isMobile ? 'column' : 'row',
-
         alignItems: isMobile ? 'flex-start' : 'flex-end',
-
         justifyContent: 'space-between',
-
         gap: 14,
-
         marginBottom: isMobile ? 18 : 24,
       }}>
       <View
@@ -91,33 +87,24 @@ function PremiumSectionHeader({
           <View
             style={{
               flexDirection: 'row',
-
               alignItems: 'center',
-
               gap: 7,
-
               marginBottom: 7,
             }}>
             <View
               style={{
                 width: 7,
-
                 height: 7,
-
                 borderRadius: 7,
-
                 backgroundColor: C.accent,
               }}
             />
 
             <Text
               style={{
-                fontSize: 9,
-
+                fontSize: 12,
                 fontWeight: '900',
-
                 letterSpacing: 1.4,
-
                 color: C.primary,
               }}>
               {eyebrow}
@@ -129,14 +116,10 @@ function PremiumSectionHeader({
 
         <Text
           style={{
-            fontSize: isMobile ? 23 : 30,
-
+            fontSize: isMobile ? 26 : 30,
             lineHeight: isMobile ? 29 : 36,
-
             fontWeight: '900',
-
             color: C.dark,
-
             letterSpacing: -0.7,
           }}>
           {title}
@@ -147,14 +130,10 @@ function PremiumSectionHeader({
         {description && (
           <Text
             style={{
-              fontSize: 12,
-
+              fontSize: 13,
               lineHeight: 18,
-
               color: C.muted,
-
               marginTop: 5,
-
               maxWidth: 500,
             }}>
             {description}
@@ -169,25 +148,15 @@ function PremiumSectionHeader({
           onPress={onPress}
           style={({ pressed }) => ({
             flexDirection: 'row',
-
             alignItems: 'center',
-
             gap: 7,
-
             paddingHorizontal: 14,
-
             paddingVertical: 9,
-
             borderRadius: 11,
-
             backgroundColor: pressed ? C.primaryLight : C.white,
-
             borderWidth: 1,
-
             borderColor: C.border,
-
             opacity: pressed ? 0.85 : 1,
-
             ...(Platform.OS === 'web'
               ? {
                   cursor: 'pointer',
@@ -199,9 +168,7 @@ function PremiumSectionHeader({
           <Text
             style={{
               fontSize: 11,
-
               fontWeight: '800',
-
               color: C.primary,
             }}>
             {buttonText}
@@ -224,25 +191,15 @@ function BrandMiniCard({ brand, isMobile, onPress }) {
       onPress={onPress}
       style={({ pressed }) => ({
         width: isMobile ? 125 : 145,
-
         height: isMobile ? 112 : 124,
-
         backgroundColor: C.white,
-
         borderRadius: 16,
-
         borderWidth: 1,
-
         borderColor: pressed ? C.primary : C.border,
-
         alignItems: 'center',
-
         justifyContent: 'center',
-
         overflow: 'hidden',
-
         opacity: pressed ? 0.88 : 1,
-
         transform: [
           {
             scale: pressed ? 0.97 : 1,
@@ -252,23 +209,17 @@ function BrandMiniCard({ brand, isMobile, onPress }) {
         ...(Platform.OS === 'web'
           ? {
               cursor: 'pointer',
-
               boxShadow: '0 5px 20px rgba(15,77,77,0.055)',
-
               transition: 'all 0.2s ease',
             }
           : {
               shadowColor: C.primaryDark,
-
               shadowOffset: {
                 width: 0,
                 height: 2,
               },
-
               shadowOpacity: 0.05,
-
               shadowRadius: 8,
-
               elevation: 2,
             }),
       })}>
@@ -383,13 +334,13 @@ function TrustFeature({ icon, title, text, isMobile }) {
 
           borderColor: C.border,
         }}>
-        <Ionicons name={icon} size={18} color={C.primary} />
+        <Ionicons name={icon} size={22} color={C.primary} />
       </View>
 
       <View>
         <Text
           style={{
-            fontSize: 10,
+            fontSize: 14,
 
             fontWeight: '900',
 
@@ -400,7 +351,7 @@ function TrustFeature({ icon, title, text, isMobile }) {
 
         <Text
           style={{
-            fontSize: 9,
+            fontSize: 12,
 
             color: C.muted,
 

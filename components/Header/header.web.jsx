@@ -27,23 +27,16 @@ const C = {
   primary: '#0f766e',
   primaryDark: '#0f4f4f',
   primaryLight: '#ccfbf1',
-
   white: '#ffffff',
-
   bg: '#f8fafc',
   bgSoft: '#f1f5f9',
-
   dark: '#0f172a',
   dark2: '#1e293b',
-
   muted: '#64748b',
   mutedLight: '#94a3b8',
-
   border: '#e2e8f0',
   borderLight: '#f1f5f9',
-
   hover: '#f0fdfa',
-
   accent: '#f59e0b',
   accentLight: '#fef3c7',
 };
@@ -2072,23 +2065,14 @@ export default function WebHeader() {
         <View
           style={{
             height: 52,
-
             flexDirection: 'row',
-
             alignItems: 'center',
-
             justifyContent: 'center',
-
             gap: 4,
-
             borderTopWidth: 1,
-
             borderTopColor: C.borderLight,
-
             backgroundColor: C.white,
-
             position: 'relative',
-
             zIndex: 9,
           }}>
           {/* HOME */}
@@ -2129,14 +2113,12 @@ export default function WebHeader() {
             ref={categoryMenuRef}
             style={{
               position: 'relative',
-
               zIndex: 999999,
             }}>
             <Pressable
               onPress={openCategoryMenu}
               onHoverIn={() => {
                 setCategoryMenuOpen(true);
-
                 updateCategoryMenuPosition();
 
                 if (categories.length > 0 && !activeMainCategory) {
@@ -2145,19 +2127,12 @@ export default function WebHeader() {
               }}
               style={({ pressed }) => ({
                 flexDirection: 'row',
-
                 alignItems: 'center',
-
                 gap: 7,
-
                 paddingHorizontal: 16,
-
                 paddingVertical: 9,
-
                 borderRadius: 9,
-
                 backgroundColor: categoryMenuOpen || pressed ? C.primaryLight : 'transparent',
-
                 cursor: 'pointer',
               })}>
               <Ionicons
@@ -2169,9 +2144,7 @@ export default function WebHeader() {
               <Text
                 style={{
                   fontSize: 14,
-
                   fontWeight: '700',
-
                   color: categoryMenuOpen ? C.primary : C.dark,
                 }}>
                 Categories
@@ -2205,26 +2178,20 @@ export default function WebHeader() {
             onPress={() => router.push('/shop')}
             style={({ pressed }) => ({
               paddingHorizontal: 16,
-
               paddingVertical: 9,
-
               borderRadius: 9,
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 7,
-
               backgroundColor: pressed ? C.bg : 'transparent',
-
               cursor: 'pointer',
             })}>
             <Ionicons name="cube-outline" size={16} color={C.dark} />
             <Text
               style={{
                 fontSize: 14,
-
                 fontWeight: '600',
-
                 color: C.dark,
               }}>
               Products
@@ -2237,26 +2204,20 @@ export default function WebHeader() {
             onPress={() => router.push('/offers')}
             style={({ pressed }) => ({
               paddingHorizontal: 16,
-
               paddingVertical: 9,
-
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 7,
               borderRadius: 9,
-
               backgroundColor: pressed ? C.bg : 'transparent',
-
               cursor: 'pointer',
             })}>
             <Ionicons name="pricetag-outline" size={16} color={C.dark} />
             <Text
               style={{
                 fontSize: 14,
-
                 fontWeight: '600',
-
                 color: C.dark,
               }}>
               Offers
@@ -2269,26 +2230,20 @@ export default function WebHeader() {
             onPress={() => router.push('/new-arrivals')}
             style={({ pressed }) => ({
               paddingHorizontal: 16,
-
               paddingVertical: 9,
-
               borderRadius: 9,
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 7,
-
               backgroundColor: pressed ? C.bg : 'transparent',
-
               cursor: 'pointer',
             })}>
             <Ionicons name="sparkles-outline" size={16} color={C.dark} />
             <Text
               style={{
                 fontSize: 14,
-
                 fontWeight: '600',
-
                 color: C.dark,
               }}>
               New Arrivals
@@ -2328,28 +2283,69 @@ export default function WebHeader() {
             onPress={() => router.push('/contact')}
             style={({ pressed }) => ({
               paddingHorizontal: 16,
-
               paddingVertical: 9,
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 7,
               borderRadius: 9,
-
               backgroundColor: pressed ? C.bg : 'transparent',
-
               cursor: 'pointer',
             })}>
             <Ionicons name="call-outline" size={16} color={C.dark} />
             <Text
               style={{
                 fontSize: 14,
-
                 fontWeight: '600',
-
                 color: C.dark,
               }}>
               Contact
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => router.push('/contact')}
+            style={({ pressed }) => ({
+              paddingHorizontal: 16,
+              paddingVertical: 9,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 7,
+              borderRadius: 9,
+              backgroundColor: pressed ? C.bg : 'transparent',
+              cursor: 'pointer',
+            })}>
+            <Ionicons name="calendar-outline" size={16} color={C.dark} />
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '600',
+                color: C.dark,
+              }}>
+              Events
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => router.push('/contact')}
+            style={({ pressed }) => ({
+              paddingHorizontal: 16,
+              paddingVertical: 9,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 7,
+              borderRadius: 9,
+              backgroundColor: pressed ? C.bg : 'transparent',
+              cursor: 'pointer',
+            })}>
+            <Ionicons name="business-outline" size={16} color={C.dark} />
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '600',
+                color: C.dark,
+              }}>
+              New Clinic Setup
             </Text>
           </Pressable>
         </View>

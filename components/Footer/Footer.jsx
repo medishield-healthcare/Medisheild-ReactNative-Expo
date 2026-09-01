@@ -1,16 +1,9 @@
 import C from '@/utils/theme';
 
-import {
-  Platform,
-  Pressable,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import { Image, Platform, Pressable, Text, useWindowDimensions, View } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-
 
 // ─────────────────────────────────────────────
 // Breakpoint
@@ -24,30 +17,15 @@ function useBreakpoint() {
 
     isMobile: width < 640,
 
-    isTablet:
-      width >= 640 && width < 1024,
+    isTablet: width >= 640 && width < 1024,
 
-    isDesktop:
-      width >= 1024,
+    isDesktop: width >= 1024,
 
-    cols:
-      width < 480
-        ? 1
-        : width < 768
-        ? 2
-        : width < 1024
-        ? 3
-        : 4,
+    cols: width < 480 ? 1 : width < 768 ? 2 : width < 1024 ? 3 : 4,
 
-    px:
-      width < 640
-        ? 16
-        : width < 1024
-        ? 24
-        : 40,
+    px: width < 640 ? 16 : width < 1024 ? 24 : 40,
   };
 }
-
 
 // ─────────────────────────────────────────────
 // Footer
@@ -57,11 +35,9 @@ export default function Footer() {
   if (Platform.OS !== 'web') {
     return null;
   }
-  const { isMobile, px } =
-    useBreakpoint();
+  const { isMobile, px, isTablet } = useBreakpoint();
 
   const router = useRouter();
-
 
   // ───────────────────────────────────────────
   // Footer navigation
@@ -138,7 +114,6 @@ export default function Footer() {
     },
   ];
 
-
   const bottomLinks = [
     {
       label: 'Privacy',
@@ -154,7 +129,6 @@ export default function Footer() {
     },
   ];
 
-
   // ───────────────────────────────────────────
   // Navigation helper
   // ───────────────────────────────────────────
@@ -163,57 +137,37 @@ export default function Footer() {
     router.push(route);
   };
 
-
   return (
     <View
       style={{
-        backgroundColor:
-          C.primaryDark,
+        backgroundColor: C.primaryDark,
 
         paddingHorizontal: px,
 
-        paddingTop:
-          isMobile
-            ? 32
-            : 48,
+        paddingTop: isMobile ? 32 : 48,
 
         paddingBottom: 24,
-      }}
-    >
-
+      }}>
       {/* ═══════════════════════════════════════
           TOP SECTION
       ═══════════════════════════════════════ */}
 
       <View
         style={{
-          flexDirection:
-            isMobile
-              ? 'column'
-              : 'row',
+          flexDirection: isMobile ? 'column' : 'row',
 
-          gap:
-            isMobile
-              ? 28
-              : 40,
+          gap: isMobile ? 28 : 40,
 
           marginBottom: 32,
-        }}
-      >
-
+        }}>
         {/* ─────────────────────────────────────
             BRAND
         ───────────────────────────────────── */}
 
         <View
           style={{
-            flex:
-              isMobile
-                ? undefined
-                : 2,
-          }}
-        >
-
+            flex: isMobile ? undefined : 2,
+          }}>
           <View
             style={{
               flexDirection: 'row',
@@ -223,51 +177,17 @@ export default function Footer() {
               gap: 10,
 
               marginBottom: 12,
-            }}
-          >
-
-            <View
+            }}>
+            <Image
+              source={require('../../assets/medisheild-white.png')}
               style={{
-                width: 36,
-
-                height: 36,
-
-                borderRadius: 10,
-
-                backgroundColor:
-                  'rgba(255,255,255,0.15)',
-
-                alignItems:
-                  'center',
-
-                justifyContent:
-                  'center',
+                width: isMobile ? 100 : isTablet ? 115 : 130,
+                height: isMobile ? 44 : 46,
+                marginLeft: isMobile ? 0 : -12,
+                resizeMode: 'contain',
               }}
-            >
-
-              <Ionicons
-                name="medical"
-                size={17}
-                color="white"
-              />
-
-            </View>
-
-
-            <Text
-              style={{
-                fontSize: 18,
-
-                fontWeight: '900',
-
-                color: '#fff',
-              }}
-            >
-              MediShield
-            </Text>
-
+            />
           </View>
-
 
           <Text
             style={{
@@ -278,14 +198,10 @@ export default function Footer() {
               lineHeight: 22,
 
               maxWidth: 240,
-            }}
-          >
-            India's trusted dental products
-            store. Quality you can count on.
+            }}>
+            India's trusted dental products store. Quality you can count on.
           </Text>
-
         </View>
-
 
         {/* ─────────────────────────────────────
             LINK COLUMNS
@@ -295,91 +211,58 @@ export default function Footer() {
           style={{
             flexDirection: 'row',
 
-            flex:
-              isMobile
-                ? undefined
-                : 3,
+            flex: isMobile ? undefined : 3,
 
             gap: 20,
 
             flexWrap: 'wrap',
-          }}
-        >
+          }}>
+          {footerColumns.map((column) => (
+            <View
+              key={column.heading}
+              style={{
+                flex: 1,
 
-          {footerColumns.map(
-            (column) => (
-
-              <View
-                key={column.heading}
+                minWidth: 100,
+              }}>
+              <Text
                 style={{
-                  flex: 1,
+                  fontSize: 12,
 
-                  minWidth: 100,
-                }}
-              >
+                  fontWeight: '800',
 
-                <Text
+                  color: '#fff',
+
+                  letterSpacing: 1.5,
+
+                  marginBottom: 14,
+                }}>
+                {column.heading.toUpperCase()}
+              </Text>
+
+              {column.links.map((link) => (
+                <Pressable
+                  key={link.label}
+                  onPress={() => handleNavigation(link.route)}
                   style={{
-                    fontSize: 12,
+                    marginBottom: 10,
 
-                    fontWeight: '800',
+                    alignSelf: 'flex-start',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#94d8d4',
 
-                    color: '#fff',
-
-                    letterSpacing: 1.5,
-
-                    marginBottom: 14,
-                  }}
-                >
-                  {column.heading.toUpperCase()}
-                </Text>
-
-
-                {column.links.map(
-                  (link) => (
-
-                    <Pressable
-                      key={link.label}
-
-                      onPress={() =>
-                        handleNavigation(
-                          link.route
-                        )
-                      }
-
-                      style={{
-                        marginBottom: 10,
-
-                        alignSelf:
-                          'flex-start',
-                      }}
-                    >
-
-                      <Text
-                        style={{
-                          color:
-                            '#94d8d4',
-
-                          fontSize: 13,
-                        }}
-                      >
-                        {link.label}
-                      </Text>
-
-                    </Pressable>
-
-                  )
-                )}
-
-              </View>
-
-            )
-          )}
-
+                      fontSize: 13,
+                    }}>
+                    {link.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          ))}
         </View>
-
       </View>
-
 
       {/* ═══════════════════════════════════════
           BOTTOM SECTION
@@ -389,82 +272,47 @@ export default function Footer() {
         style={{
           borderTopWidth: 1,
 
-          borderTopColor:
-            'rgba(255,255,255,0.1)',
+          borderTopColor: 'rgba(255,255,255,0.1)',
 
           paddingTop: 18,
 
-          flexDirection:
-            isMobile
-              ? 'column'
-              : 'row',
+          flexDirection: isMobile ? 'column' : 'row',
 
-          justifyContent:
-            'space-between',
+          justifyContent: 'space-between',
 
-          alignItems:
-            isMobile
-              ? 'flex-start'
-              : 'center',
+          alignItems: isMobile ? 'flex-start' : 'center',
 
-          gap:
-            isMobile
-              ? 10
-              : 0,
-        }}
-      >
-
+          gap: isMobile ? 10 : 0,
+        }}>
         <Text
           style={{
             color: '#5eead4',
 
             fontSize: 12,
-          }}
-        >
+          }}>
           © 2026 MediShield · All rights reserved.
         </Text>
-
 
         <View
           style={{
             flexDirection: 'row',
 
             gap: 16,
-          }}
-        >
+          }}>
+          {bottomLinks.map((link) => (
+            <Pressable key={link.label} onPress={() => handleNavigation(link.route)}>
+              <Text
+                style={{
+                  color: '#5eead4',
 
-          {bottomLinks.map(
-            (link) => (
-
-              <Pressable
-                key={link.label}
-
-                onPress={() =>
-                  handleNavigation(
-                    link.route
-                  )
-                }
-              >
-
-                <Text
-                  style={{
-                    color: '#5eead4',
-
-                    fontSize: 12,
-                  }}
-                >
-                  {link.label}
-                </Text>
-
-              </Pressable>
-
-            )
-          )}
-
+                  fontSize: 12,
+                }}>
+                {link.label}
+              </Text>
+            </Pressable>
+          ))}
         </View>
-
       </View>
-
     </View>
   );
 }
