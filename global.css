@@ -6,27 +6,14 @@
   display: none;
 }
 
-/* Firefox */
 body {
   scrollbar-width: none;
+  font-family: 'Poppins', sans-serif;
 }
 
-p,
-div,
 button,
 input,
 textarea,
-select,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Poppins', sans-serif !important;
-}
-
-/* Expo Vector Icons */
-div.r-userSelect-lrvibr {
-  font-family: ionicons !important;
+select {
+  font-family: 'Poppins', sans-serif;
 }
