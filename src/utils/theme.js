@@ -1,8 +1,8 @@
 const C = {
   primary: '#CD0F0F',
   primaryDark: '#CD0F0F',
-  primaryLight: '#ccfbf1',
-  accent: '#f59e0b',
+  primaryLight: '#FDE7E7',
+  accent: '#F79292',
   accentLight: '#fef3c7',
   bg: '#f0fafa',
   white: '#ffffff',

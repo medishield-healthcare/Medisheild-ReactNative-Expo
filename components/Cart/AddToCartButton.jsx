@@ -26,21 +26,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAddToCart } from '@/hooks/useAddToCart';
 
 const COLORS = {
-  teal700:  '#CD0F0F',
-  teal800:  '#0f5f5a',
-  teal100:  '#ccfbf1',
+  teal700: '#CD0F0F',
+  teal800: '#0f5f5a',
+  teal100: '#ccfbf1',
   green500: '#22c55e',
   amber500: '#f59e0b',
-  red400:   '#f87171',
+  red400: '#f87171',
   slate400: '#94a3b8',
-  white:    '#ffffff',
+  white: '#ffffff',
 };
 
 const SIZE = {
-  sm: { py: 7,  px: 10, fontSize: 11, iconSize: 13, radius: 9 },
+  sm: { py: 7, px: 10, fontSize: 11, iconSize: 13, radius: 9 },
   md: { py: 11, px: 16, fontSize: 13, iconSize: 16, radius: 12 },
   lg: { py: 14, px: 20, fontSize: 15, iconSize: 18, radius: 14 },
-  xl : { py: 16, px: 24, fontSize: 16, iconSize: 20, radius: 16 },
+  xl: { py: 16, px: 24, fontSize: 16, iconSize: 20, radius: 16 },
   xxl: { py: 18, px: 28, fontSize: 17, iconSize: 22, radius: 18 },
 };
 
@@ -48,10 +48,10 @@ export default function AddToCartButton({
   productId,
   variant,
   price,
-  count    = 1,
-  label    = 'Add to Cart',
-  size     = 'md',
-  style    = 'solid',   // 'solid' | 'outline'
+  count = 1,
+  label = 'Add to Cart',
+  size = 'md',
+  style = 'solid', // 'solid' | 'outline'
   fullWidth = false,
   onSuccess,
 }) {
@@ -67,39 +67,39 @@ export default function AddToCartButton({
   // ── Visual states ──
   const states = {
     idle: {
-      bg:    style === 'solid' ? COLORS.teal700 : 'transparent',
+      bg: style === 'solid' ? COLORS.teal700 : 'transparent',
       border: COLORS.teal700,
       color: style === 'solid' ? COLORS.white : COLORS.teal700,
-      icon:  'bag-add-outline',
-      text:  label,
+      icon: 'bag-add-outline',
+      text: label,
     },
     loading: {
-      bg:    style === 'solid' ? COLORS.teal700 : 'transparent',
+      bg: style === 'solid' ? COLORS.teal700 : 'transparent',
       border: COLORS.teal700,
       color: style === 'solid' ? COLORS.white : COLORS.teal700,
-      icon:  null,
-      text:  null, // shows spinner
+      icon: null,
+      text: null, // shows spinner
     },
     added: {
-      bg:    COLORS.green500,
+      bg: COLORS.green500,
       border: COLORS.green500,
       color: COLORS.white,
-      icon:  'checkmark-circle',
-      text:  'Added!',
+      icon: 'checkmark-circle',
+      text: 'Added!',
     },
     error: {
-      bg:    '#fef2f2',
+      bg: '#fef2f2',
       border: COLORS.red400,
       color: COLORS.red400,
-      icon:  'alert-circle-outline',
-      text:  'Out of stock',
+      icon: 'alert-circle-outline',
+      text: 'Out of stock',
     },
     login_required: {
-      bg:    COLORS.amber500,
+      bg: COLORS.amber500,
       border: COLORS.amber500,
       color: COLORS.white,
-      icon:  'person-outline',
-      text:  'Login to add',
+      icon: 'person-outline',
+      text: 'Login to add',
     },
   };
 
@@ -127,20 +127,16 @@ export default function AddToCartButton({
         isWeb && {
           cursor: status === 'loading' || status === 'added' ? 'default' : 'pointer',
           transition: 'all 0.18s ease',
-          boxShadow: status === 'idle' && style === 'solid'
-            ? '0 4px 14px rgba(15,118,110,0.25)'
-            : 'none',
+          boxShadow:
+            status === 'idle' && style === 'solid' ? '0 4px 14px rgba(15,118,110,0.25)' : 'none',
         },
-      ]}
-    >
+      ]}>
       {status === 'loading' ? (
         <ActivityIndicator size="small" color={style === 'solid' ? COLORS.white : COLORS.teal700} />
       ) : (
         <>
-          {st.icon && (
-            <Ionicons name={st.icon} size={s.iconSize} color={st.color} />
-          )}
-          <Text style={{ fontSize: s.fontSize, fontWeight: '700', color: st.color }}>
+          {st.icon && <Ionicons name={st.icon} size={s.iconSize} color={st.color} />}
+          <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: s.fontSize, fontWeight: '700', color: st.color }}>
             {st.text}
           </Text>
         </>

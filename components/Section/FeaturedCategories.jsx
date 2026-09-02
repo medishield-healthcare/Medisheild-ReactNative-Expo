@@ -150,7 +150,7 @@ function CategoryCard({
       <Image
         source={item.image}
         resizeMode="cover"
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           width: "100%",
           height: "100%",
         }}
@@ -160,7 +160,7 @@ function CategoryCard({
 
       <View
         pointerEvents="none"
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: "absolute",
 
           left: 0,
@@ -178,7 +178,7 @@ function CategoryCard({
 
       {isMobile && (
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: "absolute",
 
             left: 12,
@@ -196,7 +196,7 @@ function CategoryCard({
         >
           <Text
             numberOfLines={1}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               color: "#fff",
 
               fontSize: 12,
@@ -274,19 +274,19 @@ export default function FeaturedCategories({
   if (isMobile) {
     return (
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           width: "100%",
         }}
       >
         {/* HEADER */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             marginBottom: 17,
           }}
         >
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 23,
 
               fontWeight: "900",
@@ -300,7 +300,7 @@ export default function FeaturedCategories({
           </Text>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: 38,
 
               height: 3,
@@ -319,7 +319,7 @@ export default function FeaturedCategories({
         {/* CARDS */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             gap: 12,
           }}
         >
@@ -349,14 +349,14 @@ export default function FeaturedCategories({
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         width: "100%",
       }}
     >
       {/* SECTION HEADER */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           marginBottom:
             isTablet
               ? 17
@@ -364,7 +364,7 @@ export default function FeaturedCategories({
         }}
       >
         <Text
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize:
               isTablet
                 ? 25
@@ -381,7 +381,7 @@ export default function FeaturedCategories({
         </Text>
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: 42,
 
             height: 3,
@@ -402,7 +402,7 @@ export default function FeaturedCategories({
       {/* ═══════════════════════════════ */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flexDirection: "row",
 
           width: "100%",
@@ -419,7 +419,7 @@ export default function FeaturedCategories({
         {/* LEFT COLUMN */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
 
             gap:
@@ -453,7 +453,7 @@ export default function FeaturedCategories({
         {/* CENTER COLUMN */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
 
             gap:
@@ -487,7 +487,7 @@ export default function FeaturedCategories({
         {/* RIGHT LARGE CARD */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 0.65,
 
             minWidth:

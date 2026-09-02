@@ -18,6 +18,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import API from '@/api/axios';
 import { useQuery } from '@tanstack/react-query';
+import { Fonts } from '@/utils/font';
 
 // ============================================================================
 // COLORS
@@ -26,7 +27,7 @@ import { useQuery } from '@tanstack/react-query';
 const C = {
   primary: '#CD0F0F',
   primaryDark: '#CD0F0F',
-  primaryLight: '#ccfbf1',
+  primaryLight: '#FDE7E7',
   white: '#ffffff',
   bg: '#f8fafc',
   bgSoft: '#f1f5f9',
@@ -39,6 +40,21 @@ const C = {
   hover: '#f0fdfa',
   accent: '#f59e0b',
   accentLight: '#fef3c7',
+};
+
+// ============================================================================
+// FONT WEIGHT -> FONT FAMILY
+// ============================================================================
+const getFontFamily = (weight) => {
+  const weightMap = {
+    400: Fonts.regular || Fonts.normal || Fonts.semiBold,
+    500: Fonts.medium || Fonts.regular || Fonts.normal || Fonts.semiBold,
+    600: Fonts.semiBold,
+    700: Fonts.bold || Fonts.semiBold,
+    800: Fonts.extraBold || Fonts.bold || Fonts.semiBold,
+    900: Fonts.black || Fonts.extraBold || Fonts.bold || Fonts.semiBold,
+  };
+  return weightMap[String(weight)] || Fonts.semiBold;
 };
 
 // ============================================================================
@@ -140,7 +156,8 @@ function SearchDropdown({ results, loading, query, onSelect, onClose, onViewAll 
         <Text
           style={{
             fontSize: 12,
-            fontWeight: '700',
+            // fontWeight: '700',
+            fontFamily: Fonts.semiBold,
             color: C.muted,
           }}>
           {loading
@@ -190,7 +207,7 @@ function SearchDropdown({ results, loading, query, onSelect, onClose, onViewAll 
           <Text
             style={{
               fontSize: 14,
-              fontWeight: '700',
+              fontFamily: Fonts.semiBold,
               color: C.dark,
             }}>
             No products found
@@ -269,6 +286,7 @@ function SearchDropdown({ results, loading, query, onSelect, onClose, onViewAll 
                   style={{
                     fontSize: 14,
                     fontWeight: '700',
+                    fontFamily: getFontFamily('700'),
                     color: C.dark,
                   }}>
                   {item.name}
@@ -302,7 +320,7 @@ function SearchDropdown({ results, loading, query, onSelect, onClose, onViewAll 
                   <Text
                     style={{
                       fontSize: 14,
-                      fontWeight: '800',
+                      fontFamily: Fonts.semiBold,
                       color: C.primary,
                     }}>
                     {item.price?.regularPrice}
@@ -358,7 +376,8 @@ function SearchDropdown({ results, loading, query, onSelect, onClose, onViewAll 
             <Text
               style={{
                 fontSize: 13,
-                fontWeight: '700',
+                // fontWeight: '700',
+                fontFamily: Fonts.semiBold,
                 color: C.primary,
               }}>
               View all results for "{query}"
@@ -481,7 +500,9 @@ function CategoryMegaMenu({
               style={{
                 fontSize: 17,
 
-                fontWeight: '800',
+                // fontWeight: '800',
+
+                fontFamily: Fonts.semiBold,
 
                 color: C.dark,
               }}>
@@ -563,6 +584,7 @@ function CategoryMegaMenu({
 
                 fontWeight: '800',
 
+                fontFamily: getFontFamily('800'),
                 color: C.muted,
 
                 letterSpacing: 0.7,
@@ -650,6 +672,7 @@ function CategoryMegaMenu({
 
                       fontWeight: active ? '800' : '600',
 
+                      fontFamily: getFontFamily(active ? '800' : '600'),
                       color: active ? C.dark : '#53657a',
                     }}>
                     {cat.name?.trim()}
@@ -693,6 +716,7 @@ function CategoryMegaMenu({
 
                   fontWeight: '700',
 
+                  fontFamily: getFontFamily('700'),
                   color: C.primary,
                 }}>
                 View All Categories
@@ -766,6 +790,7 @@ function CategoryMegaMenu({
 
                         fontWeight: '800',
 
+                        fontFamily: getFontFamily('800'),
                         color: C.dark,
                       }}>
                       {activeMain.name?.trim()}
@@ -787,6 +812,7 @@ function CategoryMegaMenu({
 
                           fontWeight: '800',
 
+                          fontFamily: getFontFamily('800'),
                           color: C.dark2,
                         }}>
                         {children.length} Categories
@@ -799,7 +825,7 @@ function CategoryMegaMenu({
                       fontSize: 11,
 
                       color: C.muted,
-
+                      fontFamily: getFontFamily('400'), 
                       marginTop: 4,
                     }}>
                     Browse products by category
@@ -829,6 +855,7 @@ function CategoryMegaMenu({
 
                       fontWeight: '700',
 
+                      fontFamily: getFontFamily('700'),
                       color: C.primary,
                     }}>
                     View All
@@ -941,6 +968,7 @@ function CategoryMegaMenu({
 
                                     fontWeight: '700',
 
+                                    fontFamily: getFontFamily('700'),
                                     color: C.dark,
                                   }}>
                                   {child.name?.trim()}
@@ -1057,7 +1085,7 @@ function CategoryMegaMenu({
                       marginTop: 10,
 
                       fontSize: 13,
-
+                      fontFamily: Fonts.semiBold,
                       color: C.muted,
                     }}>
                     No sub-categories available
@@ -1083,6 +1111,8 @@ function CategoryMegaMenu({
                         fontSize: 12,
 
                         fontWeight: '700',
+
+                        fontFamily: getFontFamily('700'),
                       }}>
                       Browse Products
                     </Text>
@@ -1444,6 +1474,8 @@ export default function WebHeader() {
               fontSize: 12,
 
               fontWeight: '600',
+
+              fontFamily: getFontFamily('600'),
             }}>
             🚚 Free shipping on orders above ₹999
           </Text>
@@ -1460,6 +1492,7 @@ export default function WebHeader() {
                 onPress={() => router.push(`/${label.toLowerCase().replace(' ', '-')}`)}>
                 <Text
                   style={{
+                    fontFamily : "Poppins_400Regular",
                     color: '#ffffff',
 
                     fontSize: 12,
@@ -1475,368 +1508,707 @@ export default function WebHeader() {
       {/* =====================================================================
           MAIN ROW
       ====================================================================== */}
-
       <View
         style={{
-          flexDirection: 'row',
-
-          alignItems: 'center',
-
           paddingHorizontal: px,
-
-          paddingVertical: isMobile ? 10 : 14,
-
-          gap: isMobile ? 10 : 16,
-
+          paddingTop: isMobile ? 10 : 14,
+          paddingBottom: isMobile ? 10 : 14,
           position: 'relative',
-
           zIndex: 20,
-
           overflow: 'visible',
         }}>
-        {/* LOGO */}
-
-        <Pressable
-          onPress={() => router.push('/')}
+        <View
           style={{
             flexDirection: 'row',
-
             alignItems: 'center',
-
-            flexShrink: 0,
+            gap: isMobile ? 10 : 16,
           }}>
-          <Image
-            source={require('../../assets/logo-img.png')}
-            style={{
-              width: isMobile ? 100 : isTablet ? 115 : 130,
+          {/* LOGO */}
 
-              height: isMobile ? 32 : 42,
-
-              resizeMode: 'contain',
-            }}
-          />
-        </Pressable>
-
-        {/* ===================================================================
-            MOBILE HAMBURGER
-        ==================================================================== */}
-
-        {/* ===================================================================
-            DESKTOP NAV
-        ==================================================================== */}
-
-        {/* ===================================================================
-            SEARCH
-        ==================================================================== */}
-
-        <View
-          ref={searchRef}
-          style={{
-            flex: 1,
-
-            position: 'relative',
-
-            zIndex: 9999,
-          }}>
-          <View
+          <Pressable
+            onPress={() => router.push('/')}
             style={{
               flexDirection: 'row',
 
               alignItems: 'center',
 
-              backgroundColor: searchFocused ? C.white : C.bg,
-
-              borderRadius: 13,
-
-              borderWidth: 1.5,
-
-              borderColor: searchFocused ? C.primary : C.border,
-
-              paddingHorizontal: 12,
-
-              paddingVertical: isMobile ? 9 : 10,
-
-              gap: 8,
-
-              boxShadow: searchFocused ? '0 0 0 3px rgba(15,118,110,0.12)' : 'none',
+              flexShrink: 0,
             }}>
-            <Ionicons
-              name={searchLoading ? 'sync-outline' : 'search-outline'}
-              size={17}
-              color={searchFocused ? C.primary : C.muted}
-            />
-
-            <TextInput
-              placeholder={
-                isMobile ? 'Search products...' : 'Search dental products, brands, SKUs...'
-              }
-              placeholderTextColor={C.muted}
-              value={search}
-              onChangeText={setSearch}
-              onFocus={() => setSearchFocused(true)}
+            <Image
+              source={require('../../assets/logo-img.png')}
               style={{
-                flex: 1,
+                width: isMobile ? 100 : isTablet ? 115 : 130,
 
-                fontSize: 14,
+                height: isMobile ? 32 : 42,
 
-                color: C.dark,
-
-                outlineStyle: 'none',
-
-                width: '100%',
+                resizeMode: 'contain',
               }}
             />
+          </Pressable>
 
-            {search.length > 0 && (
-              <Pressable
-                onPress={() => {
-                  setSearch('');
+          {/* ===================================================================
+            MOBILE HAMBURGER
+        ==================================================================== */}
 
-                  setSearchResults([]);
+          {/* ===================================================================
+            DESKTOP NAV
+        ==================================================================== */}
+
+          {!isMobile && (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 16,
+                flex: 1,
+              }}>
+              {/* ===================================================================
+            SEARCH
+        ==================================================================== */}
+
+              <View
+                ref={searchRef}
+                style={{
+                  flex: 1,
+
+                  position: 'relative',
+
+                  zIndex: 9999,
                 }}>
-                <Ionicons name="close-circle" size={17} color={C.muted} />
-              </Pressable>
-            )}
-          </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
 
-          {showSearchDropdown && (
-            <View ref={searchDropdownRef}>
-              <SearchDropdown
-                results={searchResults}
-                loading={searchLoading}
-                query={search}
-                onSelect={handleSelectProduct}
-                onClose={() => {
-                  setSearchFocused(false);
+                    alignItems: 'center',
 
-                  setSearch('');
+                    backgroundColor: searchFocused ? C.white : C.bg,
 
-                  setSearchResults([]);
-                }}
-                onViewAll={handleViewAllSearch}
-              />
+                    borderRadius: 13,
+
+                    borderWidth: 1.5,
+
+                    borderColor: searchFocused ? C.primary : C.border,
+
+                    paddingHorizontal: 12,
+
+                    paddingVertical: isMobile ? 9 : 10,
+
+                    gap: 8,
+
+                    boxShadow: searchFocused ? '0 0 0 3px rgba(15,118,110,0.12)' : 'none',
+                  }}>
+                  <Ionicons
+                    name={searchLoading ? 'sync-outline' : 'search-outline'}
+                    size={17}
+                    color={searchFocused ? C.primary : C.muted}
+                  />
+
+                  <TextInput
+                    placeholder={
+                      isMobile ? 'Search products...' : 'Search dental products, brands, SKUs...'
+                    }
+                    placeholderTextColor={C.muted}
+                    value={search}
+                    onChangeText={setSearch}
+                    onFocus={() => setSearchFocused(true)}
+                    style={{
+                      flex: 1,
+
+                      fontSize: 14,
+
+                      color: C.dark,
+
+                      outlineStyle: 'none',
+
+                      width: '100%',
+                    }}
+                  />
+
+                  {search.length > 0 && (
+                    <Pressable
+                      onPress={() => {
+                        setSearch('');
+
+                        setSearchResults([]);
+                      }}>
+                      <Ionicons name="close-circle" size={17} color={C.muted} />
+                    </Pressable>
+                  )}
+                </View>
+
+                {showSearchDropdown && (
+                  <View ref={searchDropdownRef}>
+                    <SearchDropdown
+                      results={searchResults}
+                      loading={searchLoading}
+                      query={search}
+                      onSelect={handleSelectProduct}
+                      onClose={() => {
+                        setSearchFocused(false);
+
+                        setSearch('');
+
+                        setSearchResults([]);
+                      }}
+                      onViewAll={handleViewAllSearch}
+                    />
+                  </View>
+                )}
+              </View>
+
+              {/* ===================================================================
+            RIGHT ACTIONS
+        ==================================================================== */}
+
+              <View
+                style={{
+                  flexDirection: 'row',
+
+                  gap: 8,
+
+                  alignItems: 'center',
+                }}>
+                {/* COINS */}
+
+                {isDesktop && (
+                  <Pressable
+                    style={{
+                      flexDirection: 'row',
+
+                      alignItems: 'center',
+
+                      gap: 5,
+
+                      backgroundColor: C.accentLight,
+
+                      borderRadius: 10,
+
+                      paddingHorizontal: 10,
+
+                      paddingVertical: 11,
+                    }}>
+                    <Ionicons name="logo-bitcoin" size={15} color={C.accent} />
+
+                    <Text
+                      style={{
+                        fontSize: 13,
+
+                        fontWeight: '700',
+
+                        fontFamily: getFontFamily('700'),
+                        color: '#92400e',
+                      }}>
+                      {user?.medishieldcoins ?? 0}
+                    </Text>
+                  </Pressable>
+                )}
+
+                {/* WISHLIST */}
+
+                {isDesktop && (
+                  <Pressable
+                    onPress={() => router.push('/wishlist')}
+                    style={{
+                      width: 40,
+                      height: 40,
+
+                      borderRadius: 12,
+
+                      backgroundColor: C.bg,
+
+                      alignItems: 'center',
+
+                      justifyContent: 'center',
+
+                      borderWidth: 1,
+
+                      borderColor: C.border,
+                    }}>
+                    <Ionicons name="heart-outline" size={20} color={C.dark} />
+                  </Pressable>
+                )}
+
+                {/* CART */}
+
+                <Pressable
+                  onPress={() => router.push('/cart')}
+                  style={{
+                    width: isMobile ? 36 : 40,
+
+                    height: isMobile ? 36 : 40,
+
+                    borderRadius: 12,
+
+                    backgroundColor: C.primary,
+
+                    alignItems: 'center',
+
+                    justifyContent: 'center',
+
+                    position: 'relative',
+                  }}>
+                  <Ionicons name="bag-outline" size={isMobile ? 17 : 20} color="white" />
+
+                  {cartCount > 0 && (
+                    <View
+                      style={{
+                        position: 'absolute',
+
+                        top: -4,
+
+                        right: -4,
+
+                        backgroundColor: C.accent,
+
+                        borderRadius: 10,
+
+                        width: 17,
+                        height: 17,
+
+                        alignItems: 'center',
+
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+
+                          fontSize: 9,
+
+                          fontWeight: '800',
+
+                          fontFamily: getFontFamily('800'),
+                        }}>
+                        {cartCount}
+                      </Text>
+                    </View>
+                  )}
+                </Pressable>
+
+                {/* ACCOUNT */}
+
+                {user ? (
+                  <Pressable
+                    onPress={() => router.push('/profile')}
+                    style={{
+                      width: isMobile ? 36 : 40,
+
+                      height: isMobile ? 36 : 40,
+
+                      borderRadius: 12,
+
+                      backgroundColor: C.primaryLight,
+
+                      alignItems: 'center',
+
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+
+                        fontWeight: '800',
+
+                        fontFamily: getFontFamily('800'),
+                        color: C.primary,
+                      }}>
+                      {((user.firstname?.[0] || '') + (user.lastname?.[0] || '')).toUpperCase() ||
+                        '?'}
+                    </Text>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    onPress={() => router.push('/auth/login')}
+                    style={{
+                      backgroundColor: C.primary,
+
+                      borderRadius: 12,
+
+                      paddingHorizontal: isMobile ? 12 : 16,
+
+                      paddingVertical: isMobile ? 12 : 11,
+
+                      flexDirection: 'row',
+
+                      alignItems: 'center',
+
+                      gap: 5,
+                    }}>
+                    {!isMobile && <Ionicons name="person-outline" size={14} color="white" />}
+
+                    <Text
+                      style={{
+                        color: 'white',
+
+                        fontSize: isMobile ? 12 : 13,
+
+                        fontWeight: '700',
+
+                        fontFamily: getFontFamily('700'),
+                      }}>
+                      {isMobile ? 'Login' : 'Sign In'}
+                    </Text>
+                  </Pressable>
+                )}
+                {isMobile && (
+                  <Pressable
+                    onPress={() => {
+                      setMobileMenuOpen((prev) => !prev);
+
+                      // Close the category mega menu when the whole mobile menu
+                      // is toggled closed/open.
+                      setCategoryMenuOpen(false);
+                      setActiveChildCategory(null);
+                    }}
+                    style={{
+                      width: 38,
+                      height: 38,
+                      borderRadius: 11,
+                      backgroundColor: mobileMenuOpen ? C.primaryLight : C.bg,
+                      borderWidth: 1,
+                      borderColor: mobileMenuOpen ? '#ffffff' : C.border,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
+                    <Ionicons
+                      name={mobileMenuOpen ? 'close' : 'menu'}
+                      size={21}
+                      color={mobileMenuOpen ? C.primary : C.primary}
+                    />
+                  </Pressable>
+                )}
+              </View>
+            </View>
+          )}
+
+          {isMobile && (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 8,
+                marginLeft: 'auto',
+              }}>
+              {/* ===================================================================
+            RIGHT ACTIONS
+        ==================================================================== */}
+
+              <View
+                style={{
+                  flexDirection: 'row',
+
+                  gap: 8,
+
+                  alignItems: 'center',
+                }}>
+                {/* COINS */}
+
+                {isDesktop && (
+                  <Pressable
+                    style={{
+                      flexDirection: 'row',
+
+                      alignItems: 'center',
+
+                      gap: 5,
+
+                      backgroundColor: C.accentLight,
+
+                      borderRadius: 10,
+
+                      paddingHorizontal: 10,
+
+                      paddingVertical: 11,
+                    }}>
+                    <Ionicons name="logo-bitcoin" size={15} color={C.accent} />
+
+                    <Text
+                      style={{
+                        fontSize: 13,
+
+                        fontWeight: '700',
+
+                        fontFamily: getFontFamily('700'),
+                        color: '#92400e',
+                      }}>
+                      {user?.medishieldcoins ?? 0}
+                    </Text>
+                  </Pressable>
+                )}
+
+                {/* WISHLIST */}
+
+                {isDesktop && (
+                  <Pressable
+                    onPress={() => router.push('/wishlist')}
+                    style={{
+                      width: 40,
+                      height: 40,
+
+                      borderRadius: 12,
+
+                      backgroundColor: C.bg,
+
+                      alignItems: 'center',
+
+                      justifyContent: 'center',
+
+                      borderWidth: 1,
+
+                      borderColor: C.border,
+                    }}>
+                    <Ionicons name="heart-outline" size={20} color={C.dark} />
+                  </Pressable>
+                )}
+
+                {/* ACCOUNT */}
+
+                {user ? (
+                  <Pressable
+                    onPress={() => router.push('/profile')}
+                    style={{
+                      width: isMobile ? 36 : 40,
+
+                      height: isMobile ? 36 : 40,
+
+                      borderRadius: 12,
+
+                      backgroundColor: C.primaryLight,
+
+                      alignItems: 'center',
+
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+
+                        fontWeight: '800',
+
+                        fontFamily: getFontFamily('800'),
+                        color: C.primary,
+                      }}>
+                      {((user.firstname?.[0] || '') + (user.lastname?.[0] || '')).toUpperCase() ||
+                        '?'}
+                    </Text>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    onPress={() => router.push('/auth/login')}
+                    style={{
+                      backgroundColor: C.primary,
+
+                      borderRadius: 12,
+
+                      paddingHorizontal: isMobile ? 12 : 16,
+
+                      paddingVertical: isMobile ? 12 : 11,
+
+                      flexDirection: 'row',
+
+                      alignItems: 'center',
+
+                      gap: 5,
+                    }}>
+                    {!isMobile && <Ionicons name="person-outline" size={14} color="white" />}
+
+                    <Text
+                      style={{
+                        color: 'white',
+
+                        fontSize: isMobile ? 12 : 13,
+
+                        fontWeight: '700',
+
+                        fontFamily: getFontFamily('700'),
+                      }}>
+                      {isMobile ? 'Login' : 'Sign In'}
+                    </Text>
+                  </Pressable>
+                )}
+                {isMobile && (
+                  <Pressable
+                    onPress={() => {
+                      setMobileMenuOpen((prev) => !prev);
+
+                      // Close the category mega menu when the whole mobile menu
+                      // is toggled closed/open.
+                      setCategoryMenuOpen(false);
+                      setActiveChildCategory(null);
+                    }}
+                    style={{
+                      width: 38,
+                      height: 38,
+                      borderRadius: 11,
+                      backgroundColor: mobileMenuOpen ? C.primaryLight : C.bg,
+                      borderWidth: 1,
+                      borderColor: mobileMenuOpen ? '#ffffff' : C.border,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
+                    <Ionicons
+                      name={mobileMenuOpen ? 'close' : 'menu'}
+                      size={21}
+                      color={mobileMenuOpen ? C.primary : C.primary}
+                    />
+                  </Pressable>
+                )}
+              </View>
             </View>
           )}
         </View>
 
-        {/* ===================================================================
-            RIGHT ACTIONS
+        {isMobile && (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              marginTop: 10,
+              width: '100%',
+            }}>
+            <View style={{ flex: 1, minWidth: 0 }}>
+              {/* ===================================================================
+            SEARCH
         ==================================================================== */}
 
-        <View
-          style={{
-            flexDirection: 'row',
-
-            gap: 8,
-
-            alignItems: 'center',
-          }}>
-          {/* COINS */}
-
-          {isDesktop && (
-            <Pressable
-              style={{
-                flexDirection: 'row',
-
-                alignItems: 'center',
-
-                gap: 5,
-
-                backgroundColor: C.accentLight,
-
-                borderRadius: 10,
-
-                paddingHorizontal: 10,
-
-                paddingVertical: 11,
-              }}>
-              <Ionicons name="logo-bitcoin" size={15} color={C.accent} />
-
-              <Text
-                style={{
-                  fontSize: 13,
-
-                  fontWeight: '700',
-
-                  color: '#92400e',
-                }}>
-                {user?.medishieldcoins ?? 0}
-              </Text>
-            </Pressable>
-          )}
-
-          {/* WISHLIST */}
-
-          {isDesktop && (
-            <Pressable
-              onPress={() => router.push('/wishlist')}
-              style={{
-                width: 40,
-                height: 40,
-
-                borderRadius: 12,
-
-                backgroundColor: C.bg,
-
-                alignItems: 'center',
-
-                justifyContent: 'center',
-
-                borderWidth: 1,
-
-                borderColor: C.border,
-              }}>
-              <Ionicons name="heart-outline" size={20} color={C.dark} />
-            </Pressable>
-          )}
-
-          {/* CART */}
-
-          <Pressable
-            onPress={() => router.push('/cart')}
-            style={{
-              width: isMobile ? 36 : 40,
-
-              height: isMobile ? 36 : 40,
-
-              borderRadius: 12,
-
-              backgroundColor: C.primary,
-
-              alignItems: 'center',
-
-              justifyContent: 'center',
-
-              position: 'relative',
-            }}>
-            <Ionicons name="bag-outline" size={isMobile ? 17 : 20} color="white" />
-
-            {cartCount > 0 && (
               <View
+                ref={searchRef}
                 style={{
-                  position: 'absolute',
+                  flex: 1,
 
-                  top: -4,
+                  position: 'relative',
 
-                  right: -4,
-
-                  backgroundColor: C.accent,
-
-                  borderRadius: 10,
-
-                  width: 17,
-                  height: 17,
-
-                  alignItems: 'center',
-
-                  justifyContent: 'center',
+                  zIndex: 9999,
                 }}>
-                <Text
+                <View
                   style={{
-                    color: 'white',
+                    flexDirection: 'row',
 
-                    fontSize: 9,
+                    alignItems: 'center',
 
-                    fontWeight: '800',
+                    backgroundColor: searchFocused ? C.white : C.bg,
+
+                    borderRadius: 13,
+
+                    borderWidth: 1.5,
+
+                    borderColor: searchFocused ? C.primary : C.border,
+
+                    paddingHorizontal: 12,
+
+                    paddingVertical: isMobile ? 9 : 10,
+
+                    gap: 8,
+
+                    boxShadow: searchFocused ? '0 0 0 3px rgba(15,118,110,0.12)' : 'none',
                   }}>
-                  {cartCount}
-                </Text>
+                  <Ionicons
+                    name={searchLoading ? 'sync-outline' : 'search-outline'}
+                    size={17}
+                    color={searchFocused ? C.primary : C.muted}
+                  />
+
+                  <TextInput
+                    placeholder={
+                      isMobile ? 'Search products...' : 'Search dental products, brands, SKUs...'
+                    }
+                    placeholderTextColor={C.muted}
+                    value={search}
+                    onChangeText={setSearch}
+                    onFocus={() => setSearchFocused(true)}
+                    style={{
+                      flex: 1,
+
+                      fontSize: 14,
+
+                      color: C.dark,
+
+                      outlineStyle: 'none',
+
+                      width: '100%',
+                    }}
+                  />
+
+                  {search.length > 0 && (
+                    <Pressable
+                      onPress={() => {
+                        setSearch('');
+
+                        setSearchResults([]);
+                      }}>
+                      <Ionicons name="close-circle" size={17} color={C.muted} />
+                    </Pressable>
+                  )}
+                </View>
+
+                {showSearchDropdown && (
+                  <View ref={searchDropdownRef}>
+                    <SearchDropdown
+                      results={searchResults}
+                      loading={searchLoading}
+                      query={search}
+                      onSelect={handleSelectProduct}
+                      onClose={() => {
+                        setSearchFocused(false);
+
+                        setSearch('');
+
+                        setSearchResults([]);
+                      }}
+                      onViewAll={handleViewAllSearch}
+                    />
+                  </View>
+                )}
               </View>
-            )}
-          </Pressable>
+            </View>
 
-          {/* ACCOUNT */}
-
-          {user ? (
             <Pressable
-              onPress={() => router.push('/profile')}
+              onPress={() => router.push('/cart')}
               style={{
-                width: isMobile ? 36 : 40,
-
-                height: isMobile ? 36 : 40,
-
+                width: 42,
+                height: 42,
                 borderRadius: 12,
-
-                backgroundColor: C.primaryLight,
-
-                alignItems: 'center',
-
-                justifyContent: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: 13,
-
-                  fontWeight: '800',
-
-                  color: C.primary,
-                }}>
-                {((user.firstname?.[0] || '') + (user.lastname?.[0] || '')).toUpperCase() || '?'}
-              </Text>
-            </Pressable>
-          ) : (
-            <Pressable
-              onPress={() => router.push('/auth/login')}
-              style={{
                 backgroundColor: C.primary,
-
-                borderRadius: 12,
-
-                paddingHorizontal: isMobile ? 12 : 16,
-
-                paddingVertical: isMobile ? 12 : 11,
-
-                flexDirection: 'row',
-
-                alignItems: 'center',
-
-                gap: 5,
-              }}>
-              {!isMobile && <Ionicons name="person-outline" size={14} color="white" />}
-
-              <Text
-                style={{
-                  color: 'white',
-
-                  fontSize: isMobile ? 12 : 13,
-
-                  fontWeight: '700',
-                }}>
-                {isMobile ? 'Login' : 'Sign In'}
-              </Text>
-            </Pressable>
-          )}
-          {isMobile && (
-            <Pressable
-              onPress={() => {
-                setMobileMenuOpen((prev) => !prev);
-
-                // Close the category mega menu when the whole mobile menu
-                // is toggled closed/open.
-                setCategoryMenuOpen(false);
-                setActiveChildCategory(null);
-              }}
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 11,
-                backgroundColor: mobileMenuOpen ? C.primaryLight : C.bg,
-                borderWidth: 1,
-                borderColor: mobileMenuOpen ? '#ffffff' : C.border,
                 alignItems: 'center',
                 justifyContent: 'center',
+                position: 'relative',
                 flexShrink: 0,
-              }}
-              accessibilityRole="button"
-              accessibilityLabel={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
-              <Ionicons
-                name={mobileMenuOpen ? 'close' : 'menu'}
-                size={21}
-                color={mobileMenuOpen ? C.primary : C.primary}
-              />
+              }}>
+              <Ionicons name="bag-outline" size={19} color="white" />
+              {cartCount > 0 && (
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: -4,
+                    right: -4,
+                    backgroundColor: C.accent,
+                    borderRadius: 10,
+                    width: 17,
+                    height: 17,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 9,
+                      fontWeight: '800',
+                      fontFamily: getFontFamily('800'),
+                    }}>
+                    {cartCount}
+                  </Text>
+                </View>
+              )}
             </Pressable>
-          )}
-        </View>
+          </View>
+        )}
       </View>
 
       {/* =====================================================================
@@ -1970,6 +2342,7 @@ export default function WebHeader() {
                   flex: 1,
                   fontSize: 13,
                   fontWeight: '700',
+                  fontFamily: getFontFamily('700'),
                   color: C.dark,
                 }}>
                 {item.label}
@@ -2020,6 +2393,7 @@ export default function WebHeader() {
                 flex: 1,
                 fontSize: 13,
                 fontWeight: '700',
+                fontFamily: getFontFamily('700'),
                 color: C.dark,
               }}>
               Categories
@@ -2101,6 +2475,7 @@ export default function WebHeader() {
 
                 fontWeight: '600',
 
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               Home
@@ -2145,6 +2520,7 @@ export default function WebHeader() {
                 style={{
                   fontSize: 14,
                   fontWeight: '700',
+                  fontFamily: getFontFamily('700'),
                   color: categoryMenuOpen ? C.primary : C.dark,
                 }}>
                 Categories
@@ -2192,6 +2568,7 @@ export default function WebHeader() {
               style={{
                 fontSize: 14,
                 fontWeight: '600',
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               Products
@@ -2218,6 +2595,7 @@ export default function WebHeader() {
               style={{
                 fontSize: 14,
                 fontWeight: '600',
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               Offers
@@ -2244,6 +2622,7 @@ export default function WebHeader() {
               style={{
                 fontSize: 14,
                 fontWeight: '600',
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               New Arrivals
@@ -2273,6 +2652,7 @@ export default function WebHeader() {
 
                 fontWeight: '600',
 
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               Brands
@@ -2297,6 +2677,7 @@ export default function WebHeader() {
               style={{
                 fontSize: 14,
                 fontWeight: '600',
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               Contact
@@ -2320,6 +2701,7 @@ export default function WebHeader() {
               style={{
                 fontSize: 14,
                 fontWeight: '600',
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               Events
@@ -2343,6 +2725,7 @@ export default function WebHeader() {
               style={{
                 fontSize: 14,
                 fontWeight: '600',
+                fontFamily: getFontFamily('600'),
                 color: C.dark,
               }}>
               New Clinic Setup

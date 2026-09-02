@@ -34,7 +34,7 @@ function BrandCard({ brand, isMobile, onPress }) {
       onPress={onPress}
       onHoverIn={isWeb ? () => setHovered(true) : undefined}
       onHoverOut={isWeb ? () => setHovered(false) : undefined}
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         width: '100%',
 
         backgroundColor: C.white,
@@ -79,7 +79,7 @@ function BrandCard({ brand, isMobile, onPress }) {
       {/* ═══════════════════════════════════ */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           height: isMobile ? 125 : 155,
 
           backgroundColor: '#f8fbfb',
@@ -97,7 +97,7 @@ function BrandCard({ brand, isMobile, onPress }) {
         {/* TOP ACCENT */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             top: 0,
@@ -117,7 +117,7 @@ function BrandCard({ brand, isMobile, onPress }) {
         {/* CORNER DECORATION */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             width: isMobile ? 85 : 110,
@@ -137,7 +137,7 @@ function BrandCard({ brand, isMobile, onPress }) {
         />
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             width: 45,
@@ -161,7 +161,7 @@ function BrandCard({ brand, isMobile, onPress }) {
             source={{
               uri: brand.logo,
             }}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: isMobile ? 125 : 170,
 
               height: isMobile ? 65 : 82,
@@ -179,7 +179,7 @@ function BrandCard({ brand, isMobile, onPress }) {
           />
         ) : (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: isMobile ? 58 : 68,
 
               height: isMobile ? 58 : 68,
@@ -206,13 +206,13 @@ function BrandCard({ brand, isMobile, onPress }) {
       {/* ═══════════════════════════════════ */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           padding: isMobile ? 13 : 17,
         }}>
         {/* BRAND LABEL */}
 
         <Text
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: 9,
 
             fontWeight: '800',
@@ -232,7 +232,7 @@ function BrandCard({ brand, isMobile, onPress }) {
 
         <Text
           numberOfLines={1}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: isMobile ? 14 : 16,
 
             fontWeight: '900',
@@ -247,7 +247,7 @@ function BrandCard({ brand, isMobile, onPress }) {
         {/* BOTTOM */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
 
             alignItems: 'center',
@@ -256,7 +256,7 @@ function BrandCard({ brand, isMobile, onPress }) {
           }}>
           <View>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 10,
 
                 color: C.muted,
@@ -267,7 +267,7 @@ function BrandCard({ brand, isMobile, onPress }) {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
 
                 alignItems: 'center',
@@ -279,7 +279,7 @@ function BrandCard({ brand, isMobile, onPress }) {
               <Ionicons name="shield-checkmark" size={11} color={C.primary} />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 9,
 
                   color: C.primary,
@@ -294,7 +294,7 @@ function BrandCard({ brand, isMobile, onPress }) {
           {/* ARROW */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: isMobile ? 31 : 36,
 
               height: isMobile ? 31 : 36,
@@ -397,7 +397,7 @@ function Brands() {
   if (isLoading) {
     return (
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flex: 1,
 
           minHeight: '100vh',
@@ -407,7 +407,7 @@ function Brands() {
         <WebHeader />
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
 
             alignItems: 'center',
@@ -417,7 +417,7 @@ function Brands() {
             paddingVertical: 100,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: 64,
 
               height: 64,
@@ -436,7 +436,7 @@ function Brands() {
           </View>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 16,
 
               fontWeight: '900',
@@ -447,7 +447,7 @@ function Brands() {
           </Text>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 12,
 
               color: C.muted,
@@ -468,7 +468,7 @@ function Brands() {
   if (isError) {
     return (
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flex: 1,
 
           minHeight: '100vh',
@@ -478,7 +478,7 @@ function Brands() {
         <WebHeader />
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
 
             alignItems: 'center',
@@ -488,7 +488,7 @@ function Brands() {
             padding: pagePadding,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: 80,
 
               height: 80,
@@ -507,7 +507,7 @@ function Brands() {
           </View>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 22,
 
               fontWeight: '900',
@@ -518,7 +518,7 @@ function Brands() {
           </Text>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 13,
 
               color: C.muted,
@@ -548,7 +548,7 @@ function Brands() {
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
 
         minHeight: '100vh',
@@ -561,7 +561,7 @@ function Brands() {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             maxWidth,
 
             width: '100%',
@@ -577,7 +577,7 @@ function Brands() {
           {/* ═══════════════════════════════ */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
 
               alignItems: 'center',
@@ -588,12 +588,12 @@ function Brands() {
             }}>
             <Pressable onPress={() => router.push('/')}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
 
                   fontWeight: '700',
 
-                  color: C.muted,
+                  color: C.primaryDark,
                 }}>
                 Home
               </Text>
@@ -602,7 +602,7 @@ function Brands() {
             <Ionicons name="chevron-forward" size={11} color={C.muted} />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
 
                 fontWeight: '800',
@@ -618,7 +618,7 @@ function Brands() {
           {/* ═══════════════════════════════ */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               backgroundColor: C.primaryDark,
 
               borderRadius: isMobile ? 22 : 28,
@@ -640,7 +640,7 @@ function Brands() {
             {/* DECORATIVE CIRCLE */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 position: 'absolute',
 
                 width: isMobile ? 230 : 390,
@@ -660,7 +660,7 @@ function Brands() {
             />
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 position: 'absolute',
 
                 width: isMobile ? 120 : 190,
@@ -680,7 +680,7 @@ function Brands() {
             {/* SMALL LABEL */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 alignSelf: 'flex-start',
 
                 flexDirection: 'row',
@@ -704,7 +704,7 @@ function Brands() {
                 marginBottom: 14,
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: 6,
 
                   height: 6,
@@ -716,14 +716,14 @@ function Brands() {
               />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 9,
 
                   fontWeight: '900',
 
                   letterSpacing: 1.3,
 
-                  color: '#8ce9df',
+                  color: C.white,
                 }}>
                 TRUSTED DENTAL BRANDS
               </Text>
@@ -732,7 +732,7 @@ function Brands() {
             {/* TITLE */}
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: isMobile ? 29 : 42,
 
                 lineHeight: isMobile ? 36 : 48,
@@ -751,12 +751,12 @@ function Brands() {
             {/* DESCRIPTION */}
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: isMobile ? 12 : 14,
 
                 lineHeight: isMobile ? 19 : 22,
 
-                color: '#b7dedb',
+                color: C.white,
 
                 marginTop: 9,
 
@@ -769,7 +769,7 @@ function Brands() {
             {/* HERO BOTTOM */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
 
                 alignItems: 'center',
@@ -781,8 +781,8 @@ function Brands() {
               <Ionicons name="shield-checkmark" size={15} color="#ffffff" />
 
               <Text
-                style={{
-                  color: '#b7dedb',
+                style={{ fontFamily : 'Poppins_400Regular',
+                  color: C.white,
 
                   fontSize: 10,
 
@@ -798,7 +798,7 @@ function Brands() {
           {/* ═══════════════════════════════ */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: isMobile ? 'column' : 'row',
 
               alignItems: isMobile ? 'flex-start' : 'flex-end',
@@ -811,7 +811,7 @@ function Brands() {
             }}>
             <View>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
 
                   alignItems: 'center',
@@ -821,7 +821,7 @@ function Brands() {
                   marginBottom: 5,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     width: 7,
 
                     height: 7,
@@ -833,7 +833,7 @@ function Brands() {
                 />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 9,
 
                     fontWeight: '900',
@@ -847,7 +847,7 @@ function Brands() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 23 : 30,
 
                   fontWeight: '900',
@@ -860,7 +860,7 @@ function Brands() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 12,
 
                   color: C.muted,
@@ -874,7 +874,7 @@ function Brands() {
             {/* COUNT */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
 
                 alignItems: 'center',
@@ -900,7 +900,7 @@ function Brands() {
                   : {}),
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: 28,
 
                   height: 28,
@@ -918,7 +918,7 @@ function Brands() {
 
               <View>
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 14,
 
                     fontWeight: '900',
@@ -929,7 +929,7 @@ function Brands() {
                 </Text>
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 9,
 
                     color: C.muted,
@@ -948,7 +948,7 @@ function Brands() {
 
           {data.length === 0 ? (
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 backgroundColor: C.white,
 
                 borderRadius: 20,
@@ -964,7 +964,7 @@ function Brands() {
                 justifyContent: 'center',
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: 72,
 
                   height: 72,
@@ -983,7 +983,7 @@ function Brands() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 19,
 
                   fontWeight: '900',
@@ -994,7 +994,7 @@ function Brands() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 12,
 
                   color: C.muted,
@@ -1008,7 +1008,7 @@ function Brands() {
             </View>
           ) : (
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
 
                 flexWrap: 'wrap',
@@ -1025,7 +1025,7 @@ function Brands() {
                 return (
                   <View
                     key={brand._id}
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: cardWidth,
                     }}>
                     <BrandCard
@@ -1045,7 +1045,7 @@ function Brands() {
 
           {data.length > 0 && (
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginTop: isMobile ? 30 : 46,
 
                 marginBottom: isMobile ? 30 : 46,
@@ -1071,7 +1071,7 @@ function Brands() {
               {/* LEFT */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
 
                   alignItems: 'center',
@@ -1079,7 +1079,7 @@ function Brands() {
                   gap: 12,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     width: 46,
 
                     height: 46,
@@ -1101,7 +1101,7 @@ function Brands() {
 
                 <View>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 14,
 
                       fontWeight: '900',
@@ -1112,7 +1112,7 @@ function Brands() {
                   </Text>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
 
                       color: C.muted,
@@ -1127,13 +1127,13 @@ function Brands() {
               {/* FEATURES */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: isMobile ? 'column' : 'row',
 
                   gap: isMobile ? 10 : 28,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
 
                     alignItems: 'center',
@@ -1143,7 +1143,7 @@ function Brands() {
                   <Ionicons name="checkmark-circle" size={17} color={C.primary} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
 
                       fontWeight: '700',
@@ -1155,7 +1155,7 @@ function Brands() {
                 </View>
 
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
 
                     alignItems: 'center',
@@ -1165,7 +1165,7 @@ function Brands() {
                   <Ionicons name="medical-outline" size={17} color={C.primary} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
 
                       fontWeight: '700',
@@ -1177,7 +1177,7 @@ function Brands() {
                 </View>
 
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
 
                     alignItems: 'center',
@@ -1187,7 +1187,7 @@ function Brands() {
                   <Ionicons name="star-outline" size={17} color={C.primary} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
 
                       fontWeight: '700',

@@ -56,7 +56,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
       onPress={() => onBuy(item?._id)}
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         width: cardPct,
 
         marginBottom: 20,
@@ -86,7 +86,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
       {/* ═══════════════════════════════════════ */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: 'relative',
 
           backgroundColor: '#f8fafb',
@@ -103,7 +103,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
                   uri: item?.thumbnail_url,
                 }
           }
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             height: '100%',
             transform: [
@@ -122,7 +122,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
         {item?.featured && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
 
               top: 11,
@@ -143,7 +143,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             <Ionicons name="flash" size={10} color="#fff" />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: 8,
@@ -163,7 +163,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
         {discount && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
 
               left: 11,
@@ -178,7 +178,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
               borderRadius: 6,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: 9,
@@ -198,7 +198,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
           onPress={(event) => {
             event?.stopPropagation?.();
           }}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             top: 10,
@@ -235,7 +235,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
               onCart(item);
             }}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
 
               bottom: 0,
@@ -256,7 +256,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             <Ionicons name="bag-add-outline" size={17} color="#fff" />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: 11,
@@ -276,7 +276,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
       {/* ═══════════════════════════════════════ */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           padding: isMobile ? 12 : 15,
         }}>
         {/* ───────────────────────────────────── */}
@@ -286,7 +286,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         {item?.manufacturer && (
           <Text
             numberOfLines={1}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               color: C.primary,
 
               fontSize: 9,
@@ -313,13 +313,13 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
             onBuy(item?._id);
           }}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             height: 66,
             // backgroundColor:"black"
           }}>
           <Text
             numberOfLines={2}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: isMobile ? 12 : 14,
 
               fontWeight: '700',
@@ -328,7 +328,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             }}>
             {productName.slice(0, 40)}
           </Text>
-          <Text style={{ color: C.dark, fontSize: isMobile ? 10 : 10 }}>
+          <Text style={{ fontFamily : 'Poppins_400Regular', color: C.dark, fontSize: isMobile ? 10 : 10 }}>
             {item.short_description?.slice(0, 100)}
           </Text>
         </Pressable>
@@ -338,7 +338,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         {/* ───────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
 
             alignItems: 'center',
@@ -348,7 +348,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             minHeight: 20,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
 
               alignItems: 'center',
@@ -366,7 +366,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             <Ionicons name="star" size={10} color="#f59e0b" />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 9,
 
                 fontWeight: '800',
@@ -379,7 +379,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
           {ratingCount > 0 && (
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginLeft: 6,
 
                 color: C.muted,
@@ -396,7 +396,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         {/* ───────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
 
             alignItems: 'center',
@@ -410,7 +410,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             // marginBottom: 12,
           }}>
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: isMobile ? 16 : 18,
 
               fontWeight: '900',
@@ -422,7 +422,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
 
           {hasDiscount && (
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
 
                 color: C.muted,
@@ -435,20 +435,20 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         </View>
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
             alignItems: 'center',
             gap: 4,
           }}>
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 11,
               color: C.muted,
             }}>
             You save{' '}
           </Text>
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 11,
               color: C.primary,
             }}>
@@ -460,7 +460,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         {/* ───────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
 
             alignItems: 'center',
@@ -468,7 +468,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             marginBottom: 12,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: 6,
               height: 6,
 
@@ -479,7 +479,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
           />
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginLeft: 6,
 
               fontSize: 9,
@@ -500,7 +500,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
           onPress={() => {
             onBuy(item?._id);
           }}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             height: 40,
             borderWidth: 1.5,
             backgroundColor: C.primary,
@@ -523,7 +523,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
           /> */}
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 11,
 
               fontWeight: '800',

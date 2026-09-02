@@ -9,12 +9,12 @@ export default function OfferBanner() {
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         width: '100%',
         marginVertical: isMobile ? 8 : 14,
       }}>
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: 'relative',
           overflow: 'hidden',
 
@@ -35,7 +35,7 @@ export default function OfferBanner() {
         ====================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             width: isMobile ? 260 : 440,
@@ -53,7 +53,7 @@ export default function OfferBanner() {
         />
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             width: isMobile ? 150 : 230,
@@ -72,7 +72,7 @@ export default function OfferBanner() {
         />
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             width: 7,
@@ -90,7 +90,7 @@ export default function OfferBanner() {
         />
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: 'absolute',
 
             width: 4,
@@ -112,7 +112,7 @@ export default function OfferBanner() {
         ====================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
 
             paddingHorizontal: isMobile ? 22 : isTablet ? 30 : 42,
@@ -126,7 +126,7 @@ export default function OfferBanner() {
           {/* Eyebrow */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
 
               alignItems: 'center',
@@ -136,7 +136,7 @@ export default function OfferBanner() {
               marginBottom: 12,
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: 8,
                 height: 8,
 
@@ -147,7 +147,7 @@ export default function OfferBanner() {
             />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#ffffff',
 
                 fontSize: 10,
@@ -163,7 +163,7 @@ export default function OfferBanner() {
           {/* Main heading */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
 
               alignItems: 'baseline',
@@ -175,7 +175,7 @@ export default function OfferBanner() {
               marginBottom: 5,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: isMobile ? 34 : isTablet ? 40 : 46,
@@ -190,7 +190,7 @@ export default function OfferBanner() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#ffffff',
 
                 fontSize: isMobile ? 42 : isTablet ? 50 : 58,
@@ -206,7 +206,7 @@ export default function OfferBanner() {
           </View>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               color: '#fff',
 
               fontSize: isMobile ? 18 : 21,
@@ -219,8 +219,8 @@ export default function OfferBanner() {
           </Text>
 
           <Text
-            style={{
-              color: '#a7d7d3',
+            style={{ fontFamily : 'Poppins_400Regular',
+              color: C.white,
 
               fontSize: isMobile ? 12 : 13,
 
@@ -236,7 +236,7 @@ export default function OfferBanner() {
           {/* CTA + Coupon */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
 
               alignItems: 'center',
@@ -247,7 +247,7 @@ export default function OfferBanner() {
             }}>
             <Pressable
                onPress={() => router.push('/offers')}
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 backgroundColor: '#fff',
 
                 minHeight: 42,
@@ -265,7 +265,7 @@ export default function OfferBanner() {
                 gap: 8,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: C.primaryDark,
 
                   fontSize: 12,
@@ -281,7 +281,7 @@ export default function OfferBanner() {
             {/* Coupon */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 minHeight: 42,
 
                 paddingHorizontal: 12,
@@ -301,8 +301,8 @@ export default function OfferBanner() {
                 gap: 8,
               }}>
               <Text
-                style={{
-                  color: '#8de8df',
+                style={{ fontFamily : 'Poppins_400Regular',
+                  color: C.white,
 
                   fontSize: 10,
 
@@ -312,7 +312,7 @@ export default function OfferBanner() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#fff',
 
                   fontSize: 12,
@@ -324,7 +324,7 @@ export default function OfferBanner() {
                 DENTAL20
               </Text>
 
-              <Ionicons name="copy-outline" size={14} color="#8de8df" />
+              <Ionicons name="copy-outline" size={14} color={C.white} />
             </View>
           </View>
         </View>
@@ -335,7 +335,7 @@ export default function OfferBanner() {
 
         {!isMobile && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: isTablet ? 220 : 300,
 
               position: 'relative',
@@ -349,7 +349,7 @@ export default function OfferBanner() {
             {/* Main percentage */}
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: isTablet ? 105 : 135,
@@ -374,7 +374,7 @@ export default function OfferBanner() {
             {/* Floating discount badge */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: isTablet ? 145 : 170,
 
                 height: isTablet ? 145 : 170,
@@ -398,7 +398,7 @@ export default function OfferBanner() {
                 ],
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#ffffff',
 
                   fontSize: isTablet ? 46 : 55,
@@ -413,7 +413,7 @@ export default function OfferBanner() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#fff',
 
                   fontSize: 11,
@@ -431,7 +431,7 @@ export default function OfferBanner() {
             {/* Small badge */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 position: 'absolute',
 
                 right: isTablet ? 10 : 28,
@@ -453,7 +453,7 @@ export default function OfferBanner() {
                 ],
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#422006',
 
                   fontSize: 9,
@@ -474,7 +474,7 @@ export default function OfferBanner() {
 
         {isMobile && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
 
               right: 18,
@@ -483,7 +483,7 @@ export default function OfferBanner() {
               zIndex: 1,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: 70,

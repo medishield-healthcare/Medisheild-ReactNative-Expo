@@ -213,7 +213,7 @@ function EventCard({ event, onPress, isMobile }) {
   return (
     <Pressable
       onPress={onPress}
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         backgroundColor: C.white,
         borderBottomWidth: 1,
         borderBottomColor: '#e2e8f0',
@@ -225,13 +225,13 @@ function EventCard({ event, onPress, isMobile }) {
       {/* DATE */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           width: isMobile ? 58 : 70,
           alignItems: 'center',
           flexShrink: 0,
         }}>
         <Text
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: isMobile ? 26 : 32,
             lineHeight: isMobile ? 30 : 36,
             fontWeight: '900',
@@ -242,7 +242,7 @@ function EventCard({ event, onPress, isMobile }) {
         </Text>
 
         <Text
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: 10,
             fontWeight: '900',
             letterSpacing: 1.3,
@@ -253,7 +253,7 @@ function EventCard({ event, onPress, isMobile }) {
         </Text>
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: 1,
             height: 22,
             backgroundColor: '#cbd5e1',
@@ -265,12 +265,12 @@ function EventCard({ event, onPress, isMobile }) {
       {/* CONTENT */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flex: 1,
           minWidth: 0,
         }}>
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
             alignItems: 'center',
             flexWrap: 'wrap',
@@ -278,14 +278,14 @@ function EventCard({ event, onPress, isMobile }) {
             marginBottom: 7,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               backgroundColor: C.primaryLight,
               paddingHorizontal: 8,
               paddingVertical: 4,
               borderRadius: 5,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 9,
                 fontWeight: '900',
                 color: C.primary,
@@ -296,7 +296,7 @@ function EventCard({ event, onPress, isMobile }) {
           </View>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 9,
               fontWeight: '800',
               color: C.muted,
@@ -308,7 +308,7 @@ function EventCard({ event, onPress, isMobile }) {
 
         <Text
           numberOfLines={2}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: isMobile ? 16 : 19,
             lineHeight: isMobile ? 22 : 25,
             fontWeight: '800',
@@ -320,7 +320,7 @@ function EventCard({ event, onPress, isMobile }) {
 
         <Text
           numberOfLines={2}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: 12,
             lineHeight: 19,
             color: C.muted,
@@ -333,13 +333,13 @@ function EventCard({ event, onPress, isMobile }) {
         {/* META */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: 12,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 5,
@@ -347,7 +347,7 @@ function EventCard({ event, onPress, isMobile }) {
             <Ionicons name="time-outline" size={14} color={C.primary} />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
                 color: C.textSecondary,
                 fontWeight: '600',
@@ -357,7 +357,7 @@ function EventCard({ event, onPress, isMobile }) {
           </View>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 5,
@@ -369,7 +369,7 @@ function EventCard({ event, onPress, isMobile }) {
             />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
                 color: C.textSecondary,
                 fontWeight: '600',
@@ -383,7 +383,7 @@ function EventCard({ event, onPress, isMobile }) {
       {/* ARROW */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           width: 34,
           height: 34,
           borderRadius: 17,
@@ -441,7 +441,7 @@ export default function Events() {
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: '#f8fafc',
       }}>
@@ -455,27 +455,27 @@ export default function Events() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             backgroundColor: C.primaryDark,
             paddingHorizontal: px,
             paddingTop: isMobile ? 38 : 58,
             paddingBottom: isMobile ? 34 : 48,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 1180,
               alignSelf: 'center',
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: 8,
                 marginBottom: 13,
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: 7,
                   height: 7,
                   borderRadius: 4,
@@ -484,7 +484,7 @@ export default function Events() {
               />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#ffffff',
                   fontSize: 10,
                   fontWeight: '900',
@@ -495,7 +495,7 @@ export default function Events() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
 
                 fontSize: isMobile ? 34 : isTablet ? 42 : 50,
@@ -516,7 +516,7 @@ export default function Events() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#a9d4d1',
                 fontSize: 14,
                 lineHeight: 23,
@@ -529,7 +529,7 @@ export default function Events() {
             {/* SEARCH */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginTop: 25,
                 height: 50,
                 maxWidth: 600,
@@ -546,7 +546,7 @@ export default function Events() {
                 onChangeText={setSearch}
                 placeholder="Search events..."
                 placeholderTextColor="#94a3b8"
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flex: 1,
                   marginLeft: 10,
                   fontSize: 13,
@@ -569,7 +569,7 @@ export default function Events() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -577,7 +577,7 @@ export default function Events() {
             marginTop: isMobile ? 25 : 38,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               backgroundColor: '#fff',
               borderRadius: isMobile ? 18 : 22,
               overflow: 'hidden',
@@ -588,13 +588,13 @@ export default function Events() {
             {/* FEATURED INFO */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 padding: isMobile ? 22 : isTablet ? 30 : 38,
                 justifyContent: 'center',
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   alignSelf: 'flex-start',
                   backgroundColor: C.primary,
                   paddingHorizontal: 9,
@@ -603,7 +603,7 @@ export default function Events() {
                   marginBottom: 14,
                 }}>
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     color: '#fff',
                     fontSize: 9,
                     fontWeight: '900',
@@ -614,7 +614,7 @@ export default function Events() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: C.text,
                   fontSize: isMobile ? 25 : isTablet ? 29 : 34,
                   lineHeight: isMobile ? 31 : 40,
@@ -626,7 +626,7 @@ export default function Events() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: C.muted,
                   fontSize: 13,
                   lineHeight: 21,
@@ -637,14 +637,14 @@ export default function Events() {
               </Text>
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
                   flexWrap: 'wrap',
                   gap: 14,
                   marginBottom: 22,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 6,
@@ -652,7 +652,7 @@ export default function Events() {
                   <Ionicons name="calendar-outline" size={15} color={C.primary} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
                       fontWeight: '700',
                       color: C.textSecondary,
@@ -662,7 +662,7 @@ export default function Events() {
                 </View>
 
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 6,
@@ -670,7 +670,7 @@ export default function Events() {
                   <Ionicons name="location-outline" size={15} color={C.primary} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
                       fontWeight: '700',
                       color: C.textSecondary,
@@ -682,7 +682,7 @@ export default function Events() {
 
               <Pressable
                 onPress={() => setSelectedEvent(featuredEvent)}
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   alignSelf: 'flex-start',
                   backgroundColor: C.primaryDark,
                   paddingHorizontal: 19,
@@ -693,7 +693,7 @@ export default function Events() {
                   gap: 8,
                 }}>
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     color: '#fff',
                     fontSize: 12,
                     fontWeight: '800',
@@ -708,7 +708,7 @@ export default function Events() {
             {/* DATE VISUAL */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: isMobile ? '100%' : isTablet ? 220 : 270,
 
                 minHeight: isMobile ? 125 : 260,
@@ -723,7 +723,7 @@ export default function Events() {
                 overflow: 'hidden',
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   position: 'absolute',
                   width: 250,
                   height: 250,
@@ -736,7 +736,7 @@ export default function Events() {
               />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#a7f3ed',
                   fontSize: 10,
                   fontWeight: '900',
@@ -746,7 +746,7 @@ export default function Events() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#fff',
                   fontSize: isMobile ? 55 : 76,
                   lineHeight: isMobile ? 60 : 80,
@@ -757,7 +757,7 @@ export default function Events() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#d5fffb',
                   fontSize: 11,
                   fontWeight: '700',
@@ -773,7 +773,7 @@ export default function Events() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -783,7 +783,7 @@ export default function Events() {
           {/* SECTION HEADER */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: isMobile ? 'column' : 'row',
 
               alignItems: isMobile ? 'flex-start' : 'flex-end',
@@ -796,7 +796,7 @@ export default function Events() {
             }}>
             <View>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
                   color: C.primary,
                   fontWeight: '900',
@@ -807,7 +807,7 @@ export default function Events() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 25 : 31,
                   lineHeight: 36,
                   fontWeight: '900',
@@ -819,7 +819,7 @@ export default function Events() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 12,
                 color: C.muted,
               }}>
@@ -845,7 +845,7 @@ export default function Events() {
                   onPress={() => {
                     setActiveCategory(category.name);
                   }}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 7,
@@ -864,7 +864,7 @@ export default function Events() {
                   <Ionicons name={category.icon} size={15} color={active ? '#fff' : C.primary} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
                       fontWeight: '800',
                       color: active ? '#fff' : C.textSecondary,
@@ -879,21 +879,21 @@ export default function Events() {
           {/* EVENTS LIST */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               backgroundColor: '#fff',
               borderTopWidth: 1,
               borderTopColor: '#e2e8f0',
             }}>
             {filteredEvents.length === 0 ? (
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   alignItems: 'center',
                   paddingVertical: 70,
                 }}>
                 <Ionicons name="calendar-outline" size={34} color="#94a3b8" />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 18,
                     fontWeight: '800',
                     color: C.text,
@@ -904,7 +904,7 @@ export default function Events() {
                 </Text>
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 13,
                     color: C.muted,
                     textAlign: 'center',
@@ -930,7 +930,7 @@ export default function Events() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -938,13 +938,13 @@ export default function Events() {
             marginTop: isMobile ? 48 : 65,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               borderTopWidth: 1,
               borderTopColor: '#e2e8f0',
               paddingTop: 30,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
                 color: C.primary,
                 fontWeight: '900',
@@ -955,7 +955,7 @@ export default function Events() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: isMobile ? 24 : 30,
                 fontWeight: '900',
                 color: C.text,
@@ -966,7 +966,7 @@ export default function Events() {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: isMobile ? 'column' : 'row',
 
                 gap: isMobile ? 22 : 45,
@@ -990,13 +990,13 @@ export default function Events() {
               ].map((item) => (
                 <View
                   key={item.title}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flex: 1,
                     flexDirection: 'row',
                     gap: 13,
                   }}>
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 38,
                       height: 38,
                       borderRadius: 10,
@@ -1008,9 +1008,9 @@ export default function Events() {
                     <Ionicons name={item.icon} size={18} color={C.primary} />
                   </View>
 
-                  <View style={{ flex: 1 }}>
+                  <View style={{ fontFamily : 'Poppins_400Regular', flex: 1 }}>
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         fontSize: 14,
                         fontWeight: '800',
                         color: C.text,
@@ -1020,7 +1020,7 @@ export default function Events() {
                     </Text>
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         fontSize: 12,
                         lineHeight: 19,
                         color: C.muted,
@@ -1045,7 +1045,7 @@ export default function Events() {
         animationType="fade"
         onRequestClose={() => setSelectedEvent(null)}>
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
 
             backgroundColor: 'rgba(15,23,42,0.55)',
@@ -1056,7 +1056,7 @@ export default function Events() {
             padding: 20,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 620,
 
@@ -1073,7 +1073,7 @@ export default function Events() {
                 {/* MODAL TOP */}
 
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     backgroundColor: C.primaryDark,
 
                     padding: 24,
@@ -1082,7 +1082,7 @@ export default function Events() {
                   }}>
                   <Pressable
                     onPress={() => setSelectedEvent(null)}
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       position: 'absolute',
 
                       right: 16,
@@ -1102,7 +1102,7 @@ export default function Events() {
                   </Pressable>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       color: '#ffffff',
                       fontSize: 10,
                       fontWeight: '900',
@@ -1113,7 +1113,7 @@ export default function Events() {
                   </Text>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       color: '#fff',
                       fontSize: 25,
                       lineHeight: 31,
@@ -1133,7 +1133,7 @@ export default function Events() {
                     padding: 24,
                   }}>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 14,
                       lineHeight: 23,
                       color: C.textSecondary,
@@ -1145,7 +1145,7 @@ export default function Events() {
                   {/* EVENT DETAILS */}
 
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       borderTopWidth: 1,
                       borderTopColor: '#e2e8f0',
                     }}>
@@ -1174,7 +1174,7 @@ export default function Events() {
                     ].map((item) => (
                       <View
                         key={item.label}
-                        style={{
+                        style={{ fontFamily : 'Poppins_400Regular',
                           flexDirection: 'row',
                           alignItems: 'flex-start',
                           gap: 13,
@@ -1185,11 +1185,11 @@ export default function Events() {
                         <Ionicons name={item.icon} size={18} color={C.primary} />
 
                         <View
-                          style={{
+                          style={{ fontFamily : 'Poppins_400Regular',
                             flex: 1,
                           }}>
                           <Text
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               fontSize: 10,
                               color: C.muted,
                               fontWeight: '700',
@@ -1199,7 +1199,7 @@ export default function Events() {
                           </Text>
 
                           <Text
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               fontSize: 13,
                               color: C.text,
                               fontWeight: '700',
@@ -1215,7 +1215,7 @@ export default function Events() {
                   {/* SEATS */}
 
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       marginTop: 20,
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -1224,7 +1224,7 @@ export default function Events() {
                     <Ionicons name="ticket-outline" size={17} color={C.primary} />
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         fontSize: 12,
                         fontWeight: '700',
                         color: C.primary,
@@ -1241,7 +1241,7 @@ export default function Events() {
                       // navigation/API here
                       setSelectedEvent(null);
                     }}
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       marginTop: 22,
 
                       height: 48,
@@ -1257,7 +1257,7 @@ export default function Events() {
                       gap: 8,
                     }}>
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: '#fff',
                         fontSize: 13,
                         fontWeight: '900',

@@ -165,7 +165,7 @@ function NewArrivals() {
   if (loading) {
     return (
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flex: 1,
           backgroundColor: C.bg,
         }}>
@@ -176,17 +176,17 @@ function NewArrivals() {
             paddingVertical: 30,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               maxWidth: 1240,
               width: '100%',
               alignSelf: 'center',
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginBottom: 25,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 26 : 32,
 
                   fontWeight: '900',
@@ -197,7 +197,7 @@ function NewArrivals() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 13,
 
                   color: C.muted,
@@ -222,7 +222,7 @@ function NewArrivals() {
   if (error && products.length === 0) {
     return (
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flex: 1,
 
           backgroundColor: C.bg,
@@ -234,7 +234,7 @@ function NewArrivals() {
           paddingHorizontal: 25,
         }}>
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: 70,
             height: 70,
 
@@ -250,7 +250,7 @@ function NewArrivals() {
         </View>
 
         <Text
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             marginTop: 18,
 
             fontSize: 20,
@@ -265,7 +265,7 @@ function NewArrivals() {
         </Text>
 
         <Text
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             marginTop: 7,
 
             fontSize: 12,
@@ -288,7 +288,7 @@ function NewArrivals() {
               append: false,
             })
           }
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             marginTop: 20,
 
             backgroundColor: C.primary,
@@ -308,7 +308,7 @@ function NewArrivals() {
           <Ionicons name="refresh" size={15} color="#fff" />
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               color: '#fff',
 
               fontSize: 12,
@@ -328,7 +328,7 @@ function NewArrivals() {
 
   return (
     <SafeAreaView
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
 
         backgroundColor: C.bg,
@@ -341,7 +341,7 @@ function NewArrivals() {
         //   paddingBottom: 60,
         }}>
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             maxWidth: 1240,
 
             width: '100%',
@@ -357,11 +357,11 @@ function NewArrivals() {
           {/* ═══════════════════════════════ */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginBottom: 25,
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
 
                 alignItems: 'center',
@@ -373,11 +373,11 @@ function NewArrivals() {
               {/* TITLE */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flex: 1,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
 
                     alignItems: 'center',
@@ -385,7 +385,7 @@ function NewArrivals() {
                     gap: 8,
                   }}>
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 8,
                       height: 8,
 
@@ -396,7 +396,7 @@ function NewArrivals() {
                   />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: isMobile ? 26 : 32,
 
                       fontWeight: '900',
@@ -410,7 +410,7 @@ function NewArrivals() {
                 </View>
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 13,
 
                     color: C.muted,
@@ -424,7 +424,7 @@ function NewArrivals() {
               {/* COUNT */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   backgroundColor: '#ecfdf5',
 
                   borderRadius: 10,
@@ -438,7 +438,7 @@ function NewArrivals() {
                   borderColor: C.primary + '20',
                 }}>
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 12,
 
                     fontWeight: '800',
@@ -453,7 +453,7 @@ function NewArrivals() {
             {/* DIVIDER */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 height: 1,
 
                 backgroundColor: C.border,
@@ -476,7 +476,7 @@ function NewArrivals() {
               {/* ═════════════════════════ */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   display: 'grid',
 
                   gridTemplateColumns: isMobile
@@ -506,7 +506,7 @@ function NewArrivals() {
 
               {hasMore && (
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     alignItems: 'center',
 
                     marginTop: 30,
@@ -516,7 +516,7 @@ function NewArrivals() {
                   <Pressable
                     onPress={handleLoadMore}
                     disabled={loadingMore}
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       minWidth: 155,
 
                       height: 42,
@@ -544,7 +544,7 @@ function NewArrivals() {
                     ) : (
                       <>
                         <Text
-                          style={{
+                          style={{ fontFamily : 'Poppins_400Regular',
                             fontSize: 12,
 
                             fontWeight: '800',
@@ -567,13 +567,13 @@ function NewArrivals() {
 
               {!hasMore && (
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     alignItems: 'center',
 
                     paddingVertical: 30,
                   }}>
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       flexDirection: 'row',
 
                       alignItems: 'center',
@@ -581,7 +581,7 @@ function NewArrivals() {
                       gap: 8,
                     }}>
                     <View
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         width: 28,
 
                         height: 1,
@@ -591,7 +591,7 @@ function NewArrivals() {
                     />
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: C.muted,
 
                         fontSize: 11,
@@ -600,7 +600,7 @@ function NewArrivals() {
                     </Text>
 
                     <View
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         width: 28,
 
                         height: 1,

@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar */
 ::-webkit-scrollbar {
   display: none;
 }
@@ -10,25 +13,45 @@ body {
   scrollbar-width: none;
 }
 
-/* Global Poppins */
+/* Global Poppins for Expo Web */
+/* html,
+body,
+#root {
+  font-family: 'Poppins', sans-serif;
+} */
+
+
+/* =========================================
+   GLOBAL POPPINS
+   ========================================= */
+
+/* html,
+body,
+#__next,
+#root,
 div,
+span,
 p,
 button,
 input,
 textarea,
 select,
+option,
+label,
+a,
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-span,
-a {
+h6 {
   font-family: 'Poppins', sans-serif !important;
-}
+} */
 
-/* Expo Ionicons */
-div.r-lrvibr {
+/* =========================================
+   EXPO IONICONS
+   ========================================= */
+
+/* div.r-lrvibr {
   font-family: ionicons !important;
-}
+} */

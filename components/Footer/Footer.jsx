@@ -140,181 +140,179 @@ export default function Footer() {
   return (
     <View
       style={{
+        fontFamily: 'Poppins_400Regular',
         backgroundColor: C.white,
-
-        paddingHorizontal: px,
-
         paddingTop: isMobile ? 32 : 48,
-
         paddingBottom: 24,
       }}>
-      {/* ═══════════════════════════════════════
+      <View
+        style={{
+          fontFamily: 'Poppins_400Regular',
+          width: '100%',
+          maxWidth: 1280,
+          alignSelf: 'center',
+          paddingHorizontal: px,
+        }}>
+        {/* ═══════════════════════════════════════
           TOP SECTION
       ═══════════════════════════════════════ */}
 
-      <View
-        style={{
-          flexDirection: isMobile ? 'column' : 'row',
+        <View
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            flexDirection: isMobile ? 'column' : 'row',
 
-          gap: isMobile ? 28 : 40,
+            gap: isMobile ? 28 : 40,
 
-          marginBottom: 32,
-        }}>
-        {/* ─────────────────────────────────────
+            marginBottom: 32,
+          }}>
+          {/* ─────────────────────────────────────
             BRAND
         ───────────────────────────────────── */}
 
-        <View
-          style={{
-            flex: isMobile ? undefined : 2,
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 10,
-              marginBottom: 12,
-              borderWidth: 1,
-              borderColor: '#fff',
-              backgroundColor: '#fff',
-              // borderRadius: 10,
-              paddingHorizontal: 10,
-              paddingVertical: 10,
-              width: isMobile ? 120 : isTablet ? 140 : 130,
-            }}>
-            <Image
-              source={require('../../assets/logo-img.png')}
+          <View style={{ fontFamily: 'Poppins_400Regular', flex: isMobile ? undefined : 2 }}>
+            <View
               style={{
-                width: isMobile ? 100 : isTablet ? 115 : 130,
-                height: isMobile ? 44 : 46,
-                marginLeft: isMobile ? 0 : -12,
-                resizeMode: 'contain',
-              }}
-            />
+                fontFamily: 'Poppins_400Regular',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 10,
+                marginBottom: 12,
+                // borderWidth: 1,
+                // borderColor: '#fff',
+                // backgroundColor: '#fff',
+                // borderRadius: 10,
+                // paddingHorizontal: 10,
+                // paddingVertical: 10,
+                width: isMobile ? 120 : isTablet ? 140 : 130,
+              }}>
+              <Image
+                source={require('../../assets/logo-img.png')}
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  width: isMobile ? 100 : isTablet ? 115 : 130,
+                  height: isMobile ? 44 : 46,
+                  marginLeft: isMobile ? 0 : -12,
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
+
+            <Text
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                color: '#000000',
+                fontSize: 14,
+                lineHeight: 22,
+                fontWeight: '500',
+                maxWidth: 240,
+              }}>
+              India's trusted dental products store. Quality you can count on.
+            </Text>
           </View>
 
-          <Text
-            style={{
-              color: '#000000',
-
-              fontSize: 14,
-
-              lineHeight: 22,
-
-              maxWidth: 240,
-            }}>
-            India's trusted dental products store. Quality you can count on.
-          </Text>
-        </View>
-
-        {/* ─────────────────────────────────────
+          {/* ─────────────────────────────────────
             LINK COLUMNS
         ───────────────────────────────────── */}
 
-        <View
-          style={{
-            flexDirection: 'row',
-
-            flex: isMobile ? undefined : 3,
-
-            gap: 20,
-
-            flexWrap: 'wrap',
-          }}>
-          {footerColumns.map((column) => (
-            <View
-              key={column.heading}
-              style={{
-                flex: 1,
-
-                minWidth: 100,
-              }}>
-              <Text
+          <View
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: 'row',
+              flex: isMobile ? undefined : 3,
+              gap: 20,
+              flexWrap: 'wrap',
+            }}>
+            {footerColumns.map((column) => (
+              <View
+                key={column.heading}
                 style={{
-                  fontSize: 12,
-
-                  fontWeight: '800',
-
-                  color: C.primaryDark,
-
-                  letterSpacing: 1.5,
-
-                  marginBottom: 14,
+                  fontFamily: 'Poppins_400Regular',
+                  flex: 1,
+                  minWidth: 100,
                 }}>
-                {column.heading.toUpperCase()}
-              </Text>
-
-              {column.links.map((link) => (
-                <Pressable
-                  key={link.label}
-                  onPress={() => handleNavigation(link.route)}
+                <Text
                   style={{
-                    marginBottom: 10,
-
-                    alignSelf: 'flex-start',
+                    fontFamily: 'Poppins_400Regular',
+                    fontSize: 12,
+                    fontWeight: '900',
+                    color: C.primaryDark,
+                    letterSpacing: 1.5,
+                    marginBottom: 14,
                   }}>
-                  <Text
+                  {column.heading.toUpperCase()}
+                </Text>
+
+                {column.links.map((link) => (
+                  <Pressable
+                    key={link.label}
+                    onPress={() => handleNavigation(link.route)}
                     style={{
-                      color: '#000000',
+                      fontFamily: 'Poppins_400Regular',
+                      marginBottom: 10,
 
-                      fontSize: 13,
+                      alignSelf: 'flex-start',
                     }}>
-                    {link.label}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          ))}
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
+                        color: '#000000',
+                        fontSize: 13,
+                      }}>
+                      {link.label}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
 
-      {/* ═══════════════════════════════════════
+        {/* ═══════════════════════════════════════
           BOTTOM SECTION
       ═══════════════════════════════════════ */}
 
-      <View
-        style={{
-          borderTopWidth: 1,
-
-          borderTopColor: 'rgba(255,255,255,0.1)',
-
-          paddingTop: 18,
-
-          flexDirection: isMobile ? 'column' : 'row',
-
-          justifyContent: 'space-between',
-
-          alignItems: isMobile ? 'flex-start' : 'center',
-
-          gap: isMobile ? 10 : 0,
-        }}>
-        <Text
-          style={{
-            color: C.primaryDark,
-
-            fontSize: 12,
-          }}>
-          © 2026 MediShield · All rights reserved.
-        </Text>
-
         <View
           style={{
-            flexDirection: 'row',
-
-            gap: 16,
+            fontFamily: 'Poppins_400Regular',
+            borderTopWidth: 1,
+            borderTopColor: 'rgba(255,255,255,0.1)',
+            paddingTop: 18,
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: 'space-between',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            gap: isMobile ? 10 : 0,
           }}>
-          {bottomLinks.map((link) => (
-            <Pressable key={link.label} onPress={() => handleNavigation(link.route)}>
-              <Text
-                style={{
-                  color: C.primaryDark,
+          <Text
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              color: C.primaryDark,
+              fontWeight: '600',
+              fontSize: 12,
+            }}>
+            © 2026 MediShield · All rights reserved.
+          </Text>
 
-                  fontSize: 12,
-                }}>
-                {link.label}
-              </Text>
-            </Pressable>
-          ))}
+          <View
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: 'row',
+              gap: 16,
+            }}>
+            {bottomLinks.map((link) => (
+              <Pressable key={link.label} onPress={() => handleNavigation(link.route)}>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    color: C.primaryDark,
+                    fontWeight: '600',
+                    fontSize: 12,
+                  }}>
+                  {link.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
         </View>
       </View>
     </View>

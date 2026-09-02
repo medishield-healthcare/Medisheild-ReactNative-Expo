@@ -6,7 +6,7 @@ import { Pressable, Text,View } from "react-native";
 export default function SectionHeader({ title, onSeeAll }) {
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -14,10 +14,10 @@ export default function SectionHeader({ title, onSeeAll }) {
         marginBottom: 14,
       }}>
         
-      <Text style={{ fontSize: 17, fontWeight: '800', color: C.dark }}>{title}</Text>
+      <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: 17, fontWeight: '800', color: C.dark }}>{title}</Text>
       {onSeeAll && (
         <Pressable onPress={onSeeAll}>
-          <Text style={{ fontSize: 13, fontWeight: '600', color: C.primary }}>See all</Text>
+          <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: 13, fontWeight: '600', color: C.primary }}>See all</Text>
         </Pressable>
       )}
     </View>
