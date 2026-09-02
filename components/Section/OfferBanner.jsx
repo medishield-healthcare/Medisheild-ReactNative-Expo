@@ -148,7 +148,7 @@ export default function OfferBanner() {
 
             <Text
               style={{
-                color: '#99f6e4',
+                color: '#ffffff',
 
                 fontSize: 10,
 

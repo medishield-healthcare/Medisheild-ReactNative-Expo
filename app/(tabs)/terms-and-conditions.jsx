@@ -4,8 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
 
   white: '#ffffff',
@@ -285,11 +285,11 @@ function TermsAndConditions() {
                 alignItems: 'center',
                 gap: 8,
               }}>
-              <Ionicons name="calendar-outline" size={15} color="#99f6e4" />
+              <Ionicons name="calendar-outline" size={15} color="#ffffff" />
 
               <Text
                 style={{
-                  color: '#99f6e4',
+                  color: '#ffffff',
                   fontSize: 12,
                   fontWeight: '600',
                 }}>

@@ -140,7 +140,7 @@ export default function Footer() {
   return (
     <View
       style={{
-        backgroundColor: C.primaryDark,
+        backgroundColor: C.white,
 
         paddingHorizontal: px,
 
@@ -195,7 +195,7 @@ export default function Footer() {
 
           <Text
             style={{
-              color: '#ffffff',
+              color: '#000000',
 
               fontSize: 14,
 
@@ -235,7 +235,7 @@ export default function Footer() {
 
                   fontWeight: '800',
 
-                  color: '#fff',
+                  color: C.primaryDark,
 
                   letterSpacing: 1.5,
 
@@ -255,7 +255,7 @@ export default function Footer() {
                   }}>
                   <Text
                     style={{
-                      color: '#ffffff',
+                      color: '#000000',
 
                       fontSize: 13,
                     }}>
@@ -290,7 +290,7 @@ export default function Footer() {
         }}>
         <Text
           style={{
-            color: '#ffffff',
+            color: C.primaryDark,
 
             fontSize: 12,
           }}>
@@ -307,7 +307,7 @@ export default function Footer() {
             <Pressable key={link.label} onPress={() => handleNavigation(link.route)}>
               <Text
                 style={{
-                  color: '#ffffff',
+                  color: C.primaryDark,
 
                   fontSize: 12,
                 }}>

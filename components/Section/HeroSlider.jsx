@@ -360,7 +360,7 @@ export default function HeroSlider() {
                 borderRadius: 999,
 
                 backgroundColor: active
-                  ? "#09BBAF"
+                  ? "#CD0F0F"
                   : "rgba(255,255,255,0.95)",
               }}
             />

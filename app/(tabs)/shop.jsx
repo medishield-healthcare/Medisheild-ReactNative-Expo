@@ -1268,7 +1268,7 @@ export default function ShopPage() {
                     paddingHorizontal: 12,
                     paddingVertical: 5,
                     borderWidth: 1,
-                    borderColor: '#99f6e4',
+                    borderColor: '#ffffff',
                   }}>
                   <Text style={{ fontSize: 12, fontWeight: '600', color: C.primary }}>
                     {chip.label}

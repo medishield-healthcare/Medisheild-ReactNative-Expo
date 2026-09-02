@@ -195,7 +195,7 @@ function BrandMiniCard({ brand, isMobile, onPress }) {
         backgroundColor: C.white,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: pressed ? C.primary : C.border,
+        borderColor: pressed ? C.primary : C.primaryDark,
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
@@ -225,7 +225,7 @@ function BrandMiniCard({ brand, isMobile, onPress }) {
       })}>
       {/* TOP LINE */}
 
-      <View
+      {/* <View
         style={{
           position: 'absolute',
 
@@ -239,7 +239,7 @@ function BrandMiniCard({ brand, isMobile, onPress }) {
 
           backgroundColor: C.primary,
         }}
-      />
+      /> */}
 
       {/* LOGO */}
 

@@ -13,8 +13,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
 
   white: '#ffffff',

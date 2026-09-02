@@ -24,8 +24,8 @@ import { useQuery } from '@tanstack/react-query';
 // ============================================================================
 
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
   white: '#ffffff',
   bg: '#f8fafc',
@@ -892,7 +892,7 @@ function CategoryMegaMenu({
 
                               borderWidth: 1,
 
-                              borderColor: activeChild || pressed ? '#99f6e4' : C.border,
+                              borderColor: activeChild || pressed ? '#ffffff' : C.border,
 
                               backgroundColor: activeChild || pressed ? C.hover : C.white,
 
@@ -1822,7 +1822,7 @@ export default function WebHeader() {
                 borderRadius: 11,
                 backgroundColor: mobileMenuOpen ? C.primaryLight : C.bg,
                 borderWidth: 1,
-                borderColor: mobileMenuOpen ? '#99f6e4' : C.border,
+                borderColor: mobileMenuOpen ? '#ffffff' : C.border,
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,

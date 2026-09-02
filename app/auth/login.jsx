@@ -48,7 +48,7 @@ function FloatingInput({
       ].join(' ')}>
       {/* Left Icon */}
       <View className="absolute bottom-0 left-4 top-0 z-10 justify-center">
-        <Ionicons name={iconName} size={18} color={focused ? '#09BBAF' : '#94a3b8'} />
+        <Ionicons name={iconName} size={18} color={focused ? '#CD0F0F' : '#94a3b8'} />
       </View>
 
       {/* Floating Label */}
@@ -74,7 +74,7 @@ function FloatingInput({
         autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
         placeholderTextColor="transparent"
-        selectionColor="#09BBAF"
+        selectionColor="#CD0F0F"
         className="pb-3 pl-11 pr-12 pt-6 text-[15px] font-semibold text-slate-800"
         style={Platform.OS === 'web' ? { outlineStyle: 'none' } : {}}
       />
@@ -114,7 +114,7 @@ function FloatingInput({
 //   return (
 //     <View
 //       className="flex-1 relative overflow-hidden"
-//       style={{ backgroundColor: "#09BBAF" }}
+//       style={{ backgroundColor: "#CD0F0F" }}
 //     >
 //       {/* ── Decorative circles ── */}
 //       <View
@@ -301,7 +301,7 @@ function FormPanel({ isWeb }) {
             backgroundColor: 'white',
             borderRadius: 28,
             padding: 32,
-            shadowColor: '#09BBAF',
+            shadowColor: '#CD0F0F',
             shadowOffset: { width: 0, height: 12 },
             shadowOpacity: 0.12,
             shadowRadius: 32,
@@ -398,7 +398,7 @@ function FormPanel({ isWeb }) {
             Platform.OS === 'web'
               ? { boxShadow: '0 8px 24px rgba(15,118,110,0.28)', backgroundColor: C.primaryDark }
               : {
-                  shadowColor: '#09BBAF',
+                  shadowColor: '#CD0F0F',
                   shadowOffset: { width: 0, height: 6 },
                   shadowOpacity: 0.3,
                   shadowRadius: 12,

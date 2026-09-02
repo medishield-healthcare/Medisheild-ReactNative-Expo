@@ -19,8 +19,8 @@ import { useAuth } from '@/context/AuthContext';
 import WebHeader from 'components/Header/header.web';
 
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
 
   bg: '#f5fafa',
@@ -351,7 +351,7 @@ export default function EditProfile() {
               <View style={{ flex: 1 }}>
                 <Text
                   style={{
-                    color: '#99f6e4',
+                    color: '#ffffff',
                     fontSize: 10,
                     fontWeight: '800',
                     letterSpacing: 1,

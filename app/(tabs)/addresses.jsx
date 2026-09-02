@@ -18,8 +18,8 @@ import { useRouter } from 'expo-router';
 import API from '@/api/axios';
 
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
 
   bg: '#f5fafa',

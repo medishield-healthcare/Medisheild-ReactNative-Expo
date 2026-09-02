@@ -1,6 +1,6 @@
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
   accent: '#f59e0b',
   accentLight: '#fef3c7',

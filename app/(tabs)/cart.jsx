@@ -32,9 +32,9 @@ import WebHeader from 'components/Header/header.web';
 
 const T = {
   teal950: '#083b3b',
-  teal900: '#09BBAF',
+  teal900: '#CD0F0F',
   teal800: '#115e59',
-  teal700: '#09BBAF',
+  teal700: '#CD0F0F',
   teal600: '#0d9488',
   teal500: '#14b8a6',
 
@@ -1118,7 +1118,7 @@ export default function CartPage() {
         },
 
         theme: {
-          color: '#09BBAF',
+          color: '#CD0F0F',
         },
       };
 

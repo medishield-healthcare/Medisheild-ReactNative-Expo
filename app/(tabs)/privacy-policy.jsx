@@ -11,8 +11,8 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const C = {
-  primary: '#09BBAF',
-  primaryDark: '#09BBAF',
+  primary: '#CD0F0F',
+  primaryDark: '#CD0F0F',
   primaryLight: '#ccfbf1',
 
   white: '#ffffff',
@@ -296,12 +296,12 @@ function PrivacyPolicy() {
               <Ionicons
                 name="calendar-outline"
                 size={15}
-                color="#99f6e4"
+                color="#ffffff"
               />
 
               <Text
                 style={{
-                  color: '#99f6e4',
+                  color: '#ffffff',
                   fontSize: 12,
                   fontWeight: '600',
                 }}

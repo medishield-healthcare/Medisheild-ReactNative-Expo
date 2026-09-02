@@ -49,7 +49,7 @@ function FloatingInput({
       ].join(' ')}>
       {/* Left Icon */}
       <View className="absolute bottom-0 left-4 top-0 z-10 justify-center">
-        <Ionicons name={iconName} size={17} color={focused ? '#09BBAF' : '#94a3b8'} />
+        <Ionicons name={iconName} size={17} color={focused ? '#CD0F0F' : '#94a3b8'} />
       </View>
 
       {/* Floating Label */}
@@ -76,7 +76,7 @@ function FloatingInput({
         autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
         placeholderTextColor="transparent"
-        selectionColor="#09BBAF"
+        selectionColor="#CD0F0F"
         className="pb-[10px] pl-11 pr-12 pt-[22px] text-[14px] font-semibold text-slate-800"
         style={Platform.OS === 'web' ? { outlineStyle: 'none' } : {}}
       />
@@ -123,7 +123,7 @@ function BrandPanel() {
   ];
 
   return (
-    <View className="relative flex-1 overflow-hidden" style={{ backgroundColor: '#09BBAF' }}>
+    <View className="relative flex-1 overflow-hidden" style={{ backgroundColor: '#CD0F0F' }}>
       {/* Decorative circles */}
       <View
         style={{
@@ -192,7 +192,7 @@ function BrandPanel() {
           </View>
         </View> */}
 <Image
-              source={require('../../assets/logo.png')} 
+              source={require('../../assets/logo-img.png')} 
               style={{
                 width: 146,
                 height: 76,
@@ -216,7 +216,7 @@ function BrandPanel() {
             className="mb-4 font-black leading-tight text-white"
             style={{ fontSize: 38, letterSpacing: -1 }}>
             Start Your{'\n'}
-            <Text style={{ color: '#2dd4bf' }}>Dental Journey.</Text>
+            <Text style={{ color: '#ffffff' }}>Dental Journey.</Text>
           </Text>
 
           <Text style={{ color: '#ffffff', fontSize: 15, lineHeight: 24, maxWidth: 300 }}>
@@ -340,13 +340,13 @@ function RegisterForm({ isWeb }) {
     return (
       <View className="flex-1 items-center justify-center bg-white px-8">
         <View className="mb-5 h-20 w-20 items-center justify-center rounded-full bg-teal-50">
-          <Ionicons name="checkmark-circle" size={48} color="#09BBAF" />
+          <Ionicons name="checkmark-circle" size={48} color="#CD0F0F" />
         </View>
         <Text className="text-center text-2xl font-black text-slate-900">Account Created!</Text>
         <Text className="mt-2 text-center text-sm leading-5 text-slate-500">
           Welcome to MediShield. You've received 50 coins! 🎉
         </Text>
-        <ActivityIndicator color="#09BBAF" style={{ marginTop: 24 }} />
+        <ActivityIndicator color="#CD0F0F" style={{ marginTop: 24 }} />
       </View>
     );
   }
@@ -394,7 +394,7 @@ function RegisterForm({ isWeb }) {
             backgroundColor: 'white',
             borderRadius: 28,
             padding: 28,
-            shadowColor: '#09BBAF',
+            shadowColor: '#CD0F0F',
             shadowOffset: { width: 0, height: 12 },
             shadowOpacity: 0.12,
             shadowRadius: 32,
@@ -579,7 +579,7 @@ function RegisterForm({ isWeb }) {
           <Ionicons
             name={showReferral ? 'chevron-down' : 'chevron-forward'}
             size={14}
-            color="#09BBAF"
+            color="#CD0F0F"
           />
           <Text style={{color: C.primary}} className="text-[13px] font-semibold">
             {showReferral
@@ -610,7 +610,7 @@ function RegisterForm({ isWeb }) {
             Platform.OS === 'web'
               ? { boxShadow: '0 8px 24px rgba(15,118,110,0.28)', backgroundColor: C.primaryDark }
               : {
-                  shadowColor: '#09BBAF',
+                  shadowColor: '#CD0F0F',
                   shadowOffset: { width: 0, height: 6 },
                   shadowOpacity: 0.3,
                   shadowRadius: 12,

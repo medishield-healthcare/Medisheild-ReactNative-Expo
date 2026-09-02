@@ -19,7 +19,7 @@ export default function BrandPanel() {
   return (
     <View
       className="flex-1 relative overflow-hidden"
-      style={{ backgroundColor: "#09BBAF" }}
+      style={{ backgroundColor: "#CD0F0F" }}
     >
       {/* ── Decorative circles ── */}
       <View
@@ -92,7 +92,7 @@ export default function BrandPanel() {
             style={{ fontSize: 40, letterSpacing: -1 }}
           >
             Your Smile,{"\n"}
-            <Text style={{ color: "#2dd4bf" }}>Our Priority.</Text>
+            <Text style={{ color: "#fff" }}>Our Priority.</Text>
           </Text>
 
           <Text style={{ color: "#ffffff", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
@@ -108,7 +108,7 @@ export default function BrandPanel() {
                   className="w-9 h-9 rounded-xl items-center justify-center"
                   style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
                 >
-                  <Ionicons name={f.icon} size={17} color="#2dd4bf" />
+                  <Ionicons name={f.icon} size={17} color="#ffffff" />
                 </View>
                 <Text style={{ color: "#cbd5e1", fontSize: 14, fontWeight: "500" }}>
                   {f.text}
