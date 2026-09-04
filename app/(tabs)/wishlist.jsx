@@ -82,7 +82,7 @@ function WishlistCard({ product, onRemove }) {
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         backgroundColor: T.white,
         borderWidth: 1,
         borderColor: T.slate100,
@@ -113,7 +113,7 @@ function WishlistCard({ product, onRemove }) {
         onPress={() =>
           router.push(`/product/${product._id}`)
         }
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           height: 245,
           backgroundColor: "#fafcfc",
           position: "relative",
@@ -125,7 +125,7 @@ function WishlistCard({ product, onRemove }) {
           <Image
             source={{ uri: image }}
             resizeMode="contain"
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: "86%",
               height: "86%",
             }}
@@ -142,7 +142,7 @@ function WishlistCard({ product, onRemove }) {
 
         {discount > 0 && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: "absolute",
               top: 12,
               left: 12,
@@ -153,7 +153,7 @@ function WishlistCard({ product, onRemove }) {
             }}
           >
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: T.white,
                 fontSize: 10,
                 fontWeight: "900",
@@ -168,7 +168,7 @@ function WishlistCard({ product, onRemove }) {
 
         <Pressable
           onPress={() => onRemove(product._id)}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             position: "absolute",
             top: 10,
             right: 10,
@@ -200,7 +200,7 @@ function WishlistCard({ product, onRemove }) {
       {/* CONTENT */}
 
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           padding: 16,
         }}
       >
@@ -208,7 +208,7 @@ function WishlistCard({ product, onRemove }) {
 
         <Text
           numberOfLines={1}
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             fontSize: 10,
             color: T.teal700,
             fontWeight: "900",
@@ -230,7 +230,7 @@ function WishlistCard({ product, onRemove }) {
         >
           <Text
             numberOfLines={2}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               minHeight: 40,
               fontSize: 14,
               lineHeight: 20,
@@ -246,7 +246,7 @@ function WishlistCard({ product, onRemove }) {
 
         {rating && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: "row",
               alignItems: "center",
               gap: 5,
@@ -254,7 +254,7 @@ function WishlistCard({ product, onRemove }) {
             }}
           >
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: "row",
                 alignItems: "center",
                 backgroundColor: T.amber100,
@@ -270,7 +270,7 @@ function WishlistCard({ product, onRemove }) {
               />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   marginLeft: 3,
                   fontSize: 10,
                   fontWeight: "900",
@@ -282,7 +282,7 @@ function WishlistCard({ product, onRemove }) {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 10,
                 color: T.slate400,
               }}
@@ -295,7 +295,7 @@ function WishlistCard({ product, onRemove }) {
         {/* PRICE */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flexDirection: "row",
             alignItems: "center",
             flexWrap: "wrap",
@@ -304,7 +304,7 @@ function WishlistCard({ product, onRemove }) {
           }}
         >
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               fontSize: 20,
               fontWeight: "900",
               color: T.teal700,
@@ -315,7 +315,7 @@ function WishlistCard({ product, onRemove }) {
 
           {regularPrice > price && (
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 12,
                 color: T.slate400,
                 textDecorationLine:
@@ -333,7 +333,7 @@ function WishlistCard({ product, onRemove }) {
         {/* ADD TO CART */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             marginTop: 14,
             minHeight: 44,
           }}
@@ -461,7 +461,7 @@ function Wishlist() {
   if (loading) {
     return (
       <SafeAreaView
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           flex: 1,
           backgroundColor: T.white,
         }}
@@ -471,7 +471,7 @@ function Wishlist() {
         )}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
@@ -483,7 +483,7 @@ function Wishlist() {
           />
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginTop: 12,
               fontSize: 13,
               color: T.slate500,
@@ -503,7 +503,7 @@ function Wishlist() {
 
   return (
     <SafeAreaView
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: T.white,
       }}
@@ -525,14 +525,14 @@ function Wishlist() {
         ───────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             backgroundColor: T.teal50,
             borderBottomWidth: 1,
             borderBottomColor: T.teal100,
           }}
         >
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               maxWidth: 1280,
               width: "100%",
               alignSelf: "center",
@@ -545,7 +545,7 @@ function Wishlist() {
             {/* BREADCRUMB */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 7,
@@ -556,7 +556,7 @@ function Wishlist() {
                 onPress={() => router.push("/")}
               >
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 11,
                     color: T.teal700,
                     fontWeight: "700",
@@ -573,7 +573,7 @@ function Wishlist() {
               />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
                   color: T.slate500,
                 }}
@@ -583,7 +583,7 @@ function Wishlist() {
             </View>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: isMobile
                   ? "column"
                   : "row",
@@ -597,7 +597,7 @@ function Wishlist() {
             >
               <View>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: "row",
                     alignItems: "center",
                     gap: 10,
@@ -605,7 +605,7 @@ function Wishlist() {
                   }}
                 >
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 43,
                       height: 43,
                       borderRadius: 13,
@@ -627,7 +627,7 @@ function Wishlist() {
                   </View>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
                       fontWeight: "900",
                       color: T.teal700,
@@ -641,7 +641,7 @@ function Wishlist() {
                 </View>
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: isMobile
                       ? 30
                       : 38,
@@ -657,7 +657,7 @@ function Wishlist() {
                 </Text>
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     marginTop: 7,
                     fontSize: 13,
                     lineHeight: 21,
@@ -674,7 +674,7 @@ function Wishlist() {
               {/* COUNT */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   backgroundColor: T.white,
                   borderRadius: 14,
                   borderWidth: 1,
@@ -685,7 +685,7 @@ function Wishlist() {
                 }}
               >
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 24,
                     fontWeight: "900",
                     color: T.teal700,
@@ -695,7 +695,7 @@ function Wishlist() {
                 </Text>
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     fontSize: 10,
                     color: T.slate500,
                     fontWeight: "700",
@@ -717,7 +717,7 @@ function Wishlist() {
         ───────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             maxWidth: 1280,
             width: "100%",
             alignSelf: "center",
@@ -729,7 +729,7 @@ function Wishlist() {
           {products.length === 0 ? (
             // EMPTY STATE
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 minHeight: 420,
                 alignItems: "center",
                 justifyContent: "center",
@@ -737,7 +737,7 @@ function Wishlist() {
               }}
             >
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: 82,
                   height: 82,
                   borderRadius: 28,
@@ -757,7 +757,7 @@ function Wishlist() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 22,
                   fontWeight: "900",
                   color: T.slate900,
@@ -768,7 +768,7 @@ function Wishlist() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   maxWidth: 430,
                   fontSize: 13,
                   lineHeight: 21,
@@ -787,7 +787,7 @@ function Wishlist() {
                 onPress={() =>
                   router.push("/shop")
                 }
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   marginTop: 22,
                   backgroundColor: T.teal700,
                   borderRadius: 10,
@@ -799,7 +799,7 @@ function Wishlist() {
                 }}
               >
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     color: T.white,
                     fontSize: 13,
                     fontWeight: "900",
@@ -820,7 +820,7 @@ function Wishlist() {
               {/* TOP BAR */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent:
@@ -830,7 +830,7 @@ function Wishlist() {
               >
                 <View>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 17,
                       fontWeight: "900",
                       color: T.slate900,
@@ -840,7 +840,7 @@ function Wishlist() {
                   </Text>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
                       color: T.slate400,
                       marginTop: 3,
@@ -855,14 +855,14 @@ function Wishlist() {
                   onPress={() =>
                     router.push("/shop")
                   }
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: "row",
                     alignItems: "center",
                     gap: 6,
                   }}
                 >
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 12,
                       color: T.teal700,
                       fontWeight: "800",
@@ -882,7 +882,7 @@ function Wishlist() {
               {/* GRID */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: "row",
                   flexWrap: "wrap",
                   gap: 16,
@@ -891,7 +891,7 @@ function Wishlist() {
                 {products.map((product) => (
                   <View
                     key={product._id}
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: isDesktop
                         ? "calc(25% - 12px)"
                         : isTablet
@@ -931,7 +931,7 @@ function Wishlist() {
 
         {products.length > 0 && (
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               maxWidth: 1280,
               width: "100%",
               alignSelf: "center",
@@ -942,7 +942,7 @@ function Wishlist() {
             }}
           >
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 backgroundColor: T.slate100,
                 borderRadius: 16,
                 padding: isMobile
@@ -979,7 +979,7 @@ function Wishlist() {
               ].map((item) => (
                 <View
                   key={item.title}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: "row",
                     alignItems: "center",
                     gap: 9,
@@ -987,7 +987,7 @@ function Wishlist() {
                   }}
                 >
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 37,
                       height: 37,
                       borderRadius: 11,
@@ -1007,7 +1007,7 @@ function Wishlist() {
 
                   <View>
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         fontSize: 11,
                         fontWeight: "900",
                         color: T.slate800,
@@ -1017,7 +1017,7 @@ function Wishlist() {
                     </Text>
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         fontSize: 9,
                         color: T.slate400,
                         marginTop: 2,

@@ -112,14 +112,14 @@ const categories = [
 function StatItem({ value, label, icon }) {
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
         flex: 1,
         minWidth: 140,
         alignItems: 'center',
         paddingHorizontal: 12,
       }}>
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           width: 44,
           height: 44,
           borderRadius: 14,
@@ -132,7 +132,7 @@ function StatItem({ value, label, icon }) {
       </View>
 
       <Text
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           fontSize: 23,
           fontWeight: '900',
           color: T.slate900,
@@ -141,7 +141,7 @@ function StatItem({ value, label, icon }) {
       </Text>
 
       <Text
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           fontSize: 11,
           color: T.slate500,
           marginTop: 3,
@@ -160,7 +160,7 @@ function StatItem({ value, label, icon }) {
 function BenefitCard({ icon, title, description }) {
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
         flex: 1,
         minWidth: 220,
         backgroundColor: T.white,
@@ -185,7 +185,7 @@ function BenefitCard({ icon, title, description }) {
             }),
       }}>
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           width: 46,
           height: 46,
           borderRadius: 14,
@@ -200,7 +200,7 @@ function BenefitCard({ icon, title, description }) {
       </View>
 
       <Text
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           fontSize: 16,
           fontWeight: '900',
           color: T.slate900,
@@ -210,7 +210,7 @@ function BenefitCard({ icon, title, description }) {
       </Text>
 
       <Text
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           fontSize: 12,
           lineHeight: 19,
           color: T.slate500,
@@ -228,7 +228,7 @@ function BenefitCard({ icon, title, description }) {
 function CategoryCard({ icon, title, description }) {
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
         flex: 1,
         minWidth: 220,
         borderRadius: 18,
@@ -238,7 +238,7 @@ function CategoryCard({ icon, title, description }) {
         padding: 20,
       }}>
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           width: 42,
           height: 42,
           borderRadius: 13,
@@ -257,7 +257,7 @@ function CategoryCard({ icon, title, description }) {
       </View>
 
       <Text
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           fontSize: 15,
           fontWeight: '900',
           color: T.slate900,
@@ -267,7 +267,7 @@ function CategoryCard({ icon, title, description }) {
       </Text>
 
       <Text
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
           fontSize: 12,
           lineHeight: 18,
           color: T.slate500,
@@ -296,7 +296,7 @@ export default function AboutPage() {
 
   return (
     <SafeAreaView
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: T.white,
       }}>
@@ -308,7 +308,7 @@ export default function AboutPage() {
         <WebHeader />
       ) : (
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             height: 58,
             paddingHorizontal: 18,
             flexDirection: 'row',
@@ -319,7 +319,7 @@ export default function AboutPage() {
           }}>
           <Pressable
             onPress={() => router.back()}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               width: 38,
               height: 38,
               borderRadius: 11,
@@ -333,7 +333,7 @@ export default function AboutPage() {
           </Pressable>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               flex: 1,
               textAlign: 'center',
               marginRight: 38,
@@ -358,13 +358,13 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             backgroundColor: T.teal50,
             borderBottomWidth: 1,
             borderBottomColor: T.teal100,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth,
               alignSelf: 'center',
@@ -380,12 +380,12 @@ export default function AboutPage() {
             {/* HERO CONTENT */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 alignItems: isDesktop ? 'flex-start' : 'center',
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
                   alignItems: 'center',
                   backgroundColor: T.white,
@@ -397,7 +397,7 @@ export default function AboutPage() {
                   marginBottom: 20,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     width: 7,
                     height: 7,
                     borderRadius: 4,
@@ -407,7 +407,7 @@ export default function AboutPage() {
                 />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     fontSize: 10,
                     fontWeight: '900',
                     color: T.teal700,
@@ -419,7 +419,7 @@ export default function AboutPage() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 39 : 52,
                   lineHeight: isMobile ? 45 : 58,
                   fontWeight: '900',
@@ -431,7 +431,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 27 : 36,
                   lineHeight: isMobile ? 34 : 43,
                   fontWeight: '800',
@@ -443,7 +443,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   maxWidth: 580,
                   fontSize: 14,
                   lineHeight: 23,
@@ -456,7 +456,7 @@ export default function AboutPage() {
               </Text>
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   flexDirection: isMobile ? 'column' : 'row',
                   gap: 10,
                   marginTop: 27,
@@ -464,7 +464,7 @@ export default function AboutPage() {
                 }}>
                 <Pressable
                   onPress={() => router.push('/shop')}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     backgroundColor: T.teal700,
                     borderRadius: 13,
                     paddingHorizontal: 24,
@@ -482,7 +482,7 @@ export default function AboutPage() {
                       : {}),
                   }}>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                       color: T.white,
                       fontSize: 13,
                       fontWeight: '900',
@@ -495,7 +495,7 @@ export default function AboutPage() {
 
                 <Pressable
                   onPress={() => router.push('/')}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     borderRadius: 13,
                     paddingHorizontal: 24,
                     paddingVertical: 14,
@@ -506,7 +506,7 @@ export default function AboutPage() {
                     backgroundColor: T.white,
                   }}>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                       color: T.slate700,
                       fontSize: 13,
                       fontWeight: '800',
@@ -520,7 +520,7 @@ export default function AboutPage() {
             {/* HERO VISUAL */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 width: isDesktop ? 450 : isMobile ? '100%' : 430,
                 height: isMobile ? 300 : 380,
                 borderRadius: 30,
@@ -549,7 +549,7 @@ export default function AboutPage() {
               {/* Decorative circles */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   position: 'absolute',
                   width: 280,
                   height: 280,
@@ -559,7 +559,7 @@ export default function AboutPage() {
               />
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   position: 'absolute',
                   width: 190,
                   height: 190,
@@ -570,7 +570,7 @@ export default function AboutPage() {
               />
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   width: 128,
                   height: 128,
                   borderRadius: 38,
@@ -588,7 +588,7 @@ export default function AboutPage() {
               </View>
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   position: 'absolute',
                   bottom: 27,
                   left: 25,
@@ -609,7 +609,7 @@ export default function AboutPage() {
                 <Ionicons name="shield-checkmark" size={17} color={T.green500} />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     fontSize: 10,
                     fontWeight: '900',
                     color: T.slate800,
@@ -619,7 +619,7 @@ export default function AboutPage() {
               </View>
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   position: 'absolute',
                   top: 27,
                   right: 25,
@@ -640,7 +640,7 @@ export default function AboutPage() {
                 <Ionicons name="cart" size={17} color={T.teal700} />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     fontSize: 10,
                     fontWeight: '900',
                     color: T.slate800,
@@ -657,7 +657,7 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1050,
             alignSelf: 'center',
@@ -682,14 +682,14 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             backgroundColor: T.slate50,
             borderTopWidth: 1,
             borderBottomWidth: 1,
             borderColor: T.slate100,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth,
               alignSelf: 'center',
@@ -703,11 +703,11 @@ export default function AboutPage() {
             {/* LEFT */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flex: 1,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal700,
@@ -719,7 +719,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 28 : 34,
                   lineHeight: isMobile ? 35 : 42,
                   fontWeight: '900',
@@ -733,11 +733,11 @@ export default function AboutPage() {
             {/* RIGHT */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flex: 1,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 14,
                   lineHeight: 24,
                   color: T.slate600,
@@ -748,7 +748,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 14,
                   lineHeight: 24,
                   color: T.slate600,
@@ -760,7 +760,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 14,
                   lineHeight: 24,
                   color: T.slate600,
@@ -777,7 +777,7 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth,
             alignSelf: 'center',
@@ -785,12 +785,12 @@ export default function AboutPage() {
             paddingVertical: isMobile ? 55 : 80,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               alignItems: isMobile ? 'flex-start' : 'center',
               marginBottom: 32,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
                 fontWeight: '900',
                 color: T.teal700,
@@ -802,7 +802,7 @@ export default function AboutPage() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 fontSize: isMobile ? 28 : 34,
                 fontWeight: '900',
                 color: T.slate900,
@@ -813,7 +813,7 @@ export default function AboutPage() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 maxWidth: 600,
                 fontSize: 13,
                 lineHeight: 21,
@@ -826,7 +826,7 @@ export default function AboutPage() {
           </View>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               flexWrap: 'wrap',
               gap: 14,
@@ -842,11 +842,11 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             backgroundColor: T.teal900,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth,
               alignSelf: 'center',
@@ -854,7 +854,7 @@ export default function AboutPage() {
               paddingVertical: isMobile ? 55 : 80,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
                 fontWeight: '900',
                 color: T.teal100,
@@ -866,7 +866,7 @@ export default function AboutPage() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 fontSize: isMobile ? 28 : 35,
                 fontWeight: '900',
                 color: T.white,
@@ -877,7 +877,7 @@ export default function AboutPage() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 maxWidth: 650,
                 fontSize: 13,
                 lineHeight: 21,
@@ -890,7 +890,7 @@ export default function AboutPage() {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 gap: 13,
@@ -898,7 +898,7 @@ export default function AboutPage() {
               {categories.map((item) => (
                 <View
                   key={item.title}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     flex: 1,
                     minWidth: 220,
                     backgroundColor: 'rgba(255,255,255,0.07)',
@@ -908,7 +908,7 @@ export default function AboutPage() {
                     padding: 20,
                   }}>
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                       width: 42,
                       height: 42,
                       borderRadius: 13,
@@ -921,7 +921,7 @@ export default function AboutPage() {
                   </View>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                       fontSize: 15,
                       fontWeight: '900',
                       color: T.white,
@@ -931,7 +931,7 @@ export default function AboutPage() {
                   </Text>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                       fontSize: 12,
                       lineHeight: 19,
                       color: '#b8dedb',
@@ -949,7 +949,7 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth,
             alignSelf: 'center',
@@ -957,14 +957,14 @@ export default function AboutPage() {
             paddingVertical: isMobile ? 55 : 80,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               flexDirection: isDesktop ? 'row' : 'column',
               gap: 15,
             }}>
             {/* MISSION */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 backgroundColor: T.teal50,
                 borderRadius: 22,
@@ -973,7 +973,7 @@ export default function AboutPage() {
                 padding: isMobile ? 23 : 30,
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   width: 48,
                   height: 48,
                   borderRadius: 15,
@@ -986,7 +986,7 @@ export default function AboutPage() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal700,
@@ -998,7 +998,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 22,
                   fontWeight: '900',
                   color: T.slate900,
@@ -1009,7 +1009,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 13,
                   color: T.slate500,
                   lineHeight: 21,
@@ -1022,14 +1022,14 @@ export default function AboutPage() {
             {/* VISION */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 backgroundColor: T.slate900,
                 borderRadius: 22,
                 padding: isMobile ? 23 : 30,
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   width: 48,
                   height: 48,
                   borderRadius: 15,
@@ -1042,7 +1042,7 @@ export default function AboutPage() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal100,
@@ -1054,7 +1054,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 22,
                   fontWeight: '900',
                   color: T.white,
@@ -1065,7 +1065,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 13,
                   color: '#aab5c4',
                   lineHeight: 21,
@@ -1082,14 +1082,14 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             backgroundColor: T.slate50,
             borderTopWidth: 1,
             borderBottomWidth: 1,
             borderColor: T.slate100,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 1100,
               alignSelf: 'center',
@@ -1098,7 +1098,7 @@ export default function AboutPage() {
               alignItems: 'center',
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 width: 58,
                 height: 58,
                 borderRadius: 18,
@@ -1111,7 +1111,7 @@ export default function AboutPage() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 fontSize: isMobile ? 27 : 34,
                 fontWeight: '900',
                 color: T.slate900,
@@ -1122,7 +1122,7 @@ export default function AboutPage() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 maxWidth: 650,
                 fontSize: 13,
                 lineHeight: 22,
@@ -1135,7 +1135,7 @@ export default function AboutPage() {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
@@ -1162,7 +1162,7 @@ export default function AboutPage() {
               ].map((item) => (
                 <View
                   key={item.text}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 7,
@@ -1176,7 +1176,7 @@ export default function AboutPage() {
                   <Ionicons name={item.icon} size={15} color={T.teal700} />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                       fontSize: 11,
                       fontWeight: '800',
                       color: T.slate700,
@@ -1194,7 +1194,7 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth,
             alignSelf: 'center',
@@ -1202,7 +1202,7 @@ export default function AboutPage() {
             paddingTop: isMobile ? 50 : 75,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               backgroundColor: T.teal700,
               borderRadius: 26,
               paddingHorizontal: isMobile ? 23 : 50,
@@ -1221,7 +1221,7 @@ export default function AboutPage() {
             {/* Decorative circle */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 position: 'absolute',
                 width: 250,
                 height: 250,
@@ -1233,11 +1233,11 @@ export default function AboutPage() {
             />
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 flex: 1,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal100,
@@ -1249,7 +1249,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: isMobile ? 27 : 34,
                   lineHeight: isMobile ? 34 : 41,
                   fontWeight: '900',
@@ -1260,7 +1260,7 @@ export default function AboutPage() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   fontSize: 13,
                   color: '#c4e7e4',
                   lineHeight: 20,
@@ -1273,7 +1273,7 @@ export default function AboutPage() {
 
             <Pressable
               onPress={() => router.push('/shop')}
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 backgroundColor: T.white,
                 borderRadius: 13,
                 paddingHorizontal: 23,
@@ -1285,7 +1285,7 @@ export default function AboutPage() {
                 minWidth: isMobile ? '100%' : 170,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   color: T.teal700,
                   fontSize: 13,
                   fontWeight: '900',
@@ -1303,19 +1303,19 @@ export default function AboutPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
             alignItems: 'center',
             paddingHorizontal: horizontalPadding,
             paddingTop: 40,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 width: 28,
                 height: 28,
                 borderRadius: 9,
@@ -1327,14 +1327,14 @@ export default function AboutPage() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                 fontSize: 15,
                 fontWeight: '900',
                 color: T.slate900,
               }}>
               Medi
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
                   color: T.teal700,
                 }}>
                 Shield
@@ -1343,7 +1343,7 @@ export default function AboutPage() {
           </View>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular', fontFamily : 'Poppins_400Regular',
               fontSize: 10,
               color: T.slate400,
               marginTop: 8,

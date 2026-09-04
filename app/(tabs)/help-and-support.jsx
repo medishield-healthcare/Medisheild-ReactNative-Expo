@@ -223,21 +223,21 @@ function HelpFAQ() {
 
   return (
     <SafeAreaView
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: C.background,
       }}
     >
       {/* Header */}
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           backgroundColor: C.white,
           borderBottomWidth: 1,
           borderBottomColor: C.border,
         }}
       >
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -250,7 +250,7 @@ function HelpFAQ() {
         >
           <Pressable
             onPress={() => router.back()}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
@@ -264,7 +264,7 @@ function HelpFAQ() {
             />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 14,
                 fontWeight: '600',
                 color: C.text,
@@ -275,14 +275,14 @@ function HelpFAQ() {
           </Pressable>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
             }}
           >
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: 34,
                 height: 34,
                 borderRadius: 10,
@@ -299,7 +299,7 @@ function HelpFAQ() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 15,
                 fontWeight: '800',
                 color: C.primaryDark,
@@ -309,7 +309,7 @@ function HelpFAQ() {
             </Text>
           </View>
 
-          <View style={{ width: 55 }} />
+          <View style={{ fontFamily : 'Poppins_400Regular', width: 55 }} />
         </View>
       </View>
 
@@ -321,7 +321,7 @@ function HelpFAQ() {
       >
         {/* Hero */}
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             backgroundColor: C.primaryDark,
             paddingHorizontal: 24,
             paddingVertical:
@@ -329,14 +329,14 @@ function HelpFAQ() {
           }}
         >
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 980,
               alignSelf: 'center',
             }}
           >
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#ffffff',
                 fontSize: 12,
                 fontWeight: '800',
@@ -348,7 +348,7 @@ function HelpFAQ() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: C.white,
                 fontSize:
                   Platform.OS === 'web' ? 46 : 34,
@@ -363,7 +363,7 @@ function HelpFAQ() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#b7d9d6',
                 fontSize: 15,
                 lineHeight: 24,
@@ -376,7 +376,7 @@ function HelpFAQ() {
 
             {/* Search */}
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginTop: 28,
                 maxWidth: 700,
                 height: 54,
@@ -401,7 +401,7 @@ function HelpFAQ() {
                 }}
                 placeholder="Search your question..."
                 placeholderTextColor="#94a3b8"
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flex: 1,
                   marginLeft: 11,
                   fontSize: 14,
@@ -430,7 +430,7 @@ function HelpFAQ() {
 
         {/* Main */}
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 980,
             alignSelf: 'center',
@@ -440,7 +440,7 @@ function HelpFAQ() {
         >
           {/* Quick stats */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection:
                 Platform.OS === 'web'
                   ? 'row'
@@ -454,7 +454,7 @@ function HelpFAQ() {
           >
             <View>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 22,
                   fontWeight: '900',
                   color: C.text,
@@ -464,7 +464,7 @@ function HelpFAQ() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 12,
                   color: C.muted,
                   marginTop: 3,
@@ -476,7 +476,7 @@ function HelpFAQ() {
 
             <View>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 22,
                   fontWeight: '900',
                   color: C.text,
@@ -486,7 +486,7 @@ function HelpFAQ() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 12,
                   color: C.muted,
                   marginTop: 3,
@@ -498,7 +498,7 @@ function HelpFAQ() {
 
             <View>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 22,
                   fontWeight: '900',
                   color: C.text,
@@ -508,7 +508,7 @@ function HelpFAQ() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 12,
                   color: C.muted,
                   marginTop: 3,
@@ -521,12 +521,12 @@ function HelpFAQ() {
 
           {/* Categories */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginBottom: 34,
             }}
           >
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 20,
                 fontWeight: '800',
                 color: C.text,
@@ -555,7 +555,7 @@ function HelpFAQ() {
                       setActiveCategory(category.name);
                       setOpenQuestion(null);
                     }}
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: 7,
@@ -586,7 +586,7 @@ function HelpFAQ() {
                     />
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         fontSize: 13,
                         fontWeight: '700',
                         color: active
@@ -605,14 +605,14 @@ function HelpFAQ() {
           {/* FAQ */}
           {filteredData.length === 0 ? (
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingVertical: 70,
               }}
             >
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: 58,
                   height: 58,
                   borderRadius: 29,
@@ -630,7 +630,7 @@ function HelpFAQ() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 18,
                   fontWeight: '800',
                   color: C.text,
@@ -641,7 +641,7 @@ function HelpFAQ() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 14,
                   color: C.muted,
                   textAlign: 'center',
@@ -657,13 +657,13 @@ function HelpFAQ() {
             filteredData.map((section) => (
               <View
                 key={section.category}
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   marginBottom: 38,
                 }}
               >
                 {/* Category heading */}
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 11,
@@ -671,7 +671,7 @@ function HelpFAQ() {
                   }}
                 >
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 36,
                       height: 36,
                       borderRadius: 10,
@@ -688,7 +688,7 @@ function HelpFAQ() {
                   </View>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 20,
                       fontWeight: '800',
                       color: C.text,
@@ -700,7 +700,7 @@ function HelpFAQ() {
 
                 {/* Questions */}
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     borderTopWidth: 1,
                     borderTopColor: C.border,
                   }}
@@ -716,7 +716,7 @@ function HelpFAQ() {
                       return (
                         <View
                           key={id}
-                          style={{
+                          style={{ fontFamily : 'Poppins_400Regular',
                             borderBottomWidth: 1,
                             borderBottomColor:
                               C.border,
@@ -726,7 +726,7 @@ function HelpFAQ() {
                             onPress={() =>
                               toggleQuestion(id)
                             }
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               minHeight: 62,
                               paddingVertical: 17,
                               flexDirection: 'row',
@@ -737,7 +737,7 @@ function HelpFAQ() {
                             }}
                           >
                             <Text
-                              style={{
+                              style={{ fontFamily : 'Poppins_400Regular',
                                 flex: 1,
                                 fontSize: 14,
                                 lineHeight: 21,
@@ -765,13 +765,13 @@ function HelpFAQ() {
 
                           {isOpen && (
                             <View
-                              style={{
+                              style={{ fontFamily : 'Poppins_400Regular',
                                 paddingBottom: 20,
                                 paddingRight: 35,
                               }}
                             >
                               <Text
-                                style={{
+                                style={{ fontFamily : 'Poppins_400Regular',
                                   fontSize: 14,
                                   lineHeight: 24,
                                   color:
@@ -793,7 +793,7 @@ function HelpFAQ() {
 
           {/* Still need help */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginTop: 10,
               paddingTop: 32,
               borderTopWidth: 1,
@@ -801,7 +801,7 @@ function HelpFAQ() {
             }}
           >
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 20,
                 fontWeight: '800',
                 color: C.text,
@@ -812,7 +812,7 @@ function HelpFAQ() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 14,
                 lineHeight: 23,
                 color: C.muted,
@@ -826,7 +826,7 @@ function HelpFAQ() {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection:
                   Platform.OS === 'web'
                     ? 'row'
@@ -835,7 +835,7 @@ function HelpFAQ() {
               }}
             >
               <Pressable
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   minHeight: 46,
                   paddingHorizontal: 20,
                   borderRadius: 10,
@@ -853,7 +853,7 @@ function HelpFAQ() {
                 />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     color: C.white,
                     fontSize: 13,
                     fontWeight: '800',
@@ -864,7 +864,7 @@ function HelpFAQ() {
               </Pressable>
 
               <Pressable
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   minHeight: 46,
                   paddingHorizontal: 20,
                   borderRadius: 10,
@@ -884,7 +884,7 @@ function HelpFAQ() {
                 />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     color: C.text,
                     fontSize: 13,
                     fontWeight: '700',

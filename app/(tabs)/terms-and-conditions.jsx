@@ -140,19 +140,19 @@ function TermsAndConditions() {
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: C.background,
       }}>
       {/* Header */}
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           backgroundColor: C.white,
           borderBottomWidth: 1,
           borderBottomColor: C.border,
         }}>
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -164,7 +164,7 @@ function TermsAndConditions() {
           }}>
           <Pressable
             onPress={() => router.back()}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
@@ -173,7 +173,7 @@ function TermsAndConditions() {
             <Ionicons name="arrow-back" size={20} color={C.text} />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 14,
                 fontWeight: '600',
                 color: C.text,
@@ -183,13 +183,13 @@ function TermsAndConditions() {
           </Pressable>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: 34,
                 height: 34,
                 borderRadius: 10,
@@ -201,7 +201,7 @@ function TermsAndConditions() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 15,
                 fontWeight: '800',
                 color: C.primaryDark,
@@ -210,7 +210,7 @@ function TermsAndConditions() {
             </Text>
           </View>
 
-          <View style={{ width: 55 }} />
+          <View style={{ fontFamily : 'Poppins_400Regular', width: 55 }} />
         </View>
       </View>
 
@@ -221,19 +221,19 @@ function TermsAndConditions() {
         }}>
         {/* Hero */}
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             backgroundColor: C.primaryDark,
             paddingHorizontal: 24,
             paddingVertical: Platform.OS === 'web' ? 68 : 48,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 980,
               alignSelf: 'center',
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: 48,
                 height: 48,
                 borderRadius: 14,
@@ -246,7 +246,7 @@ function TermsAndConditions() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#ffffff',
                 fontSize: 12,
                 fontWeight: '800',
@@ -257,7 +257,7 @@ function TermsAndConditions() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: C.white,
                 fontSize: Platform.OS === 'web' ? 48 : 34,
                 lineHeight: Platform.OS === 'web' ? 56 : 42,
@@ -269,7 +269,7 @@ function TermsAndConditions() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#b7d9d6',
                 fontSize: 15,
                 lineHeight: 24,
@@ -279,7 +279,7 @@ function TermsAndConditions() {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginTop: 26,
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -288,7 +288,7 @@ function TermsAndConditions() {
               <Ionicons name="calendar-outline" size={15} color="#ffffff" />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#ffffff',
                   fontSize: 12,
                   fontWeight: '600',
@@ -301,7 +301,7 @@ function TermsAndConditions() {
 
         {/* Content */}
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 980,
             alignSelf: 'center',
@@ -310,14 +310,14 @@ function TermsAndConditions() {
           }}>
           {/* Intro */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               paddingBottom: 36,
               borderBottomWidth: 1,
               borderBottomColor: C.border,
               marginBottom: 10,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 20,
                 fontWeight: '800',
                 color: C.text,
@@ -327,7 +327,7 @@ function TermsAndConditions() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 15,
                 lineHeight: 26,
                 color: C.textSecondary,
@@ -342,20 +342,20 @@ function TermsAndConditions() {
           {sections.map((section) => (
             <View
               key={section.number}
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 paddingVertical: 30,
                 borderBottomWidth: 1,
                 borderBottomColor: C.border,
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
                   alignItems: 'flex-start',
                   gap: 18,
                 }}>
                 {/* Number */}
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     width: 30,
                     fontSize: 12,
                     fontWeight: '800',
@@ -366,9 +366,9 @@ function TermsAndConditions() {
                 </Text>
 
                 {/* Content */}
-                <View style={{ flex: 1 }}>
+                <View style={{ fontFamily : 'Poppins_400Regular', flex: 1 }}>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 20,
                       lineHeight: 27,
                       fontWeight: '800',
@@ -379,7 +379,7 @@ function TermsAndConditions() {
                   </Text>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 14,
                       lineHeight: 24,
                       color: C.textSecondary,
@@ -389,20 +389,20 @@ function TermsAndConditions() {
 
                   {section.bullets && (
                     <View
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         marginTop: 14,
                         gap: 9,
                       }}>
                       {section.bullets.map((bullet) => (
                         <View
                           key={bullet}
-                          style={{
+                          style={{ fontFamily : 'Poppins_400Regular',
                             flexDirection: 'row',
                             alignItems: 'flex-start',
                             gap: 10,
                           }}>
                           <View
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               width: 5,
                               height: 5,
                               borderRadius: 3,
@@ -412,7 +412,7 @@ function TermsAndConditions() {
                           />
 
                           <Text
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               flex: 1,
                               fontSize: 14,
                               lineHeight: 23,
@@ -427,7 +427,7 @@ function TermsAndConditions() {
 
                   {section.number === '15' && (
                     <Pressable
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         marginTop: 18,
                         alignSelf: 'flex-start',
                         flexDirection: 'row',
@@ -438,7 +438,7 @@ function TermsAndConditions() {
                       <Ionicons name="mail-outline" size={18} color={C.primary} />
 
                       <Text
-                        style={{
+                        style={{ fontFamily : 'Poppins_400Regular',
                           fontSize: 14,
                           fontWeight: '700',
                           color: C.primary,
@@ -456,7 +456,7 @@ function TermsAndConditions() {
 
           {/* Agreement */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginTop: 34,
               paddingTop: 28,
               borderTopWidth: 1,
@@ -468,7 +468,7 @@ function TermsAndConditions() {
             <Ionicons name="checkmark-circle-outline" size={21} color={C.primary} />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 fontSize: 13,
                 lineHeight: 21,

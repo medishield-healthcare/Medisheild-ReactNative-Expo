@@ -208,6 +208,21 @@ export default function TabsLayout() {
           tabBarIcon: () => null,
         }}
       />
+      <Tabs.Screen
+        name="events"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="clinic-setup"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
+      
     </Tabs>
   );
 }

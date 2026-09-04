@@ -2684,7 +2684,7 @@ export default function WebHeader() {
             </Text>
           </Pressable>
           <Pressable
-            onPress={() => router.push('/contact')}
+            onPress={() => router.push('/events')}
             style={({ pressed }) => ({
               paddingHorizontal: 16,
               paddingVertical: 9,
@@ -2708,7 +2708,7 @@ export default function WebHeader() {
             </Text>
           </Pressable>
           <Pressable
-            onPress={() => router.push('/contact')}
+            onPress={() => router.push('/clinic-setup')}
             style={({ pressed }) => ({
               paddingHorizontal: 16,
               paddingVertical: 9,

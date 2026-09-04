@@ -119,21 +119,21 @@ function PrivacyPolicy() {
 
   return (
     <SafeAreaView
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: C.background,
       }}
     >
       {/* Header */}
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           backgroundColor: C.white,
           borderBottomWidth: 1,
           borderBottomColor: C.border,
         }}
       >
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -146,7 +146,7 @@ function PrivacyPolicy() {
         >
           <Pressable
             onPress={() => router.back()}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
@@ -160,7 +160,7 @@ function PrivacyPolicy() {
             />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 14,
                 fontWeight: '600',
                 color: C.text,
@@ -171,14 +171,14 @@ function PrivacyPolicy() {
           </Pressable>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
             }}
           >
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: 34,
                 height: 34,
                 borderRadius: 10,
@@ -195,7 +195,7 @@ function PrivacyPolicy() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 15,
                 fontWeight: '800',
                 color: C.primaryDark,
@@ -205,7 +205,7 @@ function PrivacyPolicy() {
             </Text>
           </View>
 
-          <View style={{ width: 55 }} />
+          <View style={{ fontFamily : 'Poppins_400Regular', width: 55 }} />
         </View>
       </View>
 
@@ -217,21 +217,21 @@ function PrivacyPolicy() {
       >
         {/* Hero */}
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             backgroundColor: C.primaryDark,
             paddingHorizontal: 24,
             paddingVertical: Platform.OS === 'web' ? 72 : 48,
           }}
         >
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 980,
               alignSelf: 'center',
             }}
           >
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 width: 48,
                 height: 48,
                 borderRadius: 14,
@@ -249,7 +249,7 @@ function PrivacyPolicy() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#ffffff',
                 fontSize: 12,
                 fontWeight: '800',
@@ -261,7 +261,7 @@ function PrivacyPolicy() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: C.white,
                 fontSize: Platform.OS === 'web' ? 48 : 34,
                 lineHeight: Platform.OS === 'web' ? 56 : 42,
@@ -274,7 +274,7 @@ function PrivacyPolicy() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#b7d9d6',
                 fontSize: 15,
                 lineHeight: 24,
@@ -286,7 +286,7 @@ function PrivacyPolicy() {
             </Text>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 marginTop: 26,
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -300,7 +300,7 @@ function PrivacyPolicy() {
               />
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#ffffff',
                   fontSize: 12,
                   fontWeight: '600',
@@ -314,7 +314,7 @@ function PrivacyPolicy() {
 
         {/* Content */}
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 980,
             alignSelf: 'center',
@@ -324,7 +324,7 @@ function PrivacyPolicy() {
         >
           {/* Intro */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               paddingBottom: 36,
               borderBottomWidth: 1,
               borderBottomColor: C.border,
@@ -332,7 +332,7 @@ function PrivacyPolicy() {
             }}
           >
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 20,
                 fontWeight: '800',
                 color: C.text,
@@ -343,7 +343,7 @@ function PrivacyPolicy() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 15,
                 lineHeight: 26,
                 color: C.textSecondary,
@@ -361,14 +361,14 @@ function PrivacyPolicy() {
           {sections.map((section) => (
             <View
               key={section.number}
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 paddingVertical: 30,
                 borderBottomWidth: 1,
                 borderBottomColor: C.border,
               }}
             >
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
                   alignItems: 'flex-start',
                   gap: 18,
@@ -376,7 +376,7 @@ function PrivacyPolicy() {
               >
                 {/* Number */}
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     width: 30,
                     fontSize: 12,
                     fontWeight: '800',
@@ -388,9 +388,9 @@ function PrivacyPolicy() {
                 </Text>
 
                 {/* Content */}
-                <View style={{ flex: 1 }}>
+                <View style={{ fontFamily : 'Poppins_400Regular', flex: 1 }}>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 20,
                       lineHeight: 27,
                       fontWeight: '800',
@@ -402,7 +402,7 @@ function PrivacyPolicy() {
                   </Text>
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 14,
                       lineHeight: 24,
                       color: C.textSecondary,
@@ -413,7 +413,7 @@ function PrivacyPolicy() {
 
                   {section.bullets && (
                     <View
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         marginTop: 14,
                         gap: 9,
                       }}
@@ -421,14 +421,14 @@ function PrivacyPolicy() {
                       {section.bullets.map((bullet) => (
                         <View
                           key={bullet}
-                          style={{
+                          style={{ fontFamily : 'Poppins_400Regular',
                             flexDirection: 'row',
                             alignItems: 'flex-start',
                             gap: 10,
                           }}
                         >
                           <View
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               width: 5,
                               height: 5,
                               borderRadius: 3,
@@ -438,7 +438,7 @@ function PrivacyPolicy() {
                           />
 
                           <Text
-                            style={{
+                            style={{ fontFamily : 'Poppins_400Regular',
                               flex: 1,
                               fontSize: 14,
                               lineHeight: 23,
@@ -455,7 +455,7 @@ function PrivacyPolicy() {
                   {/* Contact */}
                   {section.number === '12' && (
                     <Pressable
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         marginTop: 18,
                         alignSelf: 'flex-start',
                         flexDirection: 'row',
@@ -471,7 +471,7 @@ function PrivacyPolicy() {
                       />
 
                       <Text
-                        style={{
+                        style={{ fontFamily : 'Poppins_400Regular',
                           fontSize: 14,
                           fontWeight: '700',
                           color: C.primary,
@@ -494,7 +494,7 @@ function PrivacyPolicy() {
 
           {/* Footer note */}
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginTop: 34,
               paddingTop: 28,
               borderTopWidth: 1,
@@ -511,7 +511,7 @@ function PrivacyPolicy() {
             />
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 fontSize: 13,
                 lineHeight: 21,

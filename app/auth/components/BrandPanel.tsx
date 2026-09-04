@@ -19,25 +19,25 @@ export default function BrandPanel() {
   return (
     <View
       className="flex-1 relative overflow-hidden"
-      style={{ backgroundColor: "#CD0F0F" }}
+      style={{ fontFamily : 'Poppins_400Regular', backgroundColor: "#CD0F0F" }}
     >
       {/* ── Decorative circles ── */}
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: "absolute", width: 420, height: 420, borderRadius: 210,
           backgroundColor: "#0d766e", opacity: 0.4,
           top: -120, right: -100,
         }}
       />
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: "absolute", width: 300, height: 300, borderRadius: 150,
           backgroundColor: "#14b8a6", opacity: 0.15,
           bottom: 60, left: -80,
         }}
       />
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: "absolute", width: 180, height: 180, borderRadius: 90,
           backgroundColor: "#14b8a6", opacity: 0.12,
           top: "40%", left: "55%",
@@ -46,7 +46,7 @@ export default function BrandPanel() {
 
       {/* ── Grid dot pattern overlay ── */}
       <View
-        style={{
+        style={{ fontFamily : 'Poppins_400Regular',
           position: "absolute", inset: 0, opacity: 0.06,
           backgroundImage: Platform.OS === "web"
             ? "radial-gradient(circle, #ffffff 1px, transparent 1px)"
@@ -67,35 +67,35 @@ export default function BrandPanel() {
             <Text className="text-white text-lg font-black tracking-tight">
               MediShield
             </Text>
-            <Text style={{ color: "#ffffff", fontSize: 10, fontWeight: "700", letterSpacing: 2 }}>
+            <Text style={{ fontFamily : 'Poppins_400Regular', color: "#ffffff", fontSize: 10, fontWeight: "700", letterSpacing: 2 }}>
               DENTAL CARE
             </Text>
           </View>
         </View> */}
-        <Image source={require("../../../assets/medisheild-white.png")} style={{ width: 200, height: 100, resizeMode : "contain" }} />
+        <Image source={require("../../../assets/medisheild-white.png")} style={{ fontFamily : 'Poppins_400Regular', width: 200, height: 100, resizeMode : "contain" }} />
 
         {/* Middle: Hero text */}
         <View>
           {/* Eyebrow */}
           <View
             className="self-start  mt-2 flex-row items-center gap-2 rounded-full px-3 py-1 mb-5"
-            style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+            style={{ fontFamily : 'Poppins_400Regular', backgroundColor: "rgba(255,255,255,0.1)" }}
           >
             <View className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-            <Text style={{ color: "#ffffff", fontSize: 11, fontWeight: "700", letterSpacing: 1.5 }}>
+            <Text style={{ fontFamily : 'Poppins_400Regular', color: "#ffffff", fontSize: 11, fontWeight: "700", letterSpacing: 1.5 }}>
               INDIA'S #1 DENTAL STORE
             </Text>
           </View>
 
           <Text
             className="text-white font-black leading-tight mb-4"
-            style={{ fontSize: 40, letterSpacing: -1 }}
+            style={{ fontFamily : 'Poppins_400Regular', fontSize: 40, letterSpacing: -1 }}
           >
             Your Smile,{"\n"}
-            <Text style={{ color: "#fff" }}>Our Priority.</Text>
+            <Text style={{ fontFamily : 'Poppins_400Regular', color: "#fff" }}>Our Priority.</Text>
           </Text>
 
-          <Text style={{ color: "#ffffff", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
+          <Text style={{ fontFamily : 'Poppins_400Regular', color: "#ffffff", fontSize: 15, lineHeight: 24, maxWidth: 320 }}>
             Shop clinically approved dental products trusted by dentists and
             patients across India.
           </Text>
@@ -106,11 +106,11 @@ export default function BrandPanel() {
               <View key={f.text} className="flex-row items-center gap-3">
                 <View
                   className="w-9 h-9 rounded-xl items-center justify-center"
-                  style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+                  style={{ fontFamily : 'Poppins_400Regular', backgroundColor: "rgba(255,255,255,0.1)" }}
                 >
                   <Ionicons name={f.icon} size={17} color="#ffffff" />
                 </View>
-                <Text style={{ color: "#cbd5e1", fontSize: 14, fontWeight: "500" }}>
+                <Text style={{ fontFamily : 'Poppins_400Regular', color: "#cbd5e1", fontSize: 14, fontWeight: "500" }}>
                   {f.text}
                 </Text>
               </View>
@@ -127,7 +127,7 @@ export default function BrandPanel() {
           ].map((s) => (
             <View key={s.label}>
               <Text className="text-white font-black text-2xl">{s.value}</Text>
-              <Text style={{ color: "#ffffff", fontSize: 12, fontWeight: "600" }}>
+              <Text style={{ fontFamily : 'Poppins_400Regular', color: "#ffffff", fontSize: 12, fontWeight: "600" }}>
                 {s.label}
               </Text>
             </View>

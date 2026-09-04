@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import useBreakpoint from '@/utils/breakpoints';
 import C from '@/utils/theme';
 import WebHeader from 'components/Header/header.web';
+import Footer from 'components/Footer/Footer';
 
 // ============================================================
 // CLINIC SETUP PAGE
@@ -101,7 +102,7 @@ export default function NewClinicSetup() {
 
   return (
     <View
-      style={{
+      style={{ fontFamily : 'Poppins_400Regular',
         flex: 1,
         backgroundColor: '#f8fafc',
       }}>
@@ -109,14 +110,14 @@ export default function NewClinicSetup() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: 70,
+          // paddingBottom: 70,
         }}>
         {/* ====================================================
             HERO
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             backgroundColor: C.primaryDark,
             paddingHorizontal: px,
             paddingTop: isMobile ? 38 : 58,
@@ -126,7 +127,7 @@ export default function NewClinicSetup() {
           {/* Decorative circle */}
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
 
               width: isMobile ? 260 : 500,
@@ -144,7 +145,7 @@ export default function NewClinicSetup() {
           />
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
 
               width: isMobile ? 150 : 260,
@@ -162,7 +163,7 @@ export default function NewClinicSetup() {
           />
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               width: '100%',
               maxWidth: 1180,
               alignSelf: 'center',
@@ -176,12 +177,12 @@ export default function NewClinicSetup() {
             {/* Hero copy */}
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
                 zIndex: 2,
               }}>
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: 8,
@@ -189,7 +190,7 @@ export default function NewClinicSetup() {
                   marginBottom: 14,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     width: 7,
                     height: 7,
 
@@ -200,7 +201,7 @@ export default function NewClinicSetup() {
                 />
 
                 <Text
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     color: '#ffffff',
 
                     fontSize: 10,
@@ -214,7 +215,7 @@ export default function NewClinicSetup() {
               </View>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#fff',
 
                   fontSize: isMobile ? 35 : isTablet ? 43 : 52,
@@ -235,15 +236,11 @@ export default function NewClinicSetup() {
               </Text>
 
               <Text
-                style={{
-                  color: '#a8d6d2',
-
+                style={{ fontFamily : 'Poppins_400Regular',
+                  color: '#fff',
                   fontSize: isMobile ? 14 : 15,
-
                   lineHeight: 24,
-
                   maxWidth: 570,
-
                   marginBottom: 24,
                 }}>
                 From essential equipment to everyday clinical supplies, build your new dental clinic
@@ -253,14 +250,14 @@ export default function NewClinicSetup() {
               {/* CTA */}
 
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
                   flexWrap: 'wrap',
                   gap: 10,
                 }}>
                 <Pressable
                   onPress={() => router.push('/shop')}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     backgroundColor: '#fff',
 
                     paddingHorizontal: 20,
@@ -274,7 +271,7 @@ export default function NewClinicSetup() {
                     gap: 8,
                   }}>
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       color: C.primaryDark,
 
                       fontSize: 13,
@@ -288,7 +285,7 @@ export default function NewClinicSetup() {
                 </Pressable>
 
                 <Pressable
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     paddingHorizontal: 18,
                     paddingVertical: 11,
 
@@ -306,7 +303,7 @@ export default function NewClinicSetup() {
                   <Ionicons name="call-outline" size={15} color="#b8e9e4" />
 
                   <Text
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       color: '#d7f5f2',
 
                       fontSize: 13,
@@ -323,7 +320,7 @@ export default function NewClinicSetup() {
 
             {!isMobile && (
               <View
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: isTablet ? 250 : 320,
 
                   height: 260,
@@ -334,7 +331,7 @@ export default function NewClinicSetup() {
                   zIndex: 2,
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     width: isTablet ? 190 : 220,
 
                     height: isTablet ? 190 : 220,
@@ -353,7 +350,7 @@ export default function NewClinicSetup() {
                   <Ionicons name="business-outline" size={isTablet ? 70 : 82} color="#ffffff" />
 
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       position: 'absolute',
 
                       width: 55,
@@ -382,7 +379,7 @@ export default function NewClinicSetup() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -392,7 +389,7 @@ export default function NewClinicSetup() {
             paddingTop: isMobile ? 42 : 58,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: isMobile ? 'column' : 'row',
 
               gap: isMobile ? 25 : 70,
@@ -405,11 +402,11 @@ export default function NewClinicSetup() {
               borderBottomColor: '#e2e8f0',
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: C.primary,
 
                   fontSize: 10,
@@ -424,7 +421,7 @@ export default function NewClinicSetup() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: C.text,
 
                   fontSize: isMobile ? 25 : 31,
@@ -440,7 +437,7 @@ export default function NewClinicSetup() {
             </View>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
 
                 color: C.textSecondary,
@@ -462,7 +459,7 @@ export default function NewClinicSetup() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -472,7 +469,7 @@ export default function NewClinicSetup() {
             paddingTop: 36,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: isMobile ? 'column' : 'row',
 
               gap: isMobile ? 0 : 18,
@@ -480,7 +477,7 @@ export default function NewClinicSetup() {
             {setupSteps.map((step, index) => (
               <View
                 key={step.number}
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   flex: 1,
 
                   paddingVertical: isMobile ? 18 : 22,
@@ -492,13 +489,13 @@ export default function NewClinicSetup() {
                   borderBottomColor: '#e2e8f0',
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: isMobile ? 'row' : 'column',
 
                     gap: isMobile ? 14 : 0,
                   }}>
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 42,
                       height: 42,
 
@@ -517,11 +514,11 @@ export default function NewClinicSetup() {
                   </View>
 
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       flex: 1,
                     }}>
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: '#94a3b8',
 
                         fontSize: 10,
@@ -536,7 +533,7 @@ export default function NewClinicSetup() {
                     </Text>
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: C.text,
 
                         fontSize: 16,
@@ -549,7 +546,7 @@ export default function NewClinicSetup() {
                     </Text>
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: C.muted,
 
                         fontSize: 12,
@@ -572,7 +569,7 @@ export default function NewClinicSetup() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -582,11 +579,11 @@ export default function NewClinicSetup() {
             marginTop: isMobile ? 50 : 70,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               marginBottom: 24,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: C.primary,
 
                 fontSize: 10,
@@ -601,7 +598,7 @@ export default function NewClinicSetup() {
             </Text>
 
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: C.text,
 
                 fontSize: isMobile ? 25 : 31,
@@ -615,7 +612,7 @@ export default function NewClinicSetup() {
           </View>
 
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
               flexWrap: 'wrap',
 
@@ -626,7 +623,7 @@ export default function NewClinicSetup() {
               <Pressable
                 key={item.title}
                 onPress={() => router.push('/shop')}
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   width: isMobile ? '100%' : isTablet ? '47%' : '48%',
 
                   paddingVertical: 23,
@@ -636,7 +633,7 @@ export default function NewClinicSetup() {
                   borderTopColor: '#e2e8f0',
                 }}>
                 <View
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
 
                     alignItems: 'flex-start',
@@ -644,7 +641,7 @@ export default function NewClinicSetup() {
                     gap: 15,
                   }}>
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       width: 42,
                       height: 42,
 
@@ -659,11 +656,11 @@ export default function NewClinicSetup() {
                   </View>
 
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       flex: 1,
                     }}>
                     <View
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         flexDirection: 'row',
 
                         justifyContent: 'space-between',
@@ -675,7 +672,7 @@ export default function NewClinicSetup() {
                         marginBottom: 5,
                       }}>
                       <Text
-                        style={{
+                        style={{ fontFamily : 'Poppins_400Regular',
                           color: C.text,
 
                           fontSize: 15,
@@ -689,7 +686,7 @@ export default function NewClinicSetup() {
                     </View>
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: C.muted,
 
                         fontSize: 12,
@@ -702,7 +699,7 @@ export default function NewClinicSetup() {
                     </Text>
 
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: C.primary,
 
                         fontSize: 10,
@@ -725,7 +722,7 @@ export default function NewClinicSetup() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1180,
             alignSelf: 'center',
@@ -735,7 +732,7 @@ export default function NewClinicSetup() {
             marginTop: isMobile ? 50 : 70,
           }}>
           <View
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               backgroundColor: C.primaryDark,
 
               borderRadius: isMobile ? 18 : 22,
@@ -747,11 +744,11 @@ export default function NewClinicSetup() {
               gap: isMobile ? 25 : 40,
             }}>
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
               }}>
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#ffffff',
 
                   fontSize: 10,
@@ -766,7 +763,7 @@ export default function NewClinicSetup() {
               </Text>
 
               <Text
-                style={{
+                style={{ fontFamily : 'Poppins_400Regular',
                   color: '#fff',
 
                   fontSize: isMobile ? 23 : 28,
@@ -783,8 +780,8 @@ export default function NewClinicSetup() {
               </Text>
 
               <Text
-                style={{
-                  color: '#a8d6d2',
+                style={{ fontFamily : 'Poppins_400Regular',
+                  color: '#fff',
 
                   fontSize: 12,
 
@@ -798,7 +795,7 @@ export default function NewClinicSetup() {
             </View>
 
             <View
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
 
                 gap: 18,
@@ -806,38 +803,31 @@ export default function NewClinicSetup() {
               {benefits.map((item) => (
                 <View
                   key={item.title}
-                  style={{
+                  style={{ fontFamily : 'Poppins_400Regular',
                     flexDirection: 'row',
-
                     alignItems: 'flex-start',
-
                     gap: 12,
                   }}>
                   <Ionicons name={item.icon} size={20} color="#ffffff" />
 
                   <View
-                    style={{
+                    style={{ fontFamily : 'Poppins_400Regular',
                       flex: 1,
                     }}>
                     <Text
-                      style={{
+                      style={{ fontFamily : 'Poppins_400Regular',
                         color: '#fff',
-
                         fontSize: 13,
-
                         fontWeight: '800',
-
                         marginBottom: 3,
                       }}>
                       {item.title}
                     </Text>
 
                     <Text
-                      style={{
-                        color: '#91c9c5',
-
+                      style={{ fontFamily : 'Poppins_400Regular',
+                        color: '#fff',
                         fontSize: 11,
-
                         lineHeight: 18,
                       }}>
                       {item.text}
@@ -854,31 +844,24 @@ export default function NewClinicSetup() {
         ===================================================== */}
 
         <View
-          style={{
+          style={{ fontFamily : 'Poppins_400Regular',
             width: '100%',
             maxWidth: 900,
             alignSelf: 'center',
-
             paddingHorizontal: px,
-
+            paddingBottom : 50,
             marginTop: isMobile ? 55 : 75,
-
             alignItems: 'center',
           }}>
           <Ionicons name="business-outline" size={28} color={C.primary} />
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               color: C.text,
-
               fontSize: isMobile ? 24 : 30,
-
               fontWeight: '900',
-
               letterSpacing: -0.7,
-
               textAlign: 'center',
-
               marginTop: 12,
               marginBottom: 9,
             }}>
@@ -886,17 +869,12 @@ export default function NewClinicSetup() {
           </Text>
 
           <Text
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               color: C.muted,
-
               fontSize: 13,
-
               lineHeight: 21,
-
               textAlign: 'center',
-
               maxWidth: 520,
-
               marginBottom: 20,
             }}>
             Explore our complete range of dental products and start building your clinic with
@@ -905,27 +883,19 @@ export default function NewClinicSetup() {
 
           <Pressable
             onPress={() => router.push('/shop')}
-            style={{
+            style={{ fontFamily : 'Poppins_400Regular',
               backgroundColor: C.primary,
-
               paddingHorizontal: 22,
-
               paddingVertical: 12,
-
               borderRadius: 9,
-
               flexDirection: 'row',
-
               alignItems: 'center',
-
               gap: 8,
             }}>
             <Text
-              style={{
+              style={{ fontFamily : 'Poppins_400Regular',
                 color: '#fff',
-
                 fontSize: 13,
-
                 fontWeight: '900',
               }}>
               Start Your Setup
@@ -934,6 +904,7 @@ export default function NewClinicSetup() {
             <Ionicons name="arrow-forward" size={15} color="#fff" />
           </Pressable>
         </View>
+        <Footer/>
       </ScrollView>
     </View>
   );
