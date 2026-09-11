@@ -1,6 +1,2 @@
-﻿# MediSheild-React-Native# Medisheild-ReactNative-Expo
-.
+﻿# MediSheild-React-Native
 
-
-
-.
