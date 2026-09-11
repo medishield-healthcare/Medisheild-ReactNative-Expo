@@ -1,51 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Image,
   Pressable,
   useWindowDimensions,
   Platform,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+  ActivityIndicator,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // ═══════════════════════════════════════════════════════════════
-// SLIDES
+// BANNER API
 // ═══════════════════════════════════════════════════════════════
 
-const slides = [
-  {
-    id: "prime-dental",
-    image: {
-      uri: "https://r2dkmedia.dentalkart.com/backend-media-uploads/HomepageImages/Prime-Dental-DT.jpg",
-    },
-    route: "/shop",
-  },
-
-  {
-    id: "setup-kit",
-    image: {
-      uri: "https://r2dkmedia.dentalkart.com/backend-media-uploads/HomepageImages/Setup-Kit-DT%20(1).jpg",
-    },
-    route: "/shop",
-  },
-
-  {
-    id: "whatsapp",
-    image: {
-      uri: "https://r2dkmedia.dentalkart.com/backend-media-uploads/HomepageImages/WhatsApp%20Image%202026-08-21%20at%207.11.39%20PM.jpeg",
-    },
-    route: "/shop",
-  },
-
-  {
-    id: "intravue",
-    image: {
-      uri: "https://r2dkmedia.dentalkart.com/backend-media-uploads/HomepageImages/Intravue-DT.jpg",
-    },
-    route: "/shop",
-  },
-];
+const BANNER_API = 'https://medishield-admin-two.vercel.app/api/banners';
 
 // ═══════════════════════════════════════════════════════════════
 // HERO SLIDER
@@ -53,28 +22,80 @@ const slides = [
 
 export default function HeroSlider() {
   const router = useRouter();
-
   const { width } = useWindowDimensions();
-
+  const [slides, setSlides] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
-
   const [imageSize, setImageSize] = useState({
     width: 1,
     height: 1,
   });
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const intervalRef = useRef(null);
-
   const isMobile = width < 640;
-
   const currentSlide = slides[activeIndex];
+
+  // ═══════════════════════════════════════════════════════════════
+  // FETCH BANNERS
+  // ═══════════════════════════════════════════════════════════════
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchBanners = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const response = await fetch(BANNER_API);
+        if (!response.ok) {
+          throw new Error(`Banner API failed: ${response.status}`);
+        }
+        const result = await response.json();
+        const banners = Array.isArray(result?.data) ? result.data : [];
+        const formattedSlides = banners
+          .filter((banner) => banner?.mobile_image)
+          .map((banner) => ({
+            id: banner._id || banner.id,
+            image: {
+              uri: banner.mobile_image,
+            },
+            title: banner.title || '',
+            route: '/product/' + banner.id,
+          }));
+
+        if (mounted) {
+          setSlides(formattedSlides);
+          setActiveIndex(0);
+        }
+      } catch (err) {
+        console.error('Hero banners API error:', err);
+
+        if (mounted) {
+          setSlides([]);
+          setError(true);
+        }
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchBanners();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   // ═══════════════════════════════════════════════════════════════
   // GET ACTUAL IMAGE SIZE
   // ═══════════════════════════════════════════════════════════════
 
   useEffect(() => {
-    if (!currentSlide?.image?.uri) return;
+    if (!currentSlide?.image?.uri) {
+      return;
+    }
 
     Image.getSize(
       currentSlide.image.uri,
@@ -84,8 +105,13 @@ export default function HeroSlider() {
           height: imageHeight,
         });
       },
-      (error) => {
-        console.log("Hero image size error:", error);
+      (imageError) => {
+        console.log('Hero image size error:', imageError);
+        // Safe fallback ratio
+        setImageSize({
+          width: 1,
+          height: 0.35,
+        });
       }
     );
   }, [currentSlide]);
@@ -94,12 +120,9 @@ export default function HeroSlider() {
   // CALCULATE ACTUAL HEIGHT
   // ═══════════════════════════════════════════════════════════════
 
-  const imageRatio =
-    imageSize.width > 0
-      ? imageSize.height / imageSize.width
-      : 0.35;
+  const imageRatio = imageSize.width > 0 ? imageSize.height / imageSize.width : 0.35;
 
-  const heroHeight = width * imageRatio;
+  const heroHeight = Math.max(width * imageRatio, 1);
 
   // ═══════════════════════════════════════════════════════════════
   // AUTO SLIDE
@@ -110,6 +133,11 @@ export default function HeroSlider() {
       clearInterval(intervalRef.current);
     }
 
+    if (slides.length <= 1) {
+      intervalRef.current = null;
+      return;
+    }
+
     intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => {
         return (prev + 1) % slides.length;
@@ -118,24 +146,29 @@ export default function HeroSlider() {
   };
 
   useEffect(() => {
-    startAutoSlide();
+    if (!loading && slides.length > 0) {
+      startAutoSlide();
+    }
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
-  }, []);
+  }, [loading, slides.length]);
 
   // ═══════════════════════════════════════════════════════════════
   // PREVIOUS
   // ═══════════════════════════════════════════════════════════════
 
   const handlePrevious = () => {
+    if (slides.length <= 1) {
+      return;
+    }
+
     setActiveIndex((prev) => {
-      return prev === 0
-        ? slides.length - 1
-        : prev - 1;
+      return prev === 0 ? slides.length - 1 : prev - 1;
     });
 
     startAutoSlide();
@@ -146,6 +179,10 @@ export default function HeroSlider() {
   // ═══════════════════════════════════════════════════════════════
 
   const handleNext = () => {
+    if (slides.length <= 1) {
+      return;
+    }
+
     setActiveIndex((prev) => {
       return (prev + 1) % slides.length;
     });
@@ -164,35 +201,45 @@ export default function HeroSlider() {
   };
 
   // ═══════════════════════════════════════════════════════════════
+  // LOADING
+  // ═══════════════════════════════════════════════════════════════
+
+  if (loading) {
+    return (
+      <View
+        style={{
+          width: '100%',
+          minHeight: isMobile ? 180 : 300,
+          borderRadius: isMobile ? 12 : 18,
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+        }}>
+        <ActivityIndicator size="small" color="#CD0F0F" />
+      </View>
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // NO BANNERS
+  // ═══════════════════════════════════════════════════════════════
+
+  if (!currentSlide || error) {
+    return null;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   // HERO
   // ═══════════════════════════════════════════════════════════════
 
   return (
     <View
       style={{
-        width: "100%",
-        position: "relative",
-        overflow: "hidden",
+        width: '100%',
+        position: 'relative',
+        overflow: 'hidden',
         borderRadius: isMobile ? 12 : 18,
-        backgroundColor: "#ffffff",
-
-        ...(Platform.OS === "web"
-          ? {
-              boxShadow:
-                "0 8px 30px rgba(15, 23, 42, 0.08)",
-            }
-          : {
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 4,
-              },
-              shadowOpacity: 0.08,
-              shadowRadius: 12,
-              elevation: 4,
-            }),
-      }}
-    >
+      }}>
       {/* ═══════════════════════════════════════════════════════ */}
       {/* IMAGE */}
       {/* ═══════════════════════════════════════════════════════ */}
@@ -204,17 +251,18 @@ export default function HeroSlider() {
           }
         }}
         style={{
-          width: "100%",
-        }}
-      >
+          width: '100%',
+          borderRadius: isMobile ? 12 : 18,
+          overflow: 'hidden',
+        }}>
         <Image
           source={currentSlide.image}
-          resizeMode="contain"
+          resizeMode="cover"
           style={{
-            width: "100%",
-            height: heroHeight,
-
-            backgroundColor: "#ffffff",
+            width: '100%',
+            height: isMobile ? 250 : 400,
+            borderRadius: isMobile ? 12 : 18,
+            backgroundColor: '#E9E9E9',
           }}
         />
       </Pressable>
@@ -223,47 +271,31 @@ export default function HeroSlider() {
       {/* WEB ONLY — PREVIOUS */}
       {/* ═══════════════════════════════════════════════════════ */}
 
-      {Platform.OS === "web" && (
+      {Platform.OS === 'web' && slides.length > 1 && (
         <Pressable
           onPress={handlePrevious}
           hitSlop={10}
           accessibilityRole="button"
           accessibilityLabel="Previous slide"
           style={({ pressed }) => ({
-            position: "absolute",
-
-            left: 18,
-            top: "50%",
-
+            position: 'absolute',
+            left: isMobile ? 10 : 18,
+            top: '50%',
             transform: [
               {
                 translateY: -21,
               },
             ],
-
-            width: 42,
-            height: 42,
-
+            width: isMobile ? 36 : 42,
+            height: isMobile ? 36 : 42,
             borderRadius: 999,
-
-            alignItems: "center",
-            justifyContent: "center",
-
-            backgroundColor: pressed
-              ? "#ffffff"
-              : "rgba(255,255,255,0.92)",
-
-            cursor: "pointer",
-
-            boxShadow:
-              "0 4px 16px rgba(0,0,0,0.16)",
-          })}
-        >
-          <Ionicons
-            name="chevron-back"
-            size={22}
-            color="#122b45"
-          />
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: pressed ? '#ffffff' : 'rgba(255,255,255,0.92)',
+            cursor: 'pointer',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.16)',
+          })}>
+          <Ionicons name="chevron-back" size={isMobile ? 19 : 22} color="#122b45" />
         </Pressable>
       )}
 
@@ -271,47 +303,31 @@ export default function HeroSlider() {
       {/* WEB ONLY — NEXT */}
       {/* ═══════════════════════════════════════════════════════ */}
 
-      {Platform.OS === "web" && (
+      {Platform.OS === 'web' && slides.length > 1 && (
         <Pressable
           onPress={handleNext}
           hitSlop={10}
           accessibilityRole="button"
           accessibilityLabel="Next slide"
           style={({ pressed }) => ({
-            position: "absolute",
-
-            right: 18,
-            top: "50%",
-
+            position: 'absolute',
+            right: isMobile ? 10 : 18,
+            top: '50%',
             transform: [
               {
                 translateY: -21,
               },
             ],
-
-            width: 42,
-            height: 42,
-
+            width: isMobile ? 36 : 42,
+            height: isMobile ? 36 : 42,
             borderRadius: 999,
-
-            alignItems: "center",
-            justifyContent: "center",
-
-            backgroundColor: pressed
-              ? "#ffffff"
-              : "rgba(255,255,255,0.92)",
-
-            cursor: "pointer",
-
-            boxShadow:
-              "0 4px 16px rgba(0,0,0,0.16)",
-          })}
-        >
-          <Ionicons
-            name="chevron-forward"
-            size={22}
-            color="#122b45"
-          />
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: pressed ? '#ffffff' : 'rgba(255,255,255,0.92)',
+            cursor: 'pointer',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.16)',
+          })}>
+          <Ionicons name="chevron-forward" size={isMobile ? 19 : 22} color="#122b45" />
         </Pressable>
       )}
 
@@ -319,54 +335,39 @@ export default function HeroSlider() {
       {/* DOTS */}
       {/* ═══════════════════════════════════════════════════════ */}
 
-      <View
-        style={{
-          position: "absolute",
+      {slides.length > 1 && (
+        <View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: isMobile ? 10 : 14,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+          }}>
+          {slides.map((slide, index) => {
+            const active = index === activeIndex;
 
-          left: 0,
-          right: 0,
-
-          bottom: isMobile ? 10 : 14,
-
-          flexDirection: "row",
-
-          alignItems: "center",
-          justifyContent: "center",
-
-          gap: 6,
-        }}
-      >
-        {slides.map((slide, index) => {
-          const active = index === activeIndex;
-
-          return (
-            <Pressable
-              key={slide.id}
-              onPress={() => goToSlide(index)}
-              hitSlop={8}
-              accessibilityRole="button"
-              accessibilityLabel={`Go to slide ${
-                index + 1
-              }`}
-              style={{
-                width: active
-                  ? isMobile
-                    ? 18
-                    : 22
-                  : 7,
-
-                height: 7,
-
-                borderRadius: 999,
-
-                backgroundColor: active
-                  ? "#CD0F0F"
-                  : "rgba(255,255,255,0.95)",
-              }}
-            />
-          );
-        })}
-      </View>
+            return (
+              <Pressable
+                key={slide.id}
+                onPress={() => goToSlide(index)}
+                hitSlop={8}
+                accessibilityRole="button"
+                accessibilityLabel={`Go to slide ${index + 1}`}
+                style={{
+                  width: active ? (isMobile ? 18 : 22) : 7,
+                  height: 7,
+                  borderRadius: 999,
+                  backgroundColor: active ? '#CD0F0F' : 'rgba(255,255,255,0.95)',
+                }}
+              />
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 }

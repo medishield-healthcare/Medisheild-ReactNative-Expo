@@ -34,6 +34,7 @@ import SectionHeader from 'components/Section/SectionHeader';
 import NoProdcucts from 'components/Section/NoProdcucts';
 import HeroSlider from 'components/Section/HeroSlider';
 import { Fonts } from '@/utils/font';
+import CircularVideoSection from 'components/Section/CircularVideoSection';
 
 // ============================================================================
 // FONT WEIGHT -> FONT FAMILY
@@ -118,7 +119,7 @@ function PremiumSectionHeader({
 
             <Text
               style={{ fontFamily : 'Poppins_400Regular',
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: '900',
                 fontFamily: getFontFamily(700),
                 letterSpacing: 1.4,
@@ -133,7 +134,7 @@ function PremiumSectionHeader({
 
         <Text
           style={{ fontFamily : 'Poppins_400Regular',
-            fontSize: isMobile ? 26 : 30,
+            fontSize: isMobile ? 26 : 34,
             lineHeight: isMobile ? 29 : 36,
             fontWeight: '900',
             color: C.dark,
@@ -148,10 +149,10 @@ function PremiumSectionHeader({
         {description && (
           <Text
             style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 13,
+              fontSize: 15,
               lineHeight: 18,
               color: C.muted,
-              marginTop: 5,
+              marginTop: 8,
               maxWidth: 500,
               // fontFamily: Fonts.regular,
             }}>
@@ -186,7 +187,7 @@ function PremiumSectionHeader({
           })}>
           <Text
             style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: '800',
               // fontFamily: getFontFamily(800),
               color: C.primary,
@@ -295,15 +296,10 @@ function BrandMiniCard({ brand, isMobile, onPress }) {
         numberOfLines={1}
         style={{ fontFamily : 'Poppins_400Regular',
           maxWidth: 105,
-
-          fontSize: 10,
-
+          fontSize: 13,
           fontWeight: '800',
-
           // fontFamily: getFontFamily(800),
-
           color: C.dark,
-
           textAlign: 'center',
         }}>
         {brand.name}
@@ -354,7 +350,7 @@ function TrustFeature({ icon, title, text, isMobile }) {
       <View>
         <Text
           style={{ fontFamily : 'Poppins_400Regular',
-            fontSize: 14,
+            fontSize: 17,
 
             fontWeight: '900',
             // fontFamily : getFontFamily(600),
@@ -365,11 +361,11 @@ function TrustFeature({ icon, title, text, isMobile }) {
 
         <Text
           style={{ fontFamily : 'Poppins_400Regular',
-            fontSize: 12,
+            fontSize: 13,
 
             color: C.muted,
 
-            marginTop: 2,
+            marginTop: 1,
             // fontFamily : getFontFamily(400),
           }}>
           {text}
@@ -571,6 +567,7 @@ export default function HomeWeb() {
         categories={loadingC ? [] : categories}
         activeCategory={activeCategory}
         setCategory={setCategory}
+        offerProducts={offerProducts}
       />
 
       {/* ════════════════════════════════════ */}
@@ -1102,6 +1099,8 @@ export default function HomeWeb() {
           </View>
         </View>
 
+        <CircularVideoSection/>
+
         {/* ═════════════════════════════════ */}
         {/* FOOTER */}
         {/* ═════════════════════════════════ */}
@@ -1228,7 +1227,7 @@ export default function HomeWeb() {
                 style={{ fontFamily : 'Poppins_400Regular',
                   color: '#fff',
 
-                  fontSize: isMobile ? 22 : isTablet ? 25 : 28,
+                  fontSize: isMobile ? 22 : isTablet ? 25 : 34,
 
                   lineHeight: isMobile ? 29 : 35,
 
@@ -1253,7 +1252,7 @@ export default function HomeWeb() {
                 style={{ fontFamily : 'Poppins_400Regular',
                   color: C.white,
 
-                  fontSize: 12,
+                  fontSize: 13,
 
                   lineHeight: 19,
 
@@ -1305,14 +1304,14 @@ export default function HomeWeb() {
 
                       gap: 9,
                     }}>
-                    <Ionicons name={item.icon} size={20} color={C.white} />
+                    <Ionicons name={item.icon} size={24} color={C.white} />
 
                     <View>
                       <Text
                         style={{ fontFamily : 'Poppins_400Regular',
                           color: '#fff',
 
-                          fontSize: 11,
+                          fontSize: 14,
 
                           fontWeight: '800',
                           // fontFamily: getFontFamily(800),
@@ -1326,7 +1325,7 @@ export default function HomeWeb() {
                         style={{ fontFamily : 'Poppins_400Regular',
                           color: C.white,
 
-                          fontSize: 9,
+                          fontSize: 12,
                         }}>
                         {item.text}
                       </Text>
@@ -1344,35 +1343,24 @@ export default function HomeWeb() {
               onPress={() => router.push('/shop')}
               style={({ pressed }) => ({
                 backgroundColor: pressed ? '#e2fffb' : '#ffffff',
-
                 minHeight: 44,
-
                 paddingHorizontal: isMobile ? 18 : 21,
-
                 borderRadius: 9,
-
                 flexDirection: 'row',
-
                 alignItems: 'center',
-
                 justifyContent: 'center',
-
                 gap: 9,
-
                 opacity: pressed ? 0.9 : 1,
               })}>
               <Text
                 style={{ fontFamily : 'Poppins_400Regular',
                   color: C.primaryDark,
-
-                  fontSize: 12,
-
+                  fontSize: 13,
                   fontWeight: '900',
                   // fontFamily: getFontFamily(400),
                 }}>
                 Explore Products
               </Text>
-
               <Ionicons name="arrow-forward" size={15} color={C.primaryDark} />
             </Pressable>
           </View>

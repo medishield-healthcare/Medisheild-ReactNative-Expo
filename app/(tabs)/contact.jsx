@@ -26,7 +26,7 @@ const T = {
   teal700: '#CD0F0F',
   teal600: '#0d9488',
   teal500: '#14b8a6',
-  teal100: '#ccfbf1',
+  teal100: '#ffffff',
   teal50: '#f0fdfa',
 
   slate950: '#020617',
@@ -791,7 +791,7 @@ export default function ContactPage() {
                 style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 13,
                   lineHeight: 21,
-                  color: '#b8dedb',
+                  color: '#fff',
                   marginBottom: 27,
                 }}>
                 Whether you're looking for a product, need help with an order, or simply have a
@@ -858,7 +858,7 @@ export default function ContactPage() {
                         style={{ fontFamily : 'Poppins_400Regular',
                           fontSize: 10,
                           lineHeight: 16,
-                          color: '#a8d4d1',
+                          color: '#fff',
                         }}>
                         {item.text}
                       </Text>
@@ -896,7 +896,7 @@ export default function ContactPage() {
                   <Text
                     style={{ fontFamily : 'Poppins_400Regular',
                       fontSize: 10,
-                      color: '#a8d4d1',
+                      color: '#fff',
                       marginTop: 2,
                     }}>
                     Monday – Saturday · 9 AM – 6 PM
@@ -1093,7 +1093,7 @@ export default function ContactPage() {
                 style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 12,
                   lineHeight: 20,
-                  color: '#c4e7e4',
+                  color: '#fff',
                   marginTop: 7,
                 }}>
                 Discover dental-care essentials designed for your everyday routine.

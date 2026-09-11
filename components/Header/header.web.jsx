@@ -31,7 +31,7 @@ const C = {
   white: '#ffffff',
   bg: '#f8fafc',
   bgSoft: '#f1f5f9',
-  dark: '#0f172a',
+  dark: '#000',
   dark2: '#1e293b',
   muted: '#64748b',
   mutedLight: '#94a3b8',
@@ -405,6 +405,9 @@ function CategoryMegaMenu({
   onClose,
   isMobile,
   menuTop,
+  offerProducts = [],
+  onOfferProductPress,
+  onViewAllOffers,
 }) {
   const activeMain = categories.find((cat) => cat._id === activeMainCategory);
 
@@ -419,11 +422,8 @@ function CategoryMegaMenu({
         // Mobile renders it inside the hamburger menu so child categories
         // can expand/click normally.
         position: isMobile ? 'relative' : 'fixed',
-
         top: isMobile ? undefined : menuTop,
-
         left: isMobile ? undefined : '50%',
-
         transform: isMobile
           ? undefined
           : [
@@ -433,20 +433,13 @@ function CategoryMegaMenu({
             ],
 
         width: isMobile ? '100%' : 'calc(100vw - 48px)',
-
         maxWidth: 1500,
-
         backgroundColor: C.white,
-
         borderRadius: 18,
-
         borderWidth: 1,
         borderColor: C.border,
-
         overflow: 'hidden',
-
         zIndex: 9999999,
-
         boxShadow: '0 24px 70px rgba(15,23,42,0.22)',
       }}>
       {/* ================================================================
@@ -456,40 +449,27 @@ function CategoryMegaMenu({
       <View
         style={{
           flexDirection: 'row',
-
           alignItems: 'center',
-
           justifyContent: 'space-between',
-
           paddingHorizontal: isMobile ? 16 : 28,
-
           paddingVertical: 15,
-
           borderBottomWidth: 1,
-
           borderBottomColor: C.borderLight,
-
           backgroundColor: C.white,
         }}>
         <View
           style={{
             flexDirection: 'row',
-
             alignItems: 'center',
-
             gap: 10,
           }}>
           <View
             style={{
               width: 42,
               height: 42,
-
               borderRadius: 12,
-
               backgroundColor: C.primaryLight,
-
               alignItems: 'center',
-
               justifyContent: 'center',
             }}>
             <Ionicons name="grid-outline" size={21} color={C.primary} />
@@ -499,11 +479,8 @@ function CategoryMegaMenu({
             <Text
               style={{
                 fontSize: 17,
-
                 // fontWeight: '800',
-
                 fontFamily: Fonts.semiBold,
-
                 color: C.dark,
               }}>
               Shop by Category
@@ -512,9 +489,7 @@ function CategoryMegaMenu({
             <Text
               style={{
                 fontSize: 11,
-
                 color: C.muted,
-
                 marginTop: 2,
               }}>
               Explore dental products
@@ -527,13 +502,9 @@ function CategoryMegaMenu({
           style={{
             width: 36,
             height: 36,
-
             borderRadius: 10,
-
             backgroundColor: C.bg,
-
             alignItems: 'center',
-
             justifyContent: 'center',
           }}>
           <Ionicons name="close" size={19} color={C.muted} />
@@ -547,9 +518,7 @@ function CategoryMegaMenu({
       <View
         style={{
           flexDirection: isMobile ? 'column' : 'row',
-
           height: isMobile ? 620 : 500,
-
           maxHeight: isMobile ? 620 : 500,
         }}>
         {/* ==============================================================
@@ -559,34 +528,24 @@ function CategoryMegaMenu({
         <View
           style={{
             width: isMobile ? '100%' : 285,
-
             backgroundColor: '#f5f9fc',
-
             borderRightWidth: isMobile ? 0 : 1,
-
             borderRightColor: C.border,
-
             borderBottomWidth: isMobile ? 1 : 0,
-
             borderBottomColor: C.border,
           }}>
           <View
             style={{
               paddingHorizontal: 20,
-
               paddingTop: 18,
-
               paddingBottom: 10,
             }}>
             <Text
               style={{
                 fontSize: 11,
-
                 fontWeight: '800',
-
                 fontFamily: getFontFamily('800'),
                 color: C.muted,
-
                 letterSpacing: 0.7,
               }}>
               CATEGORY
@@ -597,63 +556,49 @@ function CategoryMegaMenu({
             showsVerticalScrollIndicator={true}
             contentContainerStyle={{
               paddingHorizontal: 10,
-
               paddingBottom: 20,
             }}>
             {categories.map((cat) => {
               const hasChildren = Array.isArray(cat.children) && cat.children.length > 0;
-
               const active = activeMainCategory === cat._id;
 
               return (
                 <Pressable
                   key={cat._id}
                   onPress={() => {
-                    if (hasChildren) {
+                    const isOffers = cat.name?.trim().toLowerCase() === 'offers';
+                    if (hasChildren || isOffers) {
                       setActiveMainCategory(cat._id);
-
                       setActiveChildCategory(null);
                     } else {
                       onCategoryPress(cat);
                     }
                   }}
                   onHoverIn={() => {
-                    if (!isMobile && hasChildren) {
+                    const isOffers = cat.name?.trim().toLowerCase() === 'offers';
+                    if (!isMobile && (hasChildren || isOffers)) {
                       setActiveMainCategory(cat._id);
-
                       setActiveChildCategory(null);
                     }
                   }}
                   style={({ pressed }) => ({
                     flexDirection: 'row',
-
                     alignItems: 'center',
-
                     paddingHorizontal: 12,
-
                     paddingVertical: 10,
-
                     marginVertical: 3,
-
                     borderRadius: 12,
-
                     backgroundColor: active || pressed ? '#dcecff' : 'transparent',
-
                     cursor: 'pointer',
                   })}>
                   <View
                     style={{
                       width: 36,
                       height: 36,
-
                       borderRadius: 10,
-
                       backgroundColor: C.white,
-
                       alignItems: 'center',
-
                       justifyContent: 'center',
-
                       marginRight: 10,
                     }}>
                     <Ionicons
@@ -667,24 +612,18 @@ function CategoryMegaMenu({
                     numberOfLines={1}
                     style={{
                       flex: 1,
-
                       fontSize: 14,
-
                       fontWeight: active ? '800' : '600',
-
                       fontFamily: getFontFamily(active ? '800' : '600'),
-                      color: active ? C.dark : '#53657a',
+                      color: 'black',
                     }}>
                     {cat.name?.trim()}
                   </Text>
-
-                  {hasChildren && (
-                    <Ionicons
-                      name="chevron-forward"
-                      size={15}
-                      color={active ? C.dark : C.mutedLight}
-                    />
-                  )}
+                  <Ionicons
+                    name="chevron-forward"
+                    size={15}
+                    color={active ? C.dark : C.mutedLight}
+                  />
                 </Pressable>
               );
             })}
@@ -763,361 +702,534 @@ function CategoryMegaMenu({
             </View>
           ) : (
             <>
-              {/* TITLE */}
+              {/* OFFERS ONLY
+                  Keep all existing category/sub-category UI unchanged.
+                  When the selected main category is Offers, show the offer
+                  product titles on the right instead of sub-categories.
+              */}
+              {activeMain.name?.trim().toLowerCase() === 'offers' ? (
+                <View style={{ flex: 1 }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginBottom: 18,
+                    }}>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 9,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 19,
+                            fontWeight: '800',
+                            fontFamily: getFontFamily('800'),
+                            color: C.dark,
+                          }}>
+                          Offers
+                        </Text>
 
-              <View
-                style={{
-                  flexDirection: 'row',
+                        <View
+                          style={{
+                            paddingHorizontal: 9,
+                            paddingVertical: 4,
+                            borderRadius: 7,
+                            backgroundColor: C.bgSoft,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 10,
+                              fontWeight: '800',
+                              fontFamily: getFontFamily('800'),
+                              color: C.dark2,
+                            }}>
+                            {offerProducts.length} Products
+                          </Text>
+                        </View>
+                      </View>
 
-                  alignItems: 'center',
+                      <Text
+                        style={{
+                          fontSize: 11,
+                          color: C.muted,
+                          fontFamily: getFontFamily('400'),
+                          marginTop: 4,
+                        }}>
+                        Explore products available in offers
+                      </Text>
+                    </View>
 
-                  justifyContent: 'space-between',
+                    <Pressable
+                      onPress={() => {
+                        onClose?.();
+                        onViewAllOffers?.();
+                      }}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 5,
+                        paddingHorizontal: 11,
+                        paddingVertical: 7,
+                        borderRadius: 8,
+                        backgroundColor: C.primaryLight,
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 11,
+                          fontWeight: '700',
+                          fontFamily: getFontFamily('700'),
+                          color: C.primary,
+                        }}>
+                        View All
+                      </Text>
+                      <Ionicons name="arrow-forward" size={12} color={C.primary} />
+                    </Pressable>
+                  </View>
 
-                  marginBottom: 18,
-                }}>
-                <View>
+                  {offerProducts.length > 0 ? (
+                    <ScrollView
+                      showsVerticalScrollIndicator={false}
+                      contentContainerStyle={{
+                        paddingBottom: 20,
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                      }}>
+                      {offerProducts.map((product, index) => (
+                        <Pressable
+                          key={product._id}
+                          onPress={() => {
+                            onClose?.();
+                            onOfferProductPress?.(product);
+                          }}
+                          style={({ pressed }) => ({
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 10,
+                            paddingVertical: 11,
+                            paddingHorizontal: 10,
+                            borderRadius: 9,
+                            backgroundColor: pressed ? C.primaryLight : 'transparent',
+                            borderBottomWidth: index < offerProducts.length - 1 ? 1 : 0,
+                            borderBottomColor: C.borderLight,
+                            cursor: 'pointer',
+                          })}>
+                          <View
+                            style={{
+                              width: 30,
+                              height: 30,
+                              borderRadius: 8,
+                              backgroundColor: C.primaryLight,
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}>
+                            <Ionicons name="pricetag-outline" size={14} color={C.primary} />
+                          </View>
+
+                          <Text
+                            numberOfLines={2}
+                            style={{
+                              flex: 1,
+                              fontSize: 12,
+                              lineHeight: 17,
+                              fontWeight: '500',
+                              fontFamily: getFontFamily('500'),
+                              color: C.dark,
+                            }}>
+                            {product.name?.trim()}
+                          </Text>
+
+                          <Ionicons name="arrow-forward" size={12} color={C.mutedLight} />
+                        </Pressable>
+                      ))}
+                    </ScrollView>
+                  ) : (
+                    <View
+                      style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Ionicons name="pricetag-outline" size={45} color={C.border} />
+
+                      <Text
+                        style={{
+                          marginTop: 10,
+                          fontSize: 13,
+                          fontFamily: Fonts.semiBold,
+                          color: C.muted,
+                        }}>
+                        No offer products available
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              ) : (
+                <>
+                  {/* TITLE */}
+
                   <View
                     style={{
                       flexDirection: 'row',
 
                       alignItems: 'center',
 
-                      gap: 9,
+                      justifyContent: 'space-between',
+
+                      marginBottom: 18,
                     }}>
-                    <Text
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+
+                          alignItems: 'center',
+
+                          gap: 9,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 19,
+
+                            fontWeight: '800',
+
+                            fontFamily: getFontFamily('800'),
+                            color: C.dark,
+                          }}>
+                          {activeMain.name?.trim()}
+                        </Text>
+
+                        <View
+                          style={{
+                            paddingHorizontal: 9,
+
+                            paddingVertical: 4,
+
+                            borderRadius: 7,
+
+                            backgroundColor: C.bgSoft,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 10,
+
+                              fontWeight: '800',
+
+                              fontFamily: getFontFamily('800'),
+                              color: C.dark2,
+                            }}>
+                            {children.length} Categories
+                          </Text>
+                        </View>
+                      </View>
+
+                      <Text
+                        style={{
+                          fontSize: 11,
+
+                          color: C.muted,
+                          fontFamily: getFontFamily('400'),
+                          marginTop: 4,
+                        }}>
+                        Browse products by category
+                      </Text>
+                    </View>
+
+                    <Pressable
+                      onPress={() => onCategoryPress(activeMain)}
                       style={{
-                        fontSize: 19,
+                        flexDirection: 'row',
 
-                        fontWeight: '800',
+                        alignItems: 'center',
 
-                        fontFamily: getFontFamily('800'),
-                        color: C.dark,
-                      }}>
-                      {activeMain.name?.trim()}
-                    </Text>
+                        gap: 5,
 
-                    <View
-                      style={{
-                        paddingHorizontal: 9,
+                        paddingHorizontal: 11,
 
-                        paddingVertical: 4,
+                        paddingVertical: 7,
 
-                        borderRadius: 7,
+                        borderRadius: 8,
 
-                        backgroundColor: C.bgSoft,
+                        backgroundColor: C.primaryLight,
                       }}>
                       <Text
                         style={{
-                          fontSize: 10,
+                          fontSize: 11,
 
-                          fontWeight: '800',
+                          fontWeight: '700',
 
-                          fontFamily: getFontFamily('800'),
-                          color: C.dark2,
+                          fontFamily: getFontFamily('700'),
+                          color: C.primary,
                         }}>
-                        {children.length} Categories
+                        View All
                       </Text>
-                    </View>
+
+                      <Ionicons name="arrow-forward" size={12} color={C.primary} />
+                    </Pressable>
                   </View>
 
-                  <Text
-                    style={{
-                      fontSize: 11,
+                  {/* CHILDREN */}
 
-                      color: C.muted,
-                      fontFamily: getFontFamily('400'), 
-                      marginTop: 4,
-                    }}>
-                    Browse products by category
-                  </Text>
-                </View>
+                  {children.length > 0 ? (
+                    <ScrollView
+                      showsVerticalScrollIndicator={false}
+                      contentContainerStyle={{
+                        paddingBottom: 20,
+                      }}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
 
-                <Pressable
-                  onPress={() => onCategoryPress(activeMain)}
-                  style={{
-                    flexDirection: 'row',
+                          flexWrap: 'wrap',
 
-                    alignItems: 'center',
+                          marginHorizontal: -7,
+                        }}>
+                        {children.map((child) => {
+                          const hasChildren =
+                            Array.isArray(child.children) && child.children.length > 0;
 
-                    gap: 5,
+                          const activeChild = activeChildCategory === child._id;
 
-                    paddingHorizontal: 11,
-
-                    paddingVertical: 7,
-
-                    borderRadius: 8,
-
-                    backgroundColor: C.primaryLight,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 11,
-
-                      fontWeight: '700',
-
-                      fontFamily: getFontFamily('700'),
-                      color: C.primary,
-                    }}>
-                    View All
-                  </Text>
-
-                  <Ionicons name="arrow-forward" size={12} color={C.primary} />
-                </Pressable>
-              </View>
-
-              {/* CHILDREN */}
-
-              {children.length > 0 ? (
-                <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{
-                    paddingBottom: 20,
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-
-                      flexWrap: 'wrap',
-
-                      marginHorizontal: -7,
-                    }}>
-                    {children.map((child) => {
-                      const hasChildren =
-                        Array.isArray(child.children) && child.children.length > 0;
-
-                      const activeChild = activeChildCategory === child._id;
-
-                      return (
-                        <View
-                          key={child._id}
-                          style={{
-                            width: isMobile ? '100%' : '33.3333%',
-
-                            paddingHorizontal: 7,
-
-                            marginBottom: 12,
-                          }}>
-                          <Pressable
-                            onPress={() => {
-                              if (hasChildren) {
-                                setActiveChildCategory(activeChild ? null : child._id);
-                              } else {
-                                onCategoryPress(child);
-                              }
-                            }}
-                            onHoverIn={() => {
-                              if (!isMobile && hasChildren) {
-                                setActiveChildCategory(child._id);
-                              }
-                            }}
-                            style={({ pressed }) => ({
-                              minHeight: 64,
-
-                              padding: 11,
-
-                              borderRadius: 11,
-
-                              borderWidth: 1,
-
-                              borderColor: activeChild || pressed ? '#ffffff' : C.border,
-
-                              backgroundColor: activeChild || pressed ? C.hover : C.white,
-
-                              cursor: 'pointer',
-
-                              transition: 'all 0.15s ease',
-                            })}>
+                          return (
                             <View
+                              key={child._id}
                               style={{
-                                flexDirection: 'row',
+                                width: isMobile ? '100%' : '33.3333%',
 
-                                alignItems: 'center',
+                                paddingHorizontal: 7,
 
-                                gap: 9,
+                                marginBottom: 12,
                               }}>
-                              <View
-                                style={{
-                                  width: 31,
-                                  height: 31,
+                              <Pressable
+                                onPress={() => {
+                                  if (hasChildren) {
+                                    setActiveChildCategory(activeChild ? null : child._id);
+                                  } else {
+                                    onCategoryPress(child);
+                                  }
+                                }}
+                                onHoverIn={() => {
+                                  if (!isMobile && hasChildren) {
+                                    setActiveChildCategory(child._id);
+                                  }
+                                }}
+                                style={({ pressed }) => ({
+                                  minHeight: 64,
 
-                                  borderRadius: 8,
+                                  padding: 11,
 
-                                  backgroundColor: activeChild ? C.primaryLight : C.bg,
+                                  borderRadius: 11,
 
-                                  alignItems: 'center',
+                                  borderWidth: 1,
 
-                                  justifyContent: 'center',
-                                }}>
-                                <Ionicons
-                                  name={getCategoryIcon(child.name)}
-                                  size={14}
-                                  color={activeChild ? C.primary : C.muted}
-                                />
-                              </View>
+                                  borderColor: activeChild || pressed ? '#ffffff' : C.border,
 
-                              <View
-                                style={{
-                                  flex: 1,
-                                }}>
-                                <Text
-                                  numberOfLines={2}
+                                  backgroundColor: activeChild || pressed ? C.hover : C.white,
+
+                                  cursor: 'pointer',
+
+                                  transition: 'all 0.15s ease',
+                                })}>
+                                <View
                                   style={{
-                                    fontSize: 12,
-
-                                    lineHeight: 17,
-
-                                    fontWeight: '700',
-
-                                    fontFamily: getFontFamily('700'),
-                                    color: C.dark,
-                                  }}>
-                                  {child.name?.trim()}
-                                </Text>
-
-                                {hasChildren && (
-                                  <Text
-                                    style={{
-                                      fontSize: 9,
-
-                                      color: C.muted,
-
-                                      marginTop: 2,
-                                    }}>
-                                    {child.children.length} sub-categories
-                                  </Text>
-                                )}
-                              </View>
-
-                              {hasChildren && (
-                                <Ionicons
-                                  name={activeChild ? 'chevron-down' : 'chevron-forward'}
-                                  size={13}
-                                  color={activeChild ? C.primary : C.mutedLight}
-                                />
-                              )}
-                            </View>
-                          </Pressable>
-
-                          {/* GRAND CHILDREN */}
-
-                          {activeChild && hasChildren && (
-                            <View
-                              style={{
-                                marginTop: 6,
-
-                                padding: 8,
-
-                                borderRadius: 9,
-
-                                backgroundColor: '#f8fafc',
-
-                                borderWidth: 1,
-
-                                borderColor: C.border,
-                              }}>
-                              {child.children.map((grandChild) => (
-                                <Pressable
-                                  key={grandChild._id}
-                                  onPress={() => onCategoryPress(grandChild)}
-                                  style={({ pressed }) => ({
                                     flexDirection: 'row',
 
                                     alignItems: 'center',
 
-                                    paddingVertical: 7,
-
-                                    paddingHorizontal: 5,
-
-                                    borderRadius: 6,
-
-                                    backgroundColor: pressed ? C.primaryLight : 'transparent',
-
-                                    cursor: 'pointer',
-                                  })}>
+                                    gap: 9,
+                                  }}>
                                   <View
                                     style={{
-                                      width: 5,
-                                      height: 5,
+                                      width: 31,
+                                      height: 31,
 
-                                      borderRadius: 5,
+                                      borderRadius: 8,
 
-                                      backgroundColor: C.primary,
+                                      backgroundColor: activeChild ? C.primaryLight : C.bg,
 
-                                      marginRight: 8,
-                                    }}
-                                  />
+                                      alignItems: 'center',
 
-                                  <Text
-                                    numberOfLines={1}
+                                      justifyContent: 'center',
+                                    }}>
+                                    <Ionicons
+                                      name={getCategoryIcon(child.name)}
+                                      size={14}
+                                      color={activeChild ? C.primary : C.muted}
+                                    />
+                                  </View>
+
+                                  <View
                                     style={{
                                       flex: 1,
-
-                                      fontSize: 11,
-
-                                      color: C.dark2,
                                     }}>
-                                    {grandChild.name?.trim()}
-                                  </Text>
+                                    <Text
+                                      numberOfLines={2}
+                                      style={{
+                                        fontSize: 12,
 
-                                  <Ionicons name="arrow-forward" size={10} color={C.mutedLight} />
-                                </Pressable>
-                              ))}
+                                        lineHeight: 17,
+
+                                        fontWeight: '700',
+
+                                        fontFamily: getFontFamily('700'),
+                                        color: C.dark,
+                                      }}>
+                                      {child.name?.trim()}
+                                    </Text>
+
+                                    {hasChildren && (
+                                      <Text
+                                        style={{
+                                          fontSize: 9,
+
+                                          color: C.muted,
+
+                                          marginTop: 2,
+                                        }}>
+                                        {child.children.length} sub-categories
+                                      </Text>
+                                    )}
+                                  </View>
+
+                                  {hasChildren && (
+                                    <Ionicons
+                                      name={activeChild ? 'chevron-down' : 'chevron-forward'}
+                                      size={13}
+                                      color={activeChild ? C.primary : C.mutedLight}
+                                    />
+                                  )}
+                                </View>
+                              </Pressable>
+
+                              {/* GRAND CHILDREN */}
+
+                              {activeChild && hasChildren && (
+                                <View
+                                  style={{
+                                    marginTop: 6,
+
+                                    padding: 8,
+
+                                    borderRadius: 9,
+
+                                    backgroundColor: '#f8fafc',
+
+                                    borderWidth: 1,
+
+                                    borderColor: C.border,
+                                  }}>
+                                  {child.children.map((grandChild) => (
+                                    <Pressable
+                                      key={grandChild._id}
+                                      onPress={() => onCategoryPress(grandChild)}
+                                      style={({ pressed }) => ({
+                                        flexDirection: 'row',
+
+                                        alignItems: 'center',
+
+                                        paddingVertical: 7,
+
+                                        paddingHorizontal: 5,
+
+                                        borderRadius: 6,
+
+                                        backgroundColor: pressed ? C.primaryLight : 'transparent',
+
+                                        cursor: 'pointer',
+                                      })}>
+                                      <View
+                                        style={{
+                                          width: 5,
+                                          height: 5,
+
+                                          borderRadius: 5,
+
+                                          backgroundColor: C.primary,
+
+                                          marginRight: 8,
+                                        }}
+                                      />
+
+                                      <Text
+                                        numberOfLines={1}
+                                        style={{
+                                          flex: 1,
+
+                                          fontSize: 11,
+
+                                          color: C.dark2,
+                                        }}>
+                                        {grandChild.name?.trim()}
+                                      </Text>
+
+                                      <Ionicons
+                                        name="arrow-forward"
+                                        size={10}
+                                        color={C.mutedLight}
+                                      />
+                                    </Pressable>
+                                  ))}
+                                </View>
+                              )}
                             </View>
-                          )}
-                        </View>
-                      );
-                    })}
-                  </View>
-                </ScrollView>
-              ) : (
-                <View
-                  style={{
-                    flex: 1,
-
-                    alignItems: 'center',
-
-                    justifyContent: 'center',
-                  }}>
-                  <Ionicons name="cube-outline" size={45} color={C.border} />
-
-                  <Text
-                    style={{
-                      marginTop: 10,
-
-                      fontSize: 13,
-                      fontFamily: Fonts.semiBold,
-                      color: C.muted,
-                    }}>
-                    No sub-categories available
-                  </Text>
-
-                  <Pressable
-                    onPress={() => onCategoryPress(activeMain)}
-                    style={{
-                      marginTop: 14,
-
-                      backgroundColor: C.primary,
-
-                      paddingHorizontal: 16,
-
-                      paddingVertical: 9,
-
-                      borderRadius: 9,
-                    }}>
-                    <Text
+                          );
+                        })}
+                      </View>
+                    </ScrollView>
+                  ) : (
+                    <View
                       style={{
-                        color: C.white,
+                        flex: 1,
 
-                        fontSize: 12,
+                        alignItems: 'center',
 
-                        fontWeight: '700',
-
-                        fontFamily: getFontFamily('700'),
+                        justifyContent: 'center',
                       }}>
-                      Browse Products
-                    </Text>
-                  </Pressable>
-                </View>
+                      <Ionicons name="cube-outline" size={45} color={C.border} />
+
+                      <Text
+                        style={{
+                          marginTop: 10,
+
+                          fontSize: 13,
+                          fontFamily: Fonts.semiBold,
+                          color: C.muted,
+                        }}>
+                        No sub-categories available
+                      </Text>
+
+                      <Pressable
+                        onPress={() => onCategoryPress(activeMain)}
+                        style={{
+                          marginTop: 14,
+
+                          backgroundColor: C.primary,
+
+                          paddingHorizontal: 16,
+
+                          paddingVertical: 9,
+
+                          borderRadius: 9,
+                        }}>
+                        <Text
+                          style={{
+                            color: C.white,
+
+                            fontSize: 12,
+
+                            fontWeight: '700',
+
+                            fontFamily: getFontFamily('700'),
+                          }}>
+                          Browse Products
+                        </Text>
+                      </Pressable>
+                    </View>
+                  )}
+                </>
               )}
             </>
           )}
@@ -1131,7 +1243,7 @@ function CategoryMegaMenu({
 // MAIN HEADER
 // ============================================================================
 
-export default function WebHeader() {
+export default function WebHeader({ offerProducts = [] }) {
   if (Platform.OS !== 'web') {
     return null;
   }
@@ -1243,6 +1355,41 @@ export default function WebHeader() {
     queryKey: ['categories'],
     queryFn: fetchCategory,
   });
+
+  // ==========================================================================
+  // OFFERS PRODUCTS
+  // ==========================================================================
+  // Use products received through props when available.
+  // If the header is rendered without offerProducts, fetch them here so
+  // Offers works from every page.
+  const hasOfferProductsFromProps = Array.isArray(offerProducts) && offerProducts.length > 0;
+
+  async function fetchOfferProducts() {
+    try {
+      const { data } = await API.get('/product', {
+        params: {
+          page: 1,
+          limit: 12,
+          sort: '-createdAt',
+          category: 'Offers',
+        },
+      });
+
+      const result = data?.data || data?.products || data || [];
+      return Array.isArray(result) ? result : [];
+    } catch (error) {
+      console.error('Offers products API error:', error);
+      return [];
+    }
+  }
+
+  const { data: fetchedOfferProducts = [] } = useQuery({
+    queryKey: ['offer-products'],
+    queryFn: fetchOfferProducts,
+    enabled: !hasOfferProductsFromProps,
+  });
+
+  const resolvedOfferProducts = hasOfferProductsFromProps ? offerProducts : fetchedOfferProducts;
 
   // ==========================================================================
   // CATEGORY DATA SYNC
@@ -1470,11 +1617,8 @@ export default function WebHeader() {
           <Text
             style={{
               color: '#ffffff',
-
               fontSize: 12,
-
               fontWeight: '600',
-
               fontFamily: getFontFamily('600'),
             }}>
             🚚 Free shipping on orders above ₹999
@@ -1492,7 +1636,7 @@ export default function WebHeader() {
                 onPress={() => router.push(`/${label.toLowerCase().replace(' ', '-')}`)}>
                 <Text
                   style={{
-                    fontFamily : "Poppins_400Regular",
+                    fontFamily: 'Poppins_400Regular',
                     color: '#ffffff',
 
                     fontSize: 12,
@@ -2429,6 +2573,9 @@ export default function WebHeader() {
                   setActiveChildCategory(null);
                 }}
                 isMobile={true}
+                offerProducts={resolvedOfferProducts}
+                onOfferProductPress={handleSelectProduct}
+                onViewAllOffers={() => router.push('/shop?category=Offers')}
               />
             </View>
           )}
@@ -2544,6 +2691,9 @@ export default function WebHeader() {
                 onClose={() => setCategoryMenuOpen(false)}
                 isMobile={false}
                 menuTop={categoryMenuTop}
+                offerProducts={resolvedOfferProducts}
+                onOfferProductPress={handleSelectProduct}
+                onViewAllOffers={() => router.push('/shop?category=Offers')}
               />
             )}
           </View>

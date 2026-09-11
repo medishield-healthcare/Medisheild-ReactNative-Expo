@@ -20,7 +20,7 @@ function TabIcon({ name, nameActive, label, focused }) {
       {/* Pill highlight when active */}
       <View
         style={{
-          width: 44,
+          width: 40,
           height: 28,
           borderRadius: 14,
           alignItems: 'center',
@@ -34,8 +34,8 @@ function TabIcon({ name, nameActive, label, focused }) {
         />
       </View>
       <Text
-        style={{
-          fontSize: 10,
+        style={{  
+          fontSize: 9,
           fontWeight: focused ? '600' : '500',
           color: focused ? PRIMARY : INACTIVE,
           letterSpacing: 0.2,

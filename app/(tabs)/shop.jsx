@@ -320,7 +320,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           <Text
             numberOfLines={2}
             style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 13,
+              fontSize: 16,
 
               fontWeight: '750',
 
@@ -340,32 +340,24 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           <View
             style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
-
               alignItems: 'center',
-
               marginBottom: 9,
             }}>
             <View
               style={{ fontFamily : 'Poppins_400Regular',
                 flexDirection: 'row',
-
                 alignItems: 'center',
-
                 gap: 3,
-
                 backgroundColor: '#fff7ed',
-
                 borderRadius: 5,
-
                 paddingHorizontal: 6,
-
                 paddingVertical: 3,
               }}>
               <Ionicons name="star" size={10} color="#f59e0b" />
 
               <Text
                 style={{ fontFamily : 'Poppins_400Regular',
-                  fontSize: 9,
+                  fontSize: 12,
 
                   fontWeight: '800',
 
@@ -405,7 +397,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
             }}>
             <Text
               style={{ fontFamily : 'Poppins_400Regular',
-                fontSize: 17,
+                fontSize: 20,
 
                 fontWeight: '900',
 
@@ -418,9 +410,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
               <Text
                 style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
-
                   color: C.muted,
-
                   textDecorationLine: 'line-through',
                 }}>
                 ₹{Number(regularPrice).toLocaleString('en-IN')}
@@ -433,26 +423,21 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           <View
             style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
-
               alignItems: 'center',
-
               marginBottom: 11,
             }}>
             <View
               style={{ fontFamily : 'Poppins_400Regular',
                 width: 6,
-
                 height: 6,
-
                 borderRadius: 3,
-
                 backgroundColor: '#10b981',
               }}
             />
 
             <Text
               style={{ fontFamily : 'Poppins_400Regular',
-                fontSize: 9,
+                fontSize: 11,
 
                 fontWeight: '700',
 
@@ -569,7 +554,7 @@ function ProductCardList({ item, onPress, onCart }) {
           <Text
             numberOfLines={2}
             style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: '700',
               color: C.dark,
               lineHeight: 19,
@@ -578,7 +563,7 @@ function ProductCardList({ item, onPress, onCart }) {
             {item.name}
           </Text>
           {item.short_description && (
-            <Text numberOfLines={1} style={{ fontFamily : 'Poppins_400Regular', fontSize: 11, color: C.muted }}>
+            <Text numberOfLines={1} style={{ fontFamily : 'Poppins_400Regular', fontSize: 13, color: C.muted }}>
               {item.short_description}
             </Text>
           )}
@@ -591,7 +576,7 @@ function ProductCardList({ item, onPress, onCart }) {
             marginTop: 8,
           }}>
           <View style={{ fontFamily : 'Poppins_400Regular', flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-            <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: 16, fontWeight: '800', color: C.primary }}>
+            <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: 19, fontWeight: '800', color: C.primary }}>
               ₹ {item.price?.regularPrice}
             </Text>
           </View>
@@ -622,7 +607,7 @@ function ProductCardList({ item, onPress, onCart }) {
                 paddingHorizontal: 12,
                 paddingVertical: 6,
               }}>
-              <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: 11, fontWeight: '700', color: '#fff' }}>Buy Now</Text>
+              <Text style={{ fontFamily : 'Poppins_400Regular', fontSize: 14, fontWeight: '700', color: '#fff' }}>Buy Now</Text>
             </Pressable>
           </View>
         </View>
@@ -901,7 +886,7 @@ export default function ShopPage() {
   const px = isMobile ? 16 : isDesktop ? 32 : 24;
 
   // Grid columns based on screen width
-  const numCols = width < 480 ? 2 : width < 768 ? 2 : width < 1024 ? 3 : width < 1400 ? 3 : 5;
+  const numCols = width < 480 ? 2 : width < 768 ? 2 : width < 1024 ? 3 : width < 1400 ? 3 : 3;
   const cardGap = 12;
 
   // ── State ──

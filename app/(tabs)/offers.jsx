@@ -259,7 +259,7 @@ function OfferProductCard({ product, width, onPress }) {
             numberOfLines={2}
             style={{ fontFamily : 'Poppins_400Regular',
               color: '#0f172a',
-              fontSize: 14,
+              fontSize: 17,
               lineHeight: 20,
               fontWeight: '800',
               minHeight: 40,
@@ -334,7 +334,7 @@ function OfferProductCard({ product, width, onPress }) {
             <Text
               style={{ fontFamily : 'Poppins_400Regular',
                 color: '#0f172a',
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: '900',
               }}>
               {formatPrice(salePrice)}
