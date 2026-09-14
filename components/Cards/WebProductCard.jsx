@@ -218,7 +218,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         {/* QUICK ADD OVERLAY */}
         {/* ───────────────────────────────────── */}
 
-        {hovered && (
+        {/* {hovered && (
           <Pressable
             onPress={(event) => {
               event?.stopPropagation?.();
@@ -257,7 +257,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
               QUICK ADD
             </Text>
           </Pressable>
-        )}
+        )} */}
       </View>
 
       {/* ═══════════════════════════════════════ */}

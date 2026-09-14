@@ -238,7 +238,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           {/* ─────────────────────────────── */}
           {/* QUICK ADD */}
           {/* ─────────────────────────────── */}
-
+{/* 
           {isWeb && hovered && (
             <Pressable
               onPress={(event) => {
@@ -282,7 +282,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
                 QUICK ADD
               </Text>
             </Pressable>
-          )}
+          )} */}
         </View>
 
         {/* ═══════════════════════════════════ */}
@@ -506,7 +506,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
 
                   color: '#fff',
                 }}>
-                Buy Now
+                Add to Cart
               </Text>
             </Pressable>
           </View>

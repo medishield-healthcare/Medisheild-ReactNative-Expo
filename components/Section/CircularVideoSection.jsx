@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import {
   View,
@@ -62,6 +63,7 @@ const VideoCard = ({
   width,
   height,
   isMobile,
+  onPlay,
 }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -99,6 +101,10 @@ const VideoCard = ({
   const handlePlayPause = () => {
     setVideoError(false);
 
+    /*
+      If this video is already playing,
+      simply pause it.
+    */
     if (player.playing) {
       player.pause();
 
@@ -107,6 +113,14 @@ const VideoCard = ({
 
       return;
     }
+
+    /*
+      Tell the parent that this video wants to play.
+
+      The parent will pause whichever video was
+      previously playing before allowing this one to play.
+    */
+    onPlay(player, item.id);
 
     setShowVideo(true);
     setIsPlaying(true);
@@ -120,6 +134,13 @@ const VideoCard = ({
 
   const handleRetry = () => {
     setVideoError(false);
+
+    /*
+      Retry also goes through the parent so that
+      another playing video gets paused.
+    */
+    onPlay(player, item.id);
+
     setShowVideo(true);
     setIsPlaying(true);
 
@@ -248,11 +269,45 @@ const VideoCard = ({
 const CircularVideoSection = () => {
   const scrollRef = useRef(null);
 
+  /*
+    This ref keeps track of the video that is currently
+    playing.
+
+    Whenever another video starts:
+      1. Previous player gets paused
+      2. New player becomes active
+  */
+  const activePlayerRef = useRef(null);
+  const activeVideoIdRef = useRef(null);
+
   const { width } = useWindowDimensions();
 
   const isMobile = width < 640;
   const isTablet = width >= 640 && width < 1024;
   const isDesktop = width >= 1024;
+
+  /* -------------------------------------------------------
+     SINGLE VIDEO PLAY HANDLER
+  ------------------------------------------------------- */
+
+  const handleVideoPlay = (newPlayer, videoId) => {
+    /*
+      If another video is currently playing,
+      pause it first.
+    */
+    if (
+      activePlayerRef.current &&
+      activePlayerRef.current !== newPlayer
+    ) {
+      activePlayerRef.current.pause();
+    }
+
+    /*
+      Store the newly active player.
+    */
+    activePlayerRef.current = newPlayer;
+    activeVideoIdRef.current = videoId;
+  };
 
   /* -------------------------------------------------------
      RESPONSIVE PADDING
@@ -425,6 +480,7 @@ const CircularVideoSection = () => {
                 width={cardWidth}
                 height={cardHeight}
                 isMobile={isMobile}
+                onPlay={handleVideoPlay}
               />
             ))}
           </ScrollView>
