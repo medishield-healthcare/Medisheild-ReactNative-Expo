@@ -53,7 +53,13 @@ export default function HeroSlider() {
         const result = await response.json();
         const banners = Array.isArray(result?.data) ? result.data : [];
         const formattedSlides = banners
-          .filter((banner) => banner?.mobile_image)
+          .filter((banner) => {
+            if (isMobile) {
+              return banner?.mobile === true && banner?.mobile_image;
+            }
+
+            return banner?.mobile_image;
+          })
           .map((banner) => ({
             id: banner._id || banner.id,
             image: {
