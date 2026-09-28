@@ -18,20 +18,23 @@ import HeroSlider from 'components/Section/HeroSlider';
 import OfferBanner from 'components/Section/OfferBanner';
 import { useQuery } from '@tanstack/react-query';
 import FeaturedCategories from 'components/Section/FeaturedCategories';
-
-const C = {
-  primary: '#CD0F0F',
-  primaryDark: '#CD0F0F',
-  primaryLight: '#ccfbf1',
-  accent: '#f59e0b',
-  accentLight: '#fef3c7',
-  bg: '#f0fafa',
-  white: '#ffffff',
-  dark: '#0f172a',
-  muted: '#64748b',
-  border: '#e2e8f0',
-  card: '#ffffff',
-};
+import CircularVideoSection from 'components/Section/CircularVideoSection';
+import FeaturedCategoriesNative from 'components/Section/FeaturedCategoriesNative';
+import CircularVideoSectionNative from 'components/Section/CircularVideoSectionNative';
+import C from '@/utils/theme';
+// const C = {
+//   primary: '#CD0F0F',
+//   primaryDark: '#CD0F0F',
+//   primaryLight: '#ccfbf1',
+//   accent: '#f59e0b',
+//   accentLight: '#fef3c7',
+//   bg: '#f0fafa',
+//   white: '#ffffff',
+//   dark: '#0f172a',
+//   muted: '#64748b',
+//   border: '#e2e8f0',
+//   card: '#ffffff',
+// };
 
 // ── Category Pill ─────────────────────────────────────────────────────────────
 function CategoryPill({ category, active, onPress }) {
@@ -886,7 +889,7 @@ export default function HomeNative() {
         </View>
 
         {/* ── HERO BANNER ── */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 28 }}>
+        {/* <View style={{ paddingHorizontal: 20, marginBottom: 28 }}>
           <View
             style={{
               borderRadius: 24,
@@ -984,11 +987,11 @@ export default function HomeNative() {
               resizeMode="contain"
             />
           </View>
-        </View>
-
-        {/* <View style={{ paddingHorizontal: 20, marginBottom: 28 }}>
-          <HeroSlider />
         </View> */}
+
+        <View style={{ paddingHorizontal: 20, marginBottom: 28 }}>
+          <HeroSlider />
+        </View>
 
         {/* ── CATEGORIES (dynamic from API) ── */}
         <View style={{ marginBottom: 28 }}>
@@ -1337,7 +1340,7 @@ export default function HomeNative() {
           </View>
         </View>
 
-        {/* Brands  */}
+        <FeaturedCategoriesNative/>
 
         <View style={{ paddingHorizontal: 0, marginBottom: 32 }}>
           <SectionHeader title="Top Brands" onSeeAll={() => router.push('/shop')} />
@@ -1834,6 +1837,8 @@ export default function HomeNative() {
           </View>
         </View>
 
+        <CircularVideoSectionNative/>
+
         <View style={{ marginBottom: 28 }}>
           <SectionHeader
             title="Equipments"
@@ -1935,425 +1940,8 @@ export default function HomeNative() {
           )}
         </View>
 
-        {/* ───────────────────────────────────────────── */}
-        {/* MEDISHIELD EXPERIENCE */}
-        {/* ───────────────────────────────────────────── */}
-
-        <View
-          style={{
-            marginBottom: 34,
-            paddingHorizontal: 20,
-          }}>
-          {/* ========================================= */}
-          {/* SECTION INTRO */}
-          {/* ========================================= */}
-
-          <View
-            style={{
-              marginBottom: 18,
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 8,
-              }}>
-              <View
-                style={{
-                  width: 22,
-                  height: 3,
-                  borderRadius: 10,
-                  backgroundColor: '#10b981',
-                  marginRight: 8,
-                }}
-              />
-
-              <Text
-                style={{
-                  fontSize: 10,
-                  fontWeight: '900',
-                  color: '#059669',
-                  letterSpacing: 1.3,
-                }}>
-                THE MEDISHIELD DIFFERENCE
-              </Text>
-            </View>
-
-            <Text
-              style={{
-                fontSize: 24,
-                lineHeight: 29,
-                fontWeight: '900',
-                color: '#123b3a',
-                letterSpacing: -0.8,
-              }}>
-              More than a
-            </Text>
-
-            <Text
-              style={{
-                fontSize: 24,
-                lineHeight: 29,
-                fontWeight: '900',
-                color: '#059669',
-                letterSpacing: -0.8,
-              }}>
-              dental store.
-            </Text>
-
-            <Text
-              style={{
-                fontSize: 11,
-                lineHeight: 17,
-                color: '#64748b',
-                marginTop: 7,
-                maxWidth: 310,
-              }}>
-              A smarter way to discover products, manage your essentials and keep your practice
-              moving.
-            </Text>
-          </View>
-
-          {/* ========================================= */}
-          {/* HERO FEATURE CARD */}
-          {/* ========================================= */}
-
-          <View
-            style={{
-              backgroundColor: '#e6f7f2',
-              borderRadius: 26,
-              padding: 16,
-              overflow: 'hidden',
-            }}>
-            {/* Decorative Shape */}
-
-            <View
-              pointerEvents="none"
-              style={{
-                position: 'absolute',
-                width: 170,
-                height: 170,
-                borderRadius: 85,
-                right: -80,
-                top: -85,
-                backgroundColor: '#d3f1e9',
-              }}
-            />
-
-            {/* ======================================= */}
-            {/* INNER FEATURE */}
-            {/* ======================================= */}
-
-            <View
-              style={{
-                backgroundColor: '#ffffff',
-                borderRadius: 22,
-                padding: 18,
-                minHeight: 225,
-                overflow: 'hidden',
-              }}>
-              {/* NUMBER */}
-
-              <View
-                style={{
-                  position: 'absolute',
-                  right: 16,
-                  top: 14,
-                  width: 43,
-                  height: 43,
-                  borderRadius: 14,
-                  backgroundColor: '#ecfdf5',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '900',
-                    color: '#059669',
-                  }}>
-                  01
-                </Text>
-              </View>
-
-              {/* ICON */}
-
-              <View
-                style={{
-                  width: 52,
-                  height: 52,
-                  borderRadius: 17,
-                  backgroundColor: '#d1fae5',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 17,
-                }}>
-                <Ionicons name="medical-outline" size={26} color="#059669" />
-              </View>
-
-              {/* TITLE */}
-
-              <Text
-                style={{
-                  fontSize: 19,
-                  fontWeight: '900',
-                  color: '#123b3a',
-                  letterSpacing: -0.4,
-                }}>
-                Everything
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: 19,
-                  fontWeight: '900',
-                  color: '#059669',
-                  letterSpacing: -0.4,
-                }}>
-                your practice needs.
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: 10,
-                  lineHeight: 16,
-                  color: '#64748b',
-                  marginTop: 7,
-                  maxWidth: 270,
-                }}>
-                From daily consumables to professional equipment, find the right products without
-                the hassle.
-              </Text>
-
-              {/* CTA */}
-
-              <Pressable
-                onPress={() => router.push('/shop')}
-                style={({ pressed }) => ({
-                  alignSelf: 'flex-start',
-                  marginTop: 16,
-                  height: 40,
-                  paddingHorizontal: 14,
-                  borderRadius: 11,
-                  backgroundColor: pressed ? '#047857' : '#059669',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                })}>
-                <Text
-                  style={{
-                    color: '#ffffff',
-                    fontSize: 10,
-                    fontWeight: '900',
-                  }}>
-                  Explore Products
-                </Text>
-
-                <Ionicons
-                  name="arrow-forward"
-                  size={13}
-                  color="#ffffff"
-                  style={{
-                    marginLeft: 7,
-                  }}
-                />
-              </Pressable>
-            </View>
-
-            {/* ======================================= */}
-            {/* BENEFIT CARDS */}
-            {/* ======================================= */}
-
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: 12,
-              }}>
-              {/* QUALITY */}
-
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: '#ffffff',
-                  borderRadius: 19,
-                  padding: 14,
-                  marginRight: 6,
-                  minHeight: 130,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <View
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 12,
-                      backgroundColor: '#ecfdf5',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Ionicons name="shield-checkmark-outline" size={18} color="#059669" />
-                  </View>
-
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      fontWeight: '900',
-                      color: '#a7cfc7',
-                    }}>
-                    02
-                  </Text>
-                </View>
-
-                <Text
-                  style={{
-                    marginTop: 13,
-                    fontSize: 12,
-                    fontWeight: '900',
-                    color: '#123b3a',
-                  }}>
-                  Quality First
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: 8,
-                    lineHeight: 12,
-                    color: '#64748b',
-                    marginTop: 3,
-                  }}>
-                  Products selected for professional use.
-                </Text>
-              </View>
-
-              {/* CONVENIENCE */}
-
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: '#ffffff',
-                  borderRadius: 19,
-                  padding: 14,
-                  marginLeft: 6,
-                  minHeight: 130,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <View
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 12,
-                      backgroundColor: '#effcf8',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Ionicons name="bag-check-outline" size={18} color="#059669" />
-                  </View>
-
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      fontWeight: '900',
-                      color: '#a7cfc7',
-                    }}>
-                    03
-                  </Text>
-                </View>
-
-                <Text
-                  style={{
-                    marginTop: 13,
-                    fontSize: 12,
-                    fontWeight: '900',
-                    color: '#123b3a',
-                  }}>
-                  Easy Ordering
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: 8,
-                    lineHeight: 12,
-                    color: '#64748b',
-                    marginTop: 3,
-                  }}>
-                  A simple experience from search to checkout.
-                </Text>
-              </View>
-            </View>
-
-            {/* ======================================= */}
-            {/* BOTTOM STATEMENT */}
-            {/* ======================================= */}
-
-            <View
-              style={{
-                marginTop: 12,
-                minHeight: 58,
-                borderRadius: 17,
-                backgroundColor: '#123b3a',
-                paddingHorizontal: 14,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: 11,
-                  backgroundColor: 'rgba(255,255,255,0.10)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginRight: 10,
-                }}>
-                <Ionicons name="sparkles-outline" size={17} color="#6ee7b7" />
-              </View>
-
-              <View
-                style={{
-                  flex: 1,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 10,
-                    fontWeight: '900',
-                    color: '#ffffff',
-                  }}>
-                  Built around your workflow
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: 8,
-                    color: '#9fc8c4',
-                    marginTop: 2,
-                  }}>
-                  Discover. Choose. Order. Repeat.
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: 9,
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Ionicons name="arrow-forward" size={13} color="#6ee7b7" />
-              </View>
-            </View>
-          </View>
-        </View>
+       
+        
       </ScrollView>
     </SafeAreaView>
   );

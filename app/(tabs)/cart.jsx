@@ -110,7 +110,8 @@ function CartItem({ item, onRemove, isWeb }) {
 
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
+      style={{
+        fontFamily: 'Poppins_400Regular',
         backgroundColor: T.white,
 
         borderRadius: 20,
@@ -147,7 +148,8 @@ function CartItem({ item, onRemove, isWeb }) {
       {/* PRODUCT IMAGE */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: isWeb ? 110 : 88,
 
           height: isWeb ? 110 : 88,
@@ -173,10 +175,7 @@ function CartItem({ item, onRemove, isWeb }) {
             source={{
               uri: imgUrl,
             }}
-            style={{ fontFamily : 'Poppins_400Regular',
-              width: '100%',
-              height: '100%',
-            }}
+            style={{ fontFamily: 'Poppins_400Regular', width: '100%', height: '100%' }}
             resizeMode="contain"
           />
         ) : (
@@ -187,7 +186,8 @@ function CartItem({ item, onRemove, isWeb }) {
       {/* PRODUCT INFO */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           flex: 1,
 
           minWidth: 0,
@@ -197,7 +197,8 @@ function CartItem({ item, onRemove, isWeb }) {
         <View>
           {product.manufacturer && (
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 alignSelf: 'flex-start',
 
                 backgroundColor: T.teal50,
@@ -215,7 +216,8 @@ function CartItem({ item, onRemove, isWeb }) {
                 borderColor: T.teal100,
               }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 9,
 
                   fontWeight: '800',
@@ -231,7 +233,8 @@ function CartItem({ item, onRemove, isWeb }) {
 
           <Text
             numberOfLines={2}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: isWeb ? 15 : 13,
 
               fontWeight: '800',
@@ -248,7 +251,8 @@ function CartItem({ item, onRemove, isWeb }) {
           {product.short_description && (
             <Text
               numberOfLines={1}
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 11,
 
                 color: T.slate400,
@@ -263,7 +267,8 @@ function CartItem({ item, onRemove, isWeb }) {
         {/* BOTTOM */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flexDirection: 'row',
 
             alignItems: 'center',
@@ -277,7 +282,8 @@ function CartItem({ item, onRemove, isWeb }) {
           {/* QTY */}
 
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flexDirection: 'row',
 
               alignItems: 'center',
@@ -285,7 +291,8 @@ function CartItem({ item, onRemove, isWeb }) {
               gap: 6,
             }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 11,
 
                 color: T.slate500,
@@ -296,7 +303,8 @@ function CartItem({ item, onRemove, isWeb }) {
             </Text>
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 minWidth: 32,
 
                 height: 28,
@@ -316,7 +324,8 @@ function CartItem({ item, onRemove, isWeb }) {
                 justifyContent: 'center',
               }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 12,
 
                   fontWeight: '800',
@@ -330,12 +339,10 @@ function CartItem({ item, onRemove, isWeb }) {
 
           {/* PRICE */}
 
-          <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              alignItems: 'flex-end',
-            }}>
+          <View style={{ fontFamily: 'Poppins_400Regular', alignItems: 'flex-end' }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 10,
 
                 color: T.slate400,
@@ -346,7 +353,8 @@ function CartItem({ item, onRemove, isWeb }) {
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 17,
 
                 fontWeight: '900',
@@ -364,7 +372,8 @@ function CartItem({ item, onRemove, isWeb }) {
       <Pressable
         onPress={handleRemove}
         disabled={removing}
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: 34,
 
           height: 34,
@@ -461,13 +470,15 @@ function AddressForm({ value, onChange }) {
   const renderField = (field) => (
     <View
       key={field.key}
-      style={{ fontFamily : 'Poppins_400Regular',
+      style={{
+        fontFamily: 'Poppins_400Regular',
         flex: field.half ? 1 : undefined,
 
         minWidth: field.half ? 145 : undefined,
       }}>
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 11,
 
           fontWeight: '700',
@@ -480,7 +491,8 @@ function AddressForm({ value, onChange }) {
       </Text>
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           height: 48,
 
           backgroundColor: T.slate50,
@@ -511,15 +523,12 @@ function AddressForm({ value, onChange }) {
           placeholder={field.placeholder}
           placeholderTextColor={T.slate400}
           keyboardType={field.keyboard || 'default'}
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flex: 1,
-
             marginLeft: 9,
-
             fontSize: 13,
-
             color: T.slate900,
-
             ...(Platform.OS === 'web'
               ? {
                   outlineStyle: 'none',
@@ -532,10 +541,7 @@ function AddressForm({ value, onChange }) {
   );
 
   return (
-    <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        gap: 13,
-      }}>
+    <View style={{ fontFamily: 'Poppins_400Regular', gap: 13 }}>
       {/* FULL WIDTH */}
 
       {fields.filter((field) => !field.half).map(renderField)}
@@ -543,7 +549,8 @@ function AddressForm({ value, onChange }) {
       {/* HALF WIDTH */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           flexDirection: 'row',
 
           gap: 12,
@@ -592,26 +599,22 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
   ];
 
   return (
-    <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        gap: 12,
-      }}>
+    <View style={{ fontFamily: 'Poppins_400Regular', gap: 12 }}>
       {rows
         .filter((row) => row.show)
         .map((row) => (
           <View
             key={row.label}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flexDirection: 'row',
-
               justifyContent: 'space-between',
-
               alignItems: 'center',
             }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 13,
-
                 color: T.slate600,
               }}>
               {row.label}
@@ -619,22 +622,20 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
 
             {row.prefix ? (
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 13,
-
                   fontWeight: '800',
-
                   color: T.green500,
                 }}>
                 {row.prefix}
               </Text>
             ) : (
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 13,
-
                   fontWeight: '700',
-
                   color: row.color || T.slate900,
                 }}>
                 {row.value < 0 ? '-' : ''}₹{Math.abs(row.value).toLocaleString('en-IN')}
@@ -644,11 +645,10 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
         ))}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           height: 1,
-
           backgroundColor: T.slate200,
-
           marginVertical: 3,
         }}
       />
@@ -656,27 +656,26 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
       {/* TOTAL */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           flexDirection: 'row',
-
           justifyContent: 'space-between',
-
           alignItems: 'center',
         }}>
         <View>
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 16,
-
               fontWeight: '800',
-
               color: T.slate900,
             }}>
             Total
           </Text>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 10,
 
               color: T.slate400,
@@ -688,13 +687,11 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
         </View>
 
         <Text
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             fontSize: 24,
-
             fontWeight: '900',
-
             color: T.teal700,
-
             letterSpacing: -0.5,
           }}>
           ₹{finalTotal.toLocaleString('en-IN')}
@@ -705,7 +702,8 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
 
       {shipping === 0 && cartTotal > 0 && (
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flexDirection: 'row',
 
             alignItems: 'center',
@@ -727,7 +725,8 @@ function PriceSummary({ cartTotal, shipping, discount, coinsUsed, couponDiscount
           <Ionicons name="checkmark-circle" size={15} color={T.green500} />
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 11,
 
               color: '#15803d',
@@ -805,7 +804,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
 
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
+      style={{
+        fontFamily: 'Poppins_400Regular',
         paddingHorizontal: px,
 
         paddingVertical: 15,
@@ -817,7 +817,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
         borderBottomColor: T.slate100,
       }}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           maxWidth: 1100,
 
           width: '100%',
@@ -838,7 +839,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
           return (
             <View
               key={step.key}
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 flexDirection: 'row',
 
                 alignItems: 'center',
@@ -846,7 +848,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
                 flex: index < 2 ? 1 : undefined,
               }}>
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flexDirection: 'row',
 
                   alignItems: 'center',
@@ -854,7 +857,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
                   gap: 7,
                 }}>
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     width: isMobile ? 32 : 36,
 
                     height: isMobile ? 32 : 36,
@@ -881,7 +885,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
                 {!isMobile && (
                   <View>
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         fontSize: 11,
 
                         fontWeight: current || done ? '800' : '600',
@@ -892,7 +897,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
                     </Text>
 
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         fontSize: 9,
 
                         color: T.slate400,
@@ -907,7 +913,8 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
 
               {index < 2 && (
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     flex: 1,
                     height: 2,
                     backgroundColor: currentIndex > index ? T.teal700 : T.slate200,
@@ -930,21 +937,13 @@ function CheckoutSteps({ checkoutStep, isMobile, px }) {
 
 export default function CartPage() {
   const router = useRouter();
-
   const { width } = useWindowDimensions();
-
   const isWeb = Platform.OS === 'web';
-
   const isDesktop = width >= 1024;
-
   const isTablet = width >= 640 && width < 1024;
-
   const isMobile = width < 640;
-
   const px = isDesktop ? 48 : isTablet ? 28 : 16;
-
   const { user } = useAuth();
-
   const { items, cartTotal, loading, remove, clear, refetch } = useCart();
 
   // ═══════════════════════════════════════════
@@ -962,19 +961,12 @@ export default function CartPage() {
   });
 
   const [couponCode, setCoupon] = useState('');
-
   const [couponData, setCouponData] = useState(null);
-
   const [couponLoading, setCouponLoad] = useState(false);
-
   const [couponError, setCouponErr] = useState('');
-
   const [coinsToUse, setCoinsToUse] = useState(0);
-
   const [checkoutStep, setStep] = useState('cart');
-
   const [paymentLoading, setPayLoading] = useState(false);
-
   const [orderSuccess, setSuccess] = useState(null);
 
   // ═══════════════════════════════════════════
@@ -985,9 +977,7 @@ export default function CartPage() {
     if (user) {
       setAddress((prev) => ({
         ...prev,
-
         name: `${user.firstname || ''} ${user.lastname || ''}`.trim(),
-
         mobile: user.mobile || '',
       }));
     }
@@ -1001,47 +991,109 @@ export default function CartPage() {
 
   const couponDiscount = couponData
     ? Math.round(
-        couponData.type === 'percent'
+        couponData.type === 'percentage'
           ? (cartTotal * couponData.discount) / 100
           : couponData.discount
       )
     : 0;
 
-  const maxCoins = Math.min(
-    user?.medishieldcoins || 0,
-
-    Math.floor(cartTotal * 0.1)
-  );
-
-  const finalTotal = Math.max(
-    0,
-
-    cartTotal + shipping - couponDiscount - coinsToUse
-  );
+  const maxCoins = Math.min(user?.medishieldcoins || 0, Math.floor(cartTotal * 0.10));
+  const coinDiscount = coinsToUse * 0.1;
+  const finalTotal = Math.max(0, cartTotal + shipping - couponDiscount - coinDiscount);
 
   // ═══════════════════════════════════════════
   // COUPON
   // ═══════════════════════════════════════════
 
   const applyCoupon = async () => {
-    if (!couponCode.trim()) return;
+  const code = couponCode.trim().toUpperCase();
 
-    setCouponLoad(true);
+  if (!code) {
+    setCouponErr('Please enter a coupon code.');
+    return;
+  }
 
-    setCouponErr('');
+  setCouponLoad(true);
+  setCouponErr('');
+  setCouponData(null);
 
-    try {
-      const { data } = await API.get(`/coupon/${couponCode.trim()}`);
+  try {
+    const { data } = await API.post('/coupon/getCouponByCode', {
+      couponCode: code,
+    });
 
-      setCouponData(data);
-    } catch {
-      setCouponErr('Invalid or expired coupon code.');
-
-      setCouponData(null);
-    } finally {
-      setCouponLoad(false);
+    if (!data) {
+      throw new Error('Coupon not found');
     }
-  };
+
+    // ==========================================
+    // EXPIRY DATE CHECK
+    // ==========================================
+
+    if (data.expiryDate) {
+      const expiryDate = new Date(data.expiryDate);
+      const now = new Date();
+
+      if (Number.isNaN(expiryDate.getTime())) {
+        setCouponErr('Invalid coupon expiry date.');
+        return;
+      }
+
+      if (expiryDate < now) {
+        setCouponErr('This coupon has expired.');
+        return;
+      }
+    }
+
+    // ==========================================
+    // MINIMUM CART VALUE CHECK
+    // ==========================================
+
+    const minCartValue = Number(data.minimumCartValue || 0);
+
+    if (minCartValue > 0 && cartTotal < minCartValue) {
+      setCouponErr(
+        `This coupon is valid only on orders of ₹${minCartValue.toLocaleString(
+          'en-IN'
+        )} or more.`
+      );
+      return;
+    }
+
+    // ==========================================
+    // MAXIMUM CART VALUE CHECK
+    // ==========================================
+
+    const maxCartValue = Number(data.maximumCartValue || 0);
+
+    if (maxCartValue > 0 && cartTotal > maxCartValue) {
+      setCouponErr(
+        `This coupon is valid only on orders up to ₹${maxCartValue.toLocaleString(
+          'en-IN'
+        )}.`
+      );
+      return;
+    }
+
+    // ==========================================
+    // EVERYTHING VALID
+    // ==========================================
+
+    setCouponData(data);
+  } catch (error) {
+    console.error('Coupon apply error:', error);
+
+    setCouponData(null);
+
+    setCouponErr(
+      error?.response?.data?.message ||
+        error?.message ||
+        'Invalid or expired coupon code.'
+    );
+  } finally {
+    setCouponLoad(false);
+  }
+};
 
   // ═══════════════════════════════════════════
   // ADDRESS VALIDATION
@@ -1076,7 +1128,6 @@ export default function CartPage() {
 
     if (addressErr) {
       Alert.alert('Incomplete Address', addressErr);
-
       return;
     }
 
@@ -1085,7 +1136,6 @@ export default function CartPage() {
     try {
       const { data: rzpOrder } = await API.post('/user/create-razorpay-order', {
         amount: finalTotal,
-
         currency: 'INR',
       });
 
@@ -1097,27 +1147,17 @@ export default function CartPage() {
 
       const options = {
         description: 'MediShield Order',
-
         image: 'https://your-logo-url.png',
-
         currency: 'INR',
-
         key: 'rzp_test_SXvWtsQXTQpVC1',
-
         amount: rzpOrder.amount,
-
         order_id: rzpOrder.id,
-
         name: 'MediShield Dental',
-
         prefill: {
           email: user?.email || '',
-
           contact: address.mobile,
-
           name: address.name,
         },
-
         theme: {
           color: '#CD0F0F',
         },
@@ -1201,7 +1241,8 @@ export default function CartPage() {
   if (checkoutStep === 'success' && orderSuccess) {
     return (
       <SafeAreaView
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           flex: 1,
           backgroundColor: T.teal50,
           alignItems: 'center',
@@ -1209,7 +1250,8 @@ export default function CartPage() {
           padding: isMobile ? 20 : 32,
         }}>
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             backgroundColor: T.white,
             borderRadius: 28,
             padding: isMobile ? 25 : 40,
@@ -1232,7 +1274,8 @@ export default function CartPage() {
                 }),
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: 84,
               height: 84,
               borderRadius: 42,
@@ -1245,7 +1288,8 @@ export default function CartPage() {
           </View>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 26,
               fontWeight: '900',
               color: T.slate900,
@@ -1256,7 +1300,8 @@ export default function CartPage() {
           </Text>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 14,
               color: T.slate500,
               textAlign: 'center',
@@ -1267,7 +1312,8 @@ export default function CartPage() {
           </Text>
 
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               backgroundColor: T.slate50,
               borderRadius: 16,
               padding: 17,
@@ -1278,7 +1324,8 @@ export default function CartPage() {
               alignItems: 'center',
             }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 11,
                 color: T.slate400,
                 marginBottom: 4,
@@ -1287,7 +1334,8 @@ export default function CartPage() {
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 28,
                 fontWeight: '900',
                 color: T.teal700,
@@ -1298,8 +1346,8 @@ export default function CartPage() {
 
           <Pressable
             onPress={() => router.replace('/')}
-            style={{ 
-              fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               backgroundColor: T.teal700,
               borderRadius: 14,
               paddingVertical: 15,
@@ -1313,7 +1361,8 @@ export default function CartPage() {
                 : {}),
             }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 color: T.white,
                 fontSize: 15,
                 fontWeight: '800',
@@ -1333,22 +1382,24 @@ export default function CartPage() {
   if (!user) {
     return (
       <SafeAreaView
-        style={{ 
-          fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           flex: 1,
           backgroundColor: T.bg,
         }}>
         {isWeb && <WebHeader />}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
             padding: 25,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: 92,
               height: 92,
               borderRadius: 46,
@@ -1361,28 +1412,23 @@ export default function CartPage() {
           </View>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 24,
-
               fontWeight: '900',
-
               color: T.slate900,
-
               marginBottom: 8,
             }}>
             Your cart is waiting
           </Text>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 14,
-
               color: T.slate500,
-
               textAlign: 'center',
-
               marginBottom: 28,
-
               lineHeight: 21,
             }}>
             Sign in to view your cart and continue to checkout.
@@ -1390,21 +1436,18 @@ export default function CartPage() {
 
           <Pressable
             onPress={() => router.push('/login')}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               backgroundColor: T.teal700,
-
               borderRadius: 14,
-
               paddingHorizontal: 34,
-
               paddingVertical: 14,
             }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 color: T.white,
-
                 fontSize: 14,
-
                 fontWeight: '800',
               }}>
               Sign In
@@ -1422,63 +1465,52 @@ export default function CartPage() {
   if (!loading && items.length === 0) {
     return (
       <SafeAreaView
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           flex: 1,
-
           backgroundColor: T.bg,
         }}>
         {isWeb && <WebHeader />}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flex: 1,
-
             alignItems: 'center',
-
             justifyContent: 'center',
-
             padding: 25,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: 100,
-
               height: 100,
-
               borderRadius: 50,
-
               backgroundColor: T.slate100,
-
               alignItems: 'center',
-
               justifyContent: 'center',
-
               marginBottom: 20,
             }}>
             <Ionicons name="cart-outline" size={46} color={T.slate400} />
           </View>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 24,
-
               fontWeight: '900',
-
               color: T.slate900,
-
               marginBottom: 8,
             }}>
             Your cart is empty
           </Text>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 14,
-
               color: T.slate500,
-
               textAlign: 'center',
-
               marginBottom: 28,
             }}>
             Looks like you haven't added anything yet.
@@ -1486,21 +1518,18 @@ export default function CartPage() {
 
           <Pressable
             onPress={() => router.push('/shop')}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               backgroundColor: T.teal700,
-
               borderRadius: 14,
-
               paddingHorizontal: 34,
-
               paddingVertical: 14,
             }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 color: T.white,
-
                 fontSize: 14,
-
                 fontWeight: '800',
               }}>
               Start Shopping
@@ -1517,9 +1546,9 @@ export default function CartPage() {
 
   return (
     <SafeAreaView
-      style={{ fontFamily : 'Poppins_400Regular',
+      style={{
+        fontFamily: 'Poppins_400Regular',
         flex: 1,
-
         backgroundColor: T.bg,
       }}>
       {/* HEADER */}
@@ -1528,60 +1557,46 @@ export default function CartPage() {
         <WebHeader />
       ) : (
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flexDirection: 'row',
-
             alignItems: 'center',
-
             paddingHorizontal: 16,
-
             paddingVertical: 11,
-
             backgroundColor: T.white,
-
             borderBottomWidth: 1,
-
             borderBottomColor: T.slate100,
-
             gap: 12,
           }}>
           <Pressable
             onPress={() => router.back()}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: 38,
-
               height: 38,
-
               borderRadius: 12,
-
               backgroundColor: T.slate50,
-
               alignItems: 'center',
-
               justifyContent: 'center',
-
               borderWidth: 1,
-
               borderColor: T.slate200,
             }}>
             <Ionicons name="arrow-back" size={20} color={T.slate700} />
           </Pressable>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flex: 1,
-
               fontSize: 18,
-
               fontWeight: '900',
-
               color: T.slate900,
             }}>
             My Cart{' '}
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 color: T.slate400,
-
                 fontWeight: '600',
               }}>
               ({items.length})
@@ -1596,38 +1611,31 @@ export default function CartPage() {
 
       {loading ? (
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flex: 1,
-
             alignItems: 'center',
-
             justifyContent: 'center',
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: 70,
-
               height: 70,
-
               borderRadius: 35,
-
               backgroundColor: T.teal50,
-
               alignItems: 'center',
-
               justifyContent: 'center',
-
               marginBottom: 12,
             }}>
             <ActivityIndicator color={T.teal700} size="large" />
           </View>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               color: T.slate500,
-
               fontSize: 13,
-
               fontWeight: '600',
             }}>
             Loading your cart...
@@ -1640,31 +1648,23 @@ export default function CartPage() {
             paddingBottom: 100,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: '100%',
-
               maxWidth: 1240,
-
               alignSelf: 'center',
-
               paddingHorizontal: px,
-
               paddingTop: isMobile ? 20 : 30,
             }}>
             {/* PAGE TITLE */}
 
-            <View
-              style={{ fontFamily : 'Poppins_400Regular',
-                marginBottom: 24,
-              }}>
+            <View style={{ fontFamily: 'Poppins_400Regular', marginBottom: 24 }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: isMobile ? 25 : 32,
-
                   fontWeight: '900',
-
                   color: T.slate900,
-
                   letterSpacing: -0.7,
                 }}>
                 {checkoutStep === 'cart'
@@ -1675,11 +1675,10 @@ export default function CartPage() {
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 13,
-
                   color: T.slate500,
-
                   marginTop: 5,
                 }}>
                 {checkoutStep === 'cart'
@@ -1693,11 +1692,10 @@ export default function CartPage() {
             {/* MAIN LAYOUT */}
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 flexDirection: isDesktop ? 'row' : 'column',
-
                 gap: isDesktop ? 28 : 18,
-
                 alignItems: 'flex-start',
               }}>
               {/* ═══════════════════════════ */}
@@ -1705,11 +1703,10 @@ export default function CartPage() {
               {/* ═══════════════════════════ */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flex: isDesktop ? 1 : undefined,
-
                   width: isDesktop ? undefined : '100%',
-
                   gap: 14,
                 }}>
                 {/* CART */}
@@ -1717,33 +1714,29 @@ export default function CartPage() {
                 {checkoutStep === 'cart' && (
                   <>
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         flexDirection: 'row',
-
                         alignItems: 'center',
-
                         justifyContent: 'space-between',
-
                         marginBottom: 2,
                       }}>
                       <View>
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 17,
-
                             fontWeight: '800',
-
                             color: T.slate900,
                           }}>
                           Cart Items
                         </Text>
 
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 11,
-
                             color: T.slate400,
-
                             marginTop: 2,
                           }}>
                           {items.length} {items.length === 1 ? 'item' : 'items'} selected
@@ -1751,25 +1744,20 @@ export default function CartPage() {
                       </View>
 
                       <View
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           backgroundColor: T.teal50,
-
                           paddingHorizontal: 10,
-
                           paddingVertical: 6,
-
                           borderRadius: 999,
-
                           borderWidth: 1,
-
                           borderColor: T.teal100,
                         }}>
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 11,
-
                             color: T.teal700,
-
                             fontWeight: '800',
                           }}>
                           ₹{cartTotal.toLocaleString('en-IN')}
@@ -1792,17 +1780,13 @@ export default function CartPage() {
 
                 {checkoutStep === 'address' && (
                   <View
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       backgroundColor: T.white,
-
                       borderRadius: 20,
-
                       padding: isMobile ? 16 : 22,
-
                       borderWidth: 1,
-
                       borderColor: T.slate200,
-
                       ...(isWeb
                         ? {
                             boxShadow: T.shadow,
@@ -1810,31 +1794,23 @@ export default function CartPage() {
                         : {}),
                     }}>
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         flexDirection: 'row',
-
                         alignItems: 'center',
-
                         gap: 12,
-
                         marginBottom: 20,
                       }}>
                       <View
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           width: 42,
-
                           height: 42,
-
                           borderRadius: 13,
-
                           backgroundColor: T.teal50,
-
                           alignItems: 'center',
-
                           justifyContent: 'center',
-
                           borderWidth: 1,
-
                           borderColor: T.teal100,
                         }}>
                         <Ionicons name="location-outline" size={21} color={T.teal700} />
@@ -1842,22 +1818,20 @@ export default function CartPage() {
 
                       <View>
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 18,
-
                             fontWeight: '900',
-
                             color: T.slate900,
                           }}>
                           Delivery Address
                         </Text>
 
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 11,
-
                             color: T.slate400,
-
                             marginTop: 2,
                           }}>
                           Enter where you'd like your order delivered
@@ -1875,26 +1849,22 @@ export default function CartPage() {
               {/* ═══════════════════════════ */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   width: isDesktop ? 370 : '100%',
-
                   gap: 12,
                 }}>
                 {/* COUPON */}
 
                 {checkoutStep === 'cart' && (
                   <View
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       backgroundColor: T.white,
-
                       borderRadius: 18,
-
                       padding: 16,
-
                       borderWidth: 1,
-
                       borderColor: T.slate200,
-
                       ...(isWeb
                         ? {
                             boxShadow: T.shadow,
@@ -1902,27 +1872,21 @@ export default function CartPage() {
                         : {}),
                     }}>
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         flexDirection: 'row',
-
                         alignItems: 'center',
-
                         gap: 10,
-
                         marginBottom: 12,
                       }}>
                       <View
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           width: 34,
-
                           height: 34,
-
                           borderRadius: 10,
-
                           backgroundColor: T.teal50,
-
                           alignItems: 'center',
-
                           justifyContent: 'center',
                         }}>
                         <Ionicons name="pricetag-outline" size={17} color={T.teal700} />
@@ -1930,22 +1894,20 @@ export default function CartPage() {
 
                       <View>
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 14,
-
                             fontWeight: '800',
-
                             color: T.slate900,
                           }}>
                           Have a coupon?
                         </Text>
 
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 10,
-
                             color: T.slate400,
-
                             marginTop: 1,
                           }}>
                           Save more on your order
@@ -1954,44 +1916,33 @@ export default function CartPage() {
                     </View>
 
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         flexDirection: 'row',
-
                         gap: 8,
                       }}>
                       <TextInput
                         value={couponCode}
                         onChangeText={(text) => {
                           setCoupon(text.toUpperCase());
-
                           setCouponErr('');
-
                           setCouponData(null);
                         }}
                         placeholder="ENTER CODE"
                         placeholderTextColor={T.slate400}
                         autoCapitalize="characters"
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           flex: 1,
-
                           height: 44,
-
                           backgroundColor: T.slate50,
-
                           borderRadius: 10,
-
                           borderWidth: 1,
-
                           borderColor: couponData ? T.green500 : T.slate200,
-
                           paddingHorizontal: 12,
-
                           fontSize: 12,
-
                           fontWeight: '700',
-
                           color: T.slate900,
-
                           ...(Platform.OS === 'web'
                             ? {
                                 outlineStyle: 'none',
@@ -2003,30 +1954,24 @@ export default function CartPage() {
                       <Pressable
                         onPress={applyCoupon}
                         disabled={couponLoading || !couponCode.trim()}
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           minWidth: 72,
-
                           height: 44,
-
                           backgroundColor: T.teal700,
-
                           borderRadius: 10,
-
                           alignItems: 'center',
-
                           justifyContent: 'center',
-
                           opacity: !couponCode.trim() ? 0.45 : 1,
                         }}>
                         {couponLoading ? (
                           <ActivityIndicator size="small" color={T.white} />
                         ) : (
                           <Text
-                            style={{ fontFamily : 'Poppins_400Regular',
+                            style={{
+                              fontFamily: 'Poppins_400Regular',
                               color: T.white,
-
                               fontWeight: '800',
-
                               fontSize: 12,
                             }}>
                             Apply
@@ -2037,23 +1982,20 @@ export default function CartPage() {
 
                     {couponData && (
                       <View
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           flexDirection: 'row',
-
                           alignItems: 'center',
-
                           gap: 6,
-
                           marginTop: 9,
                         }}>
                         <Ionicons name="checkmark-circle" size={15} color={T.green500} />
 
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 11,
-
                             color: '#15803d',
-
                             fontWeight: '700',
                           }}>
                           Coupon applied! ₹{couponDiscount} off
@@ -2063,13 +2005,11 @@ export default function CartPage() {
 
                     {couponError && (
                       <Text
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           fontSize: 11,
-
                           color: T.red500,
-
                           marginTop: 7,
-
                           fontWeight: '600',
                         }}>
                         {couponError}
@@ -2082,61 +2022,49 @@ export default function CartPage() {
 
                 {checkoutStep === 'cart' && (user?.medishieldcoins || 0) > 0 && (
                   <View
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       backgroundColor: T.amber50,
-
                       borderRadius: 18,
-
                       padding: 16,
-
                       borderWidth: 1,
-
                       borderColor: T.amber100,
                     }}>
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         flexDirection: 'row',
-
                         alignItems: 'center',
-
                         gap: 10,
-
                         marginBottom: 11,
                       }}>
                       <View
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           width: 38,
-
                           height: 38,
-
                           borderRadius: 12,
-
                           backgroundColor: T.amber100,
-
                           alignItems: 'center',
-
                           justifyContent: 'center',
                         }}>
                         <Ionicons name="sparkles-outline" size={19} color={T.amber500} />
                       </View>
 
-                      <View
-                        style={{ fontFamily : 'Poppins_400Regular',
-                          flex: 1,
-                        }}>
+                      <View style={{ fontFamily: 'Poppins_400Regular', flex: 1 }}>
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 14,
-
                             fontWeight: '800',
-
                             color: '#92400e',
                           }}>
                           MediShield Coins
                         </Text>
 
                         <Text
-                          style={{ fontFamily : 'Poppins_400Regular',
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
                             fontSize: 10,
 
                             color: '#b45309',
@@ -2152,23 +2080,16 @@ export default function CartPage() {
 
                     <Pressable
                       onPress={() => setCoinsToUse(coinsToUse > 0 ? 0 : maxCoins)}
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         flexDirection: 'row',
-
                         alignItems: 'center',
-
                         justifyContent: 'center',
-
                         gap: 7,
-
                         backgroundColor: coinsToUse > 0 ? T.amber500 : T.white,
-
                         borderRadius: 11,
-
                         paddingVertical: 10,
-
                         borderWidth: 1,
-
                         borderColor: coinsToUse > 0 ? T.amber500 : T.amber100,
                       }}>
                       <Ionicons
@@ -2178,16 +2099,15 @@ export default function CartPage() {
                       />
 
                       <Text
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           fontSize: 12,
-
                           fontWeight: '800',
-
                           color: coinsToUse > 0 ? T.white : '#92400e',
                         }}>
                         {coinsToUse > 0
-                          ? `Using ${maxCoins} coins (−₹${maxCoins})`
-                          : `Use ${maxCoins} coins (−₹${maxCoins})`}
+                          ? `Using ${maxCoins} coins (−₹${(maxCoins * 0.1).toFixed(2)})`
+                          : `Use ${maxCoins} coins (−₹${(maxCoins * 0.1).toFixed(2)})`}
                       </Text>
                     </Pressable>
                   </View>
@@ -2196,69 +2116,54 @@ export default function CartPage() {
                 {/* SUMMARY */}
 
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     backgroundColor: T.white,
-
                     borderRadius: 20,
-
                     padding: isMobile ? 17 : 20,
-
                     borderWidth: 1,
-
                     borderColor: T.slate200,
-
                     ...(isWeb
                       ? {
                           boxShadow: T.shadowMd,
                         }
                       : {
                           shadowColor: T.teal700,
-
                           shadowOffset: {
                             width: 0,
                             height: 3,
                           },
-
                           shadowOpacity: 0.05,
-
                           shadowRadius: 10,
-
                           elevation: 3,
                         }),
                   }}>
                   <View
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       flexDirection: 'row',
-
                       alignItems: 'center',
-
                       gap: 9,
-
                       marginBottom: 17,
                     }}>
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         width: 34,
-
                         height: 34,
-
                         borderRadius: 10,
-
                         backgroundColor: T.teal50,
-
                         alignItems: 'center',
-
                         justifyContent: 'center',
                       }}>
                       <Ionicons name="receipt-outline" size={17} color={T.teal700} />
                     </View>
 
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         fontSize: 16,
-
                         fontWeight: '900',
-
                         color: T.slate900,
                       }}>
                       Order Summary
@@ -2269,7 +2174,7 @@ export default function CartPage() {
                     cartTotal={cartTotal}
                     shipping={shipping}
                     discount={0}
-                    coinsUsed={coinsToUse}
+                    coinsUsed={maxCoins * 0.1}
                     couponDiscount={couponDiscount}
                     finalTotal={finalTotal}
                   />
@@ -2286,41 +2191,29 @@ export default function CartPage() {
                     }
                   }}
                   disabled={paymentLoading || items.length === 0}
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     minHeight: 56,
-
                     backgroundColor: T.teal700,
-
                     borderRadius: 15,
-
                     flexDirection: 'row',
-
                     alignItems: 'center',
-
                     justifyContent: 'center',
-
                     gap: 9,
-
                     opacity: items.length === 0 ? 0.5 : 1,
-
                     ...(isWeb
                       ? {
                           boxShadow: '0 8px 22px rgba(15,118,110,0.25)',
-
                           cursor: 'pointer',
                         }
                       : {
                           shadowColor: T.teal700,
-
                           shadowOffset: {
                             width: 0,
                             height: 7,
                           },
-
                           shadowOpacity: 0.25,
-
                           shadowRadius: 12,
-
                           elevation: 6,
                         }),
                   }}>
@@ -2335,7 +2228,8 @@ export default function CartPage() {
                       />
 
                       <Text
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           color: T.white,
 
                           fontSize: 15,
@@ -2355,13 +2249,15 @@ export default function CartPage() {
                 {checkoutStep === 'address' && (
                   <Pressable
                     onPress={() => setStep('cart')}
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       alignItems: 'center',
 
                       paddingVertical: 8,
                     }}>
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         color: T.slate500,
 
                         fontSize: 12,
@@ -2376,7 +2272,8 @@ export default function CartPage() {
                 {/* SECURITY */}
 
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     flexDirection: 'row',
 
                     alignItems: 'center',
@@ -2390,7 +2287,8 @@ export default function CartPage() {
                   <Ionicons name="shield-checkmark-outline" size={14} color={T.slate400} />
 
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       fontSize: 10,
 
                       color: T.slate400,

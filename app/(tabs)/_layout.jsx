@@ -22,10 +22,10 @@ function TabIcon({ name, nameActive, label, focused }) {
         style={{
           width: 40,
           height: 28,
-          borderRadius: 14,
+          borderRadius: 34,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: focused ? '#ccfbf1' : 'transparent',
+          backgroundColor: focused ? '#FDE7E7' : 'transparent',
         }}>
         <Ionicons
           name={focused ? nameActive : name}

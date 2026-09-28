@@ -11,7 +11,7 @@ import {
   useWindowDimensions,
   Platform,
 } from 'react-native';
-
+import { useCart } from "@/context/CartContext";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';

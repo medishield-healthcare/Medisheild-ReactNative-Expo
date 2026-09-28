@@ -19,7 +19,7 @@ import { useAuth } from '@/context/AuthContext';
 import API from '@/api/axios';
 import { useQuery } from '@tanstack/react-query';
 import { Fonts } from '@/utils/font';
-
+import { useCart } from '@/context/CartContext';
 // ============================================================================
 // COLORS
 // ============================================================================
@@ -1248,8 +1248,37 @@ export default function WebHeader({ offerProducts = [] }) {
     return null;
   }
   const router = useRouter();
-
+  const { cartCount } = useCart();
+  console.log(cartCount);
   const { user } = useAuth();
+
+  const [cartAddedMessage, setCartAddedMessage] = useState(false);
+  const previousCartCount = useRef(cartCount);
+  const isFirstCartCountRender = useRef(true);
+
+  useEffect(() => {
+    // Initial cart fetch par message nahi dikhana
+    if (isFirstCartCountRender.current) {
+      isFirstCartCountRender.current = false;
+      previousCartCount.current = cartCount;
+      return;
+    }
+
+    // Jab cart count increase ho = product add hua
+    if (cartCount > previousCartCount.current) {
+      setCartAddedMessage(true);
+
+      const timer = setTimeout(() => {
+        setCartAddedMessage(false);
+      }, 3000);
+
+      previousCartCount.current = cartCount;
+
+      return () => clearTimeout(timer);
+    }
+
+    previousCartCount.current = cartCount;
+  }, [cartCount]);
 
   const { width } = useWindowDimensions();
 
@@ -1296,7 +1325,7 @@ export default function WebHeader({ offerProducts = [] }) {
   // Mobile hamburger menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const [cartCount] = useState(0);
+  // const [cartCount] = useState(0);
 
   // ==========================================================================
   // REFS
@@ -1892,25 +1921,65 @@ export default function WebHeader({ offerProducts = [] }) {
                     position: 'relative',
                   }}>
                   <Ionicons name="bag-outline" size={isMobile ? 17 : 20} color="white" />
+                  {cartAddedMessage && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        right:-7,
+                        marginTop: 10,
+                        backgroundColor: C.white,
+                        paddingHorizontal: 12,
+                        paddingVertical: 8,
+                        borderRadius: 9,
+                        minWidth: 180,
+                        zIndex: 999999,
+                        boxShadow: '0 6px 20px rgba(0,0,0,0.18)',
+                      }}>
+                      {/* Small arrow */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          top: -5,
+                          right: 12,
+                          width: 10,
+                          height: 10,
+                          backgroundColor: C.white,
+                          transform: [{ rotate: '45deg' }],
+                        }}
+                      />
 
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 7,
+                        }}>
+                        <Ionicons name="checkmark-circle" size={16} color="text-green-500" />
+
+                        <Text
+                          style={{
+                            color: '#000',
+                            fontSize: 11,
+                            fontWeight: '700',
+                            fontFamily: getFontFamily('700'),
+                          }}>
+                          Product added to cart
+                        </Text>
+                      </View>
+                    </View>
+                  )}
                   {cartCount > 0 && (
                     <View
                       style={{
                         position: 'absolute',
-
                         top: -4,
-
                         right: -4,
-
                         backgroundColor: C.accent,
-
                         borderRadius: 10,
-
                         width: 17,
                         height: 17,
-
                         alignItems: 'center',
-
                         justifyContent: 'center',
                       }}>
                       <Text

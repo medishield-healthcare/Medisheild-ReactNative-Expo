@@ -371,9 +371,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
               <Text
                 style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 9,
-
                   color: C.muted,
-
                   marginLeft: 6,
                 }}>
                 ({item.rating_count})
@@ -438,11 +436,8 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
             <Text
               style={{ fontFamily : 'Poppins_400Regular',
                 fontSize: 11,
-
                 fontWeight: '700',
-
                 color: '#047857',
-
                 marginLeft: 6,
               }}>
               In Stock
@@ -456,7 +451,6 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           <View
             style={{ fontFamily : 'Poppins_400Regular',
               flexDirection: 'row',
-
               gap: 7,
             }}>
             {/* <View
@@ -476,34 +470,23 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
             <Pressable
               onPress={(event) => {
                 event?.stopPropagation?.();
-
                 onPress(item._id);
               }}
               style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
-
                 minHeight: 36,
-
                 // borderRadius: 9,
-
                 backgroundColor: C.primary,
-
                 alignItems: 'center',
-
                 justifyContent: 'center',
-
                 paddingHorizontal: 8,
-
                 boxShadow: hovered ? '0 5px 14px rgba(15,118,110,0.22)' : 'none',
-
                 transition: 'all 0.2s ease',
               }}>
               <Text
                 style={{ fontFamily : 'Poppins_400Regular',
                   fontSize: 11,
-
                   fontWeight: '800',
-
                   color: '#fff',
                 }}>
                 Add to Cart

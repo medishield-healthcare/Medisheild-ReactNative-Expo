@@ -437,7 +437,7 @@ function SpecContent({ html, isList }) {
             <Text
               style={{ fontFamily : 'Poppins_400Regular',
                 flex: 1,
-                fontSize: 14,
+                fontSize: 16,
                 color: T.slate700,
                 lineHeight: 22,
               }}>
@@ -507,7 +507,7 @@ function SpecsTabs({ specs }) {
 
               <Text
                 style={{ fontFamily : 'Poppins_400Regular',
-                  fontSize: 13,
+                  fontSize: 17,
                   fontWeight: isActive ? '700' : '500',
                   color: isActive ? T.teal700 : T.slate500,
                   whiteSpace: Platform.OS === 'web' ? 'nowrap' : undefined,
@@ -680,6 +680,7 @@ function TrustStrip() {
         borderBottomWidth: 1,
         borderColor: T.slate100,
         backgroundColor: T.white,
+        paddingVertical: 16,
       }}>
       {badges.map((b, i) => (
         <View
@@ -690,18 +691,15 @@ function TrustStrip() {
             paddingHorizontal: 8,
             alignItems: 'center',
             gap: 6,
-
             borderRightWidth: isMobile ? (i % 2 !== 1 ? 1 : 0) : i < 3 ? 1 : 0,
-
             borderBottomWidth: isMobile && i < 2 ? 1 : 0,
-
             borderColor: T.slate100,
           }}>
-          <Ionicons name={`${b.icon}-outline`} size={20} color={T.teal700} />
+          <Ionicons name={`${b.icon}-outline`} size={26} color={T.teal700} />
 
           <Text
             style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: '700',
               color: T.slate800,
               textAlign: 'center',
@@ -711,7 +709,7 @@ function TrustStrip() {
 
           <Text
             style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 10,
+              fontSize: 13,
               color: T.slate400,
               textAlign: 'center',
             }}>
@@ -1129,7 +1127,7 @@ export default function ProductDetails() {
 
             {/* SHARE / COMPARE */}
 
-            {isWeb && (
+            {/* {isWeb && (
               <View
                 style={{ fontFamily : 'Poppins_400Regular',
                   flexDirection: 'row',
@@ -1173,7 +1171,7 @@ export default function ProductDetails() {
                   </Text>
                 </Pressable>
               </View>
-            )}
+            )} */}
           </View>
 
           {/* =================================================
@@ -1616,6 +1614,7 @@ export default function ProductDetails() {
                   <AddToCartButton
                     productId={product._id}
                     variant={selectedVariant?.sku || product.sku}
+                    count={qty}
                     price={price}
                     size="xxl"
                     style="outline"
@@ -2315,6 +2314,7 @@ export default function ProductDetails() {
               productId={product._id}
               variant={activeSku || product._id}
               price={price}
+              count={qty}
               size="6xl"
               style="solid"
             />

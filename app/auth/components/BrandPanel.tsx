@@ -72,7 +72,22 @@ export default function BrandPanel() {
             </Text>
           </View>
         </View> */}
-        <Image source={require("../../../assets/medisheild-white.png")} style={{ fontFamily : 'Poppins_400Regular', width: 200, height: 100, resizeMode : "contain" }} />
+        <View
+  style={{
+    padding: 10,
+    backgroundColor: "#fff",
+    width : 'fit-content',
+  }}
+>
+  <Image
+    source={require("../../../assets/logo-img.png")}
+    style={{
+      width: 100,
+      height: 50,
+      resizeMode: "contain",
+    }}
+  />
+</View>
 
         {/* Middle: Hero text */}
         <View>

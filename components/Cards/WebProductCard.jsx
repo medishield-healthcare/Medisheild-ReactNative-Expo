@@ -279,11 +279,8 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             flexDirection: 'row',
             gap: 5,
             alignItems: 'center',
-
             // marginTop: 9,
-
             marginBottom: 5,
-
             minHeight: 20,
           }}>
           {item?.manufacturer && (
@@ -292,15 +289,10 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
               style={{
                 fontFamily: 'Poppins_400Regular',
                 color: C.primary,
-
                 fontSize: 9,
-
                 fontWeight: '800',
-
                 textTransform: 'uppercase',
-
                 letterSpacing: 0.8,
-
                 // marginBottom: 5,
               }}>
               {item.manufacturer}
@@ -390,15 +382,10 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
           style={{
             fontFamily: 'Poppins_400Regular',
             flexDirection: 'row',
-
             alignItems: 'center',
-
             flexWrap: 'wrap',
-
             gap: 7,
-
             marginTop: 11,
-
             // marginBottom: 12,
           }}>
           <Text

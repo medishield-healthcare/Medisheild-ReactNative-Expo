@@ -61,7 +61,7 @@ function FloatingInput({
             : 'top-[16px] text-[14px] text-slate-400',
           isActive ? (focused ? 'text-teal-700' : 'text-teal-500') : '',
         ].join(' ')}
-        style={{ fontFamily : 'Poppins_400Regular', pointerEvents: 'none' }}>
+        style={{ fontFamily: 'Poppins_400Regular', pointerEvents: 'none' }}>
         {label}
         {optional && !isActive && <Text className="text-slate-300"> (optional)</Text>}
       </Text>
@@ -123,10 +123,13 @@ function BrandPanel() {
   ];
 
   return (
-    <View className="relative flex-1 overflow-hidden" style={{ fontFamily : 'Poppins_400Regular', backgroundColor: '#CD0F0F' }}>
+    <View
+      className="relative flex-1 overflow-hidden"
+      style={{ fontFamily: 'Poppins_400Regular', backgroundColor: '#CD0F0F' }}>
       {/* Decorative circles */}
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           position: 'absolute',
           width: 460,
           height: 460,
@@ -138,7 +141,8 @@ function BrandPanel() {
         }}
       />
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           position: 'absolute',
           width: 320,
           height: 320,
@@ -150,7 +154,8 @@ function BrandPanel() {
         }}
       />
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           position: 'absolute',
           width: 140,
           height: 140,
@@ -163,7 +168,8 @@ function BrandPanel() {
       />
       {/* Dot grid */}
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           position: 'absolute',
           inset: 0,
           opacity: 0.05,
@@ -191,35 +197,57 @@ function BrandPanel() {
             </Text>
           </View>
         </View> */}
-<Image
-              source={require('../../assets/logo-img.png')} 
-              style={{ fontFamily : 'Poppins_400Regular',
-                width: 146,
-                height: 76,
-                resizeMode: 'contain',
-                mixBlendMode: 'multiply',
-              }}
-            />
+        <View
+          style={{
+            padding: 10,
+            backgroundColor: '#fff',
+            width: 'fit-content',
+          }}>
+          <Image
+            source={require('../../assets/logo-img.png')}
+            style={{
+              width: 100,
+              height: 50,
+              resizeMode: 'contain',
+            }}
+          />
+        </View>
         {/* Hero */}
         <View>
           {/* Eyebrow pill */}
           <View
             className="mb-5 flex-row items-center gap-2 self-start rounded-full px-3 py-1"
-            style={{ fontFamily : 'Poppins_400Regular', backgroundColor: 'rgba(255,255,255,0.1)' }}>
+            style={{ fontFamily: 'Poppins_400Regular', backgroundColor: 'rgba(255,255,255,0.1)' }}>
             <View className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-            <Text style={{ fontFamily : 'Poppins_400Regular', color: '#ffffff', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
+            <Text
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                color: '#ffffff',
+                fontSize: 11,
+                fontWeight: '700',
+                letterSpacing: 1.5,
+              }}>
               JOIN 50,000+ MEMBERS
             </Text>
           </View>
 
           <Text
             className="mb-4 font-black leading-tight text-white"
-            style={{ fontFamily : 'Poppins_400Regular', fontSize: 38, letterSpacing: -1 }}>
+            style={{ fontFamily: 'Poppins_400Regular', fontSize: 38, letterSpacing: -1 }}>
             Start Your{'\n'}
-            <Text style={{ fontFamily : 'Poppins_400Regular', color: '#ffffff' }}>Dental Journey.</Text>
+            <Text style={{ fontFamily: 'Poppins_400Regular', color: '#ffffff' }}>
+              Dental Journey.
+            </Text>
           </Text>
 
-          <Text style={{ fontFamily : 'Poppins_400Regular', color: '#ffffff', fontSize: 15, lineHeight: 24, maxWidth: 300 }}>
+          <Text
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              color: '#ffffff',
+              fontSize: 15,
+              lineHeight: 24,
+              maxWidth: 300,
+            }}>
             Create your free account and get instant access to premium dental products delivered to
             your door.
           </Text>
@@ -230,10 +258,21 @@ function BrandPanel() {
               <View key={p.text} className="flex-row items-center gap-3">
                 <View
                   className="h-9 w-9 items-center justify-center rounded-xl"
-                  style={{ fontFamily : 'Poppins_400Regular', backgroundColor: 'rgba(255,255,255,0.1)' }}>
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                  }}>
                   <Ionicons name={p.icon} size={17} color="#fff" />
                 </View>
-                <Text style={{ fontFamily : 'Poppins_400Regular', color: '#fff', fontSize: 14, fontWeight: '500' }}>{p.text}</Text>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    color: '#fff',
+                    fontSize: 14,
+                    fontWeight: '500',
+                  }}>
+                  {p.text}
+                </Text>
               </View>
             ))}
           </View>
@@ -242,7 +281,8 @@ function BrandPanel() {
         {/* Coins callout */}
         <View
           className="flex-row items-center gap-4 rounded-2xl p-4"
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             backgroundColor: 'rgba(255,255,255,0.08)',
             borderWidth: 1,
             borderColor: 'rgba(255,255,255,0.12)',
@@ -252,7 +292,13 @@ function BrandPanel() {
           </View>
           <View className="flex-1">
             <Text className="text-base font-bold text-white">🎉 Get 50 Free Coins!</Text>
-            <Text style={{ fontFamily : 'Poppins_400Regular', color: '#ffffff', fontSize: 12, marginTop: 2 }}>
+            <Text
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                color: '#ffffff',
+                fontSize: 12,
+                marginTop: 2,
+              }}>
               Instantly credited on signup. Use them on your first order.
             </Text>
           </View>
@@ -346,7 +392,10 @@ function RegisterForm({ isWeb }) {
         <Text className="mt-2 text-center text-sm leading-5 text-slate-500">
           Welcome to MediShield. You've received 50 coins! 🎉
         </Text>
-        <ActivityIndicator color="#CD0F0F" style={{ fontFamily : 'Poppins_400Regular', marginTop: 24 }} />
+        <ActivityIndicator
+          color="#CD0F0F"
+          style={{ fontFamily: 'Poppins_400Regular', marginTop: 24 }}
+        />
       </View>
     );
   }
@@ -361,7 +410,8 @@ function RegisterForm({ isWeb }) {
       {!isWeb && (
         <>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               position: 'absolute',
               top: -80,
               right: -60,
@@ -373,7 +423,8 @@ function RegisterForm({ isWeb }) {
             }}
           />
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               position: 'absolute',
               bottom: -60,
               left: -50,
@@ -416,24 +467,25 @@ function RegisterForm({ isWeb }) {
           //     </Text>
           //   </View>
           // </View>
-          <Image 
-                        source={require('../../assets/logo.png')} 
-                        style={{ fontFamily : 'Poppins_400Regular',
-                          width: 146,
-                          height: 76,
-                          resizeMode: 'contain',
-                          mixBlendMode: 'multiply',
-                          marginHorizontal : 'auto',
-                          marginBottom : 24,
-                        }}
-                      />
+          <Image
+            source={require('../../assets/logo.png')}
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              width: 146,
+              height: 76,
+              resizeMode: 'contain',
+              mixBlendMode: 'multiply',
+              marginHorizontal: 'auto',
+              marginBottom: 24,
+            }}
+          />
         )}
 
         {/* Heading */}
         <View className="mb-5">
           <Text
             className="font-extrabold leading-tight tracking-tight text-slate-900"
-            style={{ fontFamily : 'Poppins_400Regular', fontSize: isWeb ? 30 : 26 }}>
+            style={{ fontFamily: 'Poppins_400Regular', fontSize: isWeb ? 30 : 26 }}>
             Create account ✨
           </Text>
           <Text className="mt-1.5 text-sm leading-5 text-slate-500">
@@ -444,9 +496,16 @@ function RegisterForm({ isWeb }) {
         {/* Coins banner */}
         <View
           className="mb-5 flex-row items-center gap-3 rounded-2xl px-4 py-3"
-          style={{ fontFamily : 'Poppins_400Regular', backgroundColor: '#fef9c3', borderWidth: 1, borderColor: '#fde68a' }}>
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            backgroundColor: '#fef9c3',
+            borderWidth: 1,
+            borderColor: '#fde68a',
+          }}>
           <Ionicons name="logo-bitcoin" size={20} color="#d97706" />
-          <Text className="flex-1 text-sm font-semibold" style={{ fontFamily : 'Poppins_400Regular', color: '#92400e' }}>
+          <Text
+            className="flex-1 text-sm font-semibold"
+            style={{ fontFamily: 'Poppins_400Regular', color: '#92400e' }}>
             🎉 You'll receive <Text className="font-black">50 MediShield coins</Text> for signing
             up!
           </Text>
@@ -456,7 +515,11 @@ function RegisterForm({ isWeb }) {
         {!!error && (
           <View
             className="mb-4 flex-row items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 px-4 py-3"
-            style={{ fontFamily : 'Poppins_400Regular', borderLeftWidth: 3, borderLeftColor: '#ef4444' }}>
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              borderLeftWidth: 3,
+              borderLeftColor: '#ef4444',
+            }}>
             <Ionicons name="alert-circle" size={16} color="#ef4444" />
             <Text className="flex-1 text-sm font-medium text-red-600">{error}</Text>
           </View>
@@ -544,7 +607,8 @@ function RegisterForm({ isWeb }) {
                   <View
                     key={i}
                     className="h-1 flex-1 rounded-full"
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       backgroundColor:
                         i <= strength
                           ? strength <= 1
@@ -581,7 +645,9 @@ function RegisterForm({ isWeb }) {
             size={14}
             color="#CD0F0F"
           />
-          <Text style={{ fontFamily : 'Poppins_400Regular',color: C.primary}} className="text-[13px] font-semibold">
+          <Text
+            style={{ fontFamily: 'Poppins_400Regular', color: C.primary }}
+            className="text-[13px] font-semibold">
             {showReferral
               ? 'Hide referral code'
               : 'Have a referral code? +100 bonus coins for your friend!'}
@@ -631,8 +697,15 @@ function RegisterForm({ isWeb }) {
         {/* Terms */}
         <Text className="mt-3 text-center text-[11px] leading-4 text-slate-400">
           By creating an account you agree to our{' '}
-          <Text className="font-semibold" style={{ fontFamily : 'Poppins_400Regular', color: C.primaryDark }}>Terms of Service</Text> and{' '}
-          <Text className="font-semibold " style={{ fontFamily : 'Poppins_400Regular', color: C.primaryDark }}>
+          <Text
+            className="font-semibold"
+            style={{ fontFamily: 'Poppins_400Regular', color: C.primaryDark }}>
+            Terms of Service
+          </Text>{' '}
+          and{' '}
+          <Text
+            className="font-semibold "
+            style={{ fontFamily: 'Poppins_400Regular', color: C.primaryDark }}>
             Privacy Policy
           </Text>
         </Text>
@@ -648,7 +721,9 @@ function RegisterForm({ isWeb }) {
         <View className="flex-row items-center justify-center">
           <Text className="text-sm text-slate-500">Already have an account? </Text>
           <Pressable onPress={() => router.push('/auth/login')}>
-            <Text className="text-sm font-bold " style={{ fontFamily : 'Poppins_400Regular', color: C.primary }}>
+            <Text
+              className="text-sm font-bold "
+              style={{ fontFamily: 'Poppins_400Regular', color: C.primary }}>
               Sign in →
             </Text>
           </Pressable>
@@ -657,7 +732,11 @@ function RegisterForm({ isWeb }) {
         {/* Trust badges */}
         <View
           className="mt-6 flex-row justify-center gap-5 pt-5"
-          style={{ fontFamily : 'Poppins_400Regular', borderTopWidth: 1, borderTopColor: '#f1f5f9' }}>
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            borderTopWidth: 1,
+            borderTopColor: '#f1f5f9',
+          }}>
           {[
             { icon: 'shield-checkmark-outline', label: 'Secure' },
             { icon: 'lock-closed-outline', label: 'Encrypted' },
@@ -685,7 +764,7 @@ export default function Register() {
 
   if (isWeb) {
     return (
-      <View style={{ fontFamily : 'Poppins_400Regular', flex: 1, flexDirection: 'row' }}>
+      <View style={{ fontFamily: 'Poppins_400Regular', flex: 1, flexDirection: 'row' }}>
         <BrandPanel />
         <RegisterForm isWeb={true} />
       </View>
