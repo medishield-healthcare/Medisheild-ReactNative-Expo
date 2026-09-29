@@ -13,7 +13,7 @@ import {
 // ============================================================
 
 const BASE_URL =
-  "https://new-back-medi.onrender.com/api";
+  "https://medishield-backend-ywgp.onrender.com/api";
 
 const API = axios.create({
   baseURL: BASE_URL,

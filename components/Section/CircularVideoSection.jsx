@@ -11,48 +11,49 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useVideoPlayer, VideoView } from "expo-video";
 import C from "@/utils/theme";
+import API from "@/api/axios";
 
 /* -------------------------------------------------------
    LOCAL VIDEO
 ------------------------------------------------------- */
 
-const mediShieldVideo = require("../../assets/medishield1.mp4");
+// const mediShieldVideo = "https://files.edgestore.dev/2jnl8faw37wc6ly2/videos/_public/b7a4efb4-ad0b-4143-887a-c1eac693e450/403bae70-08fb-4bdc-a396-52d2873320be.mp4";
 
 /* -------------------------------------------------------
    VIDEO DATA
 ------------------------------------------------------- */
 
-const videos = [
-  {
-    id: "1",
-    video: mediShieldVideo,
-    title: "Better care starts here",
-  },
+// const videos = [
+//   {
+//     id: "1",
+//     video: mediShieldVideo,
+//     title: "Better care starts here",
+//   },
 
-  {
-    id: "2",
-    video: mediShieldVideo,
-    title: "Built for dental professionals",
-  },
+//   {
+//     id: "2",
+//     video: mediShieldVideo,
+//     title: "Built for dental professionals",
+//   },
 
-  {
-    id: "3",
-    video: mediShieldVideo,
-    title: "Tools that make a difference",
-  },
+//   {
+//     id: "3",
+//     video: mediShieldVideo,
+//     title: "Tools that make a difference",
+//   },
 
-  {
-    id: "4",
-    video: mediShieldVideo,
-    title: "Made for modern clinics",
-  },
+//   {
+//     id: "4",
+//     video: mediShieldVideo,
+//     title: "Made for modern clinics",
+//   },
 
-  {
-    id: "5",
-    video: mediShieldVideo,
-    title: "Designed around you",
-  },
-];
+//   {
+//     id: "5",
+//     video: mediShieldVideo,
+//     title: "Designed around you",
+//   },
+// ];
 
 /* -------------------------------------------------------
    VIDEO CARD
@@ -69,7 +70,7 @@ const VideoCard = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
-  const player = useVideoPlayer(item.video, (player) => {
+  const player = useVideoPlayer(item.url, (player) => {
     player.loop = true;
   });
 
@@ -267,6 +268,18 @@ const VideoCard = ({
 ------------------------------------------------------- */
 
 const CircularVideoSection = () => {
+  const [videos,setVideos] = useState([]);
+
+  async function getData(){
+    let res = await API.get('/video');
+    console.log('Videos fetched:', res.data);
+    setVideos(res.data.data);
+  }
+
+  useEffect(() => {
+    getData();
+
+  },[])
   const scrollRef = useRef(null);
 
   /*
