@@ -1,6 +1,6 @@
 import C from '@/utils/theme';
 
-import { Image, Platform, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { Image, Platform, Pressable, Text, useWindowDimensions, View, Linking } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -143,7 +143,8 @@ export default function Footer() {
         fontFamily: 'Poppins_400Regular',
         backgroundColor: C.white,
         paddingTop: isMobile ? 32 : 48,
-        paddingBottom: 24,
+        // paddingBottom: 34,
+        // marginBottom: 24,
       }}>
       <View
         style={{
@@ -314,6 +315,50 @@ export default function Footer() {
             ))}
           </View>
         </View>
+      </View>
+      <View
+        style={{
+          fontFamily: 'Poppins_400Regular',
+          backgroundColor: C.primaryLight,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderTopWidth: 1,
+          borderTopColor: 'rgba(0,0,0,0.06)',
+          width: '100%', 
+          marginTop: 20
+        }}>
+        <Pressable
+          onPress={() => Linking.openURL('https://www.infoseeksoftwaresystems.com/')}
+          style={({ pressed }) => ({
+            fontFamily: 'Poppins_400Regular',
+            flexDirection: 'row',
+            alignItems: 'center',
+            opacity: pressed ? 0.6 : 1,
+          })}>
+          <Text
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              fontSize: 13,
+              fontWeight: '500',
+              color: C.primary,
+              letterSpacing: 0.2,
+            }}>
+            Powered by{' '}
+          </Text>
+
+          <Text
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              fontSize: 15,
+              fontWeight: '500',
+              color: '#111827',
+              letterSpacing: 0.3,
+            }}>
+            Infoseek
+          </Text>
+        </Pressable>
       </View>
     </View>
   );

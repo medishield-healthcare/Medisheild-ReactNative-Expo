@@ -501,18 +501,9 @@ export default function HomeNative() {
         },
       });
 
-      setSearchResults(
-        Array.isArray(data?.data)
-          ? data.data
-          : Array.isArray(data)
-            ? data
-            : []
-      );
+      setSearchResults(Array.isArray(data?.data) ? data.data : Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error(
-        'Search API Error:',
-        error?.response?.data || error?.message
-      );
+      console.error('Search API Error:', error?.response?.data || error?.message);
       setSearchResults([]);
     } finally {
       setSearchLoading(false);
@@ -644,7 +635,7 @@ export default function HomeNative() {
                 backgroundColor: C.white,
                 borderRadius: 16,
                 paddingHorizontal: 14,
-                paddingVertical: 12,
+                paddingVertical: 6,
                 borderWidth: 1.5,
                 borderColor: search.length > 0 ? C.primary : C.border,
                 shadowColor: '#000',
@@ -735,11 +726,7 @@ export default function HomeNative() {
                       paddingHorizontal: 16,
                       paddingVertical: 16,
                     }}>
-                    <Ionicons
-                      name="search-outline"
-                      size={24}
-                      color={C.muted}
-                    />
+                    <Ionicons name="search-outline" size={24} color={C.muted} />
                     <Text
                       style={{
                         marginTop: 7,
@@ -763,10 +750,7 @@ export default function HomeNative() {
                     {searchResults.map((item, index) => {
                       const productId = item?._id || item?.id;
                       const imageUri =
-                        item?.thumbnail_url ||
-                        item?.thumbnail ||
-                        item?.image ||
-                        item?.images?.[0];
+                        item?.thumbnail_url || item?.thumbnail || item?.image || item?.images?.[0];
 
                       return (
                         <Pressable
@@ -784,8 +768,7 @@ export default function HomeNative() {
                             paddingHorizontal: 12,
                             paddingVertical: 10,
                             minHeight: 68,
-                            borderBottomWidth:
-                              index === searchResults.length - 1 ? 0 : 1,
+                            borderBottomWidth: index === searchResults.length - 1 ? 0 : 1,
                             borderBottomColor: '#f1f5f9',
                           }}>
                           <View
@@ -829,8 +812,7 @@ export default function HomeNative() {
                               {item?.name || 'Unnamed product'}
                             </Text>
 
-                            {(item?.price?.salePrice ||
-                              item?.price?.regularPrice) && (
+                            {(item?.price?.salePrice || item?.price?.regularPrice) && (
                               <Text
                                 style={{
                                   marginTop: 3,
@@ -838,21 +820,12 @@ export default function HomeNative() {
                                   fontWeight: '800',
                                   color: C.primary,
                                 }}>
-                                ₹
-                                {Number(
-                                  item?.price?.salePrice ||
-                                    item?.price?.regularPrice ||
-                                    0
-                                )}
+                                ₹{Number(item?.price?.salePrice || item?.price?.regularPrice || 0)}
                               </Text>
                             )}
                           </View>
 
-                          <Ionicons
-                            name="chevron-forward"
-                            size={17}
-                            color={C.muted}
-                          />
+                          <Ionicons name="chevron-forward" size={17} color={C.muted} />
                         </Pressable>
                       );
                     })}
@@ -862,9 +835,7 @@ export default function HomeNative() {
                         onPress={() => {
                           const value = search.trim();
                           setShowSearchResults(false);
-                          router.push(
-                            `/shop?search=${encodeURIComponent(value)}`
-                          );
+                          router.push(`/shop?search=${encodeURIComponent(value)}`);
                         }}
                         style={{
                           paddingVertical: 12,
@@ -1021,7 +992,7 @@ export default function HomeNative() {
               <CategoryPill
                 category={{ name: 'All', _id: 'all' }}
                 active={activeCategory === 'all'}
-                onPress={() => setCategory('all')}
+                onPress={() => router.push('/shop')}
               />
 
               {/* Dynamic categories from API */}
@@ -1030,7 +1001,9 @@ export default function HomeNative() {
                   key={cat._id || cat.name}
                   category={cat}
                   active={activeCategory === (cat._id || cat.name)}
-                  onPress={() => setCategory(cat._id || cat.name)}
+                  onPress={() => {
+                    router.push(`/shop?category=${encodeURIComponent(cat.name)}`);
+                  }}
                 />
               ))}
             </ScrollView>
@@ -1340,20 +1313,27 @@ export default function HomeNative() {
           </View>
         </View>
 
-        <FeaturedCategoriesNative/>
+        <FeaturedCategoriesNative />
 
         <View style={{ paddingHorizontal: 0, marginBottom: 32 }}>
-          <SectionHeader title="Top Brands" onSeeAll={() => router.push('/shop')} />
+          <SectionHeader title="Top Brands" onSeeAll={() => router.push('/brands')} />
+
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 20, gap: 16 }}>
+            contentContainerStyle={{
+              paddingHorizontal: 20,
+              gap: 9,
+            }}>
             {brands.map((brand) => (
-              <View
+              <Pressable
                 key={brand._id}
-                style={{
-                  width: 100,
-                  height: 80,
+                onPress={() => {
+                  router.push(`/shop?brand=${encodeURIComponent(brand.name)}`);
+                }}
+                style={({ pressed }) => ({
+                  // width: 100,
+                  // height: 0,
                   backgroundColor: C.white,
                   borderRadius: 12,
                   alignItems: 'center',
@@ -1365,12 +1345,28 @@ export default function HomeNative() {
                   shadowOpacity: 0.05,
                   shadowRadius: 8,
                   elevation: 2,
-                }}>
-                <Image
-                  source={{ uri: brand.logo }}
-                  style={{ width: 80, height: 40, resizeMode: 'contain' }}
-                />
-              </View>
+                  opacity: pressed ? 0.7 : 1,
+                  // padding: 8,
+                })}>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: C.white,
+                    padding: 10,
+                    borderRadius: 12,
+                    height: 90
+                  }}>
+                  <Image
+                    source={{ uri: brand.logo }}
+                    style={{
+                      width: 80,
+                      height: 40,
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              </Pressable>
             ))}
           </ScrollView>
         </View>
@@ -1691,7 +1687,7 @@ export default function HomeNative() {
 
                 <Text
                   style={{
-                    color: '#a7d8d4',
+                    color: '#fff',
                     fontSize: 10,
                     lineHeight: 15,
                     marginTop: 3,
@@ -1837,7 +1833,7 @@ export default function HomeNative() {
           </View>
         </View>
 
-        <CircularVideoSectionNative/>
+        <CircularVideoSectionNative />
 
         <View style={{ marginBottom: 28 }}>
           <SectionHeader
@@ -1939,9 +1935,6 @@ export default function HomeNative() {
             </ScrollView>
           )}
         </View>
-
-       
-        
       </ScrollView>
     </SafeAreaView>
   );

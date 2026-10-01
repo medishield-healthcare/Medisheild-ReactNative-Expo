@@ -869,7 +869,7 @@ export default function ShopPage() {
   const px = isMobile ? 16 : isDesktop ? 32 : 24;
 
   // Grid columns based on screen width
-  const numCols = width < 480 ? 2 : width < 768 ? 2 : width < 1024 ? 3 : width < 1400 ? 3 : 3;
+  const numCols = width < 480 ? 1 : width < 768 ? 2 : width < 1024 ? 3 : width < 1400 ? 3 : 3;
   const cardGap = 12;
 
   // ── State ──
@@ -1124,7 +1124,7 @@ export default function ShopPage() {
                 borderWidth: 1.5,
                 borderColor: C.border,
                 paddingHorizontal: 12,
-                paddingVertical: isMobile ? 9 : 10,
+                paddingVertical: isMobile ? 2 : 10,
                 gap: 8,
                 width: isMobile ? '50%' : 'fit-content',
               }}>

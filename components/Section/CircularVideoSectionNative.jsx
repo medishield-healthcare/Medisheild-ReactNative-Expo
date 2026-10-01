@@ -11,45 +11,46 @@ import {
 
 import { VideoView, useVideoPlayer } from "expo-video";
 import { Ionicons } from "@expo/vector-icons";
+import API from "@/api/axios";
 
-import mediShieldVideo from "../../assets/medishield1.mp4";
+// import mediShieldVideo from "../../assets/medishield1.mp4";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
-const videos = [
-  {
-    id: "1",
-    video: mediShieldVideo,
-    title: "Better care starts here",
-  },
-  {
-    id: "2",
-    video: mediShieldVideo,
-    title: "Built for dental professionals",
-  },
-  {
-    id: "3",
-    video: mediShieldVideo,
-    title: "Tools that make a difference",
-  },
-  {
-    id: "4",
-    video: mediShieldVideo,
-    title: "Made for modern clinics",
-  },
-  {
-    id: "5",
-    video: mediShieldVideo,
-    title: "Designed around you",
-  },
-];
+// const videos = [
+//   {
+//     id: "1",
+//     video: mediShieldVideo,
+//     title: "Better care starts here",
+//   },
+//   {
+//     id: "2",
+//     video: mediShieldVideo,
+//     title: "Built for dental professionals",
+//   },
+//   {
+//     id: "3",
+//     video: mediShieldVideo,
+//     title: "Tools that make a difference",
+//   },
+//   {
+//     id: "4",
+//     video: mediShieldVideo,
+//     title: "Made for modern clinics",
+//   },
+//   {
+//     id: "5",
+//     video: mediShieldVideo,
+//     title: "Designed around you",
+//   },
+// ];
 
 /* =====================================================
    VIDEO CARD
 ===================================================== */
 
 const VideoCard = ({ item, isPlaying, onPlay }) => {
-  const player = useVideoPlayer(item.video, (player) => {
+  const player = useVideoPlayer(item.url, (player) => {
     player.loop = true;
     player.muted = true;
   });
@@ -151,6 +152,20 @@ const VideoCard = ({ item, isPlaying, onPlay }) => {
 ===================================================== */
 
 const DentalVideos = () => {
+
+  const [videos,setVideos] = useState([]);
+
+  async function getData(){
+    let res = await API.get('/video');
+    console.log('Videos fetched:', res.data);
+    setVideos(res.data.data);
+  }
+
+  useEffect(() => {
+    getData();
+
+  },[])
+
   const flatListRef = useRef(null);
 
   /*

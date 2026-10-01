@@ -153,11 +153,6 @@ const FAQ_DATA = [
           'Select the registration or sign-up option and provide the required information. Follow the instructions to complete your account setup.',
       },
       {
-        question: 'I forgot my password. What should I do?',
-        answer:
-          'Use the Forgot Password option on the login screen and follow the instructions to reset your password.',
-      },
-      {
         question: 'How can I update my account information?',
         answer:
           'Log in to your account and open your profile or account settings to update the information available for editing.',

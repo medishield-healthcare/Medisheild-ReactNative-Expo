@@ -9,6 +9,7 @@ import {
   ScrollView,
   useWindowDimensions,
   Image,
+  Linking
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from 'src/context/AuthContext';
@@ -383,11 +384,11 @@ function FormPanel({ isWeb }) {
         </View>
 
         {/* Forgot */}
-        <Pressable
+        {/* <Pressable
           className="mb-1 mt-3 self-end py-1"
           onPress={() => router.push('/forgot-password')}>
           <Text className="text-[13px] font-semibold text-teal-700">Forgot password?</Text>
-        </Pressable>
+        </Pressable> */}
 
         {/* Sign In button */}
         <Pressable
@@ -450,8 +451,52 @@ function FormPanel({ isWeb }) {
 
       {/* Footer */}
       <Text className="mt-8 text-center text-xs text-slate-400">
-        © 2025 MediShield · All rights reserved
+        © 2026 MediShield · All rights reserved
       </Text>
+       <View
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 10,
+                    // borderTopWidth: 1,
+                    borderTopColor: 'rgba(0,0,0,0.06)',
+                    width: '100%',
+                    // marginTop: 20,
+                  }}>
+                  <Pressable
+                    onPress={() => Linking.openURL('https://www.infoseeksoftwaresystems.com/')}
+                    style={({ pressed }) => ({
+                      flex: 1,
+                      fontFamily: 'Poppins_400Regular',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      opacity: pressed ? 0.6 : 1,
+                    })}>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 10,
+                        fontWeight: '500',
+                        color: C.primary,
+                        letterSpacing: 0.2,
+                      }}>
+                      Powered by{' '}
+                    </Text>
+      
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 10,
+                        fontWeight: '500',
+                        color: '#111827',
+                        letterSpacing: 0.3,
+                        textAlign: 'center',
+                      }}>
+                      Infoseek
+                    </Text>
+                  </Pressable>
+                </View>
     </ScrollView>
   );
 }

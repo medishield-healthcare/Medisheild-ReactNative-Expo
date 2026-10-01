@@ -538,7 +538,7 @@ function Brands() {
   // GRID CONFIG
   // ═══════════════════════════════════════════
 
-  const columns = isMobile ? 2 : isTablet ? 3 : 4;
+  const columns = isMobile ? 1 : isTablet ? 3 : 4;
 
   const gap = isMobile ? 12 : isTablet ? 16 : 20;
 
@@ -1017,7 +1017,7 @@ function Brands() {
               }}>
               {data.map((brand) => {
                 const cardWidth = isMobile
-                  ? 'calc(50% - 6px)'
+                  ? 'calc(100%)'
                   : isTablet
                     ? 'calc(33.333% - 11px)'
                     : 'calc(25% - 15px)';

@@ -222,6 +222,13 @@ export default function TabsLayout() {
           tabBarIcon: () => null,
         }}
       />
+      <Tabs.Screen
+        name="categories"
+        options={{
+          href: null,
+          tabBarIcon: () => null,
+        }}
+      />
       
     </Tabs>
   );
