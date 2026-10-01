@@ -966,7 +966,7 @@ export default function HomeNative() {
 
         {/* ── CATEGORIES (dynamic from API) ── */}
         <View style={{ marginBottom: 28 }}>
-          <SectionHeader title="Categories" onSeeAll={() => router.push('/shop')} />
+          <SectionHeader title="Categories" onSeeAll={() => router.push('/categories')} />
 
           {loadingCats ? (
             // Skeleton pills
