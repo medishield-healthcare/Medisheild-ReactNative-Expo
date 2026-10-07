@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   ActivityIndicator,
@@ -15,47 +10,45 @@ import {
   Text,
   useWindowDimensions,
   View,
-} from "react-native";
+} from 'react-native';
 
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 
-import { useRouter } from "expo-router";
+import { useRouter } from 'expo-router';
 
-import API from "@/api/axios";
+import API from '@/api/axios';
 
-import C from "@/utils/theme";
+import C from '@/utils/theme';
 
-import WebHeader from "components/Header/header.web";
-import Footer from "components/Footer/Footer";
-
+import WebHeader from 'components/Header/header.web';
+import Footer from 'components/Footer/Footer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PRIMARY = C.primary || "#CD0F0F";
+const PRIMARY = C.primary || '#CD0F0F';
 
 const FILTERS = [
   {
-    key: "all",
-    label: "All",
+    key: 'all',
+    label: 'All',
   },
   {
-    key: "Processing",
-    label: "Processing",
+    key: 'Processing',
+    label: 'Processing',
   },
   {
-    key: "Shipped",
-    label: "Shipped",
+    key: 'Shipped',
+    label: 'Shipped',
   },
   {
-    key: "Delivered",
-    label: "Delivered",
+    key: 'Delivered',
+    label: 'Delivered',
   },
 ];
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // RESPONSIVE
@@ -69,117 +62,97 @@ function useResponsive() {
     isMobile: width < 640,
     isTablet: width >= 640 && width < 1024,
     isDesktop: width >= 1024,
-    horizontalPadding:
-      width < 640
-        ? 16
-        : width < 1024
-          ? 28
-          : 44,
+    horizontalPadding: width < 640 ? 16 : width < 1024 ? 28 : 44,
   };
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
 
 const formatPrice = (value) => {
-  return `₹${Number(value || 0).toLocaleString("en-IN")}`;
+  return `₹${Number(value || 0).toLocaleString('en-IN')}`;
 };
 
-
 const formatDate = (date) => {
-  if (!date) return "—";
+  if (!date) return '—';
 
   const parsed = new Date(date);
 
   if (Number.isNaN(parsed.getTime())) {
-    return "—";
+    return '—';
   }
 
-  return parsed.toLocaleDateString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
+  return parsed.toLocaleDateString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
   });
 };
 
-
 const getProductImage = (product) => {
-  return (
-    product?.thumbnail_url ||
-    product?.media_gallery_entries?.[0]?.file ||
-    null
-  );
+  return product?.thumbnail_url || product?.media_gallery_entries?.[0]?.file || null;
 };
-
 
 const getOrderTotal = (order) => {
   return Number(order?.paymentIntent?.amount || 0);
 };
 
-
 const getItemCount = (order) => {
-  return (order?.products || []).reduce(
-    (total, item) =>
-      total + Number(item?.count || 1),
-    0
-  );
+  return (order?.products || []).reduce((total, item) => total + Number(item?.count || 1), 0);
 };
 
-
 const getStatus = (status) => {
-  const value = String(status || "").toLowerCase();
+  const value = String(status || '').toLowerCase();
 
-  if (value.includes("cancel")) {
+  if (value.includes('cancel')) {
     return {
-      label: "Cancelled",
-      color: "#dc2626",
-      bg: "#fef2f2",
+      label: 'Cancelled',
+      color: '#dc2626',
+      bg: '#fef2f2',
       step: 0,
-      icon: "close-circle-outline",
+      icon: 'close-circle-outline',
     };
   }
 
-  if (value.includes("deliver")) {
+  if (value.includes('deliver')) {
     return {
-      label: "Delivered",
-      color: "#15803d",
-      bg: "#f0fdf4",
+      label: 'Delivered',
+      color: '#15803d',
+      bg: '#f0fdf4',
       step: 4,
-      icon: "checkmark-circle-outline",
+      icon: 'checkmark-circle-outline',
     };
   }
 
-  if (value.includes("ship")) {
+  if (value.includes('ship')) {
     return {
-      label: "Shipped",
-      color: "#0369a1",
-      bg: "#eff6ff",
+      label: 'Shipped',
+      color: '#0369a1',
+      bg: '#eff6ff',
       step: 3,
-      icon: "car-outline",
+      icon: 'car-outline',
     };
   }
 
-  if (value.includes("process")) {
+  if (value.includes('process')) {
     return {
-      label: "Processing",
-      color: "#b45309",
-      bg: "#fffbeb",
+      label: 'Processing',
+      color: '#b45309',
+      bg: '#fffbeb',
       step: 2,
-      icon: "cube-outline",
+      icon: 'cube-outline',
     };
   }
 
   return {
-    label: status || "Placed",
+    label: status || 'Placed',
     color: PRIMARY,
-    bg: "#f0fdfa",
+    bg: '#f0fdfa',
     step: 1,
-    icon: "bag-check-outline",
+    icon: 'bag-check-outline',
   };
 };
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ORDER PROGRESS
@@ -190,19 +163,19 @@ function OrderProgress({ status }) {
 
   const steps = [
     {
-      label: "Placed",
+      label: 'Placed',
       step: 1,
     },
     {
-      label: "Processing",
+      label: 'Processing',
       step: 2,
     },
     {
-      label: "Shipped",
+      label: 'Shipped',
       step: 3,
     },
     {
-      label: "Delivered",
+      label: 'Delivered',
       step: 4,
     },
   ];
@@ -210,29 +183,25 @@ function OrderProgress({ status }) {
   if (current.step === 0) {
     return (
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          flexDirection: "row",
-          alignItems: "center",
+        style={{
+          fontFamily: 'Poppins_400Regular',
+          flexDirection: 'row',
+          alignItems: 'center',
           paddingVertical: 14,
           paddingHorizontal: 15,
           borderRadius: 12,
-          backgroundColor: "#fef2f2",
-        }}
-      >
-        <Ionicons
-          name="close-circle-outline"
-          size={19}
-          color="#dc2626"
-        />
+          backgroundColor: '#fef2f2',
+        }}>
+        <Ionicons name="close-circle-outline" size={19} color="#dc2626" />
 
         <Text
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             marginLeft: 8,
             fontSize: 11,
-            fontWeight: "800",
-            color: "#991b1b",
-          }}
-        >
+            fontWeight: '800',
+            color: '#991b1b',
+          }}>
           This order has been cancelled
         </Text>
       </View>
@@ -240,105 +209,69 @@ function OrderProgress({ status }) {
   }
 
   return (
-    <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        paddingTop: 6,
-        paddingBottom: 4,
-      }}
-    >
+    <View style={{ fontFamily: 'Poppins_400Regular', paddingTop: 6, paddingBottom: 4 }}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
+        style={{ fontFamily: 'Poppins_400Regular', flexDirection: 'row', alignItems: 'center' }}>
         {steps.map((item, index) => {
-          const completed =
-            item.step <= current.step;
+          const completed = item.step <= current.step;
 
-          const active =
-            item.step === current.step;
+          const active = item.step === current.step;
 
-          const last =
-            index === steps.length - 1;
+          const last = index === steps.length - 1;
 
           return (
             <React.Fragment key={item.label}>
-              <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  alignItems: "center",
-                  width: 68,
-                }}
-              >
+              <View style={{ fontFamily: 'Poppins_400Regular', alignItems: 'center', width: 68 }}>
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     width: 24,
                     height: 24,
                     borderRadius: 12,
-                    alignItems: "center",
-                    justifyContent: "center",
+                    alignItems: 'center',
+                    justifyContent: 'center',
 
-                    backgroundColor:
-                      completed
-                        ? PRIMARY
-                        : "#fff",
+                    backgroundColor: completed ? PRIMARY : '#fff',
 
-                    borderWidth:
-                      completed ? 0 : 1,
+                    borderWidth: completed ? 0 : 1,
 
-                    borderColor:
-                      completed
-                        ? PRIMARY
-                        : "#d7dee0",
-                  }}
-                >
+                    borderColor: completed ? PRIMARY : '#d7dee0',
+                  }}>
                   {completed ? (
-                    <Ionicons
-                      name="checkmark"
-                      size={13}
-                      color="#fff"
-                    />
+                    <Ionicons name="checkmark" size={13} color="#fff" />
                   ) : (
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         width: 6,
                         height: 6,
                         borderRadius: 3,
-                        backgroundColor:
-                          "#cbd5e1",
+                        backgroundColor: '#cbd5e1',
                       }}
                     />
                   )}
                 </View>
 
                 <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     marginTop: 7,
                     fontSize: 9,
-                    fontWeight:
-                      active ? "900" : "600",
-                    color:
-                      active
-                        ? "#111827"
-                        : completed
-                          ? "#475569"
-                          : "#94a3b8",
-                    textAlign: "center",
-                  }}
-                >
+                    fontWeight: active ? '900' : '600',
+                    color: active ? '#111827' : completed ? '#475569' : '#94a3b8',
+                    textAlign: 'center',
+                  }}>
                   {item.label}
                 </Text>
               </View>
 
               {!last && (
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     flex: 1,
                     height: 1.5,
-                    backgroundColor:
-                      item.step < current.step
-                        ? PRIMARY
-                        : "#e2e8f0",
+                    backgroundColor: item.step < current.step ? PRIMARY : '#e2e8f0',
                     marginTop: -19,
                   }}
                 />
@@ -351,78 +284,49 @@ function OrderProgress({ status }) {
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT PREVIEW
 // ─────────────────────────────────────────────────────────────────────────────
 
-function ProductPreview({
-  products,
-  isMobile,
-}) {
-  const firstProducts =
-    products?.slice(0, 3) || [];
+function ProductPreview({ products, isMobile }) {
+  const firstProducts = products?.slice(0, 3) || [];
 
-  const remaining =
-    Math.max(
-      0,
-      (products?.length || 0) - 3
-    );
+  const remaining = Math.max(0, (products?.length || 0) - 3);
 
   return (
-    <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
+    <View style={{ fontFamily: 'Poppins_400Regular', flexDirection: 'row', alignItems: 'center' }}>
       {firstProducts.map((item, index) => {
-        const image = getProductImage(
-          item?.product
-        );
+        const image = getProductImage(item?.product);
 
         return (
           <View
-            key={
-              item?._id ||
-              `${index}`
-            }
-            style={{ fontFamily : 'Poppins_400Regular',
+            key={item?._id || `${index}`}
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: isMobile ? 58 : 64,
               height: isMobile ? 58 : 64,
               borderRadius: 10,
-              backgroundColor: "#f7f7f5",
+              backgroundColor: '#f7f7f5',
               borderWidth: 1,
-              borderColor: "#e9eceb",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
+              borderColor: '#e9eceb',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
 
-              marginLeft:
-                index === 0 ? 0 : -8,
+              marginLeft: index === 0 ? 0 : -8,
 
-              zIndex:
-                firstProducts.length -
-                index,
-            }}
-          >
+              zIndex: firstProducts.length - index,
+            }}>
             {image ? (
               <Image
                 source={{
                   uri: image,
                 }}
                 resizeMode="contain"
-                style={{ fontFamily : 'Poppins_400Regular',
-                  width: "86%",
-                  height: "86%",
-                }}
+                style={{ fontFamily: 'Poppins_400Regular', width: '86%', height: '86%' }}
               />
             ) : (
-              <Ionicons
-                name="image-outline"
-                size={20}
-                color="#cbd5e1"
-              />
+              <Ionicons name="image-outline" size={20} color="#cbd5e1" />
             )}
           </View>
         );
@@ -430,23 +334,23 @@ function ProductPreview({
 
       {remaining > 0 && (
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             width: 58,
             height: 58,
             borderRadius: 10,
             marginLeft: -8,
-            backgroundColor: "#111827",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+            backgroundColor: '#111827',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
-              color: "#fff",
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              color: '#fff',
               fontSize: 11,
-              fontWeight: "900",
-            }}
-          >
+              fontWeight: '900',
+            }}>
             +{remaining}
           </Text>
         </View>
@@ -454,7 +358,6 @@ function ProductPreview({
     </View>
   );
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT ROW
@@ -465,122 +368,102 @@ function ProductRow({ item }) {
 
   const image = getProductImage(product);
 
-  const quantity =
-    Number(item?.count || 1);
+  const quantity = Number(item?.count || 1);
 
-  const price =
-    Number(item?.price || 0);
+  const price = Number(item?.price || 0);
 
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        flexDirection: "row",
-        alignItems: "center",
+      style={{
+        fontFamily: 'Poppins_400Regular',
+        flexDirection: 'row',
+        alignItems: 'center',
         paddingVertical: 14,
         borderBottomWidth: 1,
-        borderBottomColor: "#edf0ef",
-      }}
-    >
+        borderBottomColor: '#edf0ef',
+      }}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: 72,
           height: 72,
           borderRadius: 10,
-          backgroundColor: "#f7f7f5",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
-      >
+          backgroundColor: '#f7f7f5',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+        }}>
         {image ? (
           <Image
             source={{
               uri: image,
             }}
             resizeMode="contain"
-            style={{ fontFamily : 'Poppins_400Regular',
-              width: "88%",
-              height: "88%",
-            }}
+            style={{ fontFamily: 'Poppins_400Regular', width: '88%', height: '88%' }}
           />
         ) : (
-          <Ionicons
-            name="image-outline"
-            size={22}
-            color="#cbd5e1"
-          />
+          <Ionicons name="image-outline" size={22} color="#cbd5e1" />
         )}
       </View>
 
-      <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          flex: 1,
-          marginLeft: 13,
-          paddingRight: 12,
-        }}
-      >
+      <View style={{ fontFamily: 'Poppins_400Regular', flex: 1, marginLeft: 13, paddingRight: 12 }}>
         <Text
           numberOfLines={2}
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             fontSize: 12,
             lineHeight: 17,
-            fontWeight: "800",
-            color: "#111827",
-          }}
-        >
-          {product?.name || "Product"}
+            fontWeight: '800',
+            color: '#111827',
+          }}>
+          {product?.name || 'Product'}
         </Text>
 
         {product?.manufacturer && (
           <Text
             numberOfLines={1}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               marginTop: 4,
               fontSize: 10,
-              color: "#64748b",
-            }}
-          >
+              color: '#64748b',
+            }}>
             {product.manufacturer}
           </Text>
         )}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            flexDirection: "row",
-            alignItems: "center",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            flexDirection: 'row',
+            alignItems: 'center',
             marginTop: 7,
-          }}
-        >
-          <Text
-            style={{ fontFamily : 'Poppins_400Regular',
-              fontSize: 10,
-              color: "#64748b",
-            }}
-          >
+          }}>
+          <Text style={{ fontFamily: 'Poppins_400Regular', fontSize: 10, color: '#64748b' }}>
             Qty {quantity}
           </Text>
 
           {item?.variant && (
             <>
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   width: 3,
                   height: 3,
                   borderRadius: 2,
-                  backgroundColor:
-                    "#cbd5e1",
+                  backgroundColor: '#cbd5e1',
                   marginHorizontal: 7,
                 }}
               />
 
               <Text
                 numberOfLines={1}
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flexShrink: 1,
                   fontSize: 9,
-                  color: "#94a3b8",
-                }}
-              >
+                  color: '#94a3b8',
+                }}>
                 {item.variant}
               </Text>
             </>
@@ -589,324 +472,247 @@ function ProductRow({ item }) {
       </View>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 13,
-          fontWeight: "900",
-          color: "#111827",
-        }}
-      >
+          fontWeight: '900',
+          color: '#111827',
+        }}>
         {formatPrice(price * quantity)}
       </Text>
     </View>
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // INFO ROW
 // ─────────────────────────────────────────────────────────────────────────────
 
-function InfoRow({
-  icon,
-  title,
-  children,
-}) {
+function InfoRow({ icon, title, children }) {
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        flexDirection: "row",
+      style={{
+        fontFamily: 'Poppins_400Regular',
+        flexDirection: 'row',
         paddingVertical: 15,
         borderBottomWidth: 1,
-        borderBottomColor: "#edf0ef",
-      }}
-    >
+        borderBottomColor: '#edf0ef',
+      }}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: 34,
           height: 34,
           borderRadius: 9,
-          backgroundColor: "#f4f7f6",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Ionicons
-          name={icon}
-          size={16}
-          color="#111827"
-        />
+          backgroundColor: '#f4f7f6',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Ionicons name={icon} size={16} color="#111827" />
       </View>
 
-      <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          flex: 1,
-          marginLeft: 11,
-        }}
-      >
+      <View style={{ fontFamily: 'Poppins_400Regular', flex: 1, marginLeft: 11 }}>
         <Text
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             fontSize: 10,
-            fontWeight: "800",
-            color: "#94a3b8",
-            textTransform: "uppercase",
+            fontWeight: '800',
+            color: '#94a3b8',
+            textTransform: 'uppercase',
             letterSpacing: 0.5,
-          }}
-        >
+          }}>
           {title}
         </Text>
 
-        <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            marginTop: 5,
-          }}
-        >
-          {children}
-        </View>
+        <View style={{ fontFamily: 'Poppins_400Regular', marginTop: 5 }}>{children}</View>
       </View>
     </View>
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // ORDER DETAILS
 // ─────────────────────────────────────────────────────────────────────────────
 
-function OrderDetails({
-  order,
-  isMobile,
-}) {
-  const products =
-    order?.products || [];
+function OrderDetails({ order, isMobile }) {
+  const products = order?.products || [];
 
-  const payment =
-    order?.paymentIntent || {};
+  const payment = order?.paymentIntent || {};
 
-  const shipping =
-    order?.shippingAddress || {};
+  const shipping = order?.shippingAddress || {};
 
-  const subtotal = products.reduce(
-    (total, item) => {
-      return (
-        total +
-        Number(item?.price || 0) *
-          Number(item?.count || 1)
-      );
-    },
-    0
-  );
+  const subtotal = products.reduce((total, item) => {
+    return total + Number(item?.price || 0) * Number(item?.count || 1);
+  }, 0);
 
-  const total =
-    Number(payment?.amount || 0);
+  const total = Number(payment?.amount || 0);
 
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
+      style={{
+        fontFamily: 'Poppins_400Regular',
         borderTopWidth: 1,
-        borderTopColor: "#e8eceb",
-        backgroundColor: "#fff",
-      }}
-    >
+        borderTopColor: '#e8eceb',
+        backgroundColor: '#fff',
+      }}>
       {/* STATUS */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          paddingHorizontal:
-            isMobile ? 16 : 22,
+        style={{
+          fontFamily: 'Poppins_400Regular',
+          paddingHorizontal: isMobile ? 16 : 22,
           paddingTop: 18,
           paddingBottom: 20,
-        }}
-      >
+        }}>
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             marginBottom: 8,
-          }}
-        >
+          }}>
           <View>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 12,
-                fontWeight: "900",
-                color: "#111827",
-              }}
-            >
+                fontWeight: '900',
+                color: '#111827',
+              }}>
               Delivery status
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 marginTop: 3,
                 fontSize: 10,
-                color: "#94a3b8",
-              }}
-            >
+                color: '#94a3b8',
+              }}>
               Your order journey
             </Text>
           </View>
 
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              flexDirection: "row",
-              alignItems: "center",
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 5,
-            }}
-          >
+            }}>
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 width: 6,
                 height: 6,
                 borderRadius: 3,
-                backgroundColor:
-                  getStatus(order?.orderStatus)
-                    .color,
+                backgroundColor: getStatus(order?.orderStatus).color,
               }}
             />
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 10,
-                fontWeight: "800",
-                color:
-                  getStatus(
-                    order?.orderStatus
-                  ).color,
-              }}
-            >
-              {getStatus(
-                order?.orderStatus
-              ).label}
+                fontWeight: '800',
+                color: getStatus(order?.orderStatus).color,
+              }}>
+              {getStatus(order?.orderStatus).label}
             </Text>
           </View>
         </View>
 
-        <OrderProgress
-          status={order?.orderStatus}
-        />
+        <OrderProgress status={order?.orderStatus} />
       </View>
 
       {/* DETAILS GRID */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          flexDirection:
-            isMobile
-              ? "column"
-              : "row",
+        style={{
+          fontFamily: 'Poppins_400Regular',
+          flexDirection: isMobile ? 'column' : 'row',
           borderTopWidth: 1,
-          borderTopColor: "#edf0ef",
-        }}
-      >
+          borderTopColor: '#edf0ef',
+        }}>
         {/* PRODUCTS */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flex: 1.4,
-            paddingHorizontal:
-              isMobile ? 16 : 22,
-          }}
-        >
-          <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              paddingTop: 18,
-              paddingBottom: 3,
-            }}
-          >
+            paddingHorizontal: isMobile ? 16 : 22,
+          }}>
+          <View style={{ fontFamily: 'Poppins_400Regular', paddingTop: 18, paddingBottom: 3 }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 12,
-                fontWeight: "900",
-                color: "#111827",
-              }}
-            >
+                fontWeight: '900',
+                color: '#111827',
+              }}>
               Items
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 marginTop: 3,
                 fontSize: 10,
-                color: "#94a3b8",
-              }}
-            >
-              {getItemCount(order)}{" "}
-              {getItemCount(order) === 1
-                ? "item"
-                : "items"}{" "}
-              in this order
+                color: '#94a3b8',
+              }}>
+              {getItemCount(order)} {getItemCount(order) === 1 ? 'item' : 'items'} in this order
             </Text>
           </View>
 
-          {products.map(
-            (item, index) => (
-              <ProductRow
-                key={
-                  item?._id ||
-                  `${order?._id}-${index}`
-                }
-                item={item}
-              />
-            )
-          )}
+          {products.map((item, index) => (
+            <ProductRow key={item?._id || `${order?._id}-${index}`} item={item} />
+          ))}
         </View>
 
         {/* RIGHT */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             flex: 1,
-            paddingHorizontal:
-              isMobile ? 16 : 22,
-            paddingBottom:
-              isMobile ? 18 : 22,
-          }}
-        >
+            paddingHorizontal: isMobile ? 16 : 22,
+            paddingBottom: isMobile ? 18 : 22,
+          }}>
           {/* DELIVERY */}
 
-          <InfoRow
-            icon="location-outline"
-            title="Deliver to"
-          >
+          <InfoRow icon="location-outline" title="Deliver to">
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 11,
-                fontWeight: "800",
-                color: "#334155",
-              }}
-            >
-              {shipping?.name ||
-                "Customer"}
+                fontWeight: '800',
+                color: '#334155',
+              }}>
+              {shipping?.name || 'Customer'}
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 marginTop: 3,
                 fontSize: 10,
                 lineHeight: 16,
-                color: "#64748b",
-              }}
-            >
-              {shipping?.address || ""}
-              {"\n"}
-              {[
-                shipping?.city,
-                shipping?.state,
-                shipping?.pincode,
-              ]
-                .filter(Boolean)
-                .join(", ")}
+                color: '#64748b',
+              }}>
+              {shipping?.address || ''}
+              {'\n'}
+              {[shipping?.city, shipping?.state, shipping?.pincode].filter(Boolean).join(', ')}
             </Text>
 
             {shipping?.mobile && (
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   marginTop: 4,
                   fontSize: 9,
-                  color: "#94a3b8",
-                }}
-              >
+                  color: '#94a3b8',
+                }}>
                 {shipping.mobile}
               </Text>
             )}
@@ -914,156 +720,121 @@ function OrderDetails({
 
           {/* PAYMENT */}
 
-          <InfoRow
-            icon="card-outline"
-            title="Payment"
-          >
+          <InfoRow icon="card-outline" title="Payment">
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent:
-                  "space-between",
-              }}
-            >
-              <Text
-                style={{ fontFamily : 'Poppins_400Regular',
-                  fontSize: 11,
-                  color: "#64748b",
-                }}
-              >
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{ fontFamily: 'Poppins_400Regular', fontSize: 11, color: '#64748b' }}>
                 Amount paid
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 12,
-                  fontWeight: "900",
-                  color: "#111827",
-                }}
-              >
+                  fontWeight: '900',
+                  color: '#111827',
+                }}>
                 {formatPrice(total)}
               </Text>
             </View>
 
             <Text
               numberOfLines={1}
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 marginTop: 4,
                 fontSize: 9,
-                color: "#94a3b8",
-              }}
-            >
-              {payment?.currency || "INR"}
-              {" • "}
-              {payment?.id || "Payment processed"}
+                color: '#94a3b8',
+              }}>
+              {payment?.currency || 'INR'}
+              {' • '}
+              {payment?.id || 'Payment processed'}
             </Text>
           </InfoRow>
 
           {/* SUMMARY */}
 
-          <InfoRow
-            icon="receipt-outline"
-            title="Summary"
-          >
-            <View
-              style={{ fontFamily : 'Poppins_400Regular',
-                gap: 7,
-              }}
-            >
+          <InfoRow icon="receipt-outline" title="Summary">
+            <View style={{ fontFamily: 'Poppins_400Regular', gap: 7 }}>
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  flexDirection: "row",
-                  justifyContent:
-                    "space-between",
-                }}
-              >
-                <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    fontSize: 10,
-                    color: "#64748b",
-                  }}
-                >
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <Text style={{ fontFamily: 'Poppins_400Regular', fontSize: 10, color: '#64748b' }}>
                   Subtotal
                 </Text>
 
                 <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     fontSize: 10,
-                    fontWeight: "700",
-                    color: "#334155",
-                  }}
-                >
+                    fontWeight: '700',
+                    color: '#334155',
+                  }}>
                   {formatPrice(subtotal)}
                 </Text>
               </View>
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  flexDirection: "row",
-                  justifyContent:
-                    "space-between",
-                }}
-              >
-                <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    fontSize: 10,
-                    color: "#64748b",
-                  }}
-                >
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <Text style={{ fontFamily: 'Poppins_400Regular', fontSize: 10, color: '#64748b' }}>
                   Shipping
                 </Text>
 
                 <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     fontSize: 10,
-                    fontWeight: "800",
-                    color: "#15803d",
-                  }}
-                >
-                  {Number(
-                    payment?.shipping || 0
-                  ) === 0
-                    ? "FREE"
-                    : formatPrice(
-                        payment.shipping
-                      )}
+                    fontWeight: '800',
+                    color: '#15803d',
+                  }}>
+                  {Number(payment?.shipping || 0) === 0 ? 'FREE' : formatPrice(payment.shipping)}
                 </Text>
               </View>
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   height: 1,
-                  backgroundColor:
-                    "#edf0ef",
+                  backgroundColor: '#edf0ef',
                   marginVertical: 2,
                 }}
               />
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  flexDirection: "row",
-                  justifyContent:
-                    "space-between",
-                }}
-              >
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
                 <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     fontSize: 11,
-                    fontWeight: "900",
-                    color: "#111827",
-                  }}
-                >
+                    fontWeight: '900',
+                    color: '#111827',
+                  }}>
                   Total
                 </Text>
 
                 <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     fontSize: 14,
-                    fontWeight: "900",
+                    fontWeight: '900',
                     color: PRIMARY,
-                  }}
-                >
+                  }}>
                   {formatPrice(total)}
                 </Text>
               </View>
@@ -1075,42 +846,28 @@ function OrderDetails({
       {/* FOOTER */}
 
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
-          paddingHorizontal:
-            isMobile ? 16 : 22,
+        style={{
+          fontFamily: 'Poppins_400Regular',
+          paddingHorizontal: isMobile ? 16 : 22,
           paddingVertical: 13,
-          backgroundColor: "#fafbfa",
-          flexDirection:
-            isMobile
-              ? "column"
-              : "row",
-          alignItems:
-            isMobile
-              ? "flex-start"
-              : "center",
-          justifyContent:
-            "space-between",
+          backgroundColor: '#fafbfa',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'flex-start' : 'center',
+          justifyContent: 'space-between',
           gap: 6,
-        }}
-      >
-        <Text
-          style={{ fontFamily : 'Poppins_400Regular',
-            fontSize: 9,
-            color: "#94a3b8",
-          }}
-        >
-          Ordered on{" "}
-          {formatDate(order?.createdAt)}
+        }}>
+        <Text style={{ fontFamily: 'Poppins_400Regular', fontSize: 9, color: '#94a3b8' }}>
+          Ordered on {formatDate(order?.createdAt)}
         </Text>
 
         {order?.couponCodeApplied && (
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 9,
-              color: "#15803d",
-              fontWeight: "700",
-            }}
-          >
+              color: '#15803d',
+              fontWeight: '700',
+            }}>
             Coupon applied
           </Text>
         )}
@@ -1119,52 +876,38 @@ function OrderDetails({
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // ORDER CARD
 // ─────────────────────────────────────────────────────────────────────────────
 
-function OrderCard({
-  order,
-  isMobile,
-  initiallyOpen = false,
-}) {
-  const [open, setOpen] =
-    useState(initiallyOpen);
+function OrderCard({ order, isMobile, initiallyOpen = false }) {
+  const [open, setOpen] = useState(initiallyOpen);
 
-  const status = getStatus(
-    order?.orderStatus
-  );
+  const status = getStatus(order?.orderStatus);
 
-  const products =
-    order?.products || [];
+  const products = order?.products || [];
 
-  const total =
-    getOrderTotal(order);
+  const total = getOrderTotal(order);
 
-  const itemCount =
-    getItemCount(order);
+  const itemCount = getItemCount(order);
 
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        backgroundColor: "#fff",
+      style={{
+        fontFamily: 'Poppins_400Regular',
+        backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: open
-          ? "#dfe6e4"
-          : "#e8eceb",
+        borderColor: open ? '#dfe6e4' : '#e8eceb',
         borderRadius: 14,
-        overflow: "hidden",
+        overflow: 'hidden',
 
-        ...(Platform.OS === "web"
+        ...(Platform.OS === 'web'
           ? {
-              boxShadow: open
-                ? "0 8px 30px rgba(0,0,0,0.07)"
-                : "0 2px 12px rgba(0,0,0,0.035)",
+              boxShadow: open ? '0 8px 30px rgba(0,0,0,0.07)' : '0 2px 12px rgba(0,0,0,0.035)',
             }
           : {
               elevation: open ? 2 : 1,
-              shadowColor: "#000",
+              shadowColor: '#000',
               shadowOpacity: 0.04,
               shadowRadius: 8,
               shadowOffset: {
@@ -1172,73 +915,65 @@ function OrderCard({
                 height: 2,
               },
             }),
-      }}
-    >
+      }}>
       {/* ─────────────────────────────────
           COMPACT HEADER
       ───────────────────────────────── */}
 
       <Pressable
-        onPress={() =>
-          setOpen((value) => !value)
-        }
-        style={{ fontFamily : 'Poppins_400Regular',
-          padding:
-            isMobile ? 15 : 18,
-        }}
-      >
+        onPress={() => setOpen((value) => !value)}
+        style={{ fontFamily: 'Poppins_400Regular', padding: isMobile ? 15 : 18 }}>
         {/* TOP META */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 10,
-              fontWeight: "700",
-              color: "#94a3b8",
+              fontWeight: '700',
+              color: '#94a3b8',
               letterSpacing: 0.3,
-            }}
-          >
+            }}>
             ORDER #
-            {String(
-              order?._id || ""
-            ).slice(-8).toUpperCase()}
+            {String(order?._id || '')
+              .slice(-8)
+              .toUpperCase()}
           </Text>
 
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              flexDirection: "row",
-              alignItems: "center",
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 5,
-              backgroundColor:
-                status.bg,
+              backgroundColor: status.bg,
               paddingHorizontal: 8,
               paddingVertical: 5,
               borderRadius: 20,
-            }}
-          >
+            }}>
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 width: 5,
                 height: 5,
                 borderRadius: 3,
-                backgroundColor:
-                  status.color,
+                backgroundColor: status.color,
               }}
             />
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 9,
-                fontWeight: "900",
+                fontWeight: '900',
                 color: status.color,
-              }}
-            >
+              }}>
               {status.label}
             </Text>
           </View>
@@ -1247,107 +982,75 @@ function OrderCard({
         {/* MAIN */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            flexDirection: "row",
-            alignItems: "center",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            flexDirection: 'row',
+            alignItems: 'center',
             marginTop: 16,
-          }}
-        >
-          <ProductPreview
-            products={products}
-            isMobile={isMobile}
-          />
+          }}>
+          <ProductPreview products={products} isMobile={isMobile} />
 
-          <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              flex: 1,
-              marginLeft: 14,
-              minWidth: 0,
-            }}
-          >
+          <View style={{ fontFamily: 'Poppins_400Regular', flex: 1, marginLeft: 14, minWidth: 0 }}>
             <Text
               numberOfLines={2}
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 13,
                 lineHeight: 18,
-                fontWeight: "800",
-                color: "#111827",
-              }}
-            >
-              {products?.[0]?.product?.name ||
-                "Order items"}
+                fontWeight: '800',
+                color: '#111827',
+              }}>
+              {products?.[0]?.product?.name || 'Order items'}
             </Text>
 
             {products.length > 1 && (
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   marginTop: 4,
                   fontSize: 10,
-                  color: "#64748b",
-                }}
-              >
-                +{products.length - 1}{" "}
-                more{" "}
-                {products.length - 1 === 1
-                  ? "item"
-                  : "items"}
+                  color: '#64748b',
+                }}>
+                +{products.length - 1} more {products.length - 1 === 1 ? 'item' : 'items'}
               </Text>
             )}
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 marginTop: 6,
                 fontSize: 9,
-                color: "#94a3b8",
-              }}
-            >
-              {formatDate(
-                order?.createdAt
-              )}
-              {" • "}
-              {itemCount}{" "}
-              {itemCount === 1
-                ? "item"
-                : "items"}
+                color: '#94a3b8',
+              }}>
+              {formatDate(order?.createdAt)}
+              {' • '}
+              {itemCount} {itemCount === 1 ? 'item' : 'items'}
             </Text>
           </View>
 
-          <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              alignItems: "flex-end",
-              marginLeft: 8,
-            }}
-          >
+          <View style={{ fontFamily: 'Poppins_400Regular', alignItems: 'flex-end', marginLeft: 8 }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 15,
-                fontWeight: "900",
-                color: "#111827",
-              }}
-            >
+                fontWeight: '900',
+                color: '#111827',
+              }}>
               {formatPrice(total)}
             </Text>
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 marginTop: 7,
                 width: 27,
                 height: 27,
                 borderRadius: 14,
-                backgroundColor: "#f5f6f5",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Ionicons
-                name={
-                  open
-                    ? "chevron-up"
-                    : "chevron-down"
-                }
-                size={14}
-                color="#111827"
-              />
+                backgroundColor: '#f5f6f5',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color="#111827" />
             </View>
           </View>
         </View>
@@ -1355,30 +1058,18 @@ function OrderCard({
         {/* MINI PROGRESS */}
 
         {!open && (
-          <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              marginTop: 17,
-            }}
-          >
-            <OrderProgress
-              status={order?.orderStatus}
-            />
+          <View style={{ fontFamily: 'Poppins_400Regular', marginTop: 17 }}>
+            <OrderProgress status={order?.orderStatus} />
           </View>
         )}
       </Pressable>
 
       {/* DETAILS */}
 
-      {open && (
-        <OrderDetails
-          order={order}
-          isMobile={isMobile}
-        />
-      )}
+      {open && <OrderDetails order={order} isMobile={isMobile} />}
     </View>
   );
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // EMPTY STATE
@@ -1387,55 +1078,50 @@ function OrderCard({
 function EmptyOrders({ onShop }) {
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        alignItems: "center",
-        justifyContent: "center",
+      style={{
+        fontFamily: 'Poppins_400Regular',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: 90,
         paddingHorizontal: 25,
-      }}
-    >
+      }}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: 72,
           height: 72,
           borderRadius: 36,
-          backgroundColor: "#f5f6f5",
-          alignItems: "center",
-          justifyContent: "center",
+          backgroundColor: '#f5f6f5',
+          alignItems: 'center',
+          justifyContent: 'center',
           marginBottom: 22,
-        }}
-      >
-        <Ionicons
-          name="bag-outline"
-          size={30}
-          color="#111827"
-        />
+        }}>
+        <Ionicons name="bag-outline" size={30} color="#111827" />
       </View>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 24,
-          fontWeight: "900",
-          color: "#111827",
+          fontWeight: '900',
+          color: '#111827',
           letterSpacing: -0.5,
-        }}
-      >
+        }}>
         No orders yet
       </Text>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           maxWidth: 390,
           marginTop: 8,
           fontSize: 12,
           lineHeight: 19,
-          color: "#64748b",
-          textAlign: "center",
-        }}
-      >
-        When you place your first order,
-        it will appear here with all its
-        tracking and delivery details.
+          color: '#64748b',
+          textAlign: 'center',
+        }}>
+        When you place your first order, it will appear here with all its tracking and delivery
+        details.
       </Text>
 
       <Pressable
@@ -1443,23 +1129,22 @@ function EmptyOrders({ onShop }) {
         style={({ pressed }) => ({
           marginTop: 24,
           minWidth: 160,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#111827",
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#111827',
           paddingVertical: 14,
           paddingHorizontal: 24,
           borderRadius: 4,
           opacity: pressed ? 0.8 : 1,
-        })}
-      >
+        })}>
         <Text
-          style={{ fontFamily : 'Poppins_400Regular',
-            color: "#fff",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            color: '#fff',
             fontSize: 11,
-            fontWeight: "900",
+            fontWeight: '900',
             letterSpacing: 0.7,
-          }}
-        >
+          }}>
           START SHOPPING
         </Text>
       </Pressable>
@@ -1467,100 +1152,85 @@ function EmptyOrders({ onShop }) {
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // ERROR STATE
 // ─────────────────────────────────────────────────────────────────────────────
 
-function ErrorState({
-  message,
-  onRetry,
-}) {
+function ErrorState({ message, onRetry }) {
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        alignItems: "center",
-        justifyContent: "center",
+      style={{
+        fontFamily: 'Poppins_400Regular',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: 90,
         paddingHorizontal: 25,
-      }}
-    >
+      }}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: 64,
           height: 64,
           borderRadius: 32,
-          backgroundColor: "#fef2f2",
-          alignItems: "center",
-          justifyContent: "center",
+          backgroundColor: '#fef2f2',
+          alignItems: 'center',
+          justifyContent: 'center',
           marginBottom: 20,
-        }}
-      >
-        <Ionicons
-          name="cloud-offline-outline"
-          size={28}
-          color="#dc2626"
-        />
+        }}>
+        <Ionicons name="cloud-offline-outline" size={28} color="#dc2626" />
       </View>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 21,
-          fontWeight: "900",
-          color: "#111827",
-        }}
-      >
+          fontWeight: '900',
+          color: '#111827',
+        }}>
         Something went wrong
       </Text>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           maxWidth: 420,
           marginTop: 8,
           fontSize: 12,
           lineHeight: 19,
-          color: "#64748b",
-          textAlign: "center",
-        }}
-      >
-        {message ||
-          "We couldn't load your orders. Please try again."}
+          color: '#64748b',
+          textAlign: 'center',
+        }}>
+        {message || "We couldn't load your orders. Please try again."}
       </Text>
 
       <Pressable
         onPress={onRetry}
         style={({ pressed }) => ({
           marginTop: 22,
-          flexDirection: "row",
-          alignItems: "center",
+          flexDirection: 'row',
+          alignItems: 'center',
           gap: 7,
           paddingVertical: 12,
           paddingHorizontal: 20,
           borderRadius: 4,
-          backgroundColor: "#111827",
+          backgroundColor: '#111827',
           opacity: pressed ? 0.8 : 1,
-        })}
-      >
-        <Ionicons
-          name="refresh-outline"
-          size={15}
-          color="#fff"
-        />
+        })}>
+        <Ionicons name="refresh-outline" size={15} color="#fff" />
 
         <Text
-          style={{ fontFamily : 'Poppins_400Regular',
-            color: "#fff",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            color: '#fff',
             fontSize: 11,
-            fontWeight: "900",
-          }}
-        >
+            fontWeight: '900',
+          }}>
           TRY AGAIN
         </Text>
       </Pressable>
     </View>
   );
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // LOADING
@@ -1569,42 +1239,33 @@ function ErrorState({
 function LoadingState() {
   return (
     <View
-      style={{ fontFamily : 'Poppins_400Regular',
+      style={{
+        fontFamily: 'Poppins_400Regular',
         minHeight: 500,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <ActivityIndicator
-        size="small"
-        color={PRIMARY}
-      />
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <ActivityIndicator size="small" color={PRIMARY} />
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           marginTop: 12,
           fontSize: 10,
-          color: "#94a3b8",
-          fontWeight: "700",
-        }}
-      >
+          color: '#94a3b8',
+          fontWeight: '700',
+        }}>
         Loading orders
       </Text>
     </View>
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // FILTER BAR
 // ─────────────────────────────────────────────────────────────────────────────
 
-function FilterBar({
-  active,
-  onChange,
-  counts,
-  isMobile,
-}) {
+function FilterBar({ active, onChange, counts, isMobile }) {
   return (
     <ScrollView
       horizontal
@@ -1612,64 +1273,49 @@ function FilterBar({
       contentContainerStyle={{
         gap: 7,
         paddingRight: 10,
-      }}
-    >
+      }}>
       {FILTERS.map((filter) => {
-        const selected =
-          active === filter.key;
+        const selected = active === filter.key;
 
         return (
           <Pressable
             key={filter.key}
-            onPress={() =>
-              onChange(filter.key)
-            }
-            style={{ fontFamily : 'Poppins_400Regular',
-              flexDirection: "row",
-              alignItems: "center",
+            onPress={() => onChange(filter.key)}
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 6,
 
-              paddingHorizontal:
-                isMobile ? 13 : 15,
+              paddingHorizontal: isMobile ? 13 : 15,
 
               paddingVertical: 9,
 
               borderRadius: 4,
 
-              backgroundColor:
-                selected
-                  ? "#111827"
-                  : "#fff",
+              backgroundColor: selected ? '#111827' : '#fff',
 
               borderWidth: 1,
 
-              borderColor:
-                selected
-                  ? "#111827"
-                  : "#e2e8e7",
-            }}
-          >
+              borderColor: selected ? '#111827' : '#e2e8e7',
+            }}>
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 10,
-                fontWeight: "800",
-                color: selected
-                  ? "#fff"
-                  : "#475569",
-              }}
-            >
+                fontWeight: '800',
+                color: selected ? '#fff' : '#475569',
+              }}>
               {filter.label}
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 9,
-                fontWeight: "900",
-                color: selected
-                  ? "#cbd5e1"
-                  : "#94a3b8",
-              }}
-            >
+                fontWeight: '900',
+                color: selected ? '#cbd5e1' : '#94a3b8',
+              }}>
               {counts[filter.key] || 0}
             </Text>
           </Pressable>
@@ -1679,7 +1325,6 @@ function FilterBar({
   );
 }
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // TRACK ORDER
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1687,83 +1332,48 @@ function FilterBar({
 function TrackOrder() {
   const router = useRouter();
 
-  const {
-    isMobile,
-    horizontalPadding,
-  } = useResponsive();
+  const { isMobile, horizontalPadding } = useResponsive();
 
-  const [orders, setOrders] =
-    useState([]);
+  const [orders, setOrders] = useState([]);
 
-  const [loading, setLoading] =
-    useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const [refreshing, setRefreshing] =
-    useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const [error, setError] =
-    useState(null);
+  const [error, setError] = useState(null);
 
-  const [activeFilter, setActiveFilter] =
-    useState("all");
-
+  const [activeFilter, setActiveFilter] = useState('all');
 
   // ─────────────────────────────────────────
   // FETCH ORDERS
   // ─────────────────────────────────────────
 
-  const fetchOrders = useCallback(
-    async (isRefresh = false) => {
-      try {
-        if (!isRefresh) {
-          setLoading(true);
-        }
-
-        setError(null);
-
-        const response =
-          await API.get(
-            "/user/get-orders"
-          );
-
-        console.log(
-          "ORDERS API RESPONSE:",
-          response?.data
-        );
-
-        const data =
-          Array.isArray(
-            response?.data?.data
-          )
-            ? response.data.data
-            : [];
-
-        console.log(
-          "ORDERS:",
-          data
-        );
-
-        setOrders(data);
-      } catch (err) {
-        console.log(
-          "GET ORDERS ERROR:",
-          err?.response?.data ||
-            err?.message ||
-            err
-        );
-
-        setError(
-          err?.response?.data?.message ||
-            "Unable to fetch your orders right now."
-        );
-      } finally {
-        setLoading(false);
-        setRefreshing(false);
+  const fetchOrders = useCallback(async (isRefresh = false) => {
+    try {
+      if (!isRefresh) {
+        setLoading(true);
       }
-    },
-    []
-  );
 
+      setError(null);
+
+      const response = await API.get('/user/get-orders');
+
+      console.log('ORDERS API RESPONSE:', response?.data);
+
+      const data = Array.isArray(response?.data?.data) ? response.data.data : [];
+
+      console.log('ORDERS:', data);
+
+      setOrders(data);
+    } catch (err) {
+      console.log('GET ORDERS ERROR:', err?.response?.data || err?.message || err);
+
+      setError(err?.response?.data?.message || 'Unable to fetch your orders right now.');
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, []);
 
   // ─────────────────────────────────────────
   // INITIAL
@@ -1773,29 +1383,21 @@ function TrackOrder() {
     fetchOrders();
   }, [fetchOrders]);
 
-
   // ─────────────────────────────────────────
   // FILTERED ORDERS
   // ─────────────────────────────────────────
 
   const filteredOrders = useMemo(() => {
-    if (activeFilter === "all") {
+    if (activeFilter === 'all') {
       return orders;
     }
 
     return orders.filter((order) => {
-      const status =
-        getStatus(
-          order?.orderStatus
-        ).label;
+      const status = getStatus(order?.orderStatus).label;
 
       return status === activeFilter;
     });
-  }, [
-    orders,
-    activeFilter,
-  ]);
-
+  }, [orders, activeFilter]);
 
   // ─────────────────────────────────────────
   // COUNTS
@@ -1805,29 +1407,15 @@ function TrackOrder() {
     return {
       all: orders.length,
 
-      Processing: orders.filter(
-        (order) =>
-          getStatus(
-            order?.orderStatus
-          ).label === "Processing"
-      ).length,
+      Processing: orders.filter((order) => getStatus(order?.orderStatus).label === 'Processing')
+        .length,
 
-      Shipped: orders.filter(
-        (order) =>
-          getStatus(
-            order?.orderStatus
-          ).label === "Shipped"
-      ).length,
+      Shipped: orders.filter((order) => getStatus(order?.orderStatus).label === 'Shipped').length,
 
-      Delivered: orders.filter(
-        (order) =>
-          getStatus(
-            order?.orderStatus
-          ).label === "Delivered"
-      ).length,
+      Delivered: orders.filter((order) => getStatus(order?.orderStatus).label === 'Delivered')
+        .length,
     };
   }, [orders]);
-
 
   // ─────────────────────────────────────────
   // REFRESH
@@ -1838,235 +1426,175 @@ function TrackOrder() {
     fetchOrders(true);
   };
 
-
   // ─────────────────────────────────────────
   // LOADING
   // ─────────────────────────────────────────
 
   if (loading) {
     return (
-      <SafeAreaView
-        style={{ fontFamily : 'Poppins_400Regular',
-          flex: 1,
-          backgroundColor: "#fff",
-        }}
-      >
-        {Platform.OS === "web" && (
-          <WebHeader />
-        )}
+      <SafeAreaView style={{ fontFamily: 'Poppins_400Regular', flex: 1, backgroundColor: '#fff' }}>
+        {Platform.OS === 'web' && <WebHeader />}
 
         <LoadingState />
       </SafeAreaView>
     );
   }
 
-
   // ─────────────────────────────────────────
   // PAGE
   // ─────────────────────────────────────────
 
   return (
-    <SafeAreaView
-      style={{ fontFamily : 'Poppins_400Regular',
-        flex: 1,
-        backgroundColor: "#fff",
-      }}
-    >
-      {Platform.OS === "web" && (
-        <WebHeader />
-      )}
+    <SafeAreaView style={{ fontFamily: 'Poppins_400Regular', flex: 1, backgroundColor: '#fff' }}>
+      {Platform.OS === 'web' && <WebHeader />}
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
-          Platform.OS !== "web" ? (
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-              tintColor={PRIMARY}
-            />
+          Platform.OS !== 'web' ? (
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={PRIMARY} />
           ) : undefined
         }
-        contentContainerStyle={{
-        //   paddingBottom: 70,
-        }}
-      >
+        contentContainerStyle={
+          {
+            //   paddingBottom: 70,
+          }
+        }>
         {/* ───────────────────────────────
             PAGE HEADER
         ─────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            width: "100%",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            width: '100%',
             maxWidth: 1200,
-            alignSelf: "center",
-            paddingHorizontal:
-              horizontalPadding,
-            paddingTop:
-              isMobile ? 28 : 46,
-            paddingBottom:
-              isMobile ? 23 : 34,
-          }}
-        >
+            alignSelf: 'center',
+            paddingHorizontal: horizontalPadding,
+            paddingTop: isMobile ? 28 : 46,
+            paddingBottom: isMobile ? 23 : 34,
+          }}>
           {/* BREADCRUMB */}
 
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              flexDirection: "row",
-              alignItems: "center",
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 6,
               marginBottom: 24,
-            }}
-          >
-            <Pressable
-              onPress={() =>
-                router.push("/")
-              }
-            >
+            }}>
+            <Pressable onPress={() => router.push('/')}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 10,
-                  color: "#64748b",
-                  fontWeight: "700",
-                }}
-              >
+                  color: '#64748b',
+                  fontWeight: '700',
+                }}>
                 Home
               </Text>
             </Pressable>
 
-            <Ionicons
-              name="chevron-forward"
-              size={10}
-              color="#cbd5e1"
-            />
+            <Ionicons name="chevron-forward" size={10} color="#cbd5e1" />
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 10,
-                color: "#111827",
-                fontWeight: "800",
-              }}
-            >
+                color: '#111827',
+                fontWeight: '800',
+              }}>
               Orders
             </Text>
           </View>
 
-
           {/* TITLE ROW */}
 
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
-              flexDirection:
-                isMobile
-                  ? "column"
-                  : "row",
-              alignItems:
-                isMobile
-                  ? "flex-start"
-                  : "flex-end",
-              justifyContent:
-                "space-between",
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'flex-start' : 'flex-end',
+              justifyContent: 'space-between',
               gap: 18,
-            }}
-          >
+            }}>
             <View>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
-                  fontSize:
-                    isMobile ? 32 : 42,
-                  lineHeight:
-                    isMobile ? 37 : 46,
-                  fontWeight: "900",
-                  color: "#111827",
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  fontSize: isMobile ? 32 : 42,
+                  lineHeight: isMobile ? 37 : 46,
+                  fontWeight: '900',
+                  color: '#111827',
                   letterSpacing: -1.3,
-                }}
-              >
+                }}>
                 Orders
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   marginTop: 7,
                   fontSize: 12,
                   lineHeight: 18,
-                  color: "#64748b",
-                }}
-              >
-                Track and manage your
-                purchases.
+                  color: '#64748b',
+                }}>
+                Track and manage your purchases.
               </Text>
             </View>
 
             <Pressable
               onPress={handleRefresh}
               disabled={refreshing}
-              style={{ fontFamily : 'Poppins_400Regular',
-                flexDirection: "row",
-                alignItems: "center",
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                flexDirection: 'row',
+                alignItems: 'center',
                 gap: 7,
                 opacity: refreshing ? 0.5 : 1,
-              }}
-            >
-              <Ionicons
-                name="refresh-outline"
-                size={15}
-                color="#111827"
-              />
+              }}>
+              <Ionicons name="refresh-outline" size={15} color="#111827" />
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 10,
-                  fontWeight: "900",
-                  color: "#111827",
+                  fontWeight: '900',
+                  color: '#111827',
                   letterSpacing: 0.4,
-                }}
-              >
+                }}>
                 REFRESH
               </Text>
             </Pressable>
           </View>
         </View>
 
-
         {/* ───────────────────────────────
             CONTENT
         ─────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
-            width: "100%",
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            width: '100%',
             maxWidth: 1200,
-            alignSelf: "center",
-            paddingHorizontal:
-              horizontalPadding,
-          }}
-        >
+            alignSelf: 'center',
+            paddingHorizontal: horizontalPadding,
+          }}>
           {/* ERROR */}
 
           {error ? (
-            <ErrorState
-              message={error}
-              onRetry={() =>
-                fetchOrders()
-              }
-            />
+            <ErrorState message={error} onRetry={() => fetchOrders()} />
           ) : orders.length === 0 ? (
-            <EmptyOrders
-              onShop={() =>
-                router.push("/")
-              }
-            />
+            <EmptyOrders onShop={() => router.push('/')} />
           ) : (
             <>
               {/* ───────────────────────
                   FILTERS
               ─────────────────────── */}
 
-              <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  marginBottom: 22,
-                }}
-              >
+              <View style={{ fontFamily: 'Poppins_400Regular', marginBottom: 22 }}>
                 <FilterBar
                   active={activeFilter}
                   onChange={setActiveFilter}
@@ -2075,230 +1603,184 @@ function TrackOrder() {
                 />
               </View>
 
-
               {/* ───────────────────────
                   RESULT INFO
               ─────────────────────── */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent:
-                    "space-between",
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                   marginBottom: 12,
-                }}
-              >
+                }}>
                 <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     fontSize: 10,
-                    color: "#94a3b8",
-                    fontWeight: "700",
-                  }}
-                >
-                  {filteredOrders.length}{" "}
-                  {filteredOrders.length === 1
-                    ? "ORDER"
-                    : "ORDERS"}
+                    color: '#94a3b8',
+                    fontWeight: '700',
+                  }}>
+                  {filteredOrders.length} {filteredOrders.length === 1 ? 'ORDER' : 'ORDERS'}
                 </Text>
 
-                {activeFilter !== "all" && (
-                  <Pressable
-                    onPress={() =>
-                      setActiveFilter("all")
-                    }
-                  >
+                {activeFilter !== 'all' && (
+                  <Pressable onPress={() => setActiveFilter('all')}>
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         fontSize: 10,
-                        fontWeight: "800",
+                        fontWeight: '800',
                         color: PRIMARY,
-                      }}
-                    >
+                      }}>
                       Clear filter
                     </Text>
                   </Pressable>
                 )}
               </View>
 
-
               {/* ───────────────────────
                   FILTER EMPTY
               ─────────────────────── */}
 
-              {filteredOrders.length ===
-              0 ? (
+              {filteredOrders.length === 0 ? (
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     borderWidth: 1,
-                    borderColor: "#e8eceb",
+                    borderColor: '#e8eceb',
                     borderRadius: 14,
                     paddingVertical: 65,
-                    alignItems: "center",
-                  }}
-                >
-                  <Ionicons
-                    name="filter-outline"
-                    size={28}
-                    color="#cbd5e1"
-                  />
+                    alignItems: 'center',
+                  }}>
+                  <Ionicons name="filter-outline" size={28} color="#cbd5e1" />
 
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       marginTop: 13,
                       fontSize: 16,
-                      fontWeight: "900",
-                      color: "#111827",
-                    }}
-                  >
-                    No{" "}
-                    {activeFilter.toLowerCase()}{" "}
-                    orders
+                      fontWeight: '900',
+                      color: '#111827',
+                    }}>
+                    No {activeFilter.toLowerCase()} orders
                   </Text>
 
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       marginTop: 5,
                       fontSize: 11,
-                      color: "#94a3b8",
-                    }}
-                  >
+                      color: '#94a3b8',
+                    }}>
                     Try another order filter.
                   </Text>
                 </View>
               ) : (
-                <View
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    gap: 12,
-                  }}
-                >
-                  {filteredOrders.map(
-                    (order, index) => (
-                      <OrderCard
-                        key={
-                          order?._id ||
-                          index
-                        }
-                        order={order}
-                        isMobile={isMobile}
-                        initiallyOpen={
-                          filteredOrders.length ===
-                            1 &&
-                          index === 0
-                        }
-                      />
-                    )
-                  )}
+                <View style={{ fontFamily: 'Poppins_400Regular', gap: 12 }}>
+                  {filteredOrders.map((order, index) => (
+                    <OrderCard
+                      key={order?._id || index}
+                      order={order}
+                      isMobile={isMobile}
+                      initiallyOpen={filteredOrders.length === 1 && index === 0}
+                    />
+                  ))}
                 </View>
               )}
             </>
           )}
         </View>
 
-
         {/* ───────────────────────────────
             BOTTOM TRUST
         ─────────────────────────────── */}
 
-        {orders.length > 0 &&
-          !error && (
+        {orders.length > 0 && !error && (
+          <View
+            style={{
+              fontFamily: 'Poppins_400Regular',
+              width: '100%',
+              maxWidth: 1200,
+              alignSelf: 'center',
+              paddingHorizontal: horizontalPadding,
+              marginTop: 34,
+              marginBottom: 22,
+            }}>
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
-                width: "100%",
-                maxWidth: 1200,
-                alignSelf: "center",
-                paddingHorizontal:
-                  horizontalPadding,
-                marginTop: 34,
-                marginBottom: 22,
-              }}
-            >
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                borderTopWidth: 1,
+                borderTopColor: '#edf0ef',
+                paddingTop: 18,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: 18,
+              }}>
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  borderTopWidth: 1,
-                  borderTopColor: "#edf0ef",
-                  paddingTop: 18,
-                  flexDirection:
-                    "row",
-                  flexWrap: "wrap",
-                  gap: 18,
-                }}
-              >
-                <View
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 7,
-                  }}
-                >
-                  <Ionicons
-                    name="shield-checkmark-outline"
-                    size={15}
-                    color="#64748b"
-                  />
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 7,
+                }}>
+                <Ionicons name="shield-checkmark-outline" size={15} color="#64748b" />
 
-                  <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
-                      fontSize: 9,
-                      color: "#64748b",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Secure payments
-                  </Text>
-                </View>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    fontSize: 9,
+                    color: '#64748b',
+                    fontWeight: '700',
+                  }}>
+                  Secure payments
+                </Text>
+              </View>
 
-                <View
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 7,
-                  }}
-                >
-                  <Ionicons
-                    name="cube-outline"
-                    size={15}
-                    color="#64748b"
-                  />
+              <View
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 7,
+                }}>
+                <Ionicons name="cube-outline" size={15} color="#64748b" />
 
-                  <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
-                      fontSize: 9,
-                      color: "#64748b",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Order tracking
-                  </Text>
-                </View>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    fontSize: 9,
+                    color: '#64748b',
+                    fontWeight: '700',
+                  }}>
+                  Order tracking
+                </Text>
+              </View>
 
-                <View
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 7,
-                  }}
-                >
-                  <Ionicons
-                    name="headset-outline"
-                    size={15}
-                    color="#64748b"
-                  />
+              <View
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 7,
+                }}>
+                <Ionicons name="headset-outline" size={15} color="#64748b" />
 
-                  <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
-                      fontSize: 9,
-                      color: "#64748b",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Customer support
-                  </Text>
-                </View>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
+                    fontSize: 9,
+                    color: '#64748b',
+                    fontWeight: '700',
+                  }}>
+                  Customer support
+                </Text>
               </View>
             </View>
-          )}
-          <Footer/>
+          </View>
+        )}
+        <Footer />
       </ScrollView>
     </SafeAreaView>
   );
