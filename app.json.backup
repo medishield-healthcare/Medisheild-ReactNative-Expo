@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "MediShield Dental Store",
+    "slug": "medishield-dental-store",
+    "version": "1.0.0",
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-font",
+      "expo-video"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.medishield.dentalstore"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d2fc6adf-c313-497d-a6b1-3b0df7817952"
+      }
+    },
+    "owner": "abhishekshrivastav73"
+  }
+}
