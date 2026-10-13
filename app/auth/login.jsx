@@ -45,7 +45,7 @@ function FloatingInput({
     <View
       className={[
         'relative rounded-2xl border-2',
-        focused ? 'border-teal-600 bg-white' : 'border-slate-200 bg-slate-50',
+        focused ? 'border-red-600 bg-white' : 'border-slate-200 bg-slate-50',
       ].join(' ')}>
       {/* Left Icon */}
       <View className="absolute bottom-0 left-4 top-0 z-10 justify-center">
@@ -59,7 +59,7 @@ function FloatingInput({
           isActive
             ? 'top-2 text-[10px] uppercase tracking-widest'
             : 'top-[17px] text-[15px] text-slate-400',
-          isActive ? (focused ? 'text-teal-700' : 'text-teal-500') : '',
+          isActive ? (focused ? 'text-red-700' : 'text-red-500') : '',
         ].join(' ')}
         style={{ fontFamily : 'Poppins_400Regular', pointerEvents: 'none' }}>
         {label}
@@ -97,7 +97,7 @@ function FloatingInput({
 
       {/* Focus underline */}
       {focused && (
-        <View className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-teal-600" />
+        <View className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-red-600" />
       )}
     </View>
   );

@@ -34,7 +34,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.medishield.dentalstore"
+      "package": "com.medi_shield.dentalstore"
     },
     "extra": {
       "router": {},
