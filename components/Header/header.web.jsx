@@ -1650,7 +1650,7 @@ export default function WebHeader({ offerProducts = [] }) {
               fontWeight: '600',
               fontFamily: getFontFamily('600'),
             }}>
-            🚚 Free shipping on orders above ₹999
+            🚚 Free shipping on orders above ₹4999
           </Text>
 
           <View

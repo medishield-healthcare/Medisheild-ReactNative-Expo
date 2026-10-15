@@ -6,11 +6,45 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { useState } from 'react';
 import AddToCartButton from 'components/Cart/AddToCartButton';
+import { useAuth } from '@/context/AuthContext';
+import API from '@/api/axios';
+import { router } from 'expo-router';
 
 function WebProductCard({ item, onBuy, onCart, cols }) {
   const [hovered, setHovered] = useState(false);
+  const { user, setUser } = useAuth();
 
   const { width } = useWindowDimensions();
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [addedCart, setAddedCart] = useState(false);
+
+  const handleWishlist = async () => {
+    if (wishlistLoading) return;
+
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
+    if (!item?._id) return;
+
+    try {
+      setWishlistLoading(true);
+
+      const res = await API.put('/product/wishlist', {
+        prodId: item?._id,
+      });
+
+      // Backend updated user return karta hai
+      setUser(res.data);
+    } catch (error) {
+      console.log('Wishlist error:', error?.response?.data || error?.message);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
+
+  const wishlisted = user?.wishlist?.some((id) => id.toString() === item?._id?.toString()) || false;
 
   const isMobile = width < 640;
 
@@ -192,9 +226,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
         {/* ───────────────────────────────────── */}
 
         <Pressable
-          onPress={(event) => {
-            event?.stopPropagation?.();
-          }}
+          onPress={handleWishlist}
           style={{
             fontFamily: 'Poppins_400Regular',
             position: 'absolute',
@@ -203,7 +235,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             width: 36,
             height: 36,
             borderRadius: 18,
-            backgroundColor: 'rgba(255,255,255,0.96)',
+            backgroundColor:  C.white,
             alignItems: 'center',
             justifyContent: 'center',
             borderWidth: 1,
@@ -211,7 +243,11 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
             boxShadow: '0 3px 12px rgba(0,0,0,0.10)',
             transition: 'all 0.2s ease',
           }}>
-          <Ionicons name="heart-outline" size={18} color={C.dark} />
+          <Ionicons
+            name={wishlisted ? 'heart' : 'heart-outline'}
+            size={19}
+            color={wishlisted ? C.primary : C.primaryDark}
+          />
         </Pressable>
 
         {/* ───────────────────────────────────── */}

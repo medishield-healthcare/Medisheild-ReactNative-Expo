@@ -699,12 +699,14 @@ function RegisterForm({ isWeb }) {
         <Text className="mt-3 text-center text-[11px] leading-4 text-slate-400">
           By creating an account you agree to our{' '}
           <Text
+            onPress={() => router.push('/terms-and-conditions')}
             className="font-semibold"
             style={{ fontFamily: 'Poppins_400Regular', color: C.primaryDark }}>
-            Terms of Service
+            Terms & Conditions
           </Text>{' '}
           and{' '}
           <Text
+            onPress={() => router.push('/privacy-policy')}
             className="font-semibold "
             style={{ fontFamily: 'Poppins_400Regular', color: C.primaryDark }}>
             Privacy Policy
@@ -754,7 +756,7 @@ function RegisterForm({ isWeb }) {
       <Text className="mt-8 text-center text-xs text-slate-400">
         © 2026 MediShield · All rights reserved
       </Text>
-       <View
+       {/* <View
                   style={{
                     fontFamily: 'Poppins_400Regular',
                     alignItems: 'center',
@@ -797,7 +799,7 @@ function RegisterForm({ isWeb }) {
                       Infoseek
                     </Text>
                   </Pressable>
-                </View>
+                </View> */}
     </ScrollView>
   );
 }

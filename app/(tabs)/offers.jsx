@@ -13,14 +13,14 @@ import {
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { router, useRouter } from 'expo-router';
 
 import API from '@/api/axios';
 import C from '@/utils/theme';
 import Footer from 'components/Footer/Footer';
 import WebHeader from 'components/Header/header.web';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { useAuth } from '@/context/AuthContext';
 // ─────────────────────────────────────────────────────────────
 // BREAKPOINT
 // ─────────────────────────────────────────────────────────────
@@ -44,7 +44,7 @@ function useBreakpoint() {
 // HELPERS
 // ─────────────────────────────────────────────────────────────
 
-const API_BASE_URL = 'http://192.168.1.15:5000';
+// const API_BASE_URL = 'http://192.168.1.15:5000';
 
 function getImageUrl(url) {
   if (!url) return null;
@@ -94,6 +94,39 @@ function getCategoryName(product) {
 // ─────────────────────────────────────────────────────────────
 
 function OfferProductCard({ product, width, onPress }) {
+  const { user, setUser } = useAuth();
+  const router = useRouter();
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
+   const handleWishlist = async () => {
+    if (wishlistLoading) return;
+
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
+    if (!product?._id) return;
+
+    try {
+      setWishlistLoading(true);
+
+      const res = await API.put('/product/wishlist', {
+        prodId: product?._id,
+      });
+
+      // Backend updated user return karta hai
+      setUser(res.data);
+    } catch (error) {
+      console.log('Wishlist error:', error?.response?.data || error?.message);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
+
+  const wishlisted = user?.wishlist?.some((id) => id.toString() === product?._id?.toString()) || false;
+
+
   const image = getImageUrl(product?.thumbnail_url);
 
   const salePrice = Number(product?.price?.minimalPrice || 0);
@@ -168,9 +201,7 @@ function OfferProductCard({ product, width, onPress }) {
 
           {/* WISHLIST */}
           <Pressable
-            onPress={(e) => {
-              e?.stopPropagation?.();
-            }}
+            onPress={handleWishlist}
             style={{ fontFamily : 'Poppins_400Regular',
               position: 'absolute',
               top: 10,
@@ -195,7 +226,11 @@ function OfferProductCard({ product, width, onPress }) {
               shadowRadius: 5,
               elevation: 2,
             }}>
-            <Ionicons name="heart-outline" size={18} color="#334155" />
+           <Ionicons
+            name={wishlisted ? 'heart' : 'heart-outline'}
+            size={19}
+            color={wishlisted ? C.primary : C.primaryDark}
+          />
           </Pressable>
 
           {/* PRODUCT IMAGE */}

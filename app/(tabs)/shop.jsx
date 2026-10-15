@@ -24,13 +24,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useRouter, useLocalSearchParams, router } from 'expo-router';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import API from '@/api/axios';
 import WebHeader from 'components/Header/header.web';
 import C from '@/utils/theme';
 import AddToCartButton from 'components/Cart/AddToCartButton';
-
+import { useAuth } from '@/context/AuthContext';
 const PAGE_LIMIT = 12;
 
 const SORT_OPTIONS = [
@@ -61,11 +61,41 @@ function useDebounce(value, delay = 400) {
 // ── Product Card (Grid) ───────────────────────────────────────────────────────
 function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
   const [hovered, setHovered] = useState(false);
+  const { user,setUser } = useAuth()
   const isWeb = Platform.OS === 'web';
   const minimalPrice = item?.price?.minimalPrice ?? 0;
   const regularPrice = item?.price?.regularPrice ?? 0;
   const hasDiscount = regularPrice > minimalPrice && minimalPrice > 0;
   const discount = hasDiscount ? Math.round((1 - minimalPrice / regularPrice) * 100) : 0;
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  const handleWishlist = async () => {
+    if (wishlistLoading) return;
+
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
+    if (!item?._id) return;
+
+    try {
+      setWishlistLoading(true);
+
+      const res = await API.put('/product/wishlist', {
+        prodId: item?._id,
+      });
+
+      // Backend updated user return karta hai
+      setUser(res.data);
+    } catch (error) {
+      console.log('Wishlist error:', error?.response?.data || error?.message);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
+
+  const wishlisted = user?.wishlist?.some((id) => id.toString() === item?._id?.toString()) || false;
 
   return (
     <View
@@ -211,9 +241,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           {/* ─────────────────────────────── */}
 
           <Pressable
-            onPress={(event) => {
-              event?.stopPropagation?.();
-            }}
+            onPress={handleWishlist}
             style={{
               fontFamily: 'Poppins_400Regular',
               position: 'absolute',
@@ -240,7 +268,11 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
 
               boxShadow: '0 3px 12px rgba(0,0,0,0.10)',
             }}>
-            <Ionicons name="heart-outline" size={18} color={C.dark} />
+            <Ionicons
+            name={wishlisted ? 'heart' : 'heart-outline'}
+            size={19}
+            color={wishlisted ? C.primary : C.primaryDark}
+          />
           </Pressable>
 
           {/* ─────────────────────────────── */}

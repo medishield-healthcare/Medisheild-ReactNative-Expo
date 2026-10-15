@@ -453,7 +453,7 @@ function FormPanel({ isWeb }) {
       <Text className="mt-8 text-center text-xs text-slate-400">
         © 2026 MediShield · All rights reserved
       </Text>
-       <View
+       {/* <View
                   style={{
                     fontFamily: 'Poppins_400Regular',
                     alignItems: 'center',
@@ -496,7 +496,7 @@ function FormPanel({ isWeb }) {
                       Infoseek
                     </Text>
                   </Pressable>
-                </View>
+                </View> */}
     </ScrollView>
   );
 }
