@@ -14,10 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ─────────────────────────────────────────────
   // RESTORE SESSION
-  // ─────────────────────────────────────────────
-
   useEffect(() => {
     checkAuth();
   }, []);
@@ -31,8 +28,6 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      // Axios interceptor automatically handles
-      // expired access token and refreshes it.
       const res = await API.get("/user/me");
 
       setUser(res.data.user);
@@ -49,10 +44,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ─────────────────────────────────────────────
-  // LOGIN
-  // ─────────────────────────────────────────────
-
+  // EXISTING EMAIL-PASSWORD LOGIN
   const login = async (email, password) => {
     try {
       const res = await API.post("/user/login", {
@@ -62,11 +54,7 @@ export const AuthProvider = ({ children }) => {
 
       console.log("LOGIN RESPONSE:", res.data);
 
-      const {
-        token,
-        refreshToken,
-        ...userData
-      } = res.data;
+      const { token, refreshToken, ...userData } = res.data;
 
       await saveTokens(token, refreshToken);
 
@@ -83,10 +71,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ─────────────────────────────────────────────
-  // REGISTER
-  // ─────────────────────────────────────────────
+  // GOOGLE LOGIN — NEW FUNCTION
+  const googleLogin = async (idToken) => {
+    try {
+      if (!idToken) {
+        throw new Error("Google ID token is missing");
+      }
 
+      const res = await API.post("/user/google-login", {
+        idToken,
+      });
+
+      const {
+        token,
+        refreshToken,
+        ...userData
+      } = res.data;
+
+      await saveTokens(token, refreshToken);
+
+      setUser(userData);
+
+      return res.data;
+    } catch (error) {
+      console.log(
+        "Google login error:",
+        error?.response?.data || error?.message
+      );
+
+      throw error;
+    }
+  };
+
+  // EXISTING REGISTER
   const register = async (
     firstname,
     lastname,
@@ -107,11 +124,7 @@ export const AuthProvider = ({ children }) => {
 
       console.log("REGISTER RESPONSE:", res.data);
 
-      const {
-        token,
-        refreshToken,
-        newUser,
-      } = res.data;
+      const { token, refreshToken, newUser } = res.data;
 
       await saveTokens(token, refreshToken);
 
@@ -128,10 +141,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ─────────────────────────────────────────────
-  // LOGOUT
-  // ─────────────────────────────────────────────
-
+  // EXISTING LOGOUT
   const logout = async () => {
     try {
       await API.get("/user/logout");
@@ -152,6 +162,7 @@ export const AuthProvider = ({ children }) => {
     loading,
 
     login,
+    googleLogin,
     register,
     logout,
 
@@ -165,10 +176,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// ─────────────────────────────────────────────
 // CUSTOM HOOK
-// ─────────────────────────────────────────────
-
 export const useAuth = () => {
   return useContext(AuthContext);
 };
