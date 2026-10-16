@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, ScrollView, Pressable, TextInput, Modal, Platform } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { View, Text, ScrollView, Pressable, TextInput, Modal, Platform,Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import useBreakpoint from '@/utils/breakpoints';
 import C from '@/utils/theme';
 import WebHeader from 'components/Header/header.web';
 import Footer from 'components/Footer/Footer';
+import API from '@/api/axios';
 
 // ============================================================
 // STATIC EVENTS DATA
@@ -427,11 +428,25 @@ export default function Events() {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
+  const [events, setEvents] = useState([]);
+  const [featuredEvent, setFeaturedEvent] = useState([]);
+
+
+  useEffect(()=>{
+    API.get('/event').then((res)=>{
+      console.log(res.data.data)
+      setEvents(res.data.data);
+      setFeaturedEvent(res.data.data[0]);
+    }).catch((err)=>{
+      console.log(err);
+    })
+  },[])
+
   // ==========================================================
   // FEATURED EVENT
   // ==========================================================
 
-  const featuredEvent = EVENTS[0];
+  // const featuredEvent = events[0];
 
   // ==========================================================
   // FILTER EVENTS
@@ -440,7 +455,7 @@ export default function Events() {
   const filteredEvents = useMemo(() => {
     const query = search.trim().toLowerCase();
 
-    return EVENTS.filter((event) => {
+    return events.filter((event) => {
       const matchesCategory = activeCategory === 'All' || event.category === activeCategory;
 
       const matchesSearch =
@@ -452,7 +467,7 @@ export default function Events() {
 
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, search]);
+  }, [activeCategory, search, events]);
 
   return (
     <View style={{ fontFamily: 'Poppins_400Regular', flex: 1, backgroundColor: '#f8fafc' }}>
@@ -1277,36 +1292,13 @@ export default function Events() {
                     ))}
                   </View>
 
-                  {/* SEATS */}
-
-                  <View
-                    style={{
-                      fontFamily: 'Poppins_400Regular',
-                      marginTop: 20,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 8,
-                    }}>
-                    <Ionicons name="ticket-outline" size={17} color={C.primary} />
-
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins_400Regular',
-                        fontSize: 12,
-                        fontWeight: '700',
-                        color: C.primary,
-                      }}>
-                      {selectedEvent.seats}
-                    </Text>
-                  </View>
+                
 
                   {/* REGISTER */}
 
                   <Pressable
                     onPress={() => {
-                      // Add your registration
-                      // navigation/API here
-                      setSelectedEvent(null);
+                      Linking.openURL(selectedEvent?.eventUrl);
                     }}
                     style={{
                       fontFamily: 'Poppins_400Regular',

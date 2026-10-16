@@ -460,7 +460,7 @@ export default function ContactPage() {
               icon="time-outline"
               title="Support Hours"
               description="We're available to assist you"
-              value="Mon – Sat · 9 AM – 6 PM"
+              value="Mon – Fri · 10 AM – 7 PM"
             />
 
             <ContactInfoCard
@@ -899,7 +899,8 @@ export default function ContactPage() {
                       color: '#fff',
                       marginTop: 2,
                     }}>
-                    Monday – Saturday · 9 AM – 6 PM
+                    Monday – Fri · 10 AM – 7 PM &
+                    Sat · 10 AM – 5 PM
                   </Text>
                 </View>
               </View>

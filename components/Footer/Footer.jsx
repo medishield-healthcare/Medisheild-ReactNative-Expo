@@ -123,10 +123,10 @@ export default function Footer() {
       label: 'Terms & Conditions',
       route: '/terms-and-conditions',
     },
-    {
-      label: 'Cookies',
-      route: '/cookies',
-    },
+    // {
+    //   label: 'Cookies',
+    //   route: '/cookies',
+    // },
   ];
 
   // ───────────────────────────────────────────
@@ -283,6 +283,7 @@ export default function Footer() {
             justifyContent: 'space-between',
             alignItems: isMobile ? 'flex-start' : 'center',
             gap: isMobile ? 10 : 0,
+            paddingBottom: 18,
           }}>
           <Text
             style={{
@@ -316,7 +317,7 @@ export default function Footer() {
           </View>
         </View>
       </View>
-      <View
+      {/* <View
         style={{
           fontFamily: 'Poppins_400Regular',
           backgroundColor: C.primaryLight,
@@ -359,7 +360,7 @@ export default function Footer() {
             Infoseek
           </Text>
         </Pressable>
-      </View>
+      </View> */}
     </View>
   );
 }
