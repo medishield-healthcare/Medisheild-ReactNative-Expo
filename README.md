@@ -4,3 +4,4 @@
  appId Fixed
  app name fixed
 Wishlist Fixed
+Google Oauth
