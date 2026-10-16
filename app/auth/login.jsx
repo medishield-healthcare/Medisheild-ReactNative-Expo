@@ -262,6 +262,10 @@ function FormPanel({ isWeb }) {
 
       const result = await promptGoogleAsync();
 
+      console.log('Google auth result:', result);
+      console.log('Google auth result type:', result?.type);
+      console.log('Google ID token:', result?.params?.id_token ? 'Received' : 'Missing');
+
       if (result.type !== 'success') {
         return;
       }
@@ -496,7 +500,7 @@ function FormPanel({ isWeb }) {
           </Pressable>
         )}
         {/* Register */}
-        <View className="flex-row items-center mt-3 justify-center">
+        <View className="mt-3 flex-row items-center justify-center">
           <Text className="text-sm text-slate-500">Don't have an account? </Text>
           <Pressable onPress={() => router.push('/auth/registration')}>
             <Text
