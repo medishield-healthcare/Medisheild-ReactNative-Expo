@@ -104,11 +104,15 @@ function ProductCardH({ item, onBuy, onCart }) {
       <View>
         <Image
           source={
-            !item?.thumbnail_url || item.thumbnail_url.startsWith('/')
-              ? require('../../assets/Image-not-found.png')
-              : {
-                  uri: item.thumbnail_url,
+            item?.thumbnail_url?.startsWith('/')
+              ? {
+                  uri: `https://images1.dentalkart.com/media/catalog/product${item.thumbnail_url}`,
                 }
+              : item?.thumbnail_url
+                ? {
+                    uri: item.thumbnail_url,
+                  }
+                : require('../../assets/Image-not-found.png')
           }
           style={{
             width: '100%',
@@ -1355,7 +1359,7 @@ export default function HomeNative() {
                     backgroundColor: C.white,
                     padding: 10,
                     borderRadius: 12,
-                    height: 90
+                    height: 90,
                   }}>
                   <Image
                     source={{ uri: brand.logo }}

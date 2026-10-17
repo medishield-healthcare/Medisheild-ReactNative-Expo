@@ -250,11 +250,15 @@ function ImageGallery({ images, discount }) {
         }}>
         <Image
           source={
-            !images[active] || images[active].startsWith('/')
+            !images?.[active]
               ? require('../../assets/Image-not-found.png')
-              : {
-                  uri: images[active],
-                }
+              : images[active].startsWith('/')
+                ? {
+                    uri: `https://images1.dentalkart.com/media/catalog/product${images[active]}`,
+                  }
+                : {
+                    uri: images[active],
+                  }
           }
           style={{ fontFamily: 'Poppins_400Regular', width: '100%', height: '100%' }}
           resizeMode="contain"
@@ -346,11 +350,15 @@ function ImageGallery({ images, discount }) {
               }}>
               <Image
                 source={
-                  img?.startsWith('/')
+                  !img
                     ? require('../../assets/Image-not-found.png')
-                    : {
-                        uri: img,
-                      }
+                    : img.startsWith('/')
+                      ? {
+                          uri: `https://images1.dentalkart.com/media/catalog/product${img}`,
+                        }
+                      : {
+                          uri: img,
+                        }
                 }
                 style={{ fontFamily: 'Poppins_400Regular', width: '100%', height: '100%' }}
                 resizeMode="contain"
@@ -2019,11 +2027,15 @@ export default function ProductDetails() {
                     }}>
                     <Image
                       source={
-                        !images[0] || images[0].startsWith('/')
+                        !images?.[0]
                           ? require('../../assets/Image-not-found.png')
-                          : {
-                              uri: images[0],
-                            }
+                          : images[0].startsWith('/')
+                            ? {
+                                uri: `https://images1.dentalkart.com/media/catalog/product${images[0]}`,
+                              }
+                            : {
+                                uri: images[0],
+                              }
                       }
                       style={{ fontFamily: 'Poppins_400Regular', width: '100%', height: '100%' }}
                       resizeMode="contain"
@@ -2293,7 +2305,7 @@ export default function ProductDetails() {
             paddingHorizontal: 14,
             paddingVertical: 9,
             paddingBottom: 11,
-            gap : 42,
+            gap: 42,
             borderTopWidth: 1,
             borderTopColor: T.slate100,
 

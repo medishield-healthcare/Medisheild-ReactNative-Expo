@@ -61,7 +61,7 @@ function useDebounce(value, delay = 400) {
 // ── Product Card (Grid) ───────────────────────────────────────────────────────
 function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
   const [hovered, setHovered] = useState(false);
-  const { user,setUser } = useAuth()
+  const { user, setUser } = useAuth();
   const isWeb = Platform.OS === 'web';
   const minimalPrice = item?.price?.minimalPrice ?? 0;
   const regularPrice = item?.price?.regularPrice ?? 0;
@@ -145,10 +145,14 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
           <Image
             source={
               item?.thumbnail_url?.startsWith('/')
-                ? require('../../assets/Image-not-found.png')
-                : {
-                    uri: item?.thumbnail_url,
+                ? {
+                    uri: `https://images1.dentalkart.com/media/catalog/product${item.thumbnail_url}`,
                   }
+                : item?.thumbnail_url
+                  ? {
+                      uri: item.thumbnail_url,
+                    }
+                  : require('../../assets/Image-not-found.png')
             }
             style={{
               fontFamily: 'Poppins_400Regular',
@@ -269,10 +273,10 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
               boxShadow: '0 3px 12px rgba(0,0,0,0.10)',
             }}>
             <Ionicons
-            name={wishlisted ? 'heart' : 'heart-outline'}
-            size={19}
-            color={wishlisted ? C.primary : C.primaryDark}
-          />
+              name={wishlisted ? 'heart' : 'heart-outline'}
+              size={19}
+              color={wishlisted ? C.primary : C.primaryDark}
+            />
           </Pressable>
 
           {/* ─────────────────────────────── */}
@@ -572,10 +576,14 @@ function ProductCardList({ item, onPress, onCart }) {
       <Image
         source={
           item?.thumbnail_url?.startsWith('/')
-            ? require('../../assets/Image-not-found.png')
-            : {
-                uri: item?.thumbnail_url,
+            ? {
+                uri: `https://images1.dentalkart.com/media/catalog/product${item.thumbnail_url}`,
               }
+            : item?.thumbnail_url
+              ? {
+                  uri: item.thumbnail_url,
+                }
+              : require('../../assets/Image-not-found.png')
         }
         style={{ fontFamily: 'Poppins_400Regular', width: 110, height: 110, backgroundColor: C.bg }}
         resizeMode="cover"
