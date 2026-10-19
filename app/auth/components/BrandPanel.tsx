@@ -93,7 +93,7 @@ export default function BrandPanel() {
         <View>
           {/* Eyebrow */}
           <View
-            className="self-start  mt-2 flex-row items-center gap-2 rounded-full px-3 py-1 mb-5"
+            className="self-start  mt-2 flex-row items-center gap-2 rounded-full px-3 py-1 mb-3"
             style={{ fontFamily : 'Poppins_400Regular', backgroundColor: "rgba(255,255,255,0.1)" }}
           >
             <View className="w-1.5 h-1.5 rounded-full bg-teal-400" />
@@ -103,7 +103,7 @@ export default function BrandPanel() {
           </View>
 
           <Text
-            className="text-white font-black leading-tight mb-4"
+            className="text-white font-black leading-tight mb-2"
             style={{ fontFamily : 'Poppins_400Regular', fontSize: 40, letterSpacing: -1 }}
           >
             Your Smile,{"\n"}
@@ -116,7 +116,7 @@ export default function BrandPanel() {
           </Text>
 
           {/* Feature list */}
-          <View className="mt-4 gap-2">
+          <View className="mt-2 gap-2">
             {features.map((f) => (
               <View key={f.text} className="flex-row items-center gap-3">
                 <View
@@ -125,7 +125,7 @@ export default function BrandPanel() {
                 >
                   <Ionicons name={f.icon} size={17} color="#ffffff" />
                 </View>
-                <Text style={{ fontFamily : 'Poppins_400Regular', color: "#cbd5e1", fontSize: 14, fontWeight: "500" }}>
+                <Text style={{ fontFamily : 'Poppins_400Regular', color: "#fff", fontSize: 14, fontWeight: "500" }}>
                   {f.text}
                 </Text>
               </View>

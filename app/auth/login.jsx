@@ -1,7 +1,7 @@
 import { useIdTokenAuthRequest } from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -244,7 +244,7 @@ function FormPanel({ isWeb }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { login, googleLogin } = useContext(AuthContext);
+  const { login, googleLogin, appleLogin } = useContext(AuthContext);
   const router = useRouter();
 
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -254,6 +254,150 @@ function FormPanel({ isWeb }) {
     scopes: ['openid', 'profile', 'email'],
     selectAccount: true,
   });
+
+  const [appleLoading, setAppleLoading] = useState(false);
+  const [appleSdkReady, setAppleSdkReady] = useState(false);
+
+  const appleStateRef = useRef(null);
+
+  useEffect(() => {
+    if (Platform.OS !== 'web') return;
+
+    if (window.AppleID) {
+      setAppleSdkReady(true);
+      return;
+    }
+
+    let script = document.getElementById('apple-auth-script');
+
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'apple-auth-script';
+      script.src =
+        'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js';
+      script.async = true;
+      document.head.appendChild(script);
+    }
+
+    const handleLoad = () => setAppleSdkReady(true);
+    const handleError = () => {
+      setError('Unable to load Apple Sign-In. Please try again.');
+    };
+
+    script.addEventListener('load', handleLoad);
+    script.addEventListener('error', handleError);
+
+    // Handle the case where the script loaded before listeners attached.
+    if (window.AppleID) {
+      setAppleSdkReady(true);
+    }
+
+    return () => {
+      script.removeEventListener('load', handleLoad);
+      script.removeEventListener('error', handleError);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS !== 'web' || !appleSdkReady) return;
+
+    const handleAppleSuccess = async (event) => {
+      const data = event.detail?.data;
+      const authorization = data?.authorization;
+      const appleUser = data?.user;
+
+      if (!authorization?.state || authorization.state !== appleStateRef.current) {
+        setError('Apple sign-in state validation failed.');
+        setAppleLoading(false);
+        appleStateRef.current = null;
+        return;
+      }
+
+      const identityToken = authorization.id_token;
+      const firstName = appleUser?.name?.firstName || '';
+      const lastName = appleUser?.name?.lastName || '';
+
+      try {
+        if (!identityToken) {
+          throw new Error('Apple identity token was not received.');
+        }
+
+        await appleLogin(identityToken, firstName, lastName);
+
+        router.replace('/');
+      } catch (err) {
+        console.log('Apple login error:', err?.response?.data || err?.message);
+
+        setError(
+          err?.response?.data?.message || err?.message || 'Apple sign-in failed. Please try again.'
+        );
+      } finally {
+        setAppleLoading(false);
+        appleStateRef.current = null;
+      }
+    };
+
+    const handleAppleFailure = (event) => {
+      console.log('Apple authorization failed:', event.detail);
+
+      setError('Apple sign-in was cancelled or failed. Please try again.');
+      setAppleLoading(false);
+      appleStateRef.current = null;
+    };
+
+    document.addEventListener('AppleIDSignInOnSuccess', handleAppleSuccess);
+
+    document.addEventListener('AppleIDSignInOnFailure', handleAppleFailure);
+
+    return () => {
+      document.removeEventListener('AppleIDSignInOnSuccess', handleAppleSuccess);
+
+      document.removeEventListener('AppleIDSignInOnFailure', handleAppleFailure);
+    };
+  }, [appleSdkReady, appleLogin, router]);
+
+  const handleAppleLogin = async () => {
+    if (!appleSdkReady || appleLoading || loading) return;
+
+    setAppleLoading(true);
+    setError('');
+
+    try {
+      const clientId = process.env.EXPO_PUBLIC_APPLE_CLIENT_ID;
+
+      const redirectURI = process.env.EXPO_PUBLIC_APPLE_REDIRECT_URI;
+
+      if (!clientId || !redirectURI) {
+        throw new Error('Apple Sign-In environment variables are missing.');
+      }
+
+      const randomBytes = new Uint8Array(32);
+      window.crypto.getRandomValues(randomBytes);
+
+      const state = Array.from(randomBytes)
+        .map((byte) => byte.toString(16).padStart(2, '0'))
+        .join('');
+
+      appleStateRef.current = state;
+
+      window.AppleID.auth.init({
+        clientId,
+        scope: 'name email',
+        redirectURI,
+        state,
+        usePopup: true,
+      });
+
+      await window.AppleID.auth.signIn();
+    } catch (err) {
+      console.log('Apple sign-in start error:', err);
+
+      setError(err?.message || 'Unable to start Apple Sign-In.');
+
+      setAppleLoading(false);
+      appleStateRef.current = null;
+    }
+  };
 
   const handleGoogleLogin = async () => {
     try {
@@ -499,6 +643,24 @@ function FormPanel({ isWeb }) {
             )}
           </Pressable>
         )}
+
+        {Platform.OS === 'web' && (
+          <Pressable
+            onPress={handleAppleLogin}
+            disabled={!appleSdkReady || appleLoading || loading}
+            className="mt-3 flex-row items-center justify-center gap-3 rounded-2xl border border-black bg-black py-[14px] disabled:opacity-60">
+            {appleLoading ? (
+              <ActivityIndicator color="#ffffff" size="small" />
+            ) : (
+              <>
+                <Ionicons name="logo-apple" size={21} color="#ffffff" />
+
+                <Text className="text-[15px] font-semibold text-white">Continue with Apple</Text>
+              </>
+            )}
+          </Pressable>
+        )}
+
         {/* Register */}
         <View className="mt-3 flex-row items-center justify-center">
           <Text className="text-sm text-slate-500">Don't have an account? </Text>

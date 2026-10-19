@@ -237,11 +237,15 @@ function OfferProductCard({ product, width, onPress }) {
           {image ? (
             <Image
               source={
-                !image || image.startsWith('/')
-                  ? require('../../assets/Image-not-found.png')
-                  : {
-                      uri: image,
-                    }
+                !image
+                  ? require('../../assets/Image-not-found.png') 
+                  : image.startsWith('/')
+                    ? {
+                        uri: `https://images1.dentalkart.com/media/catalog/product${image}`,
+                      }
+                    : {
+                        uri: image,
+                      }
               }
               resizeMode="contain"
               style={{ fontFamily : 'Poppins_400Regular',

@@ -103,6 +103,38 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  
+  // APPLE LOGIN
+  const appleLogin = async (identityToken, firstName = "", lastName = "", referralCode = "") => {
+    try {
+      if (!identityToken) {
+        throw new Error("Apple identity token is missing");
+      }
+
+      const res = await API.post("/user/apple-login", {
+        identityToken,
+        firstName,
+        lastName,
+        referralCode,
+      });
+
+      const { token, refreshToken, ...userData } = res.data;
+
+      await saveTokens(token, refreshToken);
+      setUser(userData);
+
+      return res.data;
+    } catch (error) {
+      console.log(
+        "Apple login error:",
+        error?.response?.data || error?.message
+      );
+
+      throw error;
+    }
+  };
+
+
   // EXISTING REGISTER
   const register = async (
     firstname,
@@ -163,6 +195,7 @@ export const AuthProvider = ({ children }) => {
 
     login,
     googleLogin,
+    appleLogin,
     register,
     logout,
 
