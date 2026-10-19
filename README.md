@@ -1,4 +1,5 @@
-Apple oAuth﻿# MediSheild-React-Native
+Apple oAuth
+# MediSheild-React-Native
  Native Links
  categories page added
  appId Fixed
