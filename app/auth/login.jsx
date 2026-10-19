@@ -302,8 +302,20 @@ function FormPanel({ isWeb }) {
     if (Platform.OS !== 'web' || !appleSdkReady) return;
 
     const handleAppleSuccess = async (event) => {
+      console.log('APPLE EVENT DETAIL:', event.detail);
+      console.log('EXPECTED STATE:', appleStateRef.current);
+
       const data = event.detail?.data;
       const authorization = data?.authorization;
+
+      console.log('Apple event keys:', Object.keys(event.detail || {}));
+      console.log('Apple data keys:', Object.keys(event.detail?.data || {}));
+      console.log(
+        'State matches:',
+        event.detail?.data?.authorization?.state === appleStateRef.current
+      );
+
+      console.log('APPLE RESPONSE STATE:', authorization?.state);
       const appleUser = data?.user;
 
       if (!authorization?.state || authorization.state !== appleStateRef.current) {
