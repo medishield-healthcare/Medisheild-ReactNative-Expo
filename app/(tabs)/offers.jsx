@@ -243,7 +243,7 @@ function OfferProductCard({ product, width, onPress }) {
             <Image
               source={
                 !image
-                  ? require('../../assets/Image-not-found.png')
+                  ? require('../../assets/Image-not-found.png') 
                   : image.startsWith('/')
                     ? {
                         uri: `https://images1.dentalkart.com/media/catalog/product${image}`,

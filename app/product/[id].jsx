@@ -251,7 +251,7 @@ function ImageGallery({ images, discount }) {
         <Image
           source={
             !images?.[active]
-              ? require('../../assets/Image-not-found.png')
+              ? require('../../assets/Image-not-found.png') 
               : images[active].startsWith('/')
                 ? {
                     uri: `https://images1.dentalkart.com/media/catalog/product${images[active]}`,
@@ -351,7 +351,7 @@ function ImageGallery({ images, discount }) {
               <Image
                 source={
                   !img
-                    ? require('../../assets/Image-not-found.png')
+                    ? require('../../assets/Image-not-found.png') 
                     : img.startsWith('/')
                       ? {
                           uri: `https://images1.dentalkart.com/media/catalog/product${img}`,
@@ -2028,7 +2028,7 @@ export default function ProductDetails() {
                     <Image
                       source={
                         !images?.[0]
-                          ? require('../../assets/Image-not-found.png')
+                          ? require('../../assets/Image-not-found.png') 
                           : images[0].startsWith('/')
                             ? {
                                 uri: `https://images1.dentalkart.com/media/catalog/product${images[0]}`,

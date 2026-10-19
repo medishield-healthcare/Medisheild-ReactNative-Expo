@@ -104,7 +104,7 @@ function ProductCardH({ item, onBuy, onCart }) {
       <View>
         <Image
           source={
-            item?.thumbnail_url?.startsWith('/')
+            item?.thumbnail_url?.startsWith('/') 
               ? {
                   uri: `https://images1.dentalkart.com/media/catalog/product${item.thumbnail_url}`,
                 }
