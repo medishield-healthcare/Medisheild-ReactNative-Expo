@@ -85,27 +85,50 @@ const SHIPPING_CHARGE = 99;
 // CART ITEM
 // ═══════════════════════════════════════════════
 
-function CartItem({ item, onRemove, isWeb }) {
+function CartItem({ item, onRemove, onQuantityChange, isWeb }) {
   const [removing, setRemoving] = useState(false);
+  const [updatingQuantity, setUpdatingQuantity] = useState(false);
+  const [quantityError, setQuantityError] = useState('');
 
   const product = item.product || {};
 
   const imgUrl = product.thumbnail_url || product.image;
-
   const name = product.name || 'Product';
 
-  const quantity = item.count || 1;
-
-  const unitPrice = item.price || 0;
-
+  const quantity = Number(item.count) || 1;
+  const unitPrice = Number(item.price) || 0;
   const subtotal = unitPrice * quantity;
 
   const handleRemove = async () => {
     setRemoving(true);
 
-    await onRemove(item.variant);
+    try {
+      await onRemove(item.variant);
+    } finally {
+      setRemoving(false);
+    }
+  };
 
-    setRemoving(false);
+  const handleQuantityChange = async (change) => {
+    const nextQuantity = quantity + change;
+
+    // Quantity 1 se kam nahi honi chahiye.
+    // Product remove karne ke liye existing trash button use hoga.
+    if (nextQuantity < 1 || updatingQuantity || removing) {
+      return;
+    }
+
+    setUpdatingQuantity(true);
+    setQuantityError('');
+
+    try {
+      await onQuantityChange(item.variant, nextQuantity);
+    } catch (error) {
+      console.error('Quantity update failed:', error);
+      setQuantityError(error.message);
+    } finally {
+      setUpdatingQuantity(false);
+    }
   };
 
   return (
@@ -281,61 +304,78 @@ function CartItem({ item, onRemove, isWeb }) {
           }}>
           {/* QTY */}
 
+          {/* QUANTITY CONTROLS */}
+
           <View
             style={{
-              fontFamily: 'Poppins_400Regular',
               flexDirection: 'row',
-
               alignItems: 'center',
-
-              gap: 6,
+              gap: 10,
             }}>
-            <Text
+            <Pressable
+              onPress={() => handleQuantityChange(-1)}
+              disabled={quantity <= 1 || updatingQuantity || removing}
               style={{
-                fontFamily: 'Poppins_400Regular',
-                fontSize: 11,
-
-                color: T.slate500,
-
-                fontWeight: '600',
+                width: 32,
+                height: 32,
+                borderRadius: 9,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: T.red50,
+                borderWidth: 1,
+                borderColor: T.slate200,
+                opacity: quantity <= 1 || updatingQuantity || removing ? 0.45 : 1,
+                ...(isWeb ? { cursor: 'pointer' } : {}),
               }}>
-              Qty
-            </Text>
+              <Ionicons name="remove" size={18} color={T.slate800} />
+            </Pressable>
 
             <View
               style={{
-                fontFamily: 'Poppins_400Regular',
-                minWidth: 32,
-
-                height: 28,
-
-                paddingHorizontal: 8,
-
-                borderRadius: 8,
-
-                backgroundColor: T.slate50,
-
-                borderWidth: 1,
-
-                borderColor: T.slate200,
-
+                minWidth: 24,
                 alignItems: 'center',
-
                 justifyContent: 'center',
               }}>
-              <Text
-                style={{
-                  fontFamily: 'Poppins_400Regular',
-                  fontSize: 12,
-
-                  fontWeight: '800',
-
-                  color: T.slate800,
-                }}>
-                {quantity}
-              </Text>
+              {updatingQuantity ? (
+                <ActivityIndicator size="small" color={T.teal700} />
+              ) : (
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: '800',
+                    color: T.slate900,
+                  }}>
+                  {quantity}
+                </Text>
+              )}
             </View>
+
+            <Pressable
+              onPress={() => handleQuantityChange(1)}
+              disabled={updatingQuantity || removing}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 9,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: T.red50,
+                borderWidth: 1,
+                borderColor: T.teal100,
+                opacity: updatingQuantity || removing ? 0.45 : 1,
+                ...(isWeb ? { cursor: 'pointer' } : {}),
+              }}>
+              <Ionicons name="add" size={18} color={T.teal700} />
+            </Pressable>
           </View>
+
+          <Text>
+            {quantityError && (
+              <Text style={{ fontFamily: 'Poppins_400Regular', color: T.red500 }}>
+                {quantityError}
+              </Text>
+            )}
+          </Text>
 
           {/* PRICE */}
 
@@ -944,7 +984,7 @@ export default function CartPage() {
   const isMobile = width < 640;
   const px = isDesktop ? 48 : isTablet ? 28 : 16;
   const { user } = useAuth();
-  const { items, cartTotal, loading, remove, clear, refetch } = useCart();
+  const { items, cartTotal, loading, remove, clear, refetch, updateQuantity } = useCart();
 
   // ═══════════════════════════════════════════
   // STATE
@@ -997,7 +1037,7 @@ export default function CartPage() {
       )
     : 0;
 
-  const maxCoins = Math.min(user?.medishieldcoins || 0, Math.floor(cartTotal * 0.10));
+  const maxCoins = Math.min(user?.medishieldcoins || 0, Math.floor(cartTotal * 0.1));
   const coinDiscount = coinsToUse * 0.1;
   const finalTotal = Math.max(0, cartTotal + shipping - couponDiscount - coinDiscount);
 
@@ -1006,94 +1046,88 @@ export default function CartPage() {
   // ═══════════════════════════════════════════
 
   const applyCoupon = async () => {
-  const code = couponCode.trim().toUpperCase();
+    const code = couponCode.trim().toUpperCase();
 
-  if (!code) {
-    setCouponErr('Please enter a coupon code.');
-    return;
-  }
-
-  setCouponLoad(true);
-  setCouponErr('');
-  setCouponData(null);
-
-  try {
-    const { data } = await API.post('/coupon/getCouponByCode', {
-      couponCode: code,
-    });
-
-    if (!data) {
-      throw new Error('Coupon not found');
-    }
-
-    // ==========================================
-    // EXPIRY DATE CHECK
-    // ==========================================
-
-    if (data.expiryDate) {
-      const expiryDate = new Date(data.expiryDate);
-      const now = new Date();
-
-      if (Number.isNaN(expiryDate.getTime())) {
-        setCouponErr('Invalid coupon expiry date.');
-        return;
-      }
-
-      if (expiryDate < now) {
-        setCouponErr('This coupon has expired.');
-        return;
-      }
-    }
-
-    // ==========================================
-    // MINIMUM CART VALUE CHECK
-    // ==========================================
-
-    const minCartValue = Number(data.minimumCartValue || 0);
-
-    if (minCartValue > 0 && cartTotal < minCartValue) {
-      setCouponErr(
-        `This coupon is valid only on orders of ₹${minCartValue.toLocaleString(
-          'en-IN'
-        )} or more.`
-      );
+    if (!code) {
+      setCouponErr('Please enter a coupon code.');
       return;
     }
 
-    // ==========================================
-    // MAXIMUM CART VALUE CHECK
-    // ==========================================
-
-    const maxCartValue = Number(data.maximumCartValue || 0);
-
-    if (maxCartValue > 0 && cartTotal > maxCartValue) {
-      setCouponErr(
-        `This coupon is valid only on orders up to ₹${maxCartValue.toLocaleString(
-          'en-IN'
-        )}.`
-      );
-      return;
-    }
-
-    // ==========================================
-    // EVERYTHING VALID
-    // ==========================================
-
-    setCouponData(data);
-  } catch (error) {
-    console.error('Coupon apply error:', error);
-
+    setCouponLoad(true);
+    setCouponErr('');
     setCouponData(null);
 
-    setCouponErr(
-      error?.response?.data?.message ||
-        error?.message ||
-        'Invalid or expired coupon code.'
-    );
-  } finally {
-    setCouponLoad(false);
-  }
-};
+    try {
+      const { data } = await API.post('/coupon/getCouponByCode', {
+        couponCode: code,
+      });
+
+      if (!data) {
+        throw new Error('Coupon not found');
+      }
+
+      // ==========================================
+      // EXPIRY DATE CHECK
+      // ==========================================
+
+      if (data.expiryDate) {
+        const expiryDate = new Date(data.expiryDate);
+        const now = new Date();
+
+        if (Number.isNaN(expiryDate.getTime())) {
+          setCouponErr('Invalid coupon expiry date.');
+          return;
+        }
+
+        if (expiryDate < now) {
+          setCouponErr('This coupon has expired.');
+          return;
+        }
+      }
+
+      // ==========================================
+      // MINIMUM CART VALUE CHECK
+      // ==========================================
+
+      const minCartValue = Number(data.minimumCartValue || 0);
+
+      if (minCartValue > 0 && cartTotal < minCartValue) {
+        setCouponErr(
+          `This coupon is valid only on orders of ₹${minCartValue.toLocaleString('en-IN')} or more.`
+        );
+        return;
+      }
+
+      // ==========================================
+      // MAXIMUM CART VALUE CHECK
+      // ==========================================
+
+      const maxCartValue = Number(data.maximumCartValue || 0);
+
+      if (maxCartValue > 0 && cartTotal > maxCartValue) {
+        setCouponErr(
+          `This coupon is valid only on orders up to ₹${maxCartValue.toLocaleString('en-IN')}.`
+        );
+        return;
+      }
+
+      // ==========================================
+      // EVERYTHING VALID
+      // ==========================================
+
+      setCouponData(data);
+    } catch (error) {
+      console.error('Coupon apply error:', error);
+
+      setCouponData(null);
+
+      setCouponErr(
+        error?.response?.data?.message || error?.message || 'Invalid or expired coupon code.'
+      );
+    } finally {
+      setCouponLoad(false);
+    }
+  };
 
   // ═══════════════════════════════════════════
   // ADDRESS VALIDATION
@@ -1770,6 +1804,7 @@ export default function CartPage() {
                         key={item.variant || index}
                         item={item}
                         onRemove={remove}
+                        onQuantityChange={updateQuantity}
                         isWeb={isWeb}
                       />
                     ))}
