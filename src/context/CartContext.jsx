@@ -120,6 +120,34 @@ export function CartProvider({ children }) {
     [user]
   );
 
+  const updateQuantity = useCallback(
+    async (variant, count) => {
+      if (!user) throw new Error('LOGIN_REQUIRED');
+
+      if (!Number.isInteger(count) || count < 1) {
+        throw new Error('Quantity must be at least 1');
+      }
+
+      try {
+        const { data } = await API.patch('/user/cart/quantity', {
+          product: { variant, count },
+        });
+
+        dispatch({
+          type: ACTIONS.SET_CART,
+          payload: data,
+        });
+
+        return { success: true };
+      } catch (e) {
+        const msg = e?.response?.data?.message || e.message || 'Failed to update quantity';
+
+        throw new Error(msg);
+      }
+    },
+    [user]
+  );
+
   // ── Clear cart locally (after order placed) ──
   const clear = useCallback(() => dispatch({ type: ACTIONS.CLEAR }), []);
 
@@ -142,6 +170,7 @@ export function CartProvider({ children }) {
         remove,
         clear,
         refetch: fetchCart,
+        updateQuantity
       }}>
       {children}
     </CartContext.Provider>

@@ -575,16 +575,16 @@ function ProductCardList({ item, onPress, onCart }) {
       }}>
       <Image
         source={
-          item?.thumbnail_url?.startsWith('/')
-            ? {
-                uri: `https://images1.dentalkart.com/media/catalog/product${item.thumbnail_url}`,
-              }
-            : item?.thumbnail_url
-              ? {
-                  uri: item.thumbnail_url,
-                }
-              : require('../../assets/Image-not-found.png') 
-        }
+              item?.thumbnail_url?.startsWith('/') 
+                ? {
+                    uri: `https://images1.dentalkart.com/media/catalog/product${item.thumbnail_url}`,
+                  }
+                : item?.thumbnail_url
+                  ? {
+                      uri: item.thumbnail_url,
+                    }
+                  : require('../../assets/Image-not-found.png')
+            }
         style={{ fontFamily: 'Poppins_400Regular', width: 110, height: 110, backgroundColor: C.bg }}
         resizeMode="cover"
       />

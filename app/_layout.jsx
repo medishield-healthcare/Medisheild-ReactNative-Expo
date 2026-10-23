@@ -1,3 +1,4 @@
+import * as WebBrowser from 'expo-web-browser';
 import { Stack } from 'expo-router';
 import '../global.css';
 
@@ -18,6 +19,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/poppins';
 
+WebBrowser.maybeCompleteAuthSession();
 const queryClient = new QueryClient();
 
 export default function RootLayout() {

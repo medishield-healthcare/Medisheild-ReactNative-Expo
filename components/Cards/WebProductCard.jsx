@@ -141,7 +141,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
                 ? {
                     uri: item.thumbnail_url,
                   }
-                : require('../../assets/Image-not-found.png') 
+                : require('../../assets/Image-not-found.png')
           }
           style={{
             width: '100%',
