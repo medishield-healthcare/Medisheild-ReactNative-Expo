@@ -1,4 +1,3 @@
-Apple oAuth
 # MediSheild-React-Native
  Native Links
  categories page added
@@ -8,3 +7,4 @@ Wishlist Fixed
 Google Oauth
 handleAppleSuccess 
 Cart Quantity
+Blog page & Blog Details page added
