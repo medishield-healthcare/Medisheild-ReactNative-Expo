@@ -4,7 +4,6 @@ import WebHeader from 'components/Header/header.web';
 import Footer from 'components/Footer/Footer';
 import React, { useState } from 'react';
 
-
 import {
   View,
   Text,
@@ -13,6 +12,7 @@ import {
   ActivityIndicator,
   useWindowDimensions,
   Platform,
+  Pressable,
 } from 'react-native';
 
 import C from '@/utils/theme';
@@ -30,7 +30,11 @@ function Blog() {
   const columns = isMobile ? 1 : isTablet ? 2 : 3;
   const gap = isMobile ? 14 : 20;
 
-  const { data: blogs = [], isLoading, isError } = useQuery({
+  const {
+    data: blogs = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['Blogs'],
     queryFn: async () => {
       const res = await API.get('/blog');
@@ -66,8 +70,7 @@ function Blog() {
         minHeight: Platform.OS === 'web' ? '100vh' : undefined,
         backgroundColor: C.bg,
         fontFamily: 'Poppins_400Regular',
-      }}
-    >
+      }}>
       <WebHeader />
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -79,8 +82,7 @@ function Blog() {
             paddingHorizontal: pagePadding,
             paddingTop: 28,
             paddingBottom: 45,
-          }}
-        >
+          }}>
           {/* Breadcrumb */}
 
           <View
@@ -89,17 +91,10 @@ function Blog() {
               alignItems: 'center',
               gap: 8,
               marginBottom: 24,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: 'Poppins_400Regular',
-                fontSize: 11,
-                color: C.muted,
-              }}
-            >
-              Home
-            </Text>
+            }}>
+            <Pressable onPress={() => router.push('/')}>
+              <Text style={{ color: C.muted, fontSize: 11 }}>Home</Text>
+            </Pressable>
 
             <Text style={{ color: C.muted, fontSize: 11 }}>/</Text>
 
@@ -109,8 +104,7 @@ function Blog() {
                 fontSize: 11,
                 fontWeight: '700',
                 color: C.primary,
-              }}
-            >
+              }}>
               Blog
             </Text>
           </View>
@@ -124,8 +118,7 @@ function Blog() {
               padding: isMobile ? 24 : 40,
               marginBottom: isMobile ? 30 : 42,
               overflow: 'hidden',
-            }}
-          >
+            }}>
             <Text
               style={{
                 fontFamily: 'Poppins_400Regular',
@@ -134,8 +127,7 @@ function Blog() {
                 letterSpacing: 1.5,
                 color: '#fff',
                 marginBottom: 14,
-              }}
-            >
+              }}>
               HEALTH & WELLNESS
             </Text>
 
@@ -146,8 +138,7 @@ function Blog() {
                 lineHeight: isMobile ? 39 : 52,
                 fontWeight: '900',
                 color: C.white,
-              }}
-            >
+              }}>
               Our Latest Blogs
             </Text>
 
@@ -159,10 +150,9 @@ function Blog() {
                 color: '#fff',
                 marginTop: 12,
                 maxWidth: 550,
-              }}
-            >
-              Explore helpful articles, healthcare insights and useful
-              information to support your health and wellness journey.
+              }}>
+              Explore helpful articles, healthcare insights and useful information to support your
+              health and wellness journey.
             </Text>
           </View>
 
@@ -175,8 +165,7 @@ function Blog() {
                 fontSize: isMobile ? 24 : 30,
                 fontWeight: '900',
                 color: C.dark,
-              }}
-            >
+              }}>
               Latest Articles
             </Text>
 
@@ -186,8 +175,7 @@ function Blog() {
                 fontSize: 12,
                 color: C.muted,
                 marginTop: 6,
-              }}
-            >
+              }}>
               Read our latest healthcare updates and articles.
             </Text>
           </View>
@@ -200,8 +188,7 @@ function Blog() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingVertical: 80,
-              }}
-            >
+              }}>
               <ActivityIndicator size="large" color={C.primary} />
 
               <Text
@@ -210,8 +197,7 @@ function Blog() {
                   color: C.muted,
                   fontSize: 13,
                   marginTop: 14,
-                }}
-              >
+                }}>
                 Loading blogs...
               </Text>
             </View>
@@ -224,16 +210,14 @@ function Blog() {
               style={{
                 alignItems: 'center',
                 paddingVertical: 50,
-              }}
-            >
+              }}>
               <Text
                 style={{
                   fontFamily: 'Poppins_400Regular',
                   fontSize: 16,
                   fontWeight: '700',
                   color: C.dark,
-                }}
-              >
+                }}>
                 Unable to load blogs
               </Text>
 
@@ -244,8 +228,7 @@ function Blog() {
                   color: C.muted,
                   marginTop: 8,
                   textAlign: 'center',
-                }}
-              >
+                }}>
                 Please try again later.
               </Text>
             </View>
@@ -260,8 +243,7 @@ function Blog() {
                 flexWrap: 'wrap',
                 marginHorizontal: -gap / 2,
                 rowGap: gap,
-              }}
-            >
+              }}>
               {blogs.map((blog) => {
                 const isHovered = hoveredId === blog._id;
 
@@ -273,19 +255,12 @@ function Blog() {
                       width: `${100 / columns}%`,
                       paddingHorizontal: gap / 2,
                       cursor: 'pointer',
-                    }}
-                  >
+                    }}>
                     <View
                       onMouseEnter={
-                        Platform.OS === 'web'
-                          ? () => setHoveredId(blog._id)
-                          : undefined
+                        Platform.OS === 'web' ? () => setHoveredId(blog._id) : undefined
                       }
-                      onMouseLeave={
-                        Platform.OS === 'web'
-                          ? () => setHoveredId(null)
-                          : undefined
-                      }
+                      onMouseLeave={Platform.OS === 'web' ? () => setHoveredId(null) : undefined}
                       style={{
                         height: '100%',
                         backgroundColor: C.white,
@@ -298,9 +273,7 @@ function Blog() {
                               boxShadow: isHovered
                                 ? '0 14px 35px rgba(15,118,110,0.13)'
                                 : '0 5px 22px rgba(15,23,42,0.05)',
-                              transform: isHovered
-                                ? 'translateY(-4px)'
-                                : 'translateY(0)',
+                              transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
                               transition: 'all 0.2s ease',
                             }
                           : {
@@ -310,8 +283,7 @@ function Blog() {
                               shadowRadius: 8,
                               elevation: 2,
                             }),
-                      }}
-                    >
+                      }}>
                       {/* Blog Image */}
 
                       {blog.featuredImage ? (
@@ -332,15 +304,13 @@ function Blog() {
                             backgroundColor: '#F1F8F7',
                             alignItems: 'center',
                             justifyContent: 'center',
-                          }}
-                        >
+                          }}>
                           <Text
                             style={{
                               fontFamily: 'Poppins_400Regular',
                               color: C.primary,
                               fontSize: 14,
-                            }}
-                          >
+                            }}>
                             Blog
                           </Text>
                         </View>
@@ -351,8 +321,7 @@ function Blog() {
                       <View
                         style={{
                           padding: isMobile ? 15 : 18,
-                        }}
-                      >
+                        }}>
                         <Text
                           style={{
                             fontFamily: 'Poppins_400Regular',
@@ -360,8 +329,7 @@ function Blog() {
                             color: C.primary,
                             fontWeight: '700',
                             marginBottom: 9,
-                          }}
-                        >
+                          }}>
                           {formatDate(blog.createdAt)}
                         </Text>
 
@@ -374,8 +342,7 @@ function Blog() {
                             fontWeight: '900',
                             color: C.dark,
                             marginBottom: 10,
-                          }}
-                        >
+                          }}>
                           {blog.title}
                         </Text>
 
@@ -386,8 +353,7 @@ function Blog() {
                             fontSize: 12,
                             lineHeight: 21,
                             color: C.muted,
-                          }}
-                        >
+                          }}>
                           {getDescription(blog.description)}
                         </Text>
 
@@ -406,8 +372,7 @@ function Blog() {
                             fontSize: 12,
                             fontWeight: '700',
                             color: C.primary,
-                          }}
-                        >
+                          }}>
                           Read Article →
                         </Text>
                       </View>
@@ -423,16 +388,14 @@ function Blog() {
               style={{
                 alignItems: 'center',
                 paddingVertical: 50,
-              }}
-            >
+              }}>
               <Text
                 style={{
                   fontFamily: 'Poppins_400Regular',
                   fontSize: 16,
                   fontWeight: '700',
                   color: C.dark,
-                }}
-              >
+                }}>
                 No blogs available
               </Text>
             </View>

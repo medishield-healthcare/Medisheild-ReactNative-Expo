@@ -295,7 +295,7 @@ export default function BlogDetails() {
                         ? 230
                         : isTablet
                           ? 350
-                          : 450,
+                          : 750,
                     },
                   ]}
                 />
