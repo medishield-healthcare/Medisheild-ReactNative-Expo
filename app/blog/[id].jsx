@@ -249,10 +249,10 @@ export default function BlogDetails() {
                 {blog.title}
               </Text>
 
-              <Text style={styles.articleSubtitle}>
+              {/* <Text style={styles.articleSubtitle}>
                 {blog.blogMetaDescription ||
                   'Explore healthcare insights and useful information from MediShield.'}
-              </Text>
+              </Text> */}
 
               <View style={styles.articleMeta}>
                 <View style={styles.authorAvatar}>
@@ -295,7 +295,7 @@ export default function BlogDetails() {
                         ? 230
                         : isTablet
                           ? 350
-                          : 450,
+                          : 750,
                     },
                   ]}
                 />
