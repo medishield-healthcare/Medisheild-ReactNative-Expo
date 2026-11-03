@@ -9,4 +9,4 @@ Google Oauth
 handleAppleSuccess 
 Cart Quantity
 Blog page & Blog Details page added
-.
+Forget Password Functionality Added
