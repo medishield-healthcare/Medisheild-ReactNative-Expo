@@ -585,6 +585,19 @@ function FormPanel({ isWeb }) {
           onPress={() => router.push('/forgot-password')}>
           <Text className="text-[13px] font-semibold text-teal-700">Forgot password?</Text>
         </Pressable> */}
+        {/* Forgot Password */}
+        <View className="mb-1 mt-3 items-end">
+          <Pressable onPress={() => router.push('/auth/forgot-password')} hitSlop={8}>
+            <Text
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                color: C.primary,
+              }}
+              className="text-[13px] font-semibold">
+              Forgot password?
+            </Text>
+          </Pressable>
+        </View>
 
         {/* Sign In button */}
         <Pressable
