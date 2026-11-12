@@ -1469,7 +1469,7 @@ export default function CartPage() {
           </Text>
 
           <Pressable
-            onPress={() => router.push('/login')}
+            onPress={() => router.push('/auth/login')}
             style={{
               fontFamily: 'Poppins_400Regular',
               backgroundColor: T.teal700,

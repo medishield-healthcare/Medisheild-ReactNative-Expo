@@ -845,7 +845,7 @@ export default function ProductDetails() {
     if (wishlistLoading) return;
 
     if (!user) {
-      router.push('/login');
+      router.push('/auth/login');
       return;
     }
 

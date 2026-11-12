@@ -102,7 +102,7 @@ function OfferProductCard({ product, width, onPress }) {
     if (wishlistLoading) return;
 
     if (!user) {
-      router.push('/login');
+      router.push('/auth/login');
       return;
     }
 

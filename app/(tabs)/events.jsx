@@ -1,5 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, ScrollView, Pressable, TextInput, Modal, Platform,Linking } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  TextInput,
+  Modal,
+  Platform,
+  Linking,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import useBreakpoint from '@/utils/breakpoints';
 import C from '@/utils/theme';
@@ -431,16 +440,17 @@ export default function Events() {
   const [events, setEvents] = useState([]);
   const [featuredEvent, setFeaturedEvent] = useState([]);
 
-
-  useEffect(()=>{
-    API.get('/event').then((res)=>{
-      console.log(res.data.data)
-      setEvents(res.data.data);
-      setFeaturedEvent(res.data.data[0]);
-    }).catch((err)=>{
-      console.log(err);
-    })
-  },[])
+  useEffect(() => {
+    API.get('/event')
+      .then((res) => {
+        console.log(res.data.data);
+        setEvents(res.data.data);
+        setFeaturedEvent(res.data.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // ==========================================================
   // FEATURED EVENT
@@ -474,9 +484,11 @@ export default function Events() {
       <WebHeader />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          // paddingBottom: 70,
-        }}>
+        contentContainerStyle={
+          {
+            // paddingBottom: 70,
+          }
+        }>
         {/* ====================================================
             HERO
         ===================================================== */}
@@ -998,7 +1010,7 @@ export default function Events() {
             alignSelf: 'center',
             paddingHorizontal: px,
             marginTop: isMobile ? 48 : 65,
-            paddingBottom : 50
+            paddingBottom: 50,
           }}>
           <View
             style={{
@@ -1157,22 +1169,19 @@ export default function Events() {
                   }}>
                   <Pressable
                     onPress={() => setSelectedEvent(null)}
+                    hitSlop={12}
                     style={{
-                      fontFamily: 'Poppins_400Regular',
                       position: 'absolute',
-
                       right: 16,
                       top: 16,
-
-                      width: 32,
-                      height: 32,
-
-                      borderRadius: 16,
-
+                      width: 40,
+                      height: 40,
+                      borderRadius: 20,
                       backgroundColor: 'rgba(255,255,255,0.12)',
-
                       alignItems: 'center',
                       justifyContent: 'center',
+                      zIndex: 999,
+                      elevation: 10,
                     }}>
                     <Ionicons name="close" size={18} color="#fff" />
                   </Pressable>
@@ -1291,8 +1300,6 @@ export default function Events() {
                       </View>
                     ))}
                   </View>
-
-                
 
                   {/* REGISTER */}
 
