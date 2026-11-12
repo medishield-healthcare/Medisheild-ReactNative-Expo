@@ -73,7 +73,7 @@ function ProductCardGrid({ item, onPress, onCart, cardWidth }) {
     if (wishlistLoading) return;
 
     if (!user) {
-      router.push('/login');
+      router.push('/auth/login');
       return;
     }
 

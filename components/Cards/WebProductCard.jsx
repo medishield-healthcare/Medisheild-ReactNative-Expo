@@ -22,7 +22,7 @@ function WebProductCard({ item, onBuy, onCart, cols }) {
     if (wishlistLoading) return;
 
     if (!user) {
-      router.push('/login');
+      router.push('/auth/login');
       return;
     }
 
