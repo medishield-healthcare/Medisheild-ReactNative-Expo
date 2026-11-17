@@ -15,6 +15,7 @@ import { useRouter } from 'expo-router';
 
 import WebHeader from 'components/Header/header.web';
 import Footer from 'components/Footer/Footer';
+import API from '@/api/axios';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // THEME
@@ -83,7 +84,8 @@ function ContactInfoCard({ icon, title, description, value, onPress }) {
             }),
       })}>
       <View
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           width: 46,
           height: 46,
           borderRadius: 14,
@@ -98,7 +100,8 @@ function ContactInfoCard({ icon, title, description, value, onPress }) {
       </View>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 15,
           fontWeight: '900',
           color: T.slate900,
@@ -108,7 +111,8 @@ function ContactInfoCard({ icon, title, description, value, onPress }) {
       </Text>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 11,
           color: T.slate400,
           lineHeight: 17,
@@ -118,7 +122,8 @@ function ContactInfoCard({ icon, title, description, value, onPress }) {
       </Text>
 
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 12,
           color: T.teal700,
           fontWeight: '800',
@@ -142,13 +147,10 @@ function FormField({
   keyboardType = 'default',
 }) {
   return (
-    <View
-      style={{ fontFamily : 'Poppins_400Regular',
-        flex: 1,
-        minWidth: 180,
-      }}>
+    <View style={{ fontFamily: 'Poppins_400Regular', flex: 1, minWidth: 180 }}>
       <Text
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           fontSize: 11,
           fontWeight: '800',
           color: T.slate700,
@@ -167,7 +169,8 @@ function FormField({
         keyboardType={keyboardType}
         multiline={multiline}
         textAlignVertical={multiline ? 'top' : 'center'}
-        style={{ fontFamily : 'Poppins_400Regular',
+        style={{
+          fontFamily: 'Poppins_400Regular',
           backgroundColor: T.slate50,
           borderWidth: 1.5,
           borderColor: T.slate200,
@@ -226,17 +229,17 @@ export default function ContactPage() {
 
   const handleSubmit = async () => {
     if (!form.name.trim()) {
-      Alert.alert('Required', 'Please enter your name.');
+      alert('Required', 'Please enter your name.');
       return;
     }
 
     if (!form.email.trim()) {
-      Alert.alert('Required', 'Please enter your email.');
+      alert('Required', 'Please enter your email.');
       return;
     }
 
     if (!form.message.trim()) {
-      Alert.alert('Required', 'Please enter your message.');
+      alert('Required', 'Please enter your message.');
       return;
     }
 
@@ -250,30 +253,32 @@ export default function ContactPage() {
       await API.post('/contact', form);
     */
 
-    setTimeout(() => {
-      setSubmitting(false);
+    let { data } = await API.post('/contact-us', form);
 
-      Alert.alert(
-        'Message Sent',
-        'Thank you for contacting MediShield. Our team will get back to you soon.'
-      );
+    if (!data.success) {
+      alert('Error', data.message);
+      return;
+    }
 
-      setForm({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      });
-    }, 800);
+    console.log(data);
+
+    setSubmitting(false);
+    alert(
+      'Message Sent',
+      'Thank you for contacting MediShield. Our team will get back to you soon.'
+    );
+
+    setForm({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    });
   };
 
   return (
-    <SafeAreaView
-      style={{ fontFamily : 'Poppins_400Regular',
-        flex: 1,
-        backgroundColor: T.white,
-      }}>
+    <SafeAreaView style={{ fontFamily: 'Poppins_400Regular', flex: 1, backgroundColor: T.white }}>
       {/* ─────────────────────────────────────────────────────────────────────
           HEADER
       ───────────────────────────────────────────────────────────────────── */}
@@ -282,7 +287,8 @@ export default function ContactPage() {
         <WebHeader />
       ) : (
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             height: 58,
             paddingHorizontal: 18,
             flexDirection: 'row',
@@ -293,7 +299,8 @@ export default function ContactPage() {
           }}>
           <Pressable
             onPress={() => router.back()}
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: 38,
               height: 38,
               borderRadius: 11,
@@ -307,7 +314,8 @@ export default function ContactPage() {
           </Pressable>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flex: 1,
               textAlign: 'center',
               marginRight: 38,
@@ -323,21 +331,25 @@ export default function ContactPage() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          // paddingBottom: 70,
-        }}>
+        contentContainerStyle={
+          {
+            // paddingBottom: 70,
+          }
+        }>
         {/* ─────────────────────────────────────────────────────────────────
             HERO
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             backgroundColor: T.teal50,
             borderBottomWidth: 1,
             borderBottomColor: T.teal100,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: '100%',
               maxWidth,
               alignSelf: 'center',
@@ -347,7 +359,8 @@ export default function ContactPage() {
               alignItems: 'center',
             }}>
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 width: 54,
                 height: 54,
                 borderRadius: 17,
@@ -362,7 +375,8 @@ export default function ContactPage() {
             </View>
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 backgroundColor: T.white,
                 borderWidth: 1,
                 borderColor: T.teal100,
@@ -372,7 +386,8 @@ export default function ContactPage() {
                 marginBottom: 14,
               }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 10,
                   fontWeight: '900',
                   color: T.teal700,
@@ -384,7 +399,8 @@ export default function ContactPage() {
             </View>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: isMobile ? 34 : 46,
                 lineHeight: isMobile ? 41 : 54,
                 fontWeight: '900',
@@ -396,7 +412,8 @@ export default function ContactPage() {
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: isMobile ? 25 : 32,
                 lineHeight: isMobile ? 32 : 39,
                 fontWeight: '800',
@@ -408,7 +425,8 @@ export default function ContactPage() {
             </Text>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 maxWidth: 600,
                 fontSize: 13,
                 lineHeight: 22,
@@ -427,7 +445,8 @@ export default function ContactPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             width: '100%',
             maxWidth: 1100,
             alignSelf: 'center',
@@ -435,7 +454,8 @@ export default function ContactPage() {
             paddingVertical: isMobile ? 30 : 42,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flexDirection: 'row',
               flexWrap: 'wrap',
               gap: 13,
@@ -477,7 +497,8 @@ export default function ContactPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             width: '100%',
             maxWidth,
             alignSelf: 'center',
@@ -485,7 +506,8 @@ export default function ContactPage() {
             paddingBottom: isMobile ? 55 : 75,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flexDirection: isDesktop ? 'row' : 'column',
               gap: 20,
               alignItems: 'stretch',
@@ -493,7 +515,8 @@ export default function ContactPage() {
             {/* FORM */}
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 flex: 1.5,
                 backgroundColor: T.white,
                 borderRadius: 22,
@@ -517,13 +540,15 @@ export default function ContactPage() {
                     }),
               }}>
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flexDirection: 'row',
                   alignItems: 'center',
                   marginBottom: 22,
                 }}>
                 <View
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     width: 42,
                     height: 42,
                     borderRadius: 13,
@@ -539,7 +564,8 @@ export default function ContactPage() {
 
                 <View>
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       fontSize: 18,
                       fontWeight: '900',
                       color: T.slate900,
@@ -548,7 +574,8 @@ export default function ContactPage() {
                   </Text>
 
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       fontSize: 11,
                       color: T.slate400,
                       marginTop: 2,
@@ -561,7 +588,8 @@ export default function ContactPage() {
               {/* NAME + EMAIL */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flexDirection: isMobile ? 'column' : 'row',
                   gap: 13,
                   marginBottom: 15,
@@ -595,7 +623,8 @@ export default function ContactPage() {
               {/* PHONE + SUBJECT */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flexDirection: isMobile ? 'column' : 'row',
                   gap: 13,
                   marginBottom: 15,
@@ -628,10 +657,7 @@ export default function ContactPage() {
 
               {/* MESSAGE */}
 
-              <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  marginBottom: 18,
-                }}>
+              <View style={{ fontFamily: 'Poppins_400Regular', marginBottom: 18 }}>
                 <FormField
                   label="Message"
                   placeholder="Tell us how we can help..."
@@ -670,7 +696,8 @@ export default function ContactPage() {
                 })}>
                 {submitting ? (
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       color: T.white,
                       fontSize: 14,
                       fontWeight: '900',
@@ -680,7 +707,8 @@ export default function ContactPage() {
                 ) : (
                   <>
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         color: T.white,
                         fontSize: 14,
                         fontWeight: '900',
@@ -694,7 +722,8 @@ export default function ContactPage() {
               </Pressable>
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -703,11 +732,7 @@ export default function ContactPage() {
                 }}>
                 <Ionicons name="lock-closed-outline" size={12} color={T.slate400} />
 
-                <Text
-                  style={{ fontFamily : 'Poppins_400Regular',
-                    fontSize: 10,
-                    color: T.slate400,
-                  }}>
+                <Text style={{ fontFamily: 'Poppins_400Regular', fontSize: 10, color: T.slate400 }}>
                   Your information is kept private and secure.
                 </Text>
               </View>
@@ -716,7 +741,8 @@ export default function ContactPage() {
             {/* RIGHT SIDE */}
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 flex: 1,
                 backgroundColor: T.teal900,
                 borderRadius: 22,
@@ -727,7 +753,8 @@ export default function ContactPage() {
               {/* DECORATIVE CIRCLE */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   position: 'absolute',
                   width: 250,
                   height: 250,
@@ -739,7 +766,8 @@ export default function ContactPage() {
               />
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   position: 'absolute',
                   width: 180,
                   height: 180,
@@ -751,7 +779,8 @@ export default function ContactPage() {
               />
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   width: 48,
                   height: 48,
                   borderRadius: 15,
@@ -764,7 +793,8 @@ export default function ContactPage() {
               </View>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal100,
@@ -776,7 +806,8 @@ export default function ContactPage() {
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 25,
                   lineHeight: 32,
                   fontWeight: '900',
@@ -788,7 +819,8 @@ export default function ContactPage() {
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 13,
                   lineHeight: 21,
                   color: '#fff',
@@ -800,10 +832,7 @@ export default function ContactPage() {
 
               {/* SUPPORT POINTS */}
 
-              <View
-                style={{ fontFamily : 'Poppins_400Regular',
-                  gap: 17,
-                }}>
+              <View style={{ fontFamily: 'Poppins_400Regular', gap: 17 }}>
                 {[
                   {
                     icon: 'checkmark-circle-outline',
@@ -823,13 +852,15 @@ export default function ContactPage() {
                 ].map((item) => (
                   <View
                     key={item.title}
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       flexDirection: 'row',
                       alignItems: 'flex-start',
                       gap: 11,
                     }}>
                     <View
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         width: 31,
                         height: 31,
                         borderRadius: 10,
@@ -840,12 +871,10 @@ export default function ContactPage() {
                       <Ionicons name={item.icon} size={15} color={T.teal100} />
                     </View>
 
-                    <View
-                      style={{ fontFamily : 'Poppins_400Regular',
-                        flex: 1,
-                      }}>
+                    <View style={{ fontFamily: 'Poppins_400Regular', flex: 1 }}>
                       <Text
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           fontSize: 12,
                           fontWeight: '900',
                           color: T.white,
@@ -855,7 +884,8 @@ export default function ContactPage() {
                       </Text>
 
                       <Text
-                        style={{ fontFamily : 'Poppins_400Regular',
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
                           fontSize: 10,
                           lineHeight: 16,
                           color: '#fff',
@@ -870,7 +900,8 @@ export default function ContactPage() {
               {/* SUPPORT BADGE */}
 
               <View
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   marginTop: 30,
                   backgroundColor: 'rgba(255,255,255,0.08)',
                   borderRadius: 13,
@@ -885,7 +916,8 @@ export default function ContactPage() {
 
                 <View>
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       fontSize: 11,
                       fontWeight: '900',
                       color: T.white,
@@ -894,13 +926,13 @@ export default function ContactPage() {
                   </Text>
 
                   <Text
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       fontSize: 10,
                       color: '#fff',
                       marginTop: 2,
                     }}>
-                    Monday – Fri · 10 AM – 7 PM &
-                    Sat · 10 AM – 5 PM
+                    Monday – Fri · 10 AM – 7 PM & Sat · 10 AM – 5 PM
                   </Text>
                 </View>
               </View>
@@ -913,14 +945,16 @@ export default function ContactPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             backgroundColor: T.slate50,
             borderTopWidth: 1,
             borderBottomWidth: 1,
             borderColor: T.slate100,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               width: '100%',
               maxWidth: 1100,
               alignSelf: 'center',
@@ -928,12 +962,14 @@ export default function ContactPage() {
               paddingVertical: isMobile ? 50 : 65,
             }}>
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 alignItems: isMobile ? 'flex-start' : 'center',
                 marginBottom: 28,
               }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal700,
@@ -945,7 +981,8 @@ export default function ContactPage() {
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: isMobile ? 27 : 33,
                   fontWeight: '900',
                   color: T.slate900,
@@ -957,7 +994,8 @@ export default function ContactPage() {
             </View>
 
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 gap: 12,
@@ -981,7 +1019,8 @@ export default function ContactPage() {
               ].map((item) => (
                 <Pressable
                   key={item.title}
-                  style={{ fontFamily : 'Poppins_400Regular',
+                  style={{
+                    fontFamily: 'Poppins_400Regular',
                     flex: 1,
                     minWidth: 220,
                     backgroundColor: T.white,
@@ -994,7 +1033,8 @@ export default function ContactPage() {
                     gap: 12,
                   }}>
                   <View
-                    style={{ fontFamily : 'Poppins_400Regular',
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
                       width: 40,
                       height: 40,
                       borderRadius: 12,
@@ -1005,12 +1045,10 @@ export default function ContactPage() {
                     <Ionicons name={item.icon} size={19} color={T.teal700} />
                   </View>
 
-                  <View
-                    style={{ fontFamily : 'Poppins_400Regular',
-                      flex: 1,
-                    }}>
+                  <View style={{ fontFamily: 'Poppins_400Regular', flex: 1 }}>
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         fontSize: 12,
                         fontWeight: '900',
                         color: T.slate900,
@@ -1019,7 +1057,8 @@ export default function ContactPage() {
                     </Text>
 
                     <Text
-                      style={{ fontFamily : 'Poppins_400Regular',
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
                         fontSize: 10,
                         lineHeight: 15,
                         color: T.slate400,
@@ -1041,7 +1080,8 @@ export default function ContactPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             width: '100%',
             maxWidth,
             alignSelf: 'center',
@@ -1049,7 +1089,8 @@ export default function ContactPage() {
             paddingTop: isMobile ? 45 : 65,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               backgroundColor: T.teal700,
               borderRadius: 25,
               paddingHorizontal: isMobile ? 22 : 45,
@@ -1063,12 +1104,10 @@ export default function ContactPage() {
               gap: 22,
               overflow: 'hidden',
             }}>
-            <View
-              style={{ fontFamily : 'Poppins_400Regular',
-                flex: 1,
-              }}>
+            <View style={{ fontFamily: 'Poppins_400Regular', flex: 1 }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 11,
                   fontWeight: '900',
                   color: T.teal100,
@@ -1080,7 +1119,8 @@ export default function ContactPage() {
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: isMobile ? 25 : 31,
                   lineHeight: isMobile ? 32 : 38,
                   fontWeight: '900',
@@ -1091,7 +1131,8 @@ export default function ContactPage() {
               </Text>
 
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   fontSize: 12,
                   lineHeight: 20,
                   color: '#fff',
@@ -1103,7 +1144,8 @@ export default function ContactPage() {
 
             <Pressable
               onPress={() => router.push('/shop')}
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 backgroundColor: T.white,
                 borderRadius: 13,
                 paddingHorizontal: 22,
@@ -1115,7 +1157,8 @@ export default function ContactPage() {
                 minWidth: isMobile ? '100%' : 155,
               }}>
               <Text
-                style={{ fontFamily : 'Poppins_400Regular',
+                style={{
+                  fontFamily: 'Poppins_400Regular',
                   color: T.teal700,
                   fontSize: 13,
                   fontWeight: '900',
@@ -1133,19 +1176,22 @@ export default function ContactPage() {
         ───────────────────────────────────────────────────────────────── */}
 
         <View
-          style={{ fontFamily : 'Poppins_400Regular',
+          style={{
+            fontFamily: 'Poppins_400Regular',
             alignItems: 'center',
             paddingTop: 38,
             marginBottom: 32,
           }}>
           <View
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               flexDirection: 'row',
               alignItems: 'center',
               gap: 8,
             }}>
             <View
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 width: 28,
                 height: 28,
                 borderRadius: 9,
@@ -1157,23 +1203,20 @@ export default function ContactPage() {
             </View>
 
             <Text
-              style={{ fontFamily : 'Poppins_400Regular',
+              style={{
+                fontFamily: 'Poppins_400Regular',
                 fontSize: 15,
                 fontWeight: '900',
                 color: T.slate900,
               }}>
               Medi
-              <Text
-                style={{ fontFamily : 'Poppins_400Regular',
-                  color: T.teal700,
-                }}>
-                Shield
-              </Text>
+              <Text style={{ fontFamily: 'Poppins_400Regular', color: T.teal700 }}>Shield</Text>
             </Text>
           </View>
 
           <Text
-            style={{ fontFamily : 'Poppins_400Regular',
+            style={{
+              fontFamily: 'Poppins_400Regular',
               fontSize: 10,
               color: T.slate400,
               marginTop: 7,
